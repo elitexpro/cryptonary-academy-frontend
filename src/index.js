@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Themes from './themes'
-
+import "simplebar/src/simplebar.css"
 
 
 ReactDOM.render(

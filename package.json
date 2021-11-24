@@ -7,6 +7,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.3",
+    "@mui/lab": "*",
     "@mui/material": "^5.0.3",
     "@mui/styled-engine-sc": "^5.0.3",
     "@mui/styles": "^5.0.1",
@@ -72,6 +73,7 @@
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.1",
     "sass-loader": "8.0.2",
+    "simplebar-react": "^2.3.6",
     "style-loader": "0.23.1",
     "styled-components": "^5.3.1",
     "terser-webpack-plugin": "2.3.8",
@@ -156,5 +158,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "resize-observer-polyfill": "^1.5.1"
   }
 }
