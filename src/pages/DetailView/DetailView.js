@@ -21,7 +21,7 @@ import useDimension from 'helpers/useDimension'
 import VideoTitle from './VideoTitle'
 import OverView from './OverView'
 import Resource from './Resource'
-import Resources from '../Home/Resources'
+import { FooterResources } from 'containers/Footer'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const DetailView = () => {
@@ -103,7 +103,7 @@ const DetailView = () => {
         </Grid>
       </Grid>
 
-      <Resources />
+      <FooterResources />
     </Container >
   )
 }
