@@ -9,7 +9,7 @@ export default makeStyles(theme => ({
     background: 'white',
   },
   toolbar: {
-    minHeight: 'unset',
+    minHeight: 'unset !important',
     height: '40px',
     padding: '0px',
   },

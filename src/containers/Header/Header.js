@@ -51,8 +51,7 @@ const Header = () => {
             <Hidden mdDown>
               <MButton
                 color='inherit'
-                className={classes.button}
-                sx={{ mr: 2, ml: 8 }}
+                sx={{ mr: 2, ml: 8, color: '#858585', fontSize: '16px' }}
                 endIcon={<KeyboardArrowDownRoundedIcon style={{ fontSize: '24px' }} />}
                 onClick={handleTopicToggle}
               >
@@ -60,7 +59,12 @@ const Header = () => {
               </MButton>
               {
                 currentUser && headerButtons.map((item, key) =>
-                  <MButton key={key} color='inherit' className={classes.button} sx={{ mx: 2 }} onClick={() => history.push(item.to)} >
+                  <MButton
+                    key={key}
+                    color='inherit'
+                    sx={{ mx: 2, color: '#858585', fontSize: '16px' }}
+                    onClick={() => history.push(item.to)}
+                  >
                     {item.text}
                   </MButton>
                 )
