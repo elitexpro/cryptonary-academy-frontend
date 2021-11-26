@@ -1,5 +1,5 @@
-import FooterResources from './FooterResources'
+import Footer from './Footer'
 
 export {
-  FooterResources,
+  Footer,
 }

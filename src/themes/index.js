@@ -29,6 +29,9 @@ const overrides = {
     subTitle1: {
       fontSize: "1.125rem",
     },
+    subTitle2: {
+      fontSize: "0.75rem",
+    }
   },
 }
 
