@@ -1,0 +1,64 @@
+{
+  "shortDetail": {
+    "title": "TL;DR",
+    "description": "Mining is the process through which Bitcoin transactions are verified and added to the blockchain. The goal of miners is to find a valid solution to complex math problems. Miners that manage to solve these puzzles are rewarded with new bitcoins and transaction fees. In the early days, Bitcoin users were able to join the mining race with their personal computers. Nowadays, profitable mining requires the use of highly specialized mining rigs. Since solo mining is very difficult, many miners opt to join a mining pool to increase their chances of getting a block reward, which is then shared proportionally between pool members."
+  },
+  "content": [
+    {
+      "title": "Introduction",
+      "description": "Bitcoin mining ensures that the blockchain is up-to-date with legitimate transactions. It was, at the time, a unique solution to creating trust in a trustless environment. In this sense, mining is core to the security model of Bitcoin. The idea of mining and receiving BTC in return is an attractive sounding deal. While the days of mining with a computer CPU are gone, getting involved with mining doesn’t always require owning a physical machine. But before you can decide if mining is for you, let’s discuss briefly how Bitcoin mining works."
+    },
+    {
+      "title": "What is Bitcoin mining?",
+      "description": "In order to create a new block hash, the miner needs to gather the block hash of the previous block, their candidate block’s data, a nonce, and submit it all through a hash function. However, the miner must find a nonce that – combined with all the data – will generate a block hash that begins with a certain amount of zeros. The amount of zeros changes according to the mining difficulty. A valid block hash proves that the miner did the necessary work to validate their candidate block (hence Proof of Work)."
+    },
+    {
+      "title": "How much a Bitcoin miner earns",
+      "description": "Each new block provides the respective miner a block reward, which consists of newly generated bitcoins (block subsidy) plus transaction fees. Since the block reward is almost entirely made of the block subsidy, most people refer to it as the block reward (without accounting for the fees). When it comes to Bitcoin, the block subsidy started at 50 BTC in 2009 and is being reduced in half every 210,000 blocks (roughly four years). These halving events caused the mining reward to be reduced to 25 BTC in 2012, then to 12.5 BTC in 2016, and finally to 6.25 BTC in 2020. The next halving event is expected to occur in 2024. As of May 2021, the block reward is giving miners roughly $300,000 per block. Still, there are many factors to consider when evaluating mining equipment and profitability. The speed at which a mining rig can produce random nonces and test them is an important metric to check. This figure is known as the hash rate and is vital to the success of a Bitcoin miner. The greater the hash rate, the faster you’ll be able to test these random inputs. Another important metric is the energy consumption of a mining rig. If you spend more money on electricity than the value earned mining, profitability goes out of the window."
+    },
+    {
+      "title": "How to start mining Bitcoin",
+      "description": "Since Bitcoin is decentralized and open-source, anyone can join the mining race. In the past, you could use your personal computer to mine new blocks. But as the mining difficulty increased, you now need more powerful machines (more on this below). Theoretically, you could still try to mine bitcoins with your personal computer, but the chances of finding a valid hash are practically zero. Computing the hash function is relatively quick, but calculating the massive amount of random inputs takes much longer. That’s why you now need specialized hardware before even trying to be a profitable miner.",
+      "additionalContent": {
+        "type": "quiz",
+        "title": "What mining equipment should I use?",
+        "description": "Generally speaking, you could try mining cryptocurrencies using a CPU, GPU, FPGA, or ASIC machine (we will go through these in a moment). Some altcoins can still be mined with GPU cards. FPGA machines could also be an option depending on the mining algorithm, difficulty, and electricity costs. But when it comes to Bitcoin, ASIC mining rigs are the most efficient."
+      },
+      "subContent": [
+        {
+          "title": "CPU (central processing unit)",
+          "description": "CPUs work like a versatile chip responsible for distributing instructions across different parts of a computer. CPUs are no longer efficient for cryptocurrency mining."
+        },
+        {
+          "title": "GPU (graphics processing unit)",
+          "description": "GPUs may serve different purposes, but they are basically used to process graphics and output them to a screen. They are able to divide complex tasks into several smaller ones to increase performance. Some altcoins can be mined with GPUs, but the efficiency depends on the mining algorithm and difficulty."
+        },
+        {
+          "title": "FPGA (field-programmable gate array)",
+          "description": "FPGA can be programmed and reprogrammed to serve different functions and applications. They are customizable and more affordable than ASICs but are less efficient for Bitcoin mining."
+        },
+        {
+          "title": "ASIC (application-specific integrated circuit)",
+          "description": "ASIC stands for application-specific integrated circuits, meaning that these computers are designed for a single purpose. ASIC mining rigs are entirely dedicated to mining cryptocurrencies. ASICs are less customizable and more expensive than FPGAs, but their hash rates and energy consumption levels make them the most efficient option for Bitcoin mining. "
+        }
+      ]
+    },
+    {
+      "title": "Mining pools",
+      "description": "The chances of mining a block yourself are extremely low. Joining a crypto mining pool instead allows you to combine your computing power with other miners. When the pool successfully mines a block, each miner receives a share of the bitcoins mined. The pool rewards are proportional to the mining power you provide."
+    },
+    {
+      "title": "How to join a mining pool?",
+      "description": "When joining a pool using your hardware locally, you will have to configure your software to partner with other miners. The process typically involves signing up for an account and connecting to a mining pool server. If you have a mining rig, Binance Pool is a good place to start mining BTC and other SHA-256 algorithm-based coins. Your mining rig will automatically switch between BTC, BCH, and BSV to maximize your returns, which are paid out in BTC. You can get an idea of how much profit you might get on the Binance Pool page. BTC earnings are paid out daily into your Bitcoin wallet."
+    },
+    {
+      "title": "Cloud mining",
+      "description": "If you want to avoid the more technical steps, you can also join a cloud-mining farm, leaving the hardware and software up to the farm owners. Broadly speaking, cloud mining usually consists of you paying for someone else to mine on your behalf. The farm owner is then expected to share the profits with you. However, this option is very risky as there is no guarantee that you will get a return on your investment. Many cloud mining services turned out to be scams, so be careful.",
+      "additionalContent": {
+        "type": "idea",
+        "title": "Closing thoughts",
+        "description": "You can’t go wrong with a basic understanding of how Bitcoin mining works. With the right combination of hardware and software, anyone can start mining and contributing to the safety of the Bitcoin network. Even if you realize that mining is not for you, you could still contribute by running a Bitcoin node. The initial investment for profitable mining is very high, and there are many risks involved. Your returns will also depend on market conditions and external factors like energy prices and hardware improvements. Make sure to do your research before spending any money on a mining rig." 
+      }
+    }
+  ]
+}

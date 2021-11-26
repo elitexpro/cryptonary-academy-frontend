@@ -6,19 +6,16 @@ export default makeStyles(theme => ({
   },
   appBar: {
     padding: '20px',
-    background: 'white !important',
+    background: 'white',
   },
   toolbar: {
-    minHeight: 'unset !important',
+    minHeight: 'unset',
     height: '40px',
-    [theme.breakpoints.down('md')]: {
-      padding: '0px !important',
-    }
+    padding: '0px',
   },
   button: {
-    color: '#858585 !important',
-    fontSize: '16px !important',
-    lineHeight: '24px !important',
+    color: '#858585',
+    fontSize: '16px',
   },
   topicPoper: {
     zIndex: '1102',

@@ -11,6 +11,7 @@ import {
   Grow,
   Paper,
   Link,
+  Container,
 } from '@mui/material'
 import { Logo } from 'components/Logo'
 import { MButton } from 'components/CustomMaterial'
@@ -43,47 +44,49 @@ const Header = () => {
 
   return (
     <>
-      <AppBar className={classes.appBar}>
-        <Toolbar className={classes.toolbar} >
-          <Logo />
-          <Hidden mdDown>
-            <MButton
-              color='inherit'
-              className={classes.button}
-              sx={{ mr: 2, ml: 8 }}
-              endIcon={<KeyboardArrowDownRoundedIcon style={{ fontSize: '24px' }} />}
-              onClick={handleTopicToggle}
-            >
-              Explore Topics
-            </MButton>
-            {
-              currentUser && headerButtons.map((item, key) =>
-                <MButton key={key} color='inherit' className={classes.button} sx={{ mx: 2 }} onClick={() => history.push(item.to)} >
-                  {item.text}
-                </MButton>
-              )
-            }
+      <AppBar sx={{ background: 'white', py: '20px' }}>
+        <Container maxWidth="xl">
+          <Toolbar className={classes.toolbar} >
+            <Logo />
+            <Hidden mdDown>
+              <MButton
+                color='inherit'
+                className={classes.button}
+                sx={{ mr: 2, ml: 8 }}
+                endIcon={<KeyboardArrowDownRoundedIcon style={{ fontSize: '24px' }} />}
+                onClick={handleTopicToggle}
+              >
+                Explore Topics
+              </MButton>
+              {
+                currentUser && headerButtons.map((item, key) =>
+                  <MButton key={key} color='inherit' className={classes.button} sx={{ mx: 2 }} onClick={() => history.push(item.to)} >
+                    {item.text}
+                  </MButton>
+                )
+              }
 
-          </Hidden>
-          <Box sx={{ flexGrow: 1 }} />
-          <Hidden mdDown>
-            <Link
-              href="https://cryptonary.com"
-              color="black"
-              sx={{ color: '#000', mr: 3 }}
-              underline="hover"
-              target="_blank"
-            >
-              Cryptonary.com
-            </Link>
-            <UserAvatar />
-          </Hidden>
-          <Hidden mdUp>
-            <IconButton>
-              <MenuRoundedIcon color="black" />
-            </IconButton>
-          </Hidden>
-        </Toolbar>
+            </Hidden>
+            <Box sx={{ flexGrow: 1 }} />
+            <Hidden mdDown>
+              <Link
+                href="https://cryptonary.com"
+                color="black"
+                sx={{ color: '#000', mr: 3 }}
+                underline="hover"
+                target="_blank"
+              >
+                Cryptonary.com
+              </Link>
+              <UserAvatar />
+            </Hidden>
+            <Hidden mdUp>
+              <IconButton>
+                <MenuRoundedIcon color="black" />
+              </IconButton>
+            </Hidden>
+          </Toolbar>
+        </Container>
       </AppBar>
 
       <Popper

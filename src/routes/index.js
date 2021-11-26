@@ -7,7 +7,8 @@ import Verify from 'pages/Verify'
 import ForgotPassword from 'pages/ForgotPassword'
 import ResetPassword from 'pages/ResetPassword'
 import Preference from 'pages/Preference'
-import DetailView from 'pages/DetailView'
+import VideoDetail from 'pages/VideoDetail'
+import ArticleDetail from 'pages/ArticleDetail'
 // import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
@@ -24,7 +25,8 @@ const routes = () => (
       <Route path='/verify' component={Verify} />
       <Route path='/forgot-password' component={ForgotPassword} />
       <Route path='/reset-password' component={ResetPassword} />
-      <Route path='/detail' component={DetailView} />
+      <Route path='/video-detail' component={VideoDetail} />
+      <Route path='/article-detail' component={ArticleDetail} />
     </Layout>
   </Router>
 )

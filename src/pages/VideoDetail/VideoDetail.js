@@ -24,7 +24,7 @@ import Resource from './Resource'
 import { Footer } from 'containers/Footer'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-const DetailView = () => {
+const VideoDetail = () => {
   const videoRef = useRef(null)
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
@@ -108,4 +108,4 @@ const DetailView = () => {
   )
 }
 
-export default DetailView
+export default VideoDetail
