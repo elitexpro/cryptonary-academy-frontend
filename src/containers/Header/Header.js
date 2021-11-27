@@ -23,11 +23,16 @@ import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-
-const headerButtons = [
+const headerAuthButtons = [
   { text: 'My Notes', to: '#' },
   { text: 'Saved Items', to: '#' },
   { text: 'Quizzes', to: '#' },
+]
+
+const headerUnAuthButtons = [
+  { text: 'Resources', to: '#' },
+  { text: 'Faqs', to: '#' },
+  { text: 'Help', to: '#' },
 ]
 
 const Header = () => {
@@ -49,41 +54,77 @@ const Header = () => {
           <Toolbar className={classes.toolbar} >
             <Logo />
             <Hidden mdDown>
-              <MButton
-                color='inherit'
-                sx={{ mr: 2, ml: 8, color: '#858585', fontSize: '16px' }}
-                endIcon={<KeyboardArrowDownRoundedIcon style={{ fontSize: '24px' }} />}
-                onClick={handleTopicToggle}
-              >
-                Explore Topics
-              </MButton>
               {
-                currentUser && headerButtons.map((item, key) =>
+                currentUser &&
+                <>
                   <MButton
-                    key={key}
                     color='inherit'
-                    sx={{ mx: 2, color: '#858585', fontSize: '16px' }}
-                    onClick={() => history.push(item.to)}
+                    sx={{ mr: 2, ml: 8, color: '#858585', fontSize: '16px' }}
+                    endIcon={<KeyboardArrowDownRoundedIcon style={{ fontSize: '24px' }} />}
+                    onClick={handleTopicToggle}
                   >
-                    {item.text}
+                    Explore Topics
                   </MButton>
-                )
+                  {
+                    headerAuthButtons.map((item, key) =>
+                      <MButton
+                        key={key}
+                        color='inherit'
+                        sx={{ mx: 2, color: '#858585', fontSize: '16px' }}
+                        onClick={() => history.push(item.to)}
+                      >
+                        {item.text}
+                      </MButton>
+                    )
+                  }
+                </>
               }
+            </Hidden>
 
-            </Hidden>
             <Box sx={{ flexGrow: 1 }} />
+
             <Hidden mdDown>
-              <Link
-                href="https://cryptonary.com"
-                color="black"
-                sx={{ color: '#000', mr: 3 }}
-                underline="hover"
-                target="_blank"
-              >
-                Cryptonary.com
-              </Link>
-              <UserAvatar />
+              {
+                !currentUser
+                  ?
+                  <>
+                    {
+                      headerUnAuthButtons.map((item, key) =>
+                        <MButton
+                          key={key}
+                          color='inherit'
+                          sx={{ mx: 2, color: '#858585', fontSize: '16px' }}
+                          onClick={() => history.push(item.to)}
+                        >
+                          {item.text}
+                        </MButton>
+                      )
+                    }
+                    <MButton
+                      variant='outlined'
+                      color='success'
+                      sx={{ fontSize: '16px', px: 2 }}
+                      onClick={() => history.push('login')}
+                    >
+                      Log in
+                    </MButton>
+                  </>
+                  :
+                  <>
+                    <Link
+                      href="https://cryptonary.com"
+                      color="black"
+                      sx={{ color: '#000', mr: 3 }}
+                      underline="hover"
+                      target="_blank"
+                    >
+                      Cryptonary.com
+                    </Link>
+                    <UserAvatar />
+                  </>
+              }
             </Hidden>
+
             <Hidden mdUp>
               <IconButton>
                 <MenuRoundedIcon color="black" />

@@ -23,6 +23,16 @@ const overrides = {
     h6: {
       fontSize: "1.142rem",
     },
+    headTitle1: {
+      fontWeight: 500,
+      color: "#141414",
+      fontSize: "3.5rem",
+    },
+    headTitle2: {
+      fontWeight: 500,
+      color: "#141414",
+      fontSize: "2.5rem",
+    },
     subTitle: {
       fontSize: "1rem",
     },
