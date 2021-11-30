@@ -84,9 +84,9 @@ const MenuBar = ({ open, onClose }) => {
                 const { icon, title } = item
 
                 return (
-                  <Box>
+                  <Box key={index} >
                     <Divider sx={{ mb: 2 }} />
-                    <ListItemButton key={index} sx={{ mb: 2 }}>
+                    <ListItemButton sx={{ mb: 2 }}>
                       <ListItemIcon>{icon}</ListItemIcon>
                       <ListItemText primary={title} />
                     </ListItemButton>
@@ -129,8 +129,8 @@ const MenuBar = ({ open, onClose }) => {
                     const { icon, to } = item
 
                     return (
-                      <IconButton>
-                        <Link href={to} key={index} target="_blank" sx={{ height: 24 }}>
+                      <IconButton key={index}>
+                        <Link href={to} target="_blank" sx={{ height: 24 }}>
                           {icon}
                         </Link>
                       </IconButton>

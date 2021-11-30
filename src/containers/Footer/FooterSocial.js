@@ -20,7 +20,7 @@ const SOCIAL_LINKS = [
 ]
 
 const FooterSocial = () => {
-  
+
   return (
     <Box>
       <Stack sx={{ mt: 8, p: 2, backgroundColor: "#141414", borderRadius: "2px" }}>
@@ -48,8 +48,8 @@ const FooterSocial = () => {
                 const { icon, to } = item
 
                 return (
-                  <IconButton color="inherit">
-                    <Link href={to} key={index} target="_blank" sx={{ height: 24 }}>
+                  <IconButton key={index} color="inherit">
+                    <Link href={to} target="_blank" sx={{ height: 24 }}>
                       {icon}
                     </Link>
                   </IconButton>

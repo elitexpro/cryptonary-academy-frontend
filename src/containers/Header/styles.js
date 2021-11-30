@@ -10,8 +10,8 @@ export default makeStyles(theme => ({
   },
   toolbar: {
     minHeight: 'unset !important',
-    height: '40px',
-    padding: '0px',
+    height: '40px !important',
+    padding: '0px !important',
   },
   button: {
     color: '#858585',
