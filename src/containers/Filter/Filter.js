@@ -12,7 +12,7 @@ const Filter = ({ open, onClose }) => {
   return (
     <Box>
       <Hidden mdUp>
-        <Dialog open={open} onClose={onClose} sx={{ backgroundColor: "#FFF" }} fullWidth>
+        <Dialog open={open} onClose={onClose} fullWidth>
           <FilterContent onClick={onClose} />
         </Dialog>
       </Hidden>

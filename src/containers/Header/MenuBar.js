@@ -48,15 +48,15 @@ const MenuBar = ({ open, onClose }) => {
 
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
-      <Box sx={{ width: 360, overflow: "hidden" }}>
+      <Box sx={{ width: 320, overflowX: "hidden" }}>
         <Scrollbar>
           <List
-            sx={{ mt: 10 }}
+            sx={{ mt: 8 }}
             component="nav"
             dense
             disablePadding
           >
-            <ListItemButton sx={{ mb: 2 }} onClick={handleTopicToggle}>
+            <ListItemButton sx={{ py: 2 }} onClick={handleTopicToggle}>
               <ListItemIcon>
                 <FiHash style={{ fontSize: 24, color: "#141414" }} />
               </ListItemIcon>
@@ -84,9 +84,9 @@ const MenuBar = ({ open, onClose }) => {
                 const { icon, title } = item
 
                 return (
-                  <Box key={index} >
-                    <Divider sx={{ mb: 2 }} />
-                    <ListItemButton sx={{ mb: 2 }}>
+                  <Box key={index}>
+                    <Divider />
+                    <ListItemButton sx={{ py: 2 }}>
                       <ListItemIcon>{icon}</ListItemIcon>
                       <ListItemText primary={title} />
                     </ListItemButton>
