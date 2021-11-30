@@ -110,7 +110,7 @@ const Header = () => {
                       variant='outlined'
                       color='success'
                       sx={{ fontSize: '16px', px: 2 }}
-                      onClick={() => history.push('login')}
+                      onClick={() => history.push('/login')}
                     >
                       Log in
                     </MButton>
