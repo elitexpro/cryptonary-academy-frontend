@@ -22,6 +22,7 @@ import { UserAvatar } from 'components/UserAvatar'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import MenuBar from './MenuBar'
 
 const headerAuthButtons = [
   { text: 'My Notes', to: '#' },
@@ -41,10 +42,15 @@ const Header = () => {
   const currentUser = useSelector(currentUserSelector)
   const [openTopic, setOpenTopic] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
+  const [showMenu, setShowMenu] = useState(false)
 
   const handleTopicToggle = (e) => {
     setOpenTopic(prev => !prev)
     setAnchorEl(e.currentTarget)
+  }
+
+  const toggleMenu = (open) => () => {
+    setShowMenu(open)
   }
 
   return (
@@ -126,10 +132,12 @@ const Header = () => {
             </Hidden>
 
             <Hidden mdUp>
-              <IconButton>
+              <IconButton onClick={toggleMenu(true)}>
                 <MenuRoundedIcon color="black" />
               </IconButton>
             </Hidden>
+
+            <MenuBar open={showMenu} onClose={toggleMenu(false)} />
           </Toolbar>
         </Container>
       </AppBar>

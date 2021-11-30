@@ -5,6 +5,7 @@ import {
   Box,
   Link,
   Hidden,
+  IconButton,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { AiOutlineTwitter, AiFillInstagram } from 'react-icons/ai'
@@ -47,9 +48,11 @@ const FooterSocial = () => {
                 const { icon, to } = item
 
                 return (
-                  <Link href={to} key={index} target="_blank" sx={{ height: 20 }}>
-                    {icon}
-                  </Link>
+                  <IconButton color="inherit">
+                    <Link href={to} key={index} target="_blank" sx={{ height: 24 }}>
+                      {icon}
+                    </Link>
+                  </IconButton>
                 )
               })
             }
