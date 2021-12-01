@@ -49,7 +49,7 @@ const FooterSocial = () => {
 
                 return (
                   <IconButton key={index} color="inherit">
-                    <Link href={to} target="_blank" sx={{ height: 24 }}>
+                    <Link href={to} target="_blank" sx={{ height: 24, width: 24 }}>
                       {icon}
                     </Link>
                   </IconButton>

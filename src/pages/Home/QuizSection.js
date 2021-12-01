@@ -1,47 +1,41 @@
 import React from 'react'
-import useStyles from './styles.js'
 import {
-  Hidden,
   Box,
+  Typography,
+  Stack,
+  Paper,
 } from '@mui/material'
-import quizImg from 'assets/image/quiz_background.png'
-import quizMobImg from 'assets/image/quiz_mob_background.png'
 import { MButton } from 'components/CustomMaterial'
+import quizImg from 'assets/image/quiz_background.png'
 
 const QuizSection = () => {
-  const classes = useStyles()
-
   return (
-    <>
-      <Box className={classes.quizBox}>
-        <Box className={classes.quizArea}>
-          <div>
-            <div className={classes.quizTitle}>
-              Not sure where to start from?
-            </div>
-            <div className={classes.quizContent}>
-              Cold Storage is the term given to digital wallets held offline
-              to protect cryptocurrency funds from fraudulent use by others ...
-            </div>
-            <MButton
-              color='success'
-              variant='contained'
-              sx={{ px: 3, py: 2, mt: 4, color: '#fff' }}
-            >
-              Take Quiz
-            </MButton>
-          </div>
-        </Box>
-        <div style={{ position: 'relative' }}>
-          <Hidden mdDown>
-            <img src={quizImg} alt='' style={{ width: '100%', position: 'absolute', zIndex: '-1', height: '330px' }} />
-          </Hidden>
-          <Hidden mdUp>
-            <img src={quizMobImg} alt='' style={{ width: '100%', position: 'absolute', zIndex: '-1', height: '380px' }} />
-          </Hidden>
-        </div>
-      </Box>
-    </>
+    <Box sx={{ mb: 3 }}>
+      <Paper
+        sx={{
+          backgroundImage: `url(${quizImg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          height: { md: 330, xs: 380 }
+        }}>
+        <Stack sx={{ py: 8, px: 4 }} alignItems="center" justifyContent="center">
+          <Typography variant="headTitle2" sx={{ color: "#FFF", mb: 2, fontWeight: 400 }} align="center">
+            Not sure where to start from?
+          </Typography>
+          <Typography variant="subTitle" sx={{ color: "#FFF", maxWidth: 540 }} align="center">
+            Cold Storage is the term given to digital wallets held offline
+            to protect cryptocurrency funds from fraudulent use by others ...
+          </Typography>
+          <MButton
+            color='success'
+            variant='contained'
+            sx={{ px: 3, py: 2, mt: 4, color: '#fff', height: 48 }}
+          >
+            Take Quiz
+          </MButton>
+        </Stack>
+      </Paper>
+    </Box>
   )
 }
 

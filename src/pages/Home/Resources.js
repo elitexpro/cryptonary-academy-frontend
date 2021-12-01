@@ -1,9 +1,10 @@
 import React from 'react'
-import useStyles from './styles.js'
 import {
   Box,
   Grid,
   Divider,
+  Container,
+  Typography,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import resReportImg from 'assets/image/res-report.svg'
@@ -12,13 +13,11 @@ import resLinkImg from 'assets/image/res-link.svg'
 
 
 const Resources = () => {
-  const classes = useStyles()
-
   return (
-    <>
-      <Box className={classes.basicsBox} sx={{ mt: 3 }}>
+    <Box sx={{ mt: 3, px: {md: 5, xs: 2} }}>
+      <Container maxWidth="xl">
         <Box sx={{ display: 'flex' }}>
-          <div className={classes.sectionTitle}>Resources</div>
+          <Typography variant="h2" sx={{ color: "#141414" }}>Resources</Typography>
           <Box sx={{ flexGrow: 1 }} />
           <MButton color='inherit' size="small">
             View all
@@ -83,8 +82,8 @@ const Resources = () => {
         </Grid>
 
         <Divider sx={{ my: 3 }} />
-      </Box>
-    </>
+      </Container>
+    </Box>
   )
 }
 

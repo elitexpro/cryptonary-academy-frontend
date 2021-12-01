@@ -1,42 +1,36 @@
 import React from 'react'
-import useStyles from './styles.js'
 import {
   Box,
   Grid,
-  Divider,
+  Typography,
+  Stack,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { VideoItem } from 'components/VideoItem'
 
 const DeepDives = () => {
-  const classes = useStyles()
-
   return (
-    <>
-      <Box className={classes.basicsBox} sx={{ mt: 3 }}>
-        <Box sx={{ display: 'flex' }}>
-          <div className={classes.sectionTitle}>Deep Dives</div>
-          <Box sx={{ flexGrow: 1 }} />
-          <MButton color='inherit' size="small">
-            View all
-          </MButton>
-        </Box>
+    <Box>
+      <Stack direction="row" sx={{ mb: 3 }}>
+        <Typography variant="h2" sx={{ color: "#141414" }}>Deep Dives</Typography>
+        <Box sx={{ flexGrow: 1 }} />
+        <MButton color='inherit' size="small">
+          View all
+        </MButton>
+      </Stack>
 
-        <Grid container spacing={2}>
-          <Grid item md={4} xs={12}>
-            <VideoItem />
-          </Grid>
-          <Grid item md={4} xs={12}>
-            <VideoItem />
-          </Grid>
-          <Grid item md={4} xs={12}>
-            <VideoItem />
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item md={4} xs={12}>
+          <VideoItem />
         </Grid>
-
-        <Divider sx={{ my: 3 }} />
-      </Box>
-    </>
+        <Grid item md={4} xs={12}>
+          <VideoItem />
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <VideoItem />
+        </Grid>
+      </Grid>
+    </Box>
   )
 }
 

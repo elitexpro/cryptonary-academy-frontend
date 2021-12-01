@@ -1,24 +1,32 @@
 import React from 'react'
+import { Container, Box } from '@mui/material'
 import HeroSection from './HeroSection'
 import FilterBar from './FilterBar'
 import Basics from './Basics'
 import MustKnow from './MustKnow'
 import QuizSection from './QuizSection'
 import DeepDives from './DeepDives'
-import Resources from './Resources'
+import { Footer } from 'containers/Footer'
 
 
 const Home = () => {
 
   return (
     <>
-      <HeroSection />
-      <FilterBar />
-      <Basics />
-      <MustKnow />
-      <QuizSection />
-      <DeepDives />
-      <Resources />
+      <Box sx={{ backgroundColor: "#141414" }}>
+        <Container maxWidth="xl">
+          <HeroSection />
+        </Container>
+      </Box>
+
+      <Container maxWidth="xl" >
+        <FilterBar />
+        <Basics />
+        <MustKnow />
+        <QuizSection />
+        <DeepDives />
+        <Footer />
+      </Container>
     </>
   )
 }
