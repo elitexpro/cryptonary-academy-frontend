@@ -16,6 +16,7 @@ const QuizSection = () => {
           backgroundImage: `url(${quizImg})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
+          backgroundPosition: "center",
           height: { md: 330, xs: 380 }
         }}>
         <Stack sx={{ py: 8, px: 4 }} alignItems="center" justifyContent="center">

@@ -42,7 +42,7 @@ const HeroSection = () => {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundColor: "#000",
+              backgroundColor: "#141414",
               height: 240
             }} />
           </Grid>

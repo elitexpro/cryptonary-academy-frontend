@@ -68,10 +68,8 @@ const MenuBar = ({ open, onClose }) => {
               }
             </ListItemButton>
             <Collapse in={openTopic} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <TopicSelectPaper />
-              </List>
-              <Box sx={{ p: 4, width: { xs: "100%", md: "auto" } }}>
+              <TopicSelectPaper />
+              <Box sx={{ px: 4, pb: 4, width: { xs: "100%", md: "auto" } }}>
                 <MButton
                   variant="contained"
                   color="success"
