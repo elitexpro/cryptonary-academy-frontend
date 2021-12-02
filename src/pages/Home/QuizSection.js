@@ -3,7 +3,6 @@ import {
   Box,
   Typography,
   Stack,
-  Paper,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import quizImg from 'assets/image/quiz_background.png'
@@ -11,12 +10,13 @@ import quizImg from 'assets/image/quiz_background.png'
 const QuizSection = () => {
   return (
     <Box sx={{ mb: 3 }}>
-      <Paper
+      <Box
         sx={{
           backgroundImage: `url(${quizImg})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
+          borderRadius: "8px",
           height: { md: 330, xs: 380 }
         }}>
         <Stack sx={{ py: 8, px: 4 }} alignItems="center" justifyContent="center">
@@ -35,7 +35,7 @@ const QuizSection = () => {
             Take Quiz
           </MButton>
         </Stack>
-      </Paper>
+      </Box>
     </Box>
   )
 }

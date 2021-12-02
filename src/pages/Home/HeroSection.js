@@ -4,7 +4,6 @@ import {
   Box,
   Grid,
   Typography,
-  Paper,
 } from '@mui/material'
 import heroImg from 'assets/image/hero-image.svg'
 import { MButton } from 'components/CustomMaterial'
@@ -37,7 +36,7 @@ const HeroSection = () => {
         </Grid>
         <Hidden mdDown>
           <Grid item md={6}>
-            <Paper sx={{
+            <Box sx={{
               backgroundImage: `url(${heroImg})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
