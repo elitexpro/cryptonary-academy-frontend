@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Box,
   Grid,
@@ -8,6 +9,12 @@ import { MButton } from 'components/CustomMaterial'
 import { ArticleItem } from 'components/ArticleItem'
 
 const RelatedArticles = () => {
+  const articles = useSelector((state) => state.article.articles)
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    setPosts(articles?.posts)
+  }, [articles])
 
   return (
     <Box sx={{ mt: 6 }}>
@@ -20,15 +27,14 @@ const RelatedArticles = () => {
       </Box>
 
       <Grid container spacing={3}>
-        <Grid item md={4} xs={12}>
-          <ArticleItem />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <ArticleItem />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <ArticleItem />
-        </Grid>
+        {
+          posts?.length > 0 &&
+          posts.map((post, index) => (
+            <Grid item key={index} md={4} xs={12}>
+              <ArticleItem post={post} />
+            </Grid>
+          ))
+        }
       </Grid>
     </Box>
   )

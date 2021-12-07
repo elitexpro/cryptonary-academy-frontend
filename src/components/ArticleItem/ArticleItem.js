@@ -8,22 +8,20 @@ import {
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
-import ImgRelatedArticle from 'assets/image/related-article.png'
 
-const ArticleItem = () => {
+const ArticleItem = ({ post }) => {
 
   return (
     <Box>
       <Box>
-        <img src={ImgRelatedArticle} alt='' style={{ width: '100%' }} />
+        <img src={post?.feature_image} alt='' style={{ width: '100%' }} />
       </Box>
       <Stack spacing={1}>
         <Typography variant="subTitle3" sx={{ color: "#232A45", fontWeight: 500 }}>
-          What is Cold Storage?
+          {post?.title}
         </Typography>
         <Typography variant="subTitle" sx={{ color: "#858585" }}>
-          Cold Storage is the term given to digital wallets held offline to protect
-          cryptocurrency funds from fraudulent use by others ...
+          {post?.excerpt}
         </Typography>
       </Stack>
       <Divider sx={{ my: 2 }} />

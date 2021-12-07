@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import {
   Box,
   Hidden,
@@ -17,7 +18,7 @@ const SOCIAL_ITEMS = [
   { to: "#", icon: <FiFacebook style={{ color: "#141414", fontSize: 22 }} /> },
 ]
 
-const ArticleInfo = () => {
+const ArticleInfo = ({ article }) => {
   const history = useHistory()
 
   const handleClick = (to) => {
@@ -71,12 +72,14 @@ const ArticleInfo = () => {
         }}
       >
         <Typography variant="subTitle" sx={{ color: "#555" }}>
-          by <Typography variant="subTitle" sx={{ color: "#141414", fontWeight: 500 }}>Kaiya Rhiel Madsen</Typography>
+          by <Typography variant="subTitle" sx={{ color: "#141414", fontWeight: 500 }}>{article?.primary_author?.name}</Typography>
         </Typography>
         <Hidden mdUp>
           <Box sx={{ flexGrow: 1 }} />
         </Hidden>
-        <Typography variant="subTitle" sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>04 Dec 2020 : 15:20</Typography>
+        <Typography variant="subTitle" sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
+          {moment(article?.published_at).format('DD ddd YYYY : kk:mm')}
+        </Typography>
       </Box>
     </Box >
   )
