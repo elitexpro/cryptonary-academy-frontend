@@ -9,6 +9,7 @@ import ResetPassword from 'pages/ResetPassword'
 import Preference from 'pages/Preference'
 import VideoDetail from 'pages/VideoDetail'
 import ArticleDetail from 'pages/ArticleDetail'
+import Article from 'pages/Article'
 import AuthorDetail from 'pages/AuthorDetail'
 import Landing from 'pages/Landing'
 // import AuthedRoute from './AuthedRoute'
@@ -29,6 +30,7 @@ const routes = () => (
       <Route path='/reset-password' component={ResetPassword} />
       <Route path='/video-detail' component={VideoDetail} />
       <Route path='/article-detail' component={ArticleDetail} />
+      <Route path='/article' component={Article} />
       <Route path='/author-detail' component={AuthorDetail} />
     </Layout>
   </Router>

@@ -10,15 +10,22 @@ import {
 import { MButton } from 'components/CustomMaterial'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
 
+const defaultString =
+  "Cold Storage is the term given to digital wallets held offline to protect cryptocurrency funds from fraudulent use by others ..."
 
-const VideoItem = () => {
+const VideoItem = ({ post }) => {
   return (
     <Stack>
-      <img src={vidoeItemSvg} alt='' style={{ width: '100%' }} />
-      <Typography variant="subTitle3" sx={{ color: "#232A45", mt: 2, mb: 1 }}>What is Cold Storage?</Typography>
+      <img src={post ? post.feature_image : vidoeItemSvg} alt='' style={{ width: '100%' }} />
+      <Typography variant="subTitle3" sx={{ color: "#232A45", mt: 2, mb: 1 }}>
+        {post ? post.title : "What is Cold Storage?"}
+      </Typography>
       <Typography variant="subTitle" sx={{ color: "#858585" }}>
-        Cold Storage is the term given to digital wallets held offline to protect
-        cryptocurrency funds from fraudulent use by others ...
+        {
+          post ?
+            post.excerpt :
+            defaultString
+        }
       </Typography>
       <Divider sx={{ my: 2 }} />
       <Stack direction="row">

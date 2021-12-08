@@ -4,7 +4,7 @@ import HeroSection from './HeroSection'
 import FilterBar from './FilterBar'
 import Basics from './Basics'
 import MustKnow from './MustKnow'
-import QuizSection from './QuizSection'
+import QuizSection from 'components/QuizSection'
 import DeepDives from './DeepDives'
 import { Footer } from 'containers/Footer'
 
