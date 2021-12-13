@@ -32,8 +32,8 @@ const ArticlePagination = () => {
   }
 
   const handleClose = (index) => () => {
-    setCurrentPage(index)
     setAnchorEl(null)
+    setCurrentPage(index)
   }
 
   useEffect(() => {
@@ -55,7 +55,8 @@ const ArticlePagination = () => {
             onClick={handleClick}
             endIcon={!open ? <MdKeyboardArrowDown sx={{ fontSize: '24px' }} /> : <MdKeyboardArrowUp sx={{ fontSize: '24px' }} />}
             sx={{
-              backgroundColor: "#FAFAFA"
+              backgroundColor: "#FAFAFA",
+              boxShadow: "none",
             }}
           >
             {PAGE_NUMBERS[currentPage].name}
@@ -67,7 +68,7 @@ const ArticlePagination = () => {
             }}
             anchorEl={anchorEl}
             open={open}
-            onClose={handleClose}
+            onClose={handleClose(currentPage)}
             TransitionComponent={Fade}
           >
             {

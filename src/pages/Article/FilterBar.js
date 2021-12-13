@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Divider,
@@ -10,11 +10,14 @@ import {
   ClickAwayListener,
   IconButton,
   Typography,
+  Grid,
+  Chip
 } from '@mui/material'
 import { SearchBox } from 'components/SearchBox'
 import { MButton, MButtonMenu } from 'components/CustomMaterial'
+import { Filter } from 'containers/Filter'
 import TopicSelectPaper from './TopicSelectPaper'
-import { FiHash } from 'react-icons/fi'
+import { FiHash, FiSliders } from 'react-icons/fi'
 import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
 
@@ -43,10 +46,29 @@ const CONTENT = [
   },
 ]
 
+const topicItems = [
+  { text: 'Blockchain', isSelected: false },
+  { text: 'NFT', isSelected: false },
+  { text: 'Bitcoin', isSelected: false },
+  { text: 'FUD', isSelected: false },
+  { text: 'DeFi', isSelected: false },
+  { text: 'Centralized', isSelected: false },
+  { text: 'Bullish', isSelected: false },
+  { text: 'Mining', isSelected: false },
+  { text: 'Fiat', isSelected: false },
+  { text: 'Altcoins', isSelected: false },
+  { text: 'Wallet', isSelected: false },
+  { text: 'JOMO', isSelected: false },
+  { text: 'FOMO', isSelected: false },
+]
+
 const FilterBar = () => {
   const [options, setOptions] = useState(OPTIONS)
   const [openTopic, setOpenTopic] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
+  const [topics, setTopics] = useState(topicItems)
+  const [selectedTopics, setSelectedTopics] = useState([])
+  const [filterDrawer, setFilterDrawer] = useState(false)
 
   const handleChangeType = (item) => () => {
     setOptions(prev => {
@@ -67,6 +89,37 @@ const FilterBar = () => {
     setOpenTopic(prev => !prev)
     setAnchorEl(e.currentTarget)
   }
+
+  const handleApply = () => {
+    setOpenTopic(false)
+    setSelectedTopics(topics.filter(topic => topic.isSelected))
+  }
+
+  const handleDelete = (index) => () => {
+    let data = []
+    Object.assign(data, selectedTopics)
+    data.splice(index, 1)
+    setSelectedTopics(data)
+  }
+
+  const toggleDrawer = (open) => (event) => {
+    setFilterDrawer(open)
+  }
+
+  useEffect(() => {
+    setTopics(prev => {
+      const res = prev.map(item => {
+        const temp = selectedTopics.find(x => x.text === item.text)
+
+        return {
+          text: item.text,
+          isSelected: temp ? true : false
+        }
+      })
+
+      return res
+    })
+  }, [selectedTopics])
 
   return (
     <Box>
@@ -102,30 +155,66 @@ const FilterBar = () => {
             }
           </Stack>
         </Hidden>
-        {
-          options.find(option => option.isSelected && (option.title === 'Videos' || option.title === 'Both')) &&
+        {options.find(option => option.isSelected && (option.title === 'Videos' || option.title === 'Both')) &&
           <Hidden mdDown>
             <MButtonMenu menuData={CONTENT[0]} />
           </Hidden>
         }
-        {
-          options.find(option => option.isSelected && (option.title === 'Articles' || option.title === 'Both')) &&
+        {options.find(option => option.isSelected && (option.title === 'Articles' || option.title === 'Both')) &&
           <Hidden mdDown>
             <MButtonMenu menuData={CONTENT[1]} />
           </Hidden>
         }
         <Box sx={{ flexGrow: 1 }} />
         <Box>
-          <MButton
-            color='inherit'
-            sx={{ color: '#000', backgroundColor: '#FAFAFA', minWidth: '144px', height: '100%' }}
-            startIcon={<FiHash sx={{ fontSize: '24px', color: '#000' }} />}
-            onClick={handleTopicToggle}
-          >
-            Select Topics
-          </MButton>
+          <Hidden mdDown>
+            <MButton
+              color='inherit'
+              sx={{ color: '#000', backgroundColor: '#FAFAFA', minWidth: '176px', height: '100%' }}
+              startIcon={<FiHash sx={{ fontSize: '24px', color: '#000' }} />}
+              endIcon={
+                selectedTopics.length > 0 &&
+                <Stack sx={{ backgroundColor: "#4AAF47", borderRadius: "16px", width: 24, height: 24, textAlign: "center" }}>
+                  <Typography variant="subTitle4" sx={{ color: "#FFF" }}>{selectedTopics.length}</Typography>
+                </Stack>
+              }
+              onClick={handleTopicToggle}
+            >
+              Select Topics
+            </MButton>
+          </Hidden>
+          <Hidden mdUp>
+            <MButton
+              color='inherit'
+              sx={{ ml: 2, px: 2, color: '#000', borderColor: '#EAEAEA', backgroundColor: '#F6F8FE', minWidth: '120px', height: '100%' }}
+              startIcon={<FiSliders sx={{ fontSize: '24px', color: '#000' }} />}
+              onClick={toggleDrawer(true)}
+            >
+              All Filters
+            </MButton>
+
+            <Filter open={filterDrawer} onClose={toggleDrawer(false)} />
+          </Hidden>
         </Box>
       </Stack>
+      {selectedTopics.length > 0 &&
+        <Box sx={{ mt: 4 }}>
+          <Grid container spacing={2} >
+            {
+              selectedTopics.map((item, index) => (
+                <Grid item xs='auto' key={index}>
+                  <Chip
+                    color="success"
+                    label={item.text}
+                    variant="outlined"
+                    onDelete={handleDelete(index)}
+                  />
+                </Grid>
+              ))
+            }
+          </Grid>
+        </Box>
+      }
       <Divider sx={{ my: 4 }} />
       <Popper
         open={openTopic}
@@ -145,17 +234,22 @@ const FilterBar = () => {
               <ClickAwayListener onClickAway={() => setOpenTopic(false)}>
                 <Box sx={{ mt: 1, py: 4 }}>
                   <Stack direction="row" sx={{ px: 4 }}>
-                    <Typography variant="subTitle3" sx={{ color: "#141414" }}>Select Topics</Typography>
+                    <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>Select Topics</Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <IconButton onClick={() => setOpenTopic(false)}>
                       <CloseIcon />
                     </IconButton>
                   </Stack>
-                  <TopicSelectPaper />
+                  <TopicSelectPaper topics={topics} setTopics={setTopics} />
                   <Stack direction="row" spacing={2} sx={{ px: 4 }}>
                     <Box sx={{ flexGrow: 1 }} />
                     <MButton color="inherit" sx={{ width: 108, height: 48 }}>Clear all</MButton>
-                    <MButton color="success" variant="outlined" sx={{ width: 108, height: 48 }}>Apply</MButton>
+                    <MButton
+                      color="success"
+                      variant="outlined"
+                      sx={{ width: 108, height: 48 }}
+                      onClick={handleApply}
+                    >Apply</MButton>
                   </Stack>
                 </Box>
               </ClickAwayListener>

@@ -13,7 +13,7 @@ import { Footer } from 'containers/Footer'
 import ArticleInfo from './ArticleInfo'
 import { getArticleById } from 'redux/modules/article/actions'
 
-const ArticleDetail = () => {
+const ArticleDetail = (props) => {
   const classes = useStyles()
   const detailRoot = [
     { text: 'Crypto School', to: '#' },
@@ -26,8 +26,8 @@ const ArticleDetail = () => {
   const [currentArticle, setCurrentArticle] = useState(article)
 
   useEffect(() => {
-    dispatch(getArticleById({ id: '616f03d5fa5ded07bc75a46a' }))
-  }, [dispatch])
+    dispatch(getArticleById({ id: props.match.params.id }))
+  }, [dispatch, props])
 
   useEffect(() => {
     setCurrentArticle(article)

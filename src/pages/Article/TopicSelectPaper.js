@@ -1,31 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Grid,
   Chip,
   Box,
 } from '@mui/material'
 
-const topicItems = [
-  { text: 'Blockchain', isSelected: false },
-  { text: 'NFT', isSelected: false },
-  { text: 'Bitcoin', isSelected: false },
-  { text: 'FUD', isSelected: false },
-  { text: 'DeFi', isSelected: false },
-  { text: 'Centralized', isSelected: false },
-  { text: 'Bullish', isSelected: false },
-  { text: 'Mining', isSelected: false },
-  { text: 'Fiat', isSelected: false },
-  { text: 'Altcoins', isSelected: false },
-  { text: 'Wallet', isSelected: false },
-  { text: 'JOMO', isSelected: false },
-  { text: 'FOMO', isSelected: false },
-]
-
-const TopicSelectPaper = () => {
-  const [topics, setTopcis] = useState(topicItems)
-
+const TopicSelectPaper = ({ topics, setTopics }) => {
   const handleClickTopic = (item) => () => {
-    setTopcis(prev => {
+    setTopics(prev => {
       const res = prev.map(x => {
         const { isSelected, text } = x
         return {
