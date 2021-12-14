@@ -11,6 +11,7 @@ import VideoDetail from 'pages/VideoDetail'
 import ArticleDetail from 'pages/ArticleDetail'
 import Article from 'pages/Article'
 import AuthorDetail from 'pages/AuthorDetail'
+import Pulse from 'pages/Pulse'
 import Landing from 'pages/Landing'
 // import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
@@ -32,6 +33,7 @@ const routes = () => (
       <Route exact path='/article/:id' component={ArticleDetail} />
       <Route exact  path='/article' component={Article} />
       <Route path='/author-detail' component={AuthorDetail} />
+      <Route path='/pulse' component={Pulse} />
     </Layout>
   </Router>
 )
