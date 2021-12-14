@@ -15,11 +15,20 @@ export const validator = (value, req, confirm_value) => {
         !/\S+@\S+\.\S+/.test(value) && validText.push('Email address is invalid.')
         break
       case 'password':
-        if (value.length < 8) {
-          return validText.push('password must be at least 8 characters')
+        if (value.length < 10) {
+          return validText.push('password must be at least 10 characters')
         }
-        if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-          return validText.push('password must contain at least 1 letter and 1 number.')
+        if (!value.match(/\d/)) {
+          return validText.push('password must contain at least 1 number')
+        }
+        if (!value.match(/[a-z]/)) {
+          return validText.push('password must contain at least 1 lowercase letter')
+        }
+        if (!value.match(/[A-Z]/)) {
+          return validText.push('password must contain at least 1 uppercase letter')
+        }
+        if (!value.match(/[!@#$%^&*)(+=._-]/)) {
+          return validText.push('password must contain at least 1 special letter')
         }
         break
       case 'confirm_password':
