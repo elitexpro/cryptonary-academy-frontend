@@ -39,7 +39,7 @@ const ResetPassword = () => {
                   className={classes.signupBtn}
                   onClick={() => setOpenModal(true)}
                 >
-                  Reset
+                  Reset Password
                 </MButton>
               </div>
             </div>

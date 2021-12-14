@@ -32,7 +32,7 @@ const Basics = () => {
         </Grid>
       </Grid>
 
-      <Divider sx={{ my: 3 }} />
+      <Divider sx={{ my: 4 }} />
     </Box>
   )
 }

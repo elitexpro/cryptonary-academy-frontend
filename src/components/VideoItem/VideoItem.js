@@ -2,7 +2,6 @@ import React from 'react'
 import vidoeItemSvg from 'assets/image/video.svg'
 import {
   Box,
-  Divider,
   IconButton,
   Typography,
   Stack,
@@ -26,10 +25,10 @@ const VideoItem = ({ post }) => {
       <Typography variant="subTitle" sx={{ color: "#858585" }}>
         {post ? post.excerpt : defaultString}
       </Typography>
-      <Divider sx={{ my: 2 }} />
-      <Stack direction="row">
+
+      <Stack direction="row" sx={{ mt: 3 }}>
         <MButton color='success' variant='outlined'>
-          Begineer
+          Beginner
         </MButton>
         <Box sx={{ flexGrow: 1 }} />
         <IconButton size="small">

@@ -14,7 +14,7 @@ const ArticleSection = () => {
         In-Depth journals and articles
       </Typography>
 
-      <Typography variant="subTitle1" sx={{ color: "#555", maxWidth: 600 }}>
+      <Typography variant="subTitle1" sx={{ color: "#555", maxWidth: 600, textAlign: "center" }}>
         Tailored to power your learning. We’re excited to start delivering you insightful crypto knowledge.
       </Typography>
 

@@ -24,7 +24,7 @@ const ForgotPassword = () => {
           <Grid item md={12} xs={12}>
             <div className={classes.center}>
               <div className={classes.fieldArea}>
-                <p className={classes.title}>Forgot Password</p>
+                <p className={classes.title}>Reset Password</p>
                 <p className={classes.description}>Enter the email associated with your account and
                   we will send an email with instructions to reset your password. </p>
 

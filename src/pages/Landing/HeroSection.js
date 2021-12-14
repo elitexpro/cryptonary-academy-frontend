@@ -16,9 +16,9 @@ const HeroSection = () => {
     <Box sx={{ py: 3 }}>
       <Grid container spacing={2}>
         <Grid item md={6} xs={12} >
-          <Stack direction="row" justifyContent="flex-start" alignItems="center" sx={{ height: "100%" }}>
+          <Stack direction="row" justifyContent="center"  alignItems="center" sx={{ height: "100%" }}>
             <Stack spacing={2} sx={{ maxWidth: 600 }}>
-              <Typography variant="headTitle1" sx={{ fontSize: { sm: "56px", xs: "32px" } }}>
+              <Typography variant="headTitle1" sx={{ fontSize: { sm: "56px", xs: "32px" }, lineHeight: '110%' }}>
                 Stay ahead of the curve with Cryptonary
               </Typography>
 
@@ -40,7 +40,7 @@ const HeroSection = () => {
                 </MButton>
                 <MButton
                   color='inherit'
-                  variant='contained'
+                  variant='text'
                   sx={{
                     py: 1.5, mb: 2, boxShadow: "unset",
                     fontSize: '18px',

@@ -22,6 +22,7 @@ const MButton = forwardRef(
         ref={ref}
         color={color}
         variant={variant}
+        disableElevation
         {...other}
       >
         {children}

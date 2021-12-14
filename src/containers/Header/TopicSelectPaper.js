@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import useStyles from './styles.js'
 import {
   Grid,
   Chip,
+  Box,
 } from '@mui/material'
 
 const topicItems = [
@@ -22,7 +22,6 @@ const topicItems = [
 ]
 
 const TopicSelectPaper = () => {
-  const classes = useStyles()
   const [topics, setTopcis] = useState(topicItems)
 
   const handleClickTopic = (item) => () => {
@@ -40,7 +39,7 @@ const TopicSelectPaper = () => {
   }
 
   return (
-    <div className={classes.topicSelectPaper}>
+    <Box sx={{ p: 5 }}>
       <Grid container spacing={2} >
         {
           topics.map((item, key) => (
@@ -55,8 +54,7 @@ const TopicSelectPaper = () => {
           ))
         }
       </Grid>
-    </div>
-
+    </Box>
   )
 }
 

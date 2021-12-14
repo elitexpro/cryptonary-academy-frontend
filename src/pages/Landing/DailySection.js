@@ -16,9 +16,11 @@ const DailySection = () => {
       <Grid container spacing={2}>
         <Hidden mdDown>
           <Grid item md={6} xs={12} >
-            <Box sx={{ maxWidth: { md: 520, xs: "100%" } }}>
-              <img src={ImgLandingDaily} alt='' style={{ width: "100%" }} />
-            </Box>
+            <Stack justifyContent="center" alignItems="center" >
+              <Box sx={{ maxWidth: { md: 520, xs: "100%" } }}>
+                <img src={ImgLandingDaily} alt='' style={{ width: "100%" }} />
+              </Box>
+            </Stack>
           </Grid>
         </Hidden>
         <Grid item md={6} xs={12} >

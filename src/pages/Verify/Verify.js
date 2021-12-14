@@ -1,49 +1,33 @@
 import React from 'react'
-import useStyles from './styles.js'
 import {
-  Hidden,
+  Container,
   Box,
-  Grid,
+  Stack,
   Link,
-  Card,
+  Typography,
 } from '@mui/material'
-import { Carousel } from 'components/Carousel'
 import { SuccessBrand } from 'components/SuccessBrand'
-import { Link as RouterLink } from 'react-router-dom'
-
 
 const Verify = () => {
-  const classes = useStyles()
 
   return (
-    <>
-      <Box className={classes.heroBox}>
-        <Grid container spacing={0}>
-          <Grid item md={6} xs={12}>
-            <div className={classes.center}>
-              <div className={classes.fieldArea}>
-                <SuccessBrand />
-                <p className={classes.title}>Verfiy your email address</p>
-                <p className={classes.description}>Please check your email for a link to verify your email address.
-                  Be patient, this may take few minutes. </p>
-                <p className={classes.loginLink}>Haven't received yet ? <RouterLink to="/signup">
-                  <Link component="button" variant="body2">Resent Email</Link></RouterLink>
-                </p>
-              </div>
-            </div>
-          </Grid>
-          <Hidden mdDown>
-            <Grid item md={6} className={classes.sliderArea}>
-              <div className={classes.center}>
-                <Card className={classes.sliderItemArea}>
-                  <Carousel />
-                </Card>
-              </div>
-            </Grid>
-          </Hidden>
-        </Grid>
-      </Box>
-    </>
+    <Container maxWidth="xl">
+      <Stack justifyContent="center" alignItems="center" sx={{ height: "calc(100vh - 80px)" }}>
+        <Box sx={{ maxWidth: '448px', my: 3, textAlign: "center" }}>
+          <SuccessBrand />
+          <Box sx={{ mb: 5 }}>
+            <Typography variant="subTitle3" sx={{ color: "#141414" }}>Verfiy your email address</Typography>
+          </Box>
+          <Typography variant="subTitle" sx={{ color: "#555" }}>Please check your email for a link to verify your email address.
+            Be patient, this may take few minutes. </Typography>
+          <Box sx={{ my: 5 }}>
+            <Typography variant="subTitle" sx={{ color: "#858585" }}>Haven't received yet ?
+              <Link underline="hover" color="#62BE5F" sx={{ cursor: "pointer" }}>Resent Email</Link>
+            </Typography>
+          </Box>
+        </Box>
+      </Stack>
+    </Container>
   )
 }
 

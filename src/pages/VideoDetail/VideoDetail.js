@@ -51,7 +51,7 @@ const VideoDetail = () => {
         <VideoTitle />
       </Hidden>
 
-      <Grid container spacing={2} >
+      <Grid container spacing={2.5} >
         <Grid item xs={12} md={8}>
           <img src={ImgDetailVideo} alt="video" style={{ width: '100%' }} ref={videoRef} />
 

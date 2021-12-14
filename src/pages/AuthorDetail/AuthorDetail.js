@@ -31,7 +31,7 @@ const AuthorDetail = () => {
         <Box sx={{ minWidth: 200 }}>
           <img src={ImgAuthorDetail} alt='author' style={{ width: '100%' }} />
         </Box>
-        <Stack spacing={2} sx={{ maxWidth: 560, mt: { xs: 2, sm: 0 }, ml: { xs: 0, sm: 3 } }}>
+        <Stack spacing={1} sx={{ maxWidth: 560, mt: { xs: 2, sm: 0 }, ml: { xs: 0, sm: 3 } }}>
           <Typography variant="h2" sx={{ color: "#141414", fontWeight: 500 }}>
             {AUTHOR_DATA.name}
           </Typography>

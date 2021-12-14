@@ -7,22 +7,14 @@ export default makeStyles(theme => ({
   },
   inherit: {
     color: '#858585 !important',
-    fontSize: '16px !important',
-    lineHeight: '24px !important',
-    height: '64px',
     background: '#F8F8F8 !important',
-    '@media (max-width:900px)': {
-      height: '48px',
+    '&:hover': {
+      background: '#e8ffe8 !important',
+      color: '#4AAF47 !important',
     },
   },
   success: {
     color: '#4AAF47 !important',
-    fontSize: '16px !important',
-    lineHeight: '24px !important',
-    height: '64px',
     background: '#e8ffe8 !important',
-    '@media (max-width:900px)': {
-      height: '48px',
-    },
   },
 }))

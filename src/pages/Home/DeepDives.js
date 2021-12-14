@@ -10,7 +10,7 @@ import { VideoItem } from 'components/VideoItem'
 
 const DeepDives = () => {
   return (
-    <Box>
+    <Box sx={{ mt: 4 }}>
       <Stack direction="row" sx={{ mb: 3 }}>
         <Typography variant="h2" sx={{ color: "#141414" }}>Deep Dives</Typography>
         <Box sx={{ flexGrow: 1 }} />

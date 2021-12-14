@@ -111,79 +111,87 @@ const Preference = () => {
   }
 
   return (
-    <>
-      <Box className={classes.heroBox}>
-        <Grid container spacing={0}>
-          <Grid item md={12} xs={12}>
-            <div className={classes.center}>
-              <div className={classes.fieldArea}>
-                <p className={classes.steper}>{index + 1} / 4</p>
-                <SwipeableViews
-                  axis={isNext ? 'x' : 'x-reverse'}
-                  index={index}
-                  sx={{ p: 0 }}
-                  onChangeIndex={val => setIndex(val)}
-                >
-                  {
-                    quizGroup.map((item, key) => {
-                      const { step, quiz, answer, description, fullWidth } = item
+    <Box className={classes.heroBox}>
+      <Grid container spacing={0}>
+        <Grid item md={12} xs={12}>
+          <div className={classes.center}>
+            <div className={classes.fieldArea}>
+              <p className={classes.steper}>{index + 1} / 4</p>
+              <SwipeableViews
+                axis={isNext ? 'x' : 'x-reverse'}
+                index={index}
+                sx={{ p: 0 }}
+                onChangeIndex={val => setIndex(val)}
+              >
+                {
+                  quizGroup.map((item, key) => {
+                    const { step, quiz, answer, description, fullWidth } = item
 
-                      return (
-                        <TabPanel value={index} index={step} key={key}>
-                          <p className={classes.title}>{quiz}</p>
-                          {description && <p className={classes.description}>{description}</p>}
-                          <Grid container spacing={2} className={classes.gridArea}>
-                            {
-                              answer.map((answerItem, ind) => {
-                                const { text } = answerItem
+                    return (
+                      <TabPanel value={index} index={step} key={key}>
+                        <p className={classes.title}>{quiz}</p>
+                        {description && <p className={classes.description}>{description}</p>}
+                        <Grid container spacing={2} className={classes.gridArea}>
+                          {
+                            answer.map((answerItem, ind) => {
+                              const { text } = answerItem
 
-                                return (
-                                  <Grid item xs='auto' key={ind}>
-                                    <QuizItem
-                                      content={text}
-                                      type={fullWidth ? 'big' : 'small'}
-                                    />
-                                  </Grid>
-                                )
-                              })
-                            }
-                          </Grid>
+                              return (
+                                <Grid item xs='auto' key={ind}>
+                                  <QuizItem
+                                    content={text}
+                                    type={fullWidth ? 'big' : 'small'}
+                                  />
+                                </Grid>
+                              )
+                            })
+                          }
+                        </Grid>
 
-                          <Box sx={{ mt: 10, textAlign: 'center' }}>
-                            {
-                              index > 0 &&
-                              <IconButton className={classes.backBtn} onClick={handleClickBack}>
-                                <ArrowBackRoundedIcon style={{ fontSize: '24px' }} color='inherit' />
-                              </IconButton >
-                            }
+                        <Box sx={{ mt: 10, textAlign: 'center' }}>
+                          {
+                            index > 0 &&
+                            <IconButton className={classes.backBtn} onClick={handleClickBack}>
+                              <ArrowBackRoundedIcon style={{ fontSize: '24px' }} color='inherit' />
+                            </IconButton >
+                          }
 
-                            {
-                              index < 3 &&
-                              <MButton
-                                color='success'
-                                variant='outlined'
-                                className={classes.nextBtn}
-                                sx={{ px: 2 }}
-                                endIcon={<ArrowForwardRoundedIcon style={{ fontSize: '24px' }} color='success' />}
-                                onClick={handleClickNext}
-                              >
-                                Next
-                              </MButton>
-                            }
+                          {
+                            index < 3 &&
+                            <MButton
+                              color='success'
+                              variant='outlined'
+                              className={classes.nextBtn}
+                              sx={{ px: 2 }}
+                              endIcon={<ArrowForwardRoundedIcon style={{ fontSize: '24px' }} color='success' />}
+                              onClick={handleClickNext}
+                            >
+                              Next
+                            </MButton>
+                          }
 
-                          </Box>
-                        </TabPanel>
-                      )
-                    })
-                  }
-                </SwipeableViews>
-              </div>
+                          {index === 3 &&
+                            <MButton
+                              color='success'
+                              variant='contained'
+                              sx={{ px: 4, height: 48, color: "#fff", fontSize: 15 }}
+                            >
+                              Show recommendations
+                            </MButton>
+                          }
+
+                        </Box>
+                      </TabPanel>
+                    )
+                  })
+                }
+              </SwipeableViews>
             </div>
+          </div>
 
-          </Grid>
         </Grid>
-      </Box>
-    </>
+      </Grid>
+    </Box>
   )
 }
 

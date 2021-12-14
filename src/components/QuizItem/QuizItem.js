@@ -15,8 +15,8 @@ const QuizItem = ({ content, type, ...other }) => {
       <MButton
         color={isChecked ? 'success' : 'inherit'}
         className={isChecked ? classes.success : classes.inherit}
-        sx={{ px: 2 }}
-        endIcon={<CheckRoundedIcon style={{ fontSize: '24px' }} color={isChecked ? 'success' : 'inherit'} />}
+        sx={{ px: isChecked ? 2 : 3.8, fontSize: 16, height: {md: 56, xs: 48} }}
+        endIcon={isChecked && <CheckRoundedIcon style={{ fontSize: '24px' }} color={isChecked ? 'success' : 'inherit'} />}
         onClick={() => setIsChecked(prev => !prev)}
       >
         {content}

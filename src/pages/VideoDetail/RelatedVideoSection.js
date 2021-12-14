@@ -12,15 +12,12 @@ const RelatedVideoSection = ({ height }) => {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ color: "#141414", fontWeight: 500, mb: 2 }}>
+      <Typography variant="h4" sx={{ color: "#141414", fontWeight: 500, mb: 3 }}>
         Related
       </Typography>
 
       <Scrollbar style={{ height }}>
         <Stack direction="column" spacing={2} divider={<Divider />}>
-          <RelatedVideoItem />
-          <RelatedVideoItem />
-          <RelatedVideoItem />
           <RelatedVideoItem />
           <RelatedVideoItem />
           <RelatedVideoItem />

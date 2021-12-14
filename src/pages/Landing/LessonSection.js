@@ -13,7 +13,7 @@ const LessonSection = () => {
     <Box sx={{ py: { md: 10, xs: 3 } }}>
       <Grid container spacing={2}>
         <Grid item md={6} xs={12} >
-          <Stack direction="row" justifyContent="flex-start" alignItems="center" sx={{ height: "100%" }}>
+          <Stack direction="row" justifyContent="center" alignItems="center" sx={{ height: "100%" }}>
             <Stack spacing={2} >
               <Typography variant="headTitle2">
                 Engaging video lessons

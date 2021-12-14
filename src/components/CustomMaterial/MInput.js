@@ -22,9 +22,9 @@ const useStyles = makeStyles(theme => ({
   },
   labelText: {
     float: 'left',
-    fontSize: '14px',
+    fontSize: '16px',
     color: '#555555',
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(0.5),
   },
 }))
 

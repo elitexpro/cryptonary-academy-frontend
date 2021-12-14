@@ -23,10 +23,6 @@ const FooterResources = () => {
 
       <Box sx={{ display: "flex", mb: 3, mt: 4 }}>
         <Typography variant="h4" sx={{ color: "#141414", fontWeight: 500 }}> Resources </Typography>
-        <Box sx={{ flexGrow: 1 }} />
-        <MButton color="inherit" sx={{ color: "#858585", fontWeight: 500 }}>
-          View all
-        </MButton>
       </Box>
 
       <Grid container spacing={2}>
