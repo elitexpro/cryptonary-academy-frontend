@@ -1,68 +1,119 @@
-import React from 'react'
-import useStyles from './styles.js'
+import React, { useState } from 'react'
 import {
-  Hidden,
+  Stack,
   Box,
   Grid,
   Link,
+  Container,
+  Typography,
+  Hidden,
   Card,
 } from '@mui/material'
 import {
   MButton,
   MInput,
 } from 'components/CustomMaterial'
-import { Carousel } from 'components/Carousel'
 import { Link as RouterLink } from 'react-router-dom'
-
+import { Carousel } from 'components/Carousel'
+import { validator } from 'helpers/validator'
 
 const Login = () => {
-  const classes = useStyles()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [validationStr, setValidationStr] = useState([])
+
+  const handleLogin = () => {
+    let validation_str = []
+    validation_str.push(validator(email, ['require', 'email']))
+    validation_str.push(validator(password, ['require', 'password']))
+
+    setValidationStr(validation_str)
+
+    const isValid = validation_str.filter(item => item).length ? false : true
+    if (!isValid) {
+      return
+    }
+  }
 
   return (
-    <>
-      <Box className={classes.heroBox}>
-        <Grid container spacing={0}>
-          <Grid item md={6} xs={12}>
-            <div className={classes.center}>
-              <div className={classes.fieldArea}>
-                <p className={classes.title}>Sign in using your Cryptonary credentials</p>
-                <MInput label='Email Address' placeholder='Your email address' />
-                <MInput type='password' label='Password' placeholder='Your password' />
+    <Container maxWidth="xl">
+      <Grid container spacing={0}>
+        <Grid item md={6} xs={12}>
+          <Stack justifyContent="center" alignItems="center" sx={{ minHeight: "calc(100vh - 80px)" }}>
+            <Box sx={{ maxWidth: '400px', width: '100%', my: 3 }}>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>
+                  Sign in using your Cryptonary credentials
+                </Typography>
+              </Box>
+              <MInput
+                label='Email Address'
+                placeholder='Your email address'
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                error={validationStr[0]}
+              />
+              <MInput
+                type='password'
+                label='Password'
+                placeholder='Your password'
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                error={validationStr[1]}
+              />
 
+              <Stack direction="row">
+                <Box sx={{ flexGrow: 1 }} />
                 <RouterLink to="/forgot-password">
-                  <Link component="button" variant="body2" className={classes.forgotLink}>Forgot password?</Link>
+                  <Link component="button" variant="body2" sx={{ mt: 2 }}>
+                    <Typography variant="subTitle4" sx={{ color: "#141414" }}>
+                      Forgot password?
+                    </Typography>
+                  </Link>
                 </RouterLink>
+              </Stack>
 
-                <MButton
-                  color='success'
-                  variant='contained'
-                  fullWidth
-                  className={classes.signupBtn}
-                >
-                  Sign In
-                </MButton>
-
-                <p className={classes.loginLink}>Don’t have an account? <RouterLink to="/signup">
-                  <Link component="button" variant="body2">Create one now</Link></RouterLink>
-                </p>
-                <p className={classes.contactLink}>Having troubles signing up? <Link href='mailto:support@cryptonary.com'>
+              <MButton
+                color='success'
+                variant='contained'
+                fullWidth
+                sx={{ height: 48, my: 5, color: '#FFF', fontSize: 16 }}
+                onClick={handleLogin}
+              >
+                Sign In
+              </MButton>
+              <Box sx={{ textAlign: "center" }}>
+                <Typography variant="subTitle1" sx={{ color: "#555" }}>Don’t have an account? <RouterLink to="/signup">
+                  <Link color="#62BE5F">Create one now</Link></RouterLink>
+                </Typography>
+              </Box>
+              <Box sx={{ textAlign: "center", mt: 10 }}>
+                <Typography variant="subTitle" sx={{ color: "#858585" }}>Having troubles signing up? <Link
+                  href='mailto:support@cryptonary.com' color="#555">
                   Contact our support team</Link>
-                </p>
-              </div>
-            </div>
-          </Grid>
-          <Hidden mdDown>
-            <Grid item md={6} className={classes.sliderArea}>
-              <div className={classes.center}>
-                <Card className={classes.sliderItemArea}>
-                  <Carousel />
-                </Card>
-              </div>
-            </Grid>
-          </Hidden>
+                </Typography>
+              </Box>
+            </Box>
+          </Stack>
         </Grid>
-      </Box>
-    </>
+        <Hidden mdDown>
+          <Grid item md={6} sx={{ backgroundColor: '#F6F8FE' }}>
+            <Stack justifyContent="center" alignItems="center" sx={{ position: 'sticky', top: 'calc((100vh - 550px) / 2 )' }}>
+              <Card sx={{
+                mb: 3,
+                background: 'transparent',
+                border: 'none',
+                boxShadow: 'none',
+                width: 500,
+                height: 550,
+              }}>
+                <Carousel />
+              </Card>
+            </Stack>
+          </Grid>
+        </Hidden>
+      </Grid>
+    </Container>
   )
 }
 
