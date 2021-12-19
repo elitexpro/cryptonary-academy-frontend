@@ -23,7 +23,7 @@ const LatestArticleItem = () => {
 
         <Grid item xs={8}>
           <Stack spacing={1}>
-            <Typography variant="h5" sx={{ color: "#232A45", fontWeight: 500 }}>
+            <Typography variant="subTitle1" sx={{ color: "#232A45", fontWeight: 500 }}>
               Enjin launched a $100M fund to support Metaverse projects
             </Typography>
             <Typography variant="subTitle" sx={{ color: "#858585" }}>

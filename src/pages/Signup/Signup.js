@@ -50,7 +50,7 @@ const Signup = () => {
       <Grid container spacing={0}>
         <Grid item md={6} xs={12}>
           <Stack justifyContent="center" alignItems="center">
-            <Box sx={{ maxWidth: '400px', width: '100%', my: 3 }}>
+            <Box sx={{ maxWidth: '400px', width: '100%', my: 4 }}>
               <Box sx={{ mb: 2 }}>
                 <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>Sign up to Crypto School</Typography>
               </Box>
@@ -117,7 +117,7 @@ const Signup = () => {
               </MButton>
               <Box sx={{ textAlign: "center" }}>
                 <Typography variant="subTitle1" sx={{ color: "#555" }}>Already have an account? <RouterLink to="/login">
-                  <Link color="#62BE5F">Sign in</Link></RouterLink>
+                  <Link component="button" color="#62BE5F" sx={{ fontSize: "1.125rem" }}>Sign in</Link></RouterLink>
                 </Typography>
               </Box>
               <Box sx={{ textAlign: "center", mt: 10 }}>
@@ -137,7 +137,8 @@ const Signup = () => {
                 background: 'transparent',
                 border: 'none',
                 boxShadow: 'none',
-                width: 500,
+                width: '100%',
+                maxWidth: 550,
                 height: 550,
               }}>
                 <Carousel />

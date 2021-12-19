@@ -65,8 +65,8 @@ const Login = () => {
               <Stack direction="row">
                 <Box sx={{ flexGrow: 1 }} />
                 <RouterLink to="/forgot-password">
-                  <Link component="button" variant="body2" sx={{ mt: 2 }}>
-                    <Typography variant="subTitle4" sx={{ color: "#141414" }}>
+                  <Link component="button" sx={{ mt: 2 }} color="#141414">
+                    <Typography variant="subTitle4" >
                       Forgot password?
                     </Typography>
                   </Link>
@@ -84,7 +84,7 @@ const Login = () => {
               </MButton>
               <Box sx={{ textAlign: "center" }}>
                 <Typography variant="subTitle1" sx={{ color: "#555" }}>Don’t have an account? <RouterLink to="/signup">
-                  <Link color="#62BE5F">Create one now</Link></RouterLink>
+                  <Link component="button" color="#62BE5F" sx={{ fontSize: "1.125rem" }}>Create one now</Link></RouterLink>
                 </Typography>
               </Box>
               <Box sx={{ textAlign: "center", mt: 10 }}>
@@ -104,7 +104,8 @@ const Login = () => {
                 background: 'transparent',
                 border: 'none',
                 boxShadow: 'none',
-                width: 500,
+                width: '100%',
+                maxWidth: 550,
                 height: 550,
               }}>
                 <Carousel />

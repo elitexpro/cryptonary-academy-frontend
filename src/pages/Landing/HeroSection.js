@@ -16,7 +16,7 @@ const HeroSection = () => {
     <Box sx={{ py: 3 }}>
       <Grid container spacing={2}>
         <Grid item md={6} xs={12} >
-          <Stack direction="row" justifyContent="center"  alignItems="center" sx={{ height: "100%" }}>
+          <Stack direction="row" justifyContent="center" alignItems="center" sx={{ height: "100%" }}>
             <Stack spacing={2} sx={{ maxWidth: 600 }}>
               <Typography variant="headTitle1" sx={{ fontSize: { sm: "56px", xs: "32px" }, lineHeight: '110%' }}>
                 Stay ahead of the curve with Cryptonary
@@ -26,7 +26,7 @@ const HeroSection = () => {
                 Tailored to power your learning. We’re excited to start delivering you insightful crypto knowledge.
               </Typography>
 
-              <Box sx={{ display: { md: "flex", xs: "block" }, pt: 4 }}>
+              <Box sx={{ display: { md: "flex", xs: "block" }, pt: 4, flexWrap: 'wrap' }}>
                 <MButton
                   color='success'
                   variant='contained'
@@ -44,6 +44,7 @@ const HeroSection = () => {
                   sx={{
                     py: 1.5, mb: 2, boxShadow: "unset",
                     fontSize: '18px',
+                    width: 260,
                   }}
                   endIcon={<ArrowDownwardRoundedIcon />}
                 >

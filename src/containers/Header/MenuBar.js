@@ -111,14 +111,13 @@ const MenuBar = ({ open, onClose }) => {
               Subscribe
             </MButton>
             <Divider sx={{ mt: 4, mb: 1 }} />
-            <Stack direction="row" sx={{ mb: 2, px: 2 }} alignItems="center">
+            <Stack direction="row" sx={{ mb: 2 }} alignItems="center">
               <MButton
                 color="inherit"
+                sx={{ px: 2 }}
                 startIcon={<FiHelpCircle style={{ color: "#141414", fontSize: 20 }} />}
               >
-                <Typography variant="subTitle3" sx={{ color: "#141414" }}>
-                  Help
-                </Typography>
+                Help
               </MButton>
               <Box sx={{ flexGrow: 1 }} />
               <Stack direction="row" alignItems="center">
@@ -128,7 +127,7 @@ const MenuBar = ({ open, onClose }) => {
 
                     return (
                       <IconButton key={index}>
-                        <Link href={to} target="_blank" sx={{ height: 24 }}>
+                        <Link href={to} target="_blank" sx={{ height: 24, width: 24 }}>
                           {icon}
                         </Link>
                       </IconButton>

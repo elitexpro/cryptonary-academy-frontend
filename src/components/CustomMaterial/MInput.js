@@ -35,7 +35,7 @@ const InputStyle = styled(Input)(({ theme, styleProps }) => {
     border: '1px solid #EAEAEA',
     borderRadius: '4px',
     color: '#858585',
-    fontSize: '14px',
+    fontSize: '16px',
     height: '48px',
     background: 'white',
   }
