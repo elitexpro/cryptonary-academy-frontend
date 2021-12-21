@@ -1,25 +1,34 @@
 import React from 'react'
 import {
   Container,
-  Box,
+  Grid,
+  Hidden,
 } from '@mui/material'
 import PulseDatePicker from './PulseDatePicker'
-import PulseContent from './PulseContent'
+import PulseList from './PulseList'
+import CPROPulse from './CPROPulse'
 import { Footer } from 'containers/Footer'
 
 const Pulse = () => {
   return (
-    <Box>
-      <Box sx={{ px: { md: 5, xs: 0 } }}>
-        <Container maxWidth="xl">
-          <PulseDatePicker />
-          <PulseContent />
-        </Container>
-      </Box>
+    <>
+      <PulseDatePicker />
       <Container maxWidth="xl">
+
+        <Grid container spacing={4} >
+          <Grid item xs={12} md={8} >
+            <PulseList />
+          </Grid>
+
+          <Hidden mdDown>
+            <Grid item md={4}>
+              <CPROPulse />
+            </Grid>
+          </Hidden>
+        </Grid>
         <Footer />
       </Container>
-    </Box>
+    </>
   )
 }
 

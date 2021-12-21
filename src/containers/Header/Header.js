@@ -55,7 +55,7 @@ const Header = () => {
 
   return (
     <>
-      <AppBar sx={{ background: 'white', py: '20px', boxShadow: "none", borderBottom: "1px solid #c3c3c3" }}>
+      <AppBar sx={{ background: 'white', py: '20px', boxShadow: "none", borderBottom: "1px solid #c3c3c3" }} position='absolute'>
         <Container maxWidth="xl">
           <Toolbar className={classes.toolbar} >
             <Logo />

@@ -16,8 +16,8 @@ const icons = [
 
 const PulseList = () => {
   return (
-    <Stack sx={{ width: "100%" }} spacing={2}>
-      {mockupData.map((item, index) => <PulseItem key={index} icon={icons[index]} content={item} /> )}
+    <Stack spacing={2} sx={{ mt: { md: 2.5, xs: 0 } }}>
+      {mockupData.map((item, index) => <PulseItem key={index} icon={icons[index]} data={item} />)}
     </Stack>
   )
 }
