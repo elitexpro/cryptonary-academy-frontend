@@ -7,15 +7,26 @@ import {
   Grid,
   Container,
   Box,
+  TextField,
+  Popper,
+  Grow,
+  Paper,
+  ClickAwayListener,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import EventNoteRoundedIcon from '@mui/icons-material/EventNoteRounded'
 import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded'
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import Sticky from 'react-stickynode'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import StaticDatePicker from '@mui/lab/StaticDatePicker'
 
 const PulseDatePicker = () => {
   const [isPinned, setIsPinned] = useState(false)
+  const [value, setValue] = React.useState(new Date())
+  const [openDatePicker, setOpenDatePicker] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const handleStickyStateChange = (status) => {
     if (status.status === Sticky.STATUS_FIXED) {
@@ -26,11 +37,16 @@ const PulseDatePicker = () => {
     }
   }
 
+  const handlePickerToggle = (e) => {
+    setOpenDatePicker(prev => !prev)
+    setAnchorEl(e.currentTarget)
+  }
+
   return (
     <Sticky innerZ='2' onStateChange={handleStickyStateChange}>
       <Box>
         <Container maxWidth="xl">
-          <Grid container sx={{ py: 4.5, background: "white" }} spacing={4}>
+          <Grid container sx={{ py: 4.5, background: "white", pr: { md: 2, xs: 0 } }}>
             <Grid item xs={12} md={8}  >
               <Stack
                 direction="row"
@@ -74,6 +90,7 @@ const PulseDatePicker = () => {
                   color="inherit"
                   variant="outlined"
                   sx={{ backgroundColor: "#FAFAFA", border: "none", px: { md: 4, xs: 2 } }}
+                  onClick={handlePickerToggle}
                 >
                   <EventNoteRoundedIcon style={{ color: "#4AAF47", minWidth: 20 }} />
                   <Hidden mdDown>
@@ -88,6 +105,36 @@ const PulseDatePicker = () => {
           {isPinned && <Divider />}
         </Hidden>
       </Box>
+
+      <Popper
+        open={openDatePicker}
+        anchorEl={anchorEl}
+        transition
+        disablePortal
+        placement='bottom-end'
+      >
+        {({ TransitionProps }) => (
+          <Grow {...TransitionProps}>
+            <Paper elevation={3} sx={{ p: 1, mt: 0.5 }}>
+              <ClickAwayListener onClickAway={() => setOpenDatePicker(false)}>
+                <Box>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <StaticDatePicker
+                    displayStaticWrapperAs="desktop"
+                    openTo="day"
+                    value={value}
+                    onChange={(newValue) => {
+                      setValue(newValue)
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+                </Box>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </Sticky>
   )
 }
