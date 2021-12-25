@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import useStyles from './styles.js'
 import {
   Box,
   Grid,
   Dialog,
   DialogContent,
+  Stack,
+  Typography,
 } from '@mui/material'
 import {
   MButton,
@@ -15,19 +16,22 @@ import { useHistory } from 'react-router-dom'
 
 
 const ResetPassword = () => {
-  const classes = useStyles()
   const history = useHistory()
   const [openModal, setOpenModal] = useState(false)
 
   return (
     <>
-      <Box className={classes.heroBox}>
+      <Box sx={{ px: { md: 0, xs: 2 }, flexGrow: 1 }}>
         <Grid container spacing={0}>
           <Grid item md={12} xs={12}>
-            <div className={classes.center}>
-              <div className={classes.fieldArea}>
-                <p className={classes.title}>Reset your password</p>
-                <p className={classes.description}>Your new password must be different from previous used passwords.</p>
+            <Stack sx={{ minHeight: "calc(100vh - 80px)" }} justifyContent="center" alignItems="center">
+              <Box sx={{ textAlign: "center", maxWidth: 480, width: 480, my: 4 }}>
+                <Box sx={{ mb: 5 }}>
+                  <Typography variant="h4" color="#141414" sx={{ mb: 2, fontWeight: 500 }}>Reset Password</Typography>
+                  <Typography variant="subTitle" color="#858585">
+                    Your new password must be different from previous used passwords.
+                  </Typography>
+                </Box>
 
                 <MInput type='password' label='Password' placeholder='Your password' />
                 <MInput type='password' label='Confirm Password' placeholder='Your confirm password' />
@@ -36,13 +40,18 @@ const ResetPassword = () => {
                   color='success'
                   variant='contained'
                   fullWidth
-                  className={classes.signupBtn}
+                  sx={{
+                    color: "#FFF",
+                    height: 48,
+                    mt: 5,
+                    fontSize: 16,
+                  }}
                   onClick={() => setOpenModal(true)}
                 >
                   Reset Password
                 </MButton>
-              </div>
-            </div>
+              </Box>
+            </Stack>
           </Grid>
         </Grid>
       </Box>
@@ -50,14 +59,22 @@ const ResetPassword = () => {
       <Dialog
         onClose={() => setOpenModal(prev => !prev)}
         open={openModal}
+        fullWidth
       >
         <DialogContent sx={{ textAlign: 'center' }}>
           <SuccessBrand />
-          <p className={classes.sentTitle}>Password reset Instructions has been sent!</p>
+          <Box sx={{ mt: 3 }}>
+            <Typography variant="subTitle3" color="#141414">Your password has been reset successfully!</Typography>
+          </Box>
           <MButton
             color='success'
             variant='contained'
-            className={classes.signupBtn}
+            sx={{
+              color: "#FFF",
+              height: 48,
+              mt: 4,
+              fontSize: 16,
+            }}
             onClick={() => history.push('/login')}
           >
             Login using new password
