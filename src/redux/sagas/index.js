@@ -3,6 +3,7 @@ import global from './global'
 import auth from './auth'
 import article from './article'
 import author from './author'
+import tag from './tag'
 
 export default function* rootSaga () {
   yield all([
@@ -10,5 +11,6 @@ export default function* rootSaga () {
     global(),
     article(),
     author(),
+    tag(),
   ])
 }

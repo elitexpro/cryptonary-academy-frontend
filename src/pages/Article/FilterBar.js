@@ -1,25 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import {
   Box,
   Divider,
   Stack,
   Hidden,
-  Popper,
-  Grow,
-  Paper,
-  ClickAwayListener,
-  IconButton,
-  Typography,
   Grid,
   Chip
 } from '@mui/material'
 import { SearchBox } from 'components/SearchBox'
 import { MButton, MButtonMenu } from 'components/CustomMaterial'
 import { Filter } from 'containers/Filter'
-import TopicSelectPaper from './TopicSelectPaper'
-import { FiHash, FiSliders } from 'react-icons/fi'
+import { FiSliders } from 'react-icons/fi'
 import DoneIcon from '@mui/icons-material/Done'
-import CloseIcon from '@mui/icons-material/Close'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllTags } from 'redux/modules/tag/actions'
+import { tagStatusSelector, tagListSelector } from 'redux/modules/tag/selectors'
+import SelectTags from './SelectTags'
 
 const OPTIONS = [
   { title: "Both", isSelected: true },
@@ -46,28 +42,19 @@ const CONTENT = [
   },
 ]
 
-const topicItems = [
-  { text: 'Blockchain', isSelected: false },
-  { text: 'NFT', isSelected: false },
-  { text: 'Bitcoin', isSelected: false },
-  { text: 'FUD', isSelected: false },
-  { text: 'DeFi', isSelected: false },
-  { text: 'Centralized', isSelected: false },
-  { text: 'Bullish', isSelected: false },
-  { text: 'Mining', isSelected: false },
-  { text: 'Fiat', isSelected: false },
-  { text: 'Altcoins', isSelected: false },
-  { text: 'Wallet', isSelected: false },
-  { text: 'JOMO', isSelected: false },
-  { text: 'FOMO', isSelected: false },
-]
-
 const FilterBar = () => {
+  const dispatch = useDispatch()
+  const tagList = useSelector(tagListSelector)
+  const tagStatus = useSelector(tagStatusSelector)
+  const [isLoading, setIsLoading] = useState(false)
   const [options, setOptions] = useState(OPTIONS)
   const [openTopic, setOpenTopic] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [topics, setTopics] = useState(topicItems)
-  const [selectedTopics, setSelectedTopics] = useState([])
+  const [topics, setTopics] = useState([])
+
+  const selectedTopics = useMemo(() => {
+    return topics.filter(item => item.isSelected)
+  }, [topics])
+
   const [filterDrawer, setFilterDrawer] = useState(false)
 
   const handleChangeType = (item) => () => {
@@ -85,46 +72,49 @@ const FilterBar = () => {
     })
   }
 
+  useEffect(() => {
+    if (tagStatus === "PENDING") {
+      setTopics([])
+      setIsLoading(true)
+    } else {
+      setTopics(tagList.map(item => {
+        return ({
+          name: item.name,
+          isSelected: false
+        })
+      }))
+      setIsLoading(false)
+    }
+  }, [tagStatus, tagList])
+
+  const loadTopicTags = useCallback(() => {
+    dispatch(getAllTags())
+  }, [dispatch])
+
+  useEffect(() => {
+    openTopic && (tagStatus === "INIT" || tagStatus === "FAILED") && loadTopicTags()
+  }, [openTopic, tagStatus, loadTopicTags])
+
   const handleTopicToggle = (e) => {
     setOpenTopic(prev => !prev)
-    setAnchorEl(e.currentTarget)
   }
 
-  const handleApply = () => {
-    setOpenTopic(false)
-    setSelectedTopics(topics.filter(topic => topic.isSelected))
-  }
 
   const handleDelete = (index) => () => {
-    let data = []
-    Object.assign(data, selectedTopics)
-    data.splice(index, 1)
-    setSelectedTopics(data)
+    const tmp = [...topics]
+    tmp[index].isSelected = false
+    setTopics(tmp)
   }
 
   const toggleDrawer = (open) => (event) => {
     setFilterDrawer(open)
   }
 
-  useEffect(() => {
-    setTopics(prev => {
-      const res = prev.map(item => {
-        const temp = selectedTopics.find(x => x.text === item.text)
-
-        return {
-          text: item.text,
-          isSelected: temp ? true : false
-        }
-      })
-
-      return res
-    })
-  }, [selectedTopics])
-
   return (
     <Box>
       <Stack direction="row" sx={{ mt: 5 }} spacing={2}>
         <SearchBox placeholder="Search in Basics" />
+
         <Hidden mdDown>
           <Stack direction="row" sx={{ p: 0.5, border: "1px solid #E4E4E4", borderRadius: "2px" }} spacing={1}>
             {
@@ -155,6 +145,7 @@ const FilterBar = () => {
             }
           </Stack>
         </Hidden>
+
         {options.find(option => option.isSelected && (option.title === 'Videos' || option.title === 'Both')) &&
           <Hidden mdDown>
             <MButtonMenu menuData={CONTENT[0]} />
@@ -165,23 +156,18 @@ const FilterBar = () => {
             <MButtonMenu menuData={CONTENT[1]} />
           </Hidden>
         }
+
         <Box sx={{ flexGrow: 1 }} />
+
         <Box>
           <Hidden mdDown>
-            <MButton
-              color='inherit'
-              sx={{ color: '#000', backgroundColor: '#FAFAFA', minWidth: '176px', height: '100%' }}
-              startIcon={<FiHash sx={{ fontSize: '24px', color: '#000' }} />}
-              endIcon={
-                selectedTopics.length > 0 &&
-                <Stack sx={{ backgroundColor: "#4AAF47", borderRadius: "16px", width: 24, height: 24, textAlign: "center" }}>
-                  <Typography variant="subTitle4" sx={{ color: "#FFF" }}>{selectedTopics.length}</Typography>
-                </Stack>
-              }
-              onClick={handleTopicToggle}
-            >
-              Select Topics
-            </MButton>
+            <SelectTags
+              tags={topics}
+              open={openTopic}
+              toggle={handleTopicToggle}
+              apply={setTopics}
+              isLoading={isLoading}
+            />
           </Hidden>
           <Hidden mdUp>
             <MButton
@@ -197,6 +183,7 @@ const FilterBar = () => {
           </Hidden>
         </Box>
       </Stack>
+
       {selectedTopics.length > 0 &&
         <Box sx={{ mt: 4 }}>
           <Grid container spacing={2} >
@@ -205,7 +192,7 @@ const FilterBar = () => {
                 <Grid item xs='auto' key={index}>
                   <Chip
                     color="success"
-                    label={item.text}
+                    label={item.name}
                     variant="outlined"
                     onDelete={handleDelete(index)}
                   />
@@ -215,48 +202,8 @@ const FilterBar = () => {
           </Grid>
         </Box>
       }
+
       <Divider sx={{ my: 4 }} />
-      <Popper
-        open={openTopic}
-        anchorEl={anchorEl}
-        transition
-        disablePortal
-        placement='bottom-start'
-        style={{
-          zIndex: '1102',
-          width: '568px',
-          mt: 2,
-        }}
-      >
-        {({ TransitionProps }) => (
-          <Grow {...TransitionProps}>
-            <Paper>
-              <ClickAwayListener onClickAway={() => setOpenTopic(false)}>
-                <Box sx={{ mt: 1, py: 4 }}>
-                  <Stack direction="row" sx={{ px: 4 }}>
-                    <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>Select Topics</Typography>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <IconButton onClick={() => setOpenTopic(false)}>
-                      <CloseIcon />
-                    </IconButton>
-                  </Stack>
-                  <TopicSelectPaper topics={topics} setTopics={setTopics} />
-                  <Stack direction="row" spacing={2} sx={{ px: 4 }}>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <MButton color="inherit" sx={{ width: 108, height: 48 }}>Clear all</MButton>
-                    <MButton
-                      color="success"
-                      variant="outlined"
-                      sx={{ width: 108, height: 48 }}
-                      onClick={handleApply}
-                    >Apply</MButton>
-                  </Stack>
-                </Box>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
     </Box>
   )
 }

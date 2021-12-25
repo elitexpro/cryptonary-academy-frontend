@@ -6,18 +6,16 @@ import {
 } from '@mui/material'
 
 const TopicSelectPaper = ({ topics, setTopics }) => {
-  const handleClickTopic = (item) => () => {
-    setTopics(prev => {
-      const res = prev.map(x => {
-        const { isSelected, text } = x
-        return {
-          text,
-          isSelected: text === item.text ? !isSelected : isSelected
-        }
 
-      })
-      return res
-    })
+  const handleClickTopic = (item) => () => {
+    setTopics(prev => prev.map(x => {
+      const { isSelected, name } = x
+      return {
+        name,
+        isSelected: name === item.name ? !isSelected : isSelected
+      }
+
+    }))
   }
 
   return (
@@ -28,7 +26,7 @@ const TopicSelectPaper = ({ topics, setTopics }) => {
             <Grid item xs='auto' key={key}>
               <Chip
                 color={item.isSelected ? 'success' : undefined}
-                label={item.text}
+                label={item.name}
                 variant={!item.isSelected ? 'outlined' : undefined}
                 onClick={handleClickTopic(item)}
               />

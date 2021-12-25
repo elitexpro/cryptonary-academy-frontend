@@ -2,9 +2,13 @@ import { combineReducers } from 'redux'
 import global from './modules/global/reducers'
 import auth from './modules/auth/reducers'
 import article from './modules/article/reducers'
+import author from './modules/author/reducers'
+import tag from './modules/tag/reducers'
 
 export default combineReducers({
   auth,
   global,
-  article
+  article,
+  author,
+  tag,
 })
