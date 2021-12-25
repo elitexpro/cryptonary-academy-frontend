@@ -1,5 +1,6 @@
 import React from 'react'
 import vidoeItemSvg from 'assets/image/video.svg'
+import { Link as RouterLink } from 'react-router-dom'
 import {
   Box,
   IconButton,
@@ -18,7 +19,7 @@ const VideoItem = ({ post }) => {
     <Stack>
       <img src={post ? post.feature_image : vidoeItemSvg} alt='' style={{ width: '100%' }} />
       <Typography variant="subTitle3" sx={{ mt: 2, mb: 1 }}>
-        <Link href={`article/${post?.id}`} underline="hover" sx={{ color: "#232A45" }}>
+        <Link component={RouterLink} to={`article/${post?.id}`} underline="hover" sx={{ color: "#232A45" }}>
           {post ? post.title : "What is Cold Storage?"}
         </Link>
       </Typography>

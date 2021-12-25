@@ -7,10 +7,12 @@ import {
   Stack,
   IconButton,
   Divider,
+  Link,
 } from '@mui/material'
 import { FiFacebook, FiTwitter, FiLink } from "react-icons/fi"
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import { useHistory } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 
 const SOCIAL_ITEMS = [
   { to: "#", icon: <FiLink style={{ color: "#141414", fontSize: 22 }} /> },
@@ -72,13 +74,24 @@ const ArticleInfo = ({ article }) => {
         }}
       >
         <Typography variant="subTitle" sx={{ color: "#555" }}>
-          by <Typography variant="subTitle" sx={{ color: "#141414", fontWeight: 500 }}>{article?.primary_author?.name}</Typography>
+          by <Typography variant="subTitle" sx={{ color: "#141414", fontWeight: 500 }}>
+            <Link
+              component={RouterLink}
+              to={`/author/${article?.primary_author?.id}`}
+              underline="hover"
+              sx={{ color: "#232A45" }}
+            >
+              {article?.primary_author?.name}
+            </Link>
+          </Typography>
         </Typography>
         <Hidden mdUp>
           <Box sx={{ flexGrow: 1 }} />
         </Hidden>
-        <Typography variant="subTitle" sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
-          {moment(article?.published_at).format('DD ddd YYYY : kk:mm')}
+        <Typography
+          variant="subTitle"
+          sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
+          {moment(article?.published_at).format('DD MMM YYYY : kk:mm')}
         </Typography>
       </Box>
     </Box >

@@ -49,15 +49,28 @@ const ArticleDetail = (props) => {
               <BookmarkBorderIcon />
             </IconButton>
           </Typography>
-
         </Stack>
 
         <Box sx={{ mb: 3, mt: 4 }}>
           <img src={currentArticle?.feature_image} alt='article-detail' style={{ width: '100%', maxHeight: 480 }} />
         </Box>
         <Box sx={{ display: { md: "flex", xs: "block" }, mb: 5 }}>
-          <Box sx={{ py: 2, px: { xs: 2, md: 5 }, background: "#F8FCF8", borderLeft: "1px solid #4AAF47" }} maxWidth="md">
-            <Typography variant="h5" sx={{ color: { md: "#141414", xs: "#4AAF47" }, fontWeight: 500, mb: 2 }}>
+          <Box
+            sx={{
+              py: 2,
+              px: { xs: 2, md: 5 },
+              background: "#F8FCF8",
+              borderLeft: "1px solid #4AAF47"
+            }}
+            maxWidth="md"
+          >
+            <Typography
+              variant="h5"
+              sx={{
+                color: { md: "#141414", xs: "#4AAF47" },
+                fontWeight: 500, mb: 2
+              }}
+            >
               {currentArticle?.title}
             </Typography>
 
