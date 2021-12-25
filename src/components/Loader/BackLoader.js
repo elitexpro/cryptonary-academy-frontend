@@ -1,14 +1,14 @@
 import React from 'react'
-import { CircularProgress } from '@mui/material'
-import useStyles from './styles'
+import { Backdrop, CircularProgress } from '@mui/material'
 
-
-const BackLoader = () => {
-  const classes = useStyles()
+const BackLoader = ({ open }) => {
   return (
-    <div className={classes.backdrop}>
+    <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={open}
+    >
       <CircularProgress color="inherit" />
-    </div>
+    </Backdrop>
   )
 }
 

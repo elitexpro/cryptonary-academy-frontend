@@ -3,11 +3,13 @@ import MInput from './MInput'
 import MCheckbox from './MCheckbox'
 import MBreadcrumbs from './MBreadcrumbs'
 import MButtonMenu from './MButtonMenu'
+import MAlert from './MAlert'
 
 export {
   MButton,
   MInput,
   MCheckbox,
   MBreadcrumbs,
-  MButtonMenu
+  MButtonMenu,
+  MAlert,
 }

@@ -13,7 +13,7 @@ import Article from 'pages/Article'
 import AuthorDetail from 'pages/AuthorDetail'
 import Pulse from 'pages/Pulse'
 import Landing from 'pages/Landing'
-// import AuthedRoute from './AuthedRoute'
+import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
 
@@ -22,11 +22,11 @@ const routes = () => (
   <Router>
     <Layout>
       <Route exact path='/' component={Landing} />
-      <Route path='/app' component={Home} />
-      <Route path='/preference' component={Preference} />
+      <AuthedRoute path='/app' component={Home} />
+      <AuthedRoute path='/preference' component={Preference} />
       <PublicRoute path='/signup' component={Signup} />
       <PublicRoute path='/login' component={Login} />
-      <Route path='/verify' component={Verify} />
+      <AuthedRoute path='/verify' component={Verify} />
       <Route path='/forgot-password' component={ForgotPassword} />
       <Route path='/reset-password' component={ResetPassword} />
       <Route path='/video-detail' component={VideoDetail} />

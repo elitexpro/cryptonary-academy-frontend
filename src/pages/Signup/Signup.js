@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Hidden,
   Box,
@@ -14,12 +14,19 @@ import {
   MButton,
   MInput,
   MCheckbox,
+  MAlert,
 } from 'components/CustomMaterial'
+import { BackLoader } from 'components/Loader'
 import { Carousel } from 'components/Carousel'
 import { Link as RouterLink } from 'react-router-dom'
 import { validator } from 'helpers/validator'
+import { useDispatch } from 'react-redux'
+import { signup } from 'redux/modules/auth/actions'
+import { useHistory } from 'react-router-dom'
 
 const Signup = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
   const [isChecked, setIsChecked] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -27,7 +34,31 @@ const Signup = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [validationStr, setValidationStr] = useState([])
+  const [openAlert, setOpenAlert] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('Error on Signup')
+  const [isLoading, setIsloading] = useState(false)
 
+  const doSignup = useCallback(() => {
+    setIsloading(true)
+    dispatch(signup({
+      body: {
+        firstName, lastName, email, password
+      },
+      success: (res) => {
+        setIsloading(false)
+        history.push('/app')
+      },
+      fail: (e) => {
+        if (e.status === 422) {
+          setErrorMessage(e.data.error)
+          setOpenAlert(true)
+        } else {
+          setOpenAlert(true)
+        }
+        setIsloading(false)
+      }
+    }))
+  }, [dispatch, history, firstName, lastName, email, password])
 
   const handleSignup = () => {
     let validation_str = []
@@ -43,10 +74,15 @@ const Signup = () => {
     if (!isValid) {
       return
     }
+
+    doSignup()
   }
 
   return (
     <Container maxWidth="xl">
+      <MAlert open={openAlert} setOpen={setOpenAlert} message={errorMessage} type="error" />
+      <BackLoader open={isLoading} />
+
       <Grid container spacing={0}>
         <Grid item md={6} xs={12}>
           <Stack justifyContent="center" alignItems="center">

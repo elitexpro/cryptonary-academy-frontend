@@ -17,20 +17,32 @@ import avatarImg from 'assets/image/avatar.png'
 import { FiUser, FiSliders, FiLogOut } from "react-icons/fi"
 import { useHistory } from 'react-router-dom'
 import useStyles from './styles.js'
+import { logout } from 'redux/modules/auth/actions'
+import { authClear } from 'helpers/localCheck'
+import { useDispatch } from 'react-redux'
 
 
 const UserAvatar = () => {
   const classes = useStyles()
   const history = useHistory()
+  const dispatch = useDispatch()
   const [openTopic, setOpenTopic] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
   const profileMenu = [
     { text: 'My Account', icon: <FiUser className={classes.avatarListIcon} />, to: '#' },
     { text: 'My Preferences ', icon: <FiSliders className={classes.avatarListIcon} />, to: '#' },
-    { text: 'Sign out', icon: <FiLogOut className={classes.avatarListIcon} />, to: '#' },
+    {
+      text: 'Sign out',
+      icon: <FiLogOut className={classes.avatarListIcon} />,
+      to: null,
+      func: () => {
+        dispatch(logout())
+        authClear()
+        history.push('/')
+      }
+    },
   ]
-
 
   const handleAvatarToggle = (e) => {
     setOpenTopic(prev => !prev)
@@ -67,7 +79,7 @@ const UserAvatar = () => {
 
                         return (
                           <ListItem disablePadding key={key}>
-                            <ListItemButton onClick={() => history.push(to)}>
+                            <ListItemButton onClick={() => to ? history.push(to) : item?.func()}>
                               <ListItemIcon sx={{ mr: 2, minWidth: 'unset' }}>
                                 {icon}
                               </ListItemIcon>

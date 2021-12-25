@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Stack,
   Box,
@@ -12,15 +12,41 @@ import {
 import {
   MButton,
   MInput,
+  MAlert,
 } from 'components/CustomMaterial'
 import { Link as RouterLink } from 'react-router-dom'
 import { Carousel } from 'components/Carousel'
 import { validator } from 'helpers/validator'
+import { BackLoader } from 'components/Loader'
+import { useDispatch } from 'react-redux'
+import { login } from 'redux/modules/auth/actions'
+import { useHistory } from 'react-router-dom'
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [validationStr, setValidationStr] = useState([])
+  const [openAlert, setOpenAlert] = useState(false)
+  const [isLoading, setIsloading] = useState(false)
+
+  const doLogin = useCallback(() => {
+    setIsloading(true)
+    dispatch(login({
+      body: {
+        email, password
+      },
+      success: (res) => {
+        setIsloading(false)
+        history.push('/app')
+      },
+      fail: (e) => {
+        setOpenAlert(true)
+        setIsloading(false)
+      }
+    }))
+  }, [dispatch, history, email, password])
 
   const handleLogin = () => {
     let validation_str = []
@@ -33,10 +59,21 @@ const Login = () => {
     if (!isValid) {
       return
     }
+
+    doLogin()
+  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin()
+    }
   }
 
   return (
     <Container maxWidth="xl">
+      <MAlert open={openAlert} setOpen={setOpenAlert} message='Incorrect email or password!' type="error" />
+      <BackLoader open={isLoading} />
+
       <Grid container spacing={0}>
         <Grid item md={6} xs={12}>
           <Stack justifyContent="center" alignItems="center" sx={{ minHeight: "calc(100vh - 80px)" }}>
@@ -51,6 +88,7 @@ const Login = () => {
                 placeholder='Your email address'
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                onKeyPress={handleKeyPress}
                 error={validationStr[0]}
               />
               <MInput
@@ -59,6 +97,7 @@ const Login = () => {
                 placeholder='Your password'
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                onKeyPress={handleKeyPress}
                 error={validationStr[1]}
               />
 

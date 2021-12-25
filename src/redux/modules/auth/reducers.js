@@ -5,6 +5,7 @@ import * as CONSTANTS from './constants'
 const getInitialState = () => {
   let authedUser = JSON.parse(localStorage.getItem('cryptonary_user') || null)
   let authedToken = JSON.parse(localStorage.getItem('cryptonary_token') || null)
+
   return {
     me: authedUser,
     token: authedToken,
@@ -22,6 +23,8 @@ export default handleActions({
   [requestSuccess(CONSTANTS.DO_SIGNUP)]: (state, { payload }) => ({
     ...state,
     status: 'SUCCESS',
+    me: payload.data.data,
+    token: payload.data.meta.tokens,
   }),
   [requestFail(CONSTANTS.DO_SIGNUP)]: (state, { payload }) => ({
     ...state,
@@ -35,12 +38,15 @@ export default handleActions({
     status: 'PENDING',
     authStatus: 'INIT',
   }),
-  [requestSuccess(CONSTANTS.DO_LOGIN)]: (state, { payload }) => ({
-    ...state,
-    status: 'SUCCESS',
-    me: payload.data,
-    token: payload.data.attributes.tokens,
-  }),
+  [requestSuccess(CONSTANTS.DO_LOGIN)]: (state, { payload }) => {
+    const { attributes: { tokens, ...rest }, id, type } = payload.data
+    return ({
+      ...state,
+      status: 'SUCCESS',
+      me: { id, type, ...rest },
+      token: tokens,
+    })
+  },
   [requestFail(CONSTANTS.DO_LOGIN)]: (state, { payload }) => ({
     ...state,
     status: 'FAILED',
@@ -72,8 +78,8 @@ export default handleActions({
   [requestSuccess(CONSTANTS.UPDATE_USER_PROFILE)]: (state, { payload }) => ({
     ...state,
     status: 'SUCCESS',
-    me: payload.data,
-    token: payload.data.attributes.tokens,
+    me: payload.data.data,
+    token: payload.data.meta.tokens,
   }),
   [requestFail(CONSTANTS.UPDATE_USER_PROFILE)]: (state, { payload }) => ({
     ...state,

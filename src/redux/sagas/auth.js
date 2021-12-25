@@ -6,9 +6,9 @@ const doSignup = apiCall({
   type: CONSTANTS.DO_SIGNUP,
   method: 'post',
   path: 'auth/signup',
-  success: (res, action) => {
-    localStorage.setItem('cryptonary_token', JSON.stringify(res.data.attributes.tokens))
-    localStorage.setItem('cryptonary_user', JSON.stringify(res.data))
+  success: ({ data }, action) => {
+    localStorage.setItem('cryptonary_token', JSON.stringify(data.meta.tokens))
+    localStorage.setItem('cryptonary_user', JSON.stringify(data.data))
   }
 })
 
@@ -16,9 +16,11 @@ const doLogin = apiCall({
   type: CONSTANTS.DO_LOGIN,
   method: 'post',
   path: 'auth/login',
-  success: (res, action) => {
-    localStorage.setItem('cryptonary_token', JSON.stringify(res.data.attributes.tokens))
-    localStorage.setItem('cryptonary_user', JSON.stringify(res.data))
+  success: ({ data }, action) => {
+    const { attributes: { tokens, ...rest }, id, type } = data.data
+
+    localStorage.setItem('cryptonary_token', JSON.stringify(tokens))
+    localStorage.setItem('cryptonary_user', JSON.stringify({ id, type, ...rest }))
   }
 })
 
@@ -112,5 +114,5 @@ export default function* rootSaga() {
   yield takeLatest(CONSTANTS.DELETE_AUTH_USER, doDeleteUser)
   yield takeLatest(CONSTANTS.REQUEST_ACCOUNT_VERIFY, doRequestAccountVerify)
   yield takeLatest(CONSTANTS.CHECK_ACCOUNT_VERIFICATION, doCheckAccountVerification)
-  
+
 }

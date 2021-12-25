@@ -6,7 +6,7 @@ const secondary = "#FF5C93"
 const warning = "#FFC260"
 const success = "#62BE5F"
 const info = "#9013FE"
-const inherit = "#858585"
+// const inherit = "#FFFFF"
 
 const lightenRate = 7.5
 const darkenRate = 15
@@ -60,15 +60,15 @@ export default {
         .darken(darkenRate)
         .toHexString(),
     },
-    inherit: {
-      main: inherit,
-      light: tinycolor(inherit)
-        .lighten(lightenRate)
-        .toHexString(),
-      dark: tinycolor(inherit)
-        .darken(darkenRate)
-        .toHexString(),
-    },
+    // inherit: {
+    //   main: inherit,
+    //   light: tinycolor(inherit)
+    //     .lighten(lightenRate)
+    //     .toHexString(),
+    //   dark: tinycolor(inherit)
+    //     .darken(darkenRate)
+    //     .toHexString(),
+    // },
     black: {
       main: '#000',
     },

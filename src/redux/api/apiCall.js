@@ -13,7 +13,7 @@ const defaultHeaders = () => {
   }
 
   if (auth) {
-    const token = JSON.parse(auth).access.token
+    const token = JSON.parse(auth).accessToken
     headers['Authorization'] = 'Bearer ' + token
   }
 

@@ -25,15 +25,13 @@ import { useHistory } from 'react-router-dom'
 import MenuBar from './MenuBar'
 
 const headerAuthButtons = [
-  { text: 'My Notes', to: '#' },
-  { text: 'Saved Items', to: '#' },
-  { text: 'Quizzes', to: '#' },
+  { text: 'Articles', to: '/article' },
+  { text: 'Videos', to: '/article' },
+  { text: 'Pulse', to: '/pulse' },
 ]
 
 const headerUnAuthButtons = [
-  { text: 'Resources', to: '#' },
-  { text: 'Faqs', to: '#' },
-  { text: 'Help', to: '#' },
+  { text: 'Help', to: 'https://www.cryptonary.com/contact/' },
 ]
 
 const Header = () => {
@@ -100,7 +98,7 @@ const Header = () => {
                           key={key}
                           color='inherit'
                           sx={{ mx: 2, color: '#858585', fontSize: '16px' }}
-                          onClick={() => history.push(item.to)}
+                          onClick={() => window.open(item.to, "_blank")}
                         >
                           {item.text}
                         </MButton>
