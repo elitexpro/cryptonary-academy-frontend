@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import useStyles from './styles.js'
 import {
   Box,
   Grid,
+  Typography,
+  Stack
 } from '@mui/material'
 import {
   MButton,
@@ -14,19 +15,20 @@ import { ForgotPasswordSentModal } from 'containers/ForgotPasswordSentModal'
 
 
 const ForgotPassword = () => {
-  const classes = useStyles()
   const [openSentModal, setOpenSentModal] = useState(false)
 
   return (
     <>
-      <Box className={classes.heroBox}>
+      <Box sx={{ px: { md: 0, xs: 2 }, flexGrow: 1 }}>
         <Grid container spacing={0}>
           <Grid item md={12} xs={12}>
-            <div className={classes.center}>
-              <div className={classes.fieldArea}>
-                <p className={classes.title}>Reset Password</p>
-                <p className={classes.description}>Enter the email associated with your account and
-                  we will send an email with instructions to reset your password. </p>
+            <Stack sx={{ minHeight: "calc(100vh - 80px)" }} justifyContent="center" alignItems="center">
+              <Box sx={{ textAlign: "center", maxWidth: 480, width: 480, my: 4 }}>
+                <Box sx={{ mb: 5 }}>
+                  <Typography variant="h4" color="#141414" sx={{ mb: 2, fontWeight: 500 }}>Reset Password</Typography>
+                  <Typography variant="subTitle" color="#858585">Enter the email associated with your account and
+                    we will send an email with instructions to reset your password. </Typography>
+                </Box>
 
                 <MInput label='Email Address' placeholder='Your email address' />
 
@@ -34,21 +36,27 @@ const ForgotPassword = () => {
                   color='success'
                   variant='contained'
                   fullWidth
-                  className={classes.signupBtn}
+                  sx={{
+                    color: "#FFF",
+                    height: 48,
+                    mt: 5,
+                    fontSize: 16,
+                  }}
                   onClick={() => setOpenSentModal(true)}
                 >
                   Send Instructions
                 </MButton>
 
-                <p className={classes.loginLink}>
-                  <ArrowBackRoundedIcon />
-                  <RouterLink to="/login">
-                    Back to login page
-                  </RouterLink>
-                </p>
-
-              </div>
-            </div>
+                <Stack direction="row" justifyContent="center" sx={{ my: 5 }}>
+                  <ArrowBackRoundedIcon sx={{ mr: 1 }} />
+                  <Stack sx={{ height: 20 }}>
+                    <RouterLink to="/login" style={{ textDecoration: "unset", color: "#858585", fontSize: 16 }}>
+                      Back to login page
+                    </RouterLink>
+                  </Stack>
+                </Stack>
+              </Box>
+            </Stack>
           </Grid>
         </Grid>
       </Box>
