@@ -62,7 +62,7 @@ const quizGroup = [
   },
   {
     step: 3,
-    quiz: 'Select your prefered media type ?',
+    quiz: 'Select your preferred media type ?',
     type: 'single',
     fullWidth: false,
     answer: [
@@ -97,7 +97,7 @@ const Preference = () => {
               >
                 {
                   quizGroup.map((item, key) => {
-                    const { step, quiz, answer, description, fullWidth } = item
+                    const { step, quiz, answer, description, type } = item
 
                     return (
                       <Box key={key} sx={{ display: step !== index && 'none' }}>
@@ -114,7 +114,7 @@ const Preference = () => {
                                 <Grid item md={index === 0 && 8} xs="auto" key={key}>
                                   <QuizItem
                                     content={text}
-                                    type={fullWidth ? 'big' : 'small'}
+                                    type={type}
                                     index={index}
                                   />
                                 </Grid>
@@ -122,8 +122,6 @@ const Preference = () => {
                             })
                           }
                         </Grid>
-
-                        <Box sx={{ flexGrow: 1 }} />
 
                         <Box sx={{ mt: 10, textAlign: 'center', display: "flex", justifyContent: "center" }}>
                           {

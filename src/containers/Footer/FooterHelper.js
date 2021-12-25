@@ -14,7 +14,7 @@ const FooterHelper = () => {
       </Typography>
 
       <Typography variant="subTitle" sx={{ color: "#858585" }} align="center">
-        Need help? Found a bug? Have an idea? contact our friendly Support Team! We’d be happy to help.
+        Need help? Found a bug? Have an idea? Contact our friendly Support Team! We’d be happy to help.
       </Typography>
 
       <Stack

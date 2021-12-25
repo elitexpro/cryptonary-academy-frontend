@@ -12,12 +12,30 @@ import {
   MInput,
 } from 'components/CustomMaterial'
 import { SuccessBrand } from 'components/SuccessBrand'
+import { validator } from 'helpers/validator'
 import { useHistory } from 'react-router-dom'
 
 
 const ResetPassword = () => {
   const history = useHistory()
   const [openModal, setOpenModal] = useState(false)
+  const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [validationStr, setValidationStr] = useState([])
+
+  const handleResetPassword = () => {
+    let validation_str = []
+    validation_str.push(validator(password, ['require', 'password']))
+    validation_str.push(validator(password, ['require', 'password', 'confirm_password'], passwordConfirm))
+
+    setValidationStr(validation_str)
+
+    const isValid = validation_str.filter(item => item).length ? false : true
+    if (!isValid) {
+      return
+    }
+    setOpenModal(true)
+  }
 
   return (
     <>
@@ -33,8 +51,22 @@ const ResetPassword = () => {
                   </Typography>
                 </Box>
 
-                <MInput type='password' label='Password' placeholder='Your password' />
-                <MInput type='password' label='Confirm Password' placeholder='Your confirm password' />
+                <MInput
+                  type='password'
+                  label='New Password'
+                  placeholder='Your password'
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  error={validationStr[0]}
+                />
+                <MInput
+                  type='password'
+                  label='Confirm Password'
+                  placeholder='Your confirm password'
+                  value={passwordConfirm}
+                  onChange={e => setPasswordConfirm(e.target.value)}
+                  error={validationStr[1]}
+                />
 
                 <MButton
                   color='success'
@@ -46,7 +78,7 @@ const ResetPassword = () => {
                     mt: 5,
                     fontSize: 16,
                   }}
-                  onClick={() => setOpenModal(true)}
+                  onClick={handleResetPassword}
                 >
                   Reset Password
                 </MButton>

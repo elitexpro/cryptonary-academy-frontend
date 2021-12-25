@@ -65,7 +65,7 @@ const ForgotPasswordSentModal = ({ open, onClose }) => {
               Password reset Instructions has been sent!
             </Typography>
             <Typography variant="subTitle" color="#858585">
-              Please check your inbox and use the instructions in the email to reset your password.
+              Please check your inbox and follow the instructions in the email to reset your password.
               Be patient, this may take few minutes.
             </Typography>
             <Box sx={{ mt: 4 }}>

@@ -22,7 +22,7 @@ const Verify = () => {
             Be patient, this may take few minutes. </Typography>
           <Box sx={{ my: 5 }}>
             <Typography variant="subTitle" sx={{ color: "#858585" }}>Haven't received yet ?
-              <Link underline="hover" color="#62BE5F" sx={{ cursor: "pointer" }}>Resent Email</Link>
+              <Link underline="hover" color="#62BE5F" sx={{ cursor: "pointer" }}>Resend Email</Link>
             </Typography>
           </Box>
         </Box>

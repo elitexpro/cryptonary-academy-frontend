@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '14px',
     color: '#FA0101',
     margin: '0px',
+    textAlign: 'left',
     marginBottom: theme.spacing(1.5),
   },
   labelText: {

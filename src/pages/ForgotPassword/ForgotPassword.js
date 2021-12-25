@@ -12,10 +12,23 @@ import {
 import { Link as RouterLink } from 'react-router-dom'
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded'
 import { ForgotPasswordSentModal } from 'containers/ForgotPasswordSentModal'
-
+import { validator } from 'helpers/validator'
 
 const ForgotPassword = () => {
   const [openSentModal, setOpenSentModal] = useState(false)
+  const [email, setEmail] = useState('')
+  const [validationStr, setValidationStr] = useState("")
+
+  const handleSendInstruction = () => {
+    let validation_str = validator(email, ['require', 'email'])
+    setValidationStr(validation_str)
+
+    if (validation_str) {
+      return
+    }
+
+    setOpenSentModal(true)
+  }
 
   return (
     <>
@@ -30,7 +43,13 @@ const ForgotPassword = () => {
                     we will send an email with instructions to reset your password. </Typography>
                 </Box>
 
-                <MInput label='Email Address' placeholder='Your email address' />
+                <MInput
+                  label='Email Address'
+                  placeholder='Your email address'
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  error={validationStr}
+                />
 
                 <MButton
                   color='success'
@@ -42,7 +61,7 @@ const ForgotPassword = () => {
                     mt: 5,
                     fontSize: 16,
                   }}
-                  onClick={() => setOpenSentModal(true)}
+                  onClick={handleSendInstruction}
                 >
                   Send Instructions
                 </MButton>
