@@ -7,12 +7,10 @@ import {
   Typography,
 } from '@mui/material'
 import SvgLandingHero from 'assets/image/landing1.svg'
-import { useHistory } from 'react-router-dom'
 import { MButton } from 'components/CustomMaterial'
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded'
 
 const HeroSection = () => {
-  const history = useHistory()
 
   return (
     <Box sx={{ py: 3 }}>
@@ -37,7 +35,6 @@ const HeroSection = () => {
                     color: "#fff",
                     fontSize: '18px',
                   }}
-                  onClick={() => history.push('/signup')}
                 >
                   Get Started - its free
                 </MButton>
