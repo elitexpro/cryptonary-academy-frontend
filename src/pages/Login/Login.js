@@ -70,7 +70,7 @@ const Login = () => {
   }
 
   return (
-    <Container maxWidth="xl">
+    <Box>
       <MAlert open={openAlert} setOpen={setOpenAlert} message='Incorrect email or password!' type="error" />
       <BackLoader open={isLoading} />
 
@@ -153,7 +153,7 @@ const Login = () => {
           </Grid>
         </Hidden>
       </Grid>
-    </Container>
+    </Box>
   )
 }
 
