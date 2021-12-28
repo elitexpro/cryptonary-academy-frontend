@@ -23,7 +23,7 @@ const Landing = () => {
       </Box>
       <Box sx={{ background: "#FFF" }}>
         <Container maxWidth="xl">
-          <ArticleSection />
+          <ArticleSection id="learn_more" />
         </Container>
       </Box>
       <Box sx={{ background: "#FAFAFA" }}>

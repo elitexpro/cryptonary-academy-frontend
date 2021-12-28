@@ -6,6 +6,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
+import { Link } from 'react-scroll'
 import SvgLandingHero from 'assets/image/landing1.svg'
 import { useHistory } from 'react-router-dom'
 import { MButton } from 'components/CustomMaterial'
@@ -51,7 +52,15 @@ const HeroSection = () => {
                   }}
                   endIcon={<ArrowDownwardRoundedIcon />}
                 >
-                  Learn more
+                  <Link
+                    to="learn_more"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                  >
+                    Learn more
+                  </Link>
                 </MButton>
               </Box>
             </Stack>

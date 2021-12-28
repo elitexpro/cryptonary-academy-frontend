@@ -6,10 +6,10 @@ import {
 } from '@mui/material'
 import ImgLandingArticle from 'assets/image/landing2.png'
 
-const ArticleSection = () => {
+const ArticleSection = ({ id }) => {
 
   return (
-    <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{ my: { md: 10, xs: 4 } }}>
+    <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{ my: { md: 10, xs: 4 } }} id={id}>
       <Typography variant="headTitle2" >
         In-Depth journals and articles
       </Typography>
