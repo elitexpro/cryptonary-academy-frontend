@@ -2,7 +2,7 @@ import axios from 'axios'
 import { call, put } from 'redux-saga/effects'
 import { get } from 'lodash'
 import { requestFail, requestPending, requestSuccess } from './request'
-import { SERVER_BASE_URL } from 'helpers/utils'
+import { SERVER_BASE_URL, CG_AUTH_TOKEN } from 'helpers/utils'
 
 const defaultHeaders = () => {
   const auth = localStorage.getItem('cryptonary_token')
@@ -20,8 +20,20 @@ const defaultHeaders = () => {
   return headers
 }
 
+const CGAuthHeaders = () => {
+  axios.defaults.baseURL = SERVER_BASE_URL
+  let headers = {
+    'Accept': '*/*',
+    'Content-Type': 'application/json',
+    'CG-auth-token': CG_AUTH_TOKEN
+  }
+
+  return headers
+}
+
 export default ({
   type,
+  isGhostApi = false,
   method, // one of 'get', 'post', 'put', 'delete'
   path,
   headers,
@@ -45,7 +57,7 @@ export default ({
     const res = yield call(axios.request, {
       url: typeof path === 'function' ? path(action) : path,
       method: method.toLowerCase(),
-      headers: Object.assign({}, defaultHeaders(), headers),
+      headers: Object.assign({}, isGhostApi ? CGAuthHeaders() : defaultHeaders(), headers),
       data: body,
       params
     })
