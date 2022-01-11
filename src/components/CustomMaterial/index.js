@@ -4,6 +4,7 @@ import MCheckbox from './MCheckbox'
 import MBreadcrumbs from './MBreadcrumbs'
 import MButtonMenu from './MButtonMenu'
 import MAlert from './MAlert'
+import MSwitch from './MSwitch'
 
 export {
   MButton,
@@ -12,4 +13,5 @@ export {
   MBreadcrumbs,
   MButtonMenu,
   MAlert,
+  MSwitch
 }
