@@ -5,9 +5,9 @@ import HeroSection from './HeroSection'
 import FilterBar from './FilterBar'
 import Posts from './Posts'
 import ArticlePagination from './ArticlePagination'
-import QuizSection from 'components/QuizSection'
 import { Footer } from 'containers/Footer'
 import { getAllArticles } from 'redux/modules/article/actions'
+import { Paywall } from 'containers/Paywall'
 
 const Article = () => {
   const dispatch = useDispatch()
@@ -23,15 +23,18 @@ const Article = () => {
           <HeroSection />
         </Container>
       </Box>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ mb: 8 }}>
         <FilterBar />
         <Posts />
         <Hidden mdDown>
           <ArticlePagination />
         </Hidden>
-        <QuizSection />
-        <Footer />
       </Container>
+
+      <Paywall />
+      <Container maxWidth="xl">
+        <Footer />
+      </Container >
     </Box>
   )
 }

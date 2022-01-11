@@ -4,7 +4,7 @@ import { get } from 'lodash'
 import { requestFail, requestPending, requestSuccess } from './request'
 import { SERVER_BASE_URL, CG_AUTH_TOKEN } from 'helpers/utils'
 
-const defaultHeaders = () => {
+const defaultHeaders = (isGhostApi = false) => {
   const auth = localStorage.getItem('cryptonary_token')
   axios.defaults.baseURL = SERVER_BASE_URL
   let headers = {
@@ -17,15 +17,8 @@ const defaultHeaders = () => {
     headers['Authorization'] = 'Bearer ' + token
   }
 
-  return headers
-}
-
-const CGAuthHeaders = () => {
-  axios.defaults.baseURL = SERVER_BASE_URL
-  let headers = {
-    'Accept': '*/*',
-    'Content-Type': 'application/json',
-    'CG-auth-token': CG_AUTH_TOKEN
+  if (isGhostApi) {
+    headers['CG-auth-token'] = CG_AUTH_TOKEN
   }
 
   return headers
@@ -57,7 +50,7 @@ export default ({
     const res = yield call(axios.request, {
       url: typeof path === 'function' ? path(action) : path,
       method: method.toLowerCase(),
-      headers: Object.assign({}, isGhostApi ? CGAuthHeaders() : defaultHeaders(), headers),
+      headers: Object.assign({}, defaultHeaders(isGhostApi), headers),
       data: body,
       params
     })

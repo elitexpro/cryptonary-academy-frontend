@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import vidoeItemSvg from 'assets/image/video.svg'
-import { Link as RouterLink } from 'react-router-dom'
 import {
   Box,
   IconButton,
@@ -12,29 +11,37 @@ import {
 import { MButton } from 'components/CustomMaterial'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
+import ShowMoreText from "react-show-more-text"
+import { useHistory } from 'react-router-dom'
 
 const defaultString =
   "Cold Storage is the term given to digital wallets held offline to protect cryptocurrency funds from fraudulent use by others ..."
 
 const VideoItem = ({ post }) => {
+  const history = useHistory()
   const currentUser = useSelector(currentUserSelector)
   const isPremium = post?.tags?.find((tag) => tag.slug === "hash-cpro")
 
   return (
     <Stack>
-      <img src={post ? post.feature_image : vidoeItemSvg} alt='' style={{ width: '100%' }} />
+      <img src={post ? post.featureImage : vidoeItemSvg} alt='' style={{ width: '100%' }} />
       <Typography variant="subTitle3" sx={{ mt: 2, mb: 1 }}>
         <Link
-          component={RouterLink}
-          to={!currentUser && isPremium ? `/paywall` : `article/${post?.id}`}
+          component={'span'}
+          onClick={() => history.push(!currentUser && isPremium ? `/paywall` : `article/${post?.id}`)}
           underline="hover"
-          sx={{ color: "#232A45" }}
+          sx={{ color: "#232A45", fontSize: "20px", cursor: "pointer" }}
         >
-          {post ? post.title : "What is Cold Storage?"}
+          <ShowMoreText lines={1} expandByClick={false} more="">
+            {post ? post.title : "What is Cold Storage?"}
+          </ShowMoreText>
         </Link>
       </Typography>
       <Typography variant="subTitle" sx={{ color: "#858585" }}>
-        {post ? post.excerpt : defaultString}
+        <ShowMoreText lines={3} expandByClick={false} more="">
+          {post ? post.customExcerpt : defaultString}
+        </ShowMoreText>
+
       </Typography>
 
       <Stack direction="row" sx={{ mt: 3 }}>

@@ -32,8 +32,8 @@ const routes = () => (
       <Route path='/forgot-password' component={ForgotPassword} />
       <Route path='/reset-password' component={ResetPassword} />
       <AuthedRoute path='/video-detail' component={VideoDetail} />
-      <AuthedRoute exact path='/article/:id' component={ArticleDetail} />
-      <AuthedRoute exact path='/article' component={Article} />
+      <Route exact path='/article/:id' component={ArticleDetail} />
+      <Route exact path='/article' component={Article} />
       <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
       <AuthedRoute path='/pulse' component={Pulse} />
     </Layout>
