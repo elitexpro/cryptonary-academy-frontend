@@ -9,8 +9,7 @@ import ArticleSection from './ArticleSection'
 import DailySection from './DailySection'
 import InteractiveSection from './InteractiveSection'
 import LibrarySection from './LibrarySection'
-// import BlackSection from './BlackSection'
-import Paywall from './Paywall'
+import { Paywall } from 'containers/Paywall'
 import { Footer } from 'containers/Footer'
 
 const Landing = () => {
@@ -47,7 +46,6 @@ const Landing = () => {
           <LibrarySection />
         </Container>
       </Box>
-      {/* <BlackSection /> */}
       <Paywall />
       <Container maxWidth="xl">
         <Footer />

@@ -3,13 +3,24 @@ import {
   Box,
   Stack,
   Typography,
+  Card,
 } from '@mui/material'
-import ImgLandingArticle from 'assets/image/landing2.png'
+import { VideoItem } from 'components/VideoItem'
+import { MButton } from 'components/CustomMaterial'
+import { useHistory } from 'react-router-dom'
 
 const ArticleSection = ({ id }) => {
+  const history = useHistory()
 
   return (
-    <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{ my: { md: 10, xs: 4 } }} id={id}>
+    <Stack
+      spacing={2}
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      sx={{ my: { md: 10, xs: 4 } }}
+      id={id}
+    >
       <Typography variant="headTitle2" >
         In-Depth journals and articles
       </Typography>
@@ -18,10 +29,63 @@ const ArticleSection = ({ id }) => {
         Tailored to power your learning. We’re excited to start delivering you insightful crypto knowledge.
       </Typography>
 
-      <Box sx={{ maxWidth: 920 }}>
-        <img src={ImgLandingArticle} alt='' style={{ width: "100%" }} />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: {
+            md: "row",
+            xs: "column"
+          },
+        }}>
+        <Card
+          variant="outlined"
+          sx={{
+            p: 2,
+            border: 'border: 1px solid #EAEAEA',
+            borderRadius: '8px',
+            mx: { md: 1 },
+            my: { xs: 1 },
+          }}
+        >
+          <VideoItem />
+        </Card>
+        <Card
+          variant="outlined"
+          sx={{
+            p: 2,
+            border: 'border: 1px solid #EAEAEA',
+            borderRadius: '8px',
+            mx: { md: 1 },
+            my: { xs: 1 },
+          }}
+        >
+          <VideoItem />
+        </Card>
+        <Card
+          variant="outlined"
+          sx={{
+            p: 2,
+            border: 'border: 1px solid #EAEAEA',
+            borderRadius: '8px',
+            mx: { md: 1 },
+            my: { xs: 1 },
+          }}
+        >
+          <VideoItem />
+        </Card>
       </Box>
-    </Stack>
+
+      <Box sx={{ pt: 6 }}>
+        <MButton
+          variant='outlined'
+          color='inherit'
+          sx={{ fontSize: '16px', px: 2, color: '#555' }}
+          onClick={() => history.push('/article')}
+        >
+          View more
+        </MButton>
+      </Box>
+    </Stack >
   )
 }
 

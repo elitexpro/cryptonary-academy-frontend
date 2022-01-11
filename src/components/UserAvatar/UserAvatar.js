@@ -53,7 +53,7 @@ const UserAvatar = () => {
     <>
       <IconButton
         color="inherit"
-        sx={{ padding: '4px', width: '48px', height: '48px' }}
+        sx={{ p: 0.5, width: '40px', height: '40px' }}
         onClick={handleAvatarToggle}
       >
         <Avatar alt="user" src={avatarImg} />
