@@ -13,6 +13,7 @@ import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import ShowMoreText from "react-show-more-text"
 import { useHistory } from 'react-router-dom'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const defaultString =
   "Cold Storage is the term given to digital wallets held offline to protect cryptocurrency funds from fraudulent use by others ..."
@@ -24,7 +25,12 @@ const VideoItem = ({ post }) => {
 
   return (
     <Stack>
-      <img src={post ? post.featureImage : vidoeItemSvg} alt='' style={{ width: '100%' }} />
+      <LazyLoadImage
+        alt=""
+        effect="blur"
+        width="100%"
+        src={post ? post.featureImage : vidoeItemSvg}
+      />
       <Typography variant="subTitle3" sx={{ mt: 2, mb: 1 }}>
         <Link
           component={'span'}
