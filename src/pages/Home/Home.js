@@ -4,9 +4,9 @@ import HeroSection from './HeroSection'
 import FilterBar from './FilterBar'
 import Basics from './Basics'
 import MustKnow from './MustKnow'
-import QuizSection from 'components/QuizSection'
 import DeepDives from './DeepDives'
 import { Footer } from 'containers/Footer'
+import { Paywall } from 'containers/Paywall'
 
 
 const Home = () => {
@@ -19,14 +19,16 @@ const Home = () => {
         </Container>
       </Box>
 
-      <Container maxWidth="xl" >
+      <Container maxWidth="xl" sx={{ mb: 8 }} >
         <FilterBar />
         <Basics />
         <MustKnow />
-        <QuizSection />
         <DeepDives />
-        <Footer />
       </Container>
+      <Paywall />
+      <Container maxWidth="xl">
+        <Footer />
+      </Container >
     </>
   )
 }
