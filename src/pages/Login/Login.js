@@ -50,7 +50,7 @@ const Login = () => {
   const handleLogin = () => {
     let validation_str = []
     validation_str.push(validator(email, ['require', 'email']))
-    validation_str.push(validator(password, ['require', 'password']))
+    validation_str.push(validator(password, ['require']))
 
     setValidationStr(validation_str)
 
