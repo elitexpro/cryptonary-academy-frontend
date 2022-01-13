@@ -30,7 +30,7 @@ const ResetPassword = () => {
 
     setValidationStr(validation_str)
 
-    const isValid = validation_str.filter(item => item).length ? false : true
+    const isValid = !validation_str.filter(item => item).length
     if (!isValid) {
       return
     }

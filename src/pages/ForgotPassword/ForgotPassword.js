@@ -38,7 +38,7 @@ const ForgotPassword = () => {
             <Stack sx={{ minHeight: "calc(100vh - 80px)" }} justifyContent="center" alignItems="center">
               <Box sx={{ textAlign: "center", maxWidth: 480, width: 480, my: 4 }}>
                 <Box sx={{ mb: 5 }}>
-                  <Typography variant="h4" color="#141414" sx={{ mb: 2, fontWeight: 500 }}>Reset Password</Typography>
+                  <Typography variant="h4" color="#141414" sx={{ mb: 2, fontWeight: 500 }}>Forgot Password</Typography>
                   <Typography variant="subTitle" color="#858585">Enter the email associated with your account and
                     we will send an email with instructions to reset your password. </Typography>
                 </Box>
