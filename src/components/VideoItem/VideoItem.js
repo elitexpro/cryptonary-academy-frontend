@@ -31,6 +31,7 @@ const VideoItem = ({ post }) => {
         width="100%"
         src={post ? post.featureImage : vidoeItemSvg}
       />
+
       <Typography variant="subTitle3" sx={{ mt: 2, mb: 1 }}>
         <Link
           component={'span'}
@@ -43,11 +44,11 @@ const VideoItem = ({ post }) => {
           </ShowMoreText>
         </Link>
       </Typography>
+
       <Typography variant="subTitle" sx={{ color: "#858585" }}>
         <ShowMoreText lines={3} expandByClick={false} more="">
           {post ? post.customExcerpt : defaultString}
         </ShowMoreText>
-
       </Typography>
 
       <Stack direction="row" sx={{ mt: 3 }}>

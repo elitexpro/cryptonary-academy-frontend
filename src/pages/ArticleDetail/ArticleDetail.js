@@ -15,6 +15,7 @@ import ArticleInfo from './ArticleInfo'
 import { getArticleById } from 'redux/modules/article/actions'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import { Paywall } from 'containers/Paywall'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const ArticleDetail = (props) => {
   const classes = useStyles()
@@ -54,7 +55,13 @@ const ArticleDetail = (props) => {
           </Stack>
 
           <Box sx={{ mb: 3, mt: 4 }}>
-            <img src={currentArticle?.feature_image} alt='article-detail' style={{ width: '100%', maxHeight: 480 }} />
+            <LazyLoadImage
+              alt="article-detail-featured-image"
+              effect="blur"
+              width="100%"
+              height="480px"
+              src={currentArticle?.featureImage}
+            />
           </Box>
           <Box sx={{ display: { md: "flex", xs: "block" }, mb: 5 }}>
             <Box

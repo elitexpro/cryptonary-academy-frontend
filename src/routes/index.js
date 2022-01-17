@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Education from 'pages/Education'
 import Home from 'pages/Home'
 import Signup from 'pages/Signup'
 import Login from 'pages/Login'
@@ -22,8 +23,9 @@ import { Layout } from 'containers/Layout'
 const routes = () => (
   <Router>
     <Layout>
-      <Route exact path='/' component={Landing} />
-      <Route path='/app' component={Home} />
+      <Route exact path='/' component={Home} />
+      <Route exact path='/app' component={Landing} />
+      <Route exact path='/education' component={Education} />
       <AuthedRoute path='/preference' component={Preference} />
       <PublicRoute path='/signup' component={Signup} />
       <PublicRoute path='/login' component={Login} />

@@ -9,10 +9,10 @@ export default makeStyles(theme => ({
     height: '40px !important',
     padding: '0px !important',
   },
-  topicPoper: {
+  alphaPoper: {
     zIndex: '1102',
-    width: '420px',
-    marginTop: '20px !important',
+    width: 'calc(100vw - 18px)',
+    marginTop: '21px !important',
   },
   
 }))
