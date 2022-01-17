@@ -30,7 +30,7 @@ const UserAvatar = () => {
   const [anchorEl, setAnchorEl] = useState(null)
 
   const profileMenu = [
-    { text: 'My Account', icon: <FiUser className={classes.avatarListIcon} />, to: '#' },
+    { text: 'My Account', icon: <FiUser className={classes.avatarListIcon} />, to: '/account' },
     { text: 'My Preferences ', icon: <FiSliders className={classes.avatarListIcon} />, to: '#' },
     {
       text: 'Sign out',

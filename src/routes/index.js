@@ -15,6 +15,7 @@ import AuthorDetail from 'pages/AuthorDetail'
 import Pulse from 'pages/Pulse'
 import Landing from 'pages/Landing'
 import Paywall from 'pages/Paywall'
+import Account from 'pages/Account'
 import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
@@ -38,6 +39,7 @@ const routes = () => (
       <Route exact path='/article' component={Article} />
       <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
       <AuthedRoute path='/pulse' component={Pulse} />
+      <AuthedRoute path='/account' component={Account} />
     </Layout>
   </Router>
 )
