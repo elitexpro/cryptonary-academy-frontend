@@ -32,7 +32,7 @@ const FooterCompany = () => {
         >
           <Logo />
           <Typography variant="subTitle2" sx={{ fontWeight: 500, color: "#777" }}>
-            © 2021
+            © {new Date().getFullYear()}
           </Typography>
         </Stack>
 
