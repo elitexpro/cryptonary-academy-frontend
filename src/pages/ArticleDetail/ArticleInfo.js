@@ -77,11 +77,11 @@ const ArticleInfo = ({ article }) => {
           by <Typography variant="subTitle" sx={{ color: "#141414", fontWeight: 500 }}>
             <Link
               component={RouterLink}
-              to={`/author/${article?.primary_author?.id}`}
+              to={`/author/${article?.primaryAuthor?.id}`}
               underline="hover"
               sx={{ color: "#232A45" }}
             >
-              {article?.primary_author?.name}
+              {article?.primaryAuthor?.name}
             </Link>
           </Typography>
         </Typography>
@@ -91,7 +91,7 @@ const ArticleInfo = ({ article }) => {
         <Typography
           variant="subTitle"
           sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
-          {moment(article?.published_at).format('DD MMM YYYY : kk:mm')}
+          {moment(article?.publishedAt).format('DD MMM YYYY : kk:mm')}
         </Typography>
       </Box>
     </Box >
