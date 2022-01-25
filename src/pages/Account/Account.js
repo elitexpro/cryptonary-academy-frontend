@@ -14,9 +14,10 @@ const CustomTab = styled(Tab)(() => {
   return {
     textTransform: 'none !important',
     borderBottom: '1px solid #EAEAEA',
-    fontSize: 16,
+    fontSize: { md: 16, xs: 14 },
     fontWeight: "normal",
-    width: 240
+    width: "50%",
+    maxWidth: 240
   }
 })
 

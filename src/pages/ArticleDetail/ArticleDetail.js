@@ -54,12 +54,12 @@ const ArticleDetail = (props) => {
             </Typography>
           </Stack>
 
-          <Box sx={{ mb: 3, mt: 4 }}>
+          <Box sx={{ mb: 3, mt: 4, height: "100%" }}>
             <LazyLoadImage
               alt="article-detail-featured-image"
               effect="blur"
               width="100%"
-              height="480px"
+              height="100%"
               src={currentArticle?.featureImage}
             />
           </Box>
