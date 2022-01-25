@@ -52,13 +52,15 @@ const CryptoCourses = () => {
   }
 
   return (
-    <Box sx={{ width: "100%", textAlign: "center" }}>
+    <Box sx={{ width: "100%", textAlign: { md: "center" } }}>
       <Typography variant="subTitle" color="#FFF">
         Learn or sharpen up your basics with our 1-hour basics course to get you warmed up for the community and research reports.
       </Typography>
       <Grid container sx={{ mt: 6 }}>
         <Grid item xs={12} md={6}>
-          <img src={MacbookProSVG} alt="" style={{ width: "100%", height: "100%" }} />
+          <Box sx={{ px: { xs: 4 } }}>
+            <img src={MacbookProSVG} alt="" style={{ width: "100%" }} />
+          </Box>
         </Grid>
         <Grid item xs={12} md={6}>
           {DATA.map((item, index) => {
@@ -88,16 +90,16 @@ const CryptoCourses = () => {
                     borderBottom: index !== 3 && "1px solid #1D1D1D"
                   }}
                 >
-                  <Typography variant="subTitle1" color="#FFF" sx={{ ml: 2 }} >{title}</Typography>
+                  <Typography color="#FFF" sx={{ ml: 2, fontSize: { md: 18, xs: 16 } }} >{title}</Typography>
                 </CustomAccordionSummary>
                 <AccordionDetails sx={{ background: "#1D1D1D" }} >
                   <Typography variant="subTitle" color="#FFF">{content}</Typography>
                 </AccordionDetails>
               </Accordion>
-        )
+            )
           })}
+        </Grid>
       </Grid>
-    </Grid>
     </Box >
   )
 }
