@@ -12,11 +12,12 @@ import { Scrollbar } from 'components/Scrollbar'
 import useDimension from 'helpers/useDimension'
 import { getAllArticles } from 'redux/modules/article/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import ShowMoreText from "react-show-more-text"
 import { useHistory } from 'react-router-dom'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { isPremium } from 'helpers'
+import moment from 'moment'
+import { LazyImage } from 'components/LazyImage'
 
 const LatestNews = () => {
   const history = useHistory()
@@ -66,19 +67,13 @@ const LatestNews = () => {
                   </Stack>
                   :
                   <Stack spacing={1}>
-                    <Box sx={{ background: "#F5F5F5", minHeight: "300px" }}>
-                      <LazyLoadImage
-                        alt=""
-                        effect="blur"
-                        width="100%"
-                        src={data[0].featureImage}
-                      />
-                    </Box>
+                    <LazyImage src={data[0].featureImage} height={300} />
 
                     <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
                       NFT
-                      <Typography variant="subTitle4" sx={{ color: "#858585", ml: 3 }}>
-                        1 hour ago
+                      <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
+                      <Typography variant="subTitle4" sx={{ color: "#858585" }}>
+                        {moment(Date.now()).diff(data[0].updatedAt, 'hours')} hours ago
                       </Typography>
                     </Typography>
 

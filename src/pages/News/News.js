@@ -5,12 +5,11 @@ import {
 } from '@mui/material'
 import HeroSection from './HeroSection'
 import FeaturedNews from './FeaturedNews'
-import LatestNews from './LatestNews'
 import NewsSection from './NewsSection'
-import { CryptoPro } from 'containers/CryptoPro'
 import { Footer } from 'containers/Footer'
+import { Paywall } from 'containers/Paywall'
 
-const Home = () => {
+const News = () => {
 
   return (
     <>
@@ -21,21 +20,20 @@ const Home = () => {
       <Box sx={{ background: "#FAFAFA" }}>
         <Container maxWidth="xl" sx={{ py: 4 }}>
           <FeaturedNews />
-          <NewsSection />
         </Container>
       </Box>
 
-      <CryptoPro />
-
-      <Container maxWidth="xl" sx={{ py: 4 }}>
-        <LatestNews />
+      <Container maxWidth="xl" sx={{ py: 4, mb: 10 }}>
+        <NewsSection />
       </Container>
 
+      <Paywall />
+
       <Container maxWidth="xl">
-        <Footer minimal={true} />
+        <Footer />
       </Container >
     </>
   )
 }
 
-export default Home
+export default News

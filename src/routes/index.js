@@ -16,6 +16,7 @@ import Pulse from 'pages/Pulse'
 import Landing from 'pages/Landing'
 import Paywall from 'pages/Paywall'
 import Account from 'pages/Account'
+import News from 'pages/News'
 import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
@@ -26,6 +27,7 @@ const routes = () => (
     <Layout>
       <Route exact path='/' component={Home} />
       <Route exact path='/app' component={Landing} />
+      <Route exact path='/news' component={News} />
       <Route exact path='/education' component={Education} />
       <AuthedRoute path='/preference' component={Preference} />
       <PublicRoute path='/signup' component={Signup} />

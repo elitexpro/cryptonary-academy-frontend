@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import useStyles from './styles.js'
 import {
   AppBar,
@@ -34,10 +34,13 @@ const Header = () => {
   const classes = useStyles()
   const history = useHistory()
   const currentUser = useSelector(currentUserSelector)
-  
+
   const [showMenu, setShowMenu] = useState(false)
 
-  
+  useEffect(() => {
+    console.log(history.location)
+  }, [history.location])
+
   const toggleMenu = (open) => () => {
     setShowMenu(open)
   }

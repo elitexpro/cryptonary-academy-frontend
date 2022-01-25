@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
-import { ArticleItem } from 'components/ArticleItem'
+import { RelatedArticleItem } from 'components/RelatedArticleItem'
 
 const RelatedArticles = () => {
   const articles = useSelector((state) => state.article.articles)
@@ -31,7 +31,7 @@ const RelatedArticles = () => {
           posts?.length > 0 &&
           posts.map((post, index) => (
             <Grid item key={index} md={4} xs={12}>
-              <ArticleItem post={post} />
+              <RelatedArticleItem post={post} />
             </Grid>
           ))
         }

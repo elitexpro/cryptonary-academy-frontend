@@ -6,6 +6,7 @@ import {
   Skeleton,
   Grid,
   Link,
+  Divider,
 } from '@mui/material'
 import { getFeaturedArticles } from 'redux/modules/article/actions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -41,10 +42,12 @@ const FeaturedNews = () => {
   }, [dispatch])
 
   return (
-    <Stack spacing={3} sx={{ mb: 3 }}>
+    <Stack spacing={3}>
       <Typography variant="h4" sx={{ fontWeight: 500 }} >
         Featured News
       </Typography>
+
+      <Divider sx={{ background: "#141414" }} />
 
       <Box>
         <Grid container spacing={4}>
