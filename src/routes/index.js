@@ -24,7 +24,7 @@ import { Layout } from 'containers/Layout'
 const routes = () => (
   <Router>
     <Layout>
-      <Route exact path='/' component={Landing} />
+      <Route exact path='/' component={Home} />
       <Route exact path='/app' component={Landing} />
       <Route exact path='/education' component={Education} />
       <AuthedRoute path='/preference' component={Preference} />

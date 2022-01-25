@@ -25,12 +25,14 @@ const VideoItem = ({ post }) => {
 
   return (
     <Stack>
-      <LazyLoadImage
-        alt=""
-        effect="blur"
-        width="100%"
-        src={post ? post.featureImage : vidoeItemSvg}
-      />
+      <Box sx={{ minHeight: "200px", backgroundColor: "#F5F5F5" }}>
+        <LazyLoadImage
+          alt=""
+          effect="blur"
+          width="100%"
+          src={post ? post.featureImage : vidoeItemSvg}
+        />
+      </Box>
 
       <Typography variant="subTitle3" sx={{ mt: 2, mb: 1 }}>
         <Link

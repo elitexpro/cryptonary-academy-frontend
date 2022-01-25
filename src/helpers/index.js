@@ -16,3 +16,5 @@ export const hhmmss = (val) => {
     (minutes ? padStart(minutes) : '00') + ':' +
     padStart(seconds)
 }
+
+export const isPremium = (tags) => tags?.find((tag) => tag.slug === "hash-cpro")

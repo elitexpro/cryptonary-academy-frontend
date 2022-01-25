@@ -5,7 +5,7 @@ const CRYPTONARY_FACEBOOK = 'https://facebook.com/#'
 const CRYPTONARY_DISCORD = 'https://discord.com/#'
 const CRYPTONARY_HELP_CENTER = 'https://www.cryptonary.com/contact/'
 
-const CG_AUTH_TOKEN = '46edc0f14d7d4326f2dc394bb2'
+const CG_AUTH_TOKEN = 'eaa1aeb9b6416bbaaf197f68ff'
 
 export {
   SERVER_BASE_URL,

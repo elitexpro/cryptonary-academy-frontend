@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useStyles from './styles.js'
 import {
   Popper,
@@ -13,9 +13,11 @@ import {
   KeyboardArrowUpRounded
 } from '@mui/icons-material'
 import AlphaContent from './AlphaContent'
+import { useHistory } from 'react-router-dom'
 
 const Alpha = () => {
   const classes = useStyles()
+  const history = useHistory()
   const [openAlpha, setOpenAlpha] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -23,6 +25,10 @@ const Alpha = () => {
     setOpenAlpha(prev => !prev)
     setAnchorEl(e.currentTarget)
   }
+
+  useEffect(() => {
+    setOpenAlpha(false)
+  }, [history.location])
 
   return (
     <>

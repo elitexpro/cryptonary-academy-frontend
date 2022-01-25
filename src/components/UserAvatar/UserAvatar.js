@@ -79,7 +79,10 @@ const UserAvatar = () => {
 
                         return (
                           <ListItem disablePadding key={key}>
-                            <ListItemButton onClick={() => to ? history.push(to) : item?.func()}>
+                            <ListItemButton onClick={() => {
+                              setOpenTopic(false)
+                              return to ? history.push(to) : item?.func()
+                            }}>
                               <ListItemIcon sx={{ mr: 2, minWidth: 'unset' }}>
                                 {icon}
                               </ListItemIcon>

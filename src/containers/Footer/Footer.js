@@ -9,11 +9,16 @@ import FooterSocial from './FooterSocial'
 import FooterCompany from './FooterCompany'
 import FooterSubscribe from './FooterSubscribe'
 
-const Footer = () => {
+const Footer = ({ minimal = false }) => {
   return (
     <Box>
-      <FooterResources />
-      <FooterHelper />
+      {
+        !minimal &&
+        <>
+          <FooterResources />
+          <FooterHelper />
+        </>
+      }
       <FooterSocial />
       <Hidden mdUp>
         <FooterSubscribe />
