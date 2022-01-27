@@ -10,11 +10,12 @@ import {
 } from '@mui/material'
 import { MBreadcrumbs } from 'components/CustomMaterial'
 import { Footer } from 'containers/Footer'
-import AUTHOR_DATA from './authorDetailMockup.json'
 import LatestArticles from './LatestArticles'
 import LatestArticleSkeletonItem from './LatestArticleSkeletonItem'
 import { useDispatch } from 'react-redux'
 import { getAuthorById } from 'redux/modules/author/actions'
+import { LazyImage } from 'components/LazyImage'
+
 
 const AuthorDetail = (props) => {
   const dispatch = useDispatch()
@@ -58,8 +59,8 @@ const AuthorDetail = (props) => {
           {isLoading ?
             <Skeleton variant="rectangular" animation="wave" width="100%" height="200px" />
             :
-            <img src={authorInfo?.profile_image} alt='author' style={{ width: '100%' }} />
-          }
+            <LazyImage src={authorInfo?.profileImage} height={200} />
+        }
         </Box>
         <Stack
           spacing={1}
@@ -76,7 +77,7 @@ const AuthorDetail = (props) => {
             {isLoading ?
               <Skeleton animation="wave" width="60%" />
               :
-              <>{AUTHOR_DATA.job} <Typography variant="subTitle1" sx={{ color: "#141414" }}>@ Cryptonary</Typography></>
+              <>{"Research Analyst"} <Typography variant="subTitle1" sx={{ color: "#141414" }}>@ Cryptonary</Typography></>
             }
           </Typography>
           <Typography variant="subTitle" sx={{ color: "#555" }}>
@@ -86,7 +87,7 @@ const AuthorDetail = (props) => {
                 <Skeleton animation="wave" width="100%" />
                 <Skeleton animation="wave" width="60%" />
               </>
-              : AUTHOR_DATA.description}
+              : authorInfo?.bio}
           </Typography>
         </Stack>
       </Box>
@@ -96,7 +97,7 @@ const AuthorDetail = (props) => {
       <Box sx={{ display: { xs: "block", md: "flex" } }}>
         <Box sx={{ maxWidth: { md: 220, xs: "100%" }, mr: { xs: 0, md: 3 } }}>
           <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>
-            Latest articles from {AUTHOR_DATA.name}
+            Latest articles from {authorInfo?.name}
           </Typography>
           <Hidden mdUp>
             <Divider sx={{ my: 3 }} />

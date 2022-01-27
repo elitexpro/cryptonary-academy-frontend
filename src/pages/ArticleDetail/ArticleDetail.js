@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import useStyles from './styles.js'
+import React, { useEffect, useState, useCallback } from 'react'
 import {
   Container,
   Box,
@@ -8,34 +7,45 @@ import {
   Stack,
   IconButton,
 } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { MBreadcrumbs } from 'components/CustomMaterial'
 import { Footer } from 'containers/Footer'
 import ArticleInfo from './ArticleInfo'
+import AuthorDetail from './AuthorDetail'
 import { getArticleById } from 'redux/modules/article/actions'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import { Paywall } from 'containers/Paywall'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { LazyImage } from 'components/LazyImage'
+import './GhostStyles/screen.css'
+
+const detailRoot = [
+  { text: 'Crypto School', to: '#' },
+  { text: 'Basics', to: '#' },
+  { text: 'Knowledge', to: '#' },
+  { text: 'How to mine bitcoin?' },
+]
 
 const ArticleDetail = (props) => {
-  const classes = useStyles()
-  const detailRoot = [
-    { text: 'Crypto School', to: '#' },
-    { text: 'Basics', to: '#' },
-    { text: 'Knowledge', to: '#' },
-    { text: 'How to mine bitcoin?' },
-  ]
   const dispatch = useDispatch()
-  const article = useSelector((state) => state.article.article)
-  const [currentArticle, setCurrentArticle] = useState(article)
+  const [currentArticle, setCurrentArticle] = useState({})
+  const [isLoading, setIsloading] = useState(false)
+
+  const loadArticle = useCallback((id) => {
+    setIsloading(true)
+    dispatch(getArticleById({
+      id,
+      success: ({ data }) => {
+        setCurrentArticle(data?.posts && data?.posts.length > 0 && data?.posts[0])
+        setIsloading(false)
+      },
+      fail: (err) => {
+        setIsloading(false)
+      }
+    }))
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(getArticleById({ id: props.match.params.id }))
-  }, [dispatch, props])
-
-  useEffect(() => {
-    setCurrentArticle(article)
-  }, [article])
+    loadArticle(props.match.params.id)
+  }, [loadArticle, props.match.params.id])
 
   return (
     <>
@@ -46,7 +56,7 @@ const ArticleDetail = (props) => {
 
         <Box sx={{ my: 3 }}>
           <Stack direction="row" alignItems="center">
-            <Typography variant="h1" sx={{ color: "#141414", fontWeight: 500 }}>
+            <Typography variant="h1" sx={{ color: "#141414", fontSize: "40px", fontWeight: 500 }}>
               {currentArticle?.title}
               <IconButton size="small" sx={{ ml: 3 }}>
                 <BookmarkBorderIcon />
@@ -55,50 +65,30 @@ const ArticleDetail = (props) => {
           </Stack>
 
           <Box sx={{ mb: 3, mt: 4, height: "100%" }}>
-            <LazyLoadImage
-              alt="article-detail-featured-image"
-              effect="blur"
-              width="100%"
-              height="100%"
-              src={currentArticle?.featureImage}
-            />
+            <LazyImage src={currentArticle.featureImage} height="100%" minHeight="300px" />
           </Box>
-          <Box sx={{ display: { md: "flex", xs: "block" }, mb: 5 }}>
-            <Box
-              sx={{
-                py: 2,
-                px: { xs: 2, md: 5 },
-                background: "#F8FCF8",
-                borderLeft: "1px solid #4AAF47"
-              }}
-              maxWidth="md"
-            >
-              <Typography
-                variant="h5"
-                sx={{
-                  color: { md: "#141414", xs: "#4AAF47" },
-                  fontWeight: 500, mb: 2
-                }}
-              >
-                {currentArticle?.title}
-              </Typography>
-
-              <Typography variant="subTitle1" sx={{ color: "#141414", fontWeight: 500 }}>
-                {currentArticle?.excerpt}
-              </Typography>
+          <Box sx={{
+            display: { md: "flex", xs: "block" },
+            mb: 5
+          }}>
+            <Hidden mdUp>
+              <ArticleInfo article={currentArticle} />
+            </Hidden>
+            <Box >
+              <section className="gh-content gh-canvas" dangerouslySetInnerHTML={{ __html: currentArticle?.html }}/>
             </Box>
             <Hidden mdDown>
               <Box sx={{ flexGrow: 1 }} />
+              <ArticleInfo article={currentArticle} />
             </Hidden>
-            <ArticleInfo article={currentArticle} />
           </Box>
-          <Box className={classes.root} sx={{ maxWidth: 800 }} dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
         </Box>
+
+        <AuthorDetail authorInfo={currentArticle?.primaryAuthor} isLoading={isLoading} />
       </Container >
 
-      <Paywall />
       <Container maxWidth="xl">
-        <Footer />
+        <Footer minimal={true} />
       </Container >
     </>
   )

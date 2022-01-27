@@ -20,29 +20,31 @@ import News from 'pages/News'
 import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
-
+import ScrollToTop from 'react-router-scroll-top'
 
 const routes = () => (
   <Router>
-    <Layout>
-      <Route exact path='/' component={Home} />
-      <Route exact path='/app' component={Landing} />
-      <Route exact path='/news' component={News} />
-      <Route exact path='/education' component={Education} />
-      <AuthedRoute path='/preference' component={Preference} />
-      <PublicRoute path='/signup' component={Signup} />
-      <PublicRoute path='/login' component={Login} />
-      <Route path='/paywall' component={Paywall} />
-      <AuthedRoute path='/verify' component={Verify} />
-      <Route path='/forgot-password' component={ForgotPassword} />
-      <Route path='/reset-password' component={ResetPassword} />
-      <AuthedRoute path='/video-detail' component={VideoDetail} />
-      <Route exact path='/article/:id' component={ArticleDetail} />
-      <Route exact path='/article' component={Article} />
-      <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
-      <AuthedRoute path='/pulse' component={Pulse} />
-      <AuthedRoute path='/account' component={Account} />
-    </Layout>
+    <ScrollToTop>
+      <Layout>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/app' component={Landing} />
+        <Route exact path='/news' component={News} />
+        <Route exact path='/education' component={Education} />
+        <AuthedRoute path='/preference' component={Preference} />
+        <PublicRoute path='/signup' component={Signup} />
+        <PublicRoute path='/login' component={Login} />
+        <Route path='/paywall' component={Paywall} />
+        <AuthedRoute path='/verify' component={Verify} />
+        <Route path='/forgot-password' component={ForgotPassword} />
+        <Route path='/reset-password' component={ResetPassword} />
+        <AuthedRoute path='/video-detail' component={VideoDetail} />
+        <Route exact path='/article/:id' component={ArticleDetail} />
+        <Route exact path='/article' component={Article} />
+        <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
+        <AuthedRoute path='/pulse' component={Pulse} />
+        <AuthedRoute path='/account' component={Account} />
+      </Layout>
+    </ScrollToTop>
   </Router>
 )
 
