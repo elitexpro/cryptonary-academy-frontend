@@ -961,7 +961,7 @@ headings, text, images and lists. We deal with cards lower down. */
 span,
 p
  {
-    font-size: x-large !important;
+    font-size: large !important;
 }
 .gh-content > * + * {
     margin-top: 4vmin;

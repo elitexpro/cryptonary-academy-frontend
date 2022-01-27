@@ -56,11 +56,13 @@ const ArticleDetail = (props) => {
 
         <Box sx={{ my: 3 }}>
           <Stack direction="row" alignItems="center">
-            <Typography variant="h1" sx={{ color: "#141414", fontSize: "40px", fontWeight: 500 }}>
+            <Typography variant="h1" sx={{ color: "#141414", fontSize: { md: "38px", xs: "24px" }, fontWeight: 500 }}>
               {currentArticle?.title}
-              <IconButton size="small" sx={{ ml: 3 }}>
-                <BookmarkBorderIcon />
-              </IconButton>
+              <Hidden mdDown>
+                <IconButton size="small" sx={{ ml: 3 }}>
+                  <BookmarkBorderIcon />
+                </IconButton>
+              </Hidden>
             </Typography>
           </Stack>
 
@@ -75,7 +77,7 @@ const ArticleDetail = (props) => {
               <ArticleInfo article={currentArticle} />
             </Hidden>
             <Box >
-              <section className="gh-content gh-canvas" dangerouslySetInnerHTML={{ __html: currentArticle?.html }}/>
+              <section className="gh-content gh-canvas" dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
             </Box>
             <Hidden mdDown>
               <Box sx={{ flexGrow: 1 }} />
