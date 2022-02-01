@@ -12,7 +12,7 @@ export default makeStyles(theme => ({
   alphaPoper: {
     zIndex: '1102',
     width: 'calc(100vw - 18px)',
-    marginTop: '21px !important',
+    paddingTop: '20px !important',
   },
   
 }))

@@ -1,48 +1,42 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useStyles from './styles.js'
 import {
   Popper,
-  ClickAwayListener,
   Fade,
   Paper,
   Box,
+  Divider,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import {
   KeyboardArrowDownRounded,
-  KeyboardArrowUpRounded
 } from '@mui/icons-material'
 import AlphaContent from './AlphaContent'
-import { useHistory } from 'react-router-dom'
 
 const Alpha = () => {
   const classes = useStyles()
-  const history = useHistory()
-  const [openAlpha, setOpenAlpha] = useState(false)
+  const [openAlpha, setOpenAlpha] = useState(0)
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleAlphaToggle = (e) => {
-    setOpenAlpha(prev => !prev)
+    setOpenAlpha(prev => prev + 1)
     setAnchorEl(e.currentTarget)
   }
-
-  useEffect(() => {
-    setOpenAlpha(false)
-  }, [history.location])
 
   return (
     <>
       <MButton
         color='inherit'
         sx={{ color: '#858585', fontSize: '16px' }}
-        endIcon={openAlpha ? <KeyboardArrowDownRounded /> : <KeyboardArrowUpRounded />}
-        onClick={handleAlphaToggle}
+        endIcon={<KeyboardArrowDownRounded />}
+        onMouseEnter={handleAlphaToggle}
+        onMouseLeave={() => setOpenAlpha(prev => prev - 1)}
       >
         Alpha
       </MButton>
 
       <Popper
-        open={openAlpha}
+        open={openAlpha > 0}
         anchorEl={anchorEl}
         transition
         disablePortal
@@ -51,12 +45,15 @@ const Alpha = () => {
       >
         {({ TransitionProps }) => (
           <Fade  {...TransitionProps}>
-            <Paper elevation={0}>
-              <ClickAwayListener onClickAway={() => setOpenAlpha(false)}>
-                <Box>
-                  <AlphaContent />
-                </Box>
-              </ClickAwayListener>
+            <Paper
+              elevation={0}
+              onMouseEnter={() => setOpenAlpha(prev => prev + 1)}
+              onMouseLeave={() => setOpenAlpha(prev => prev - 1)}
+            >
+              <Box>
+                <Divider sx={{ background: "#c3c3c3" }} />
+                <AlphaContent />
+              </Box>
             </Paper>
           </Fade >
         )}

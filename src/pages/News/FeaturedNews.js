@@ -82,7 +82,7 @@ const FeaturedNews = () => {
                   <>
                     <Box sx={{ width: "100%" }}>
                       <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
-                        NFT
+                        {featuredNews[0]?.primaryTag.name}
                         <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
                         <Typography variant="subTitle4" sx={{ color: "#858585" }}>
                           {moment(Date.now()).diff(featuredNews[0].updatedAt, 'hours')} hours ago

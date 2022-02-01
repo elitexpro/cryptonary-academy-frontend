@@ -74,7 +74,7 @@ const AlphaContent = () => {
           <Stack spacing={4} sx={{ borderLeft: "1px solid #E4E4E4", ml: 6, pl: 6 }}>
             <Stack spacing={2} direction="row">
               <Typography variant="subTitle4" sx={{ color: "#555" }}>
-                LTEST ALPHA
+                LATEST ALPHA
               </Typography>
               <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
                 Members Exclusive

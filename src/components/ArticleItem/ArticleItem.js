@@ -24,7 +24,7 @@ const ArticleItem = ({ data }) => {
       <Stack spacing={1}>
         <LazyImage src={data.featureImage} height={220} />
 
-        <Typography variant="subTitle4" sx={{ color: "#4AAF47", pt: 1 }}>NFT</Typography>
+        <Typography variant="subTitle4" sx={{ color: "#4AAF47", pt: 1 }}>{data?.primaryTag.name}</Typography>
 
         <Typography variant="subTitle3" >
           <Link

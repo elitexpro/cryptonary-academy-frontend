@@ -8,8 +8,6 @@ import {
   Skeleton,
   Link,
 } from '@mui/material'
-import { Scrollbar } from 'components/Scrollbar'
-import useDimension from 'helpers/useDimension'
 import { getAllArticles } from 'redux/modules/article/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { LazyImage } from 'components/LazyImage'
@@ -24,7 +22,6 @@ const HeroSection = () => {
   const dispatch = useDispatch()
   const currentUser = useSelector(currentUserSelector)
   const videoRef = useRef(null)
-  const { height } = useDimension(videoRef)
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
 
@@ -33,7 +30,7 @@ const HeroSection = () => {
     dispatch(getAllArticles({
       params: {
         page: 1,
-        perPage: 8
+        perPage: 5
       },
       success: ({ data }) => {
         setData(data?.posts)
@@ -64,10 +61,10 @@ const HeroSection = () => {
                 <LazyImage src={data[0].featureImage} height={300} />
 
                 <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
-                  NFT
+                  {data[0]?.primaryTag.name}
                   <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
                   <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-                    {moment(Date.now()).diff(data.updatedAt, 'hours')} hours ago
+                    {moment(Date.now()).diff(data[0].updatedAt, 'hours')} hours ago
                   </Typography>
                 </Typography>
 
@@ -97,45 +94,43 @@ const HeroSection = () => {
 
       <Grid item xs={12} md={5}>
         <Box>
-          <Scrollbar style={{ height }}>
-            <Stack direction="column" spacing={1.5} divider={<Divider />}>
-              {
-                (isLoading || data.length === 0)
-                  ?
-                  [0, 1, 3].map((item, index) => {
-                    return (
-                      <Stack spacing={1} key={index}>
-                        <Skeleton width="50px" />
-                        <Skeleton />
-                        <Skeleton width="60%" />
-                      </Stack>
-                    )
-                  })
-                  :
-                  data.map((item, index) => {
-                    return (
-                      <Stack key={index}>
-                        <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
-                          NFT
-                        </Typography>
-                        <Typography variant="subTitle3" sx={{ fontWeight: 500 }}>
-                          <Link
-                            component={'span'}
-                            onClick={() => history.push(!currentUser && isPremium(item.tags) ? `/paywall` : `article/${item?.id}`)}
-                            underline="hover"
-                            sx={{ color: "#232A45", fontSize: "20x", cursor: "pointer" }}
-                          >
-                            <ShowMoreText lines={2} expandByClick={false} more="">
-                              {item.title}
-                            </ShowMoreText>
-                          </Link>
-                        </Typography>
-                      </Stack>
-                    )
-                  })
-              }
-            </Stack>
-          </Scrollbar>
+          <Stack direction="column" spacing={1.5} divider={<Divider />}>
+            {
+              (isLoading || data.length === 0)
+                ?
+                [0, 1, 3].map((item, index) => {
+                  return (
+                    <Stack spacing={1} key={index}>
+                      <Skeleton width="50px" />
+                      <Skeleton />
+                      <Skeleton width="60%" />
+                    </Stack>
+                  )
+                })
+                :
+                data.map((item, index) => {
+                  return (
+                    <Stack key={index}>
+                      <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
+                        {item?.primaryTag.name}
+                      </Typography>
+                      <Typography variant="subTitle3" sx={{ fontWeight: 500 }}>
+                        <Link
+                          component={'span'}
+                          onClick={() => history.push(!currentUser && isPremium(item.tags) ? `/paywall` : `article/${item?.id}`)}
+                          underline="hover"
+                          sx={{ color: "#232A45", fontSize: "20x", cursor: "pointer" }}
+                        >
+                          <ShowMoreText lines={2} expandByClick={false} more="">
+                            {item.title}
+                          </ShowMoreText>
+                        </Link>
+                      </Typography>
+                    </Stack>
+                  )
+                })
+            }
+          </Stack>
         </Box>
       </Grid>
     </Grid>
