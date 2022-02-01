@@ -30,6 +30,27 @@ production stylesheet in assets/built/screen.css
 /* Import CSS reset and base styles */
 /* @import "global.css"; */
 
+li {
+    padding-left: 0.3em;
+    line-height: 1.6em;
+}
+
+li + li {
+    margin-top: 0.5em;
+}
+
+img {
+    border: 0;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+}
+
 :root {
 
     /* Colours */
@@ -959,7 +980,9 @@ headings, text, images and lists. We deal with cards lower down. */
 /* Default vertical spacing */
 .gh-content > 
 span,
-p
+p,
+ul,
+li
  {
     font-size: large !important;
 }
