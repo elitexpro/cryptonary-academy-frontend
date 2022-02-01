@@ -4,7 +4,7 @@ import {
   Box,
   Grid,
 } from '@mui/material'
-import EtfSVG from 'assets/image/etf.svg'
+import RatingsGuideTab from 'assets/image/ratings-guide-tab.svg'
 
 const RatingsGuide = () => {
   return (
@@ -19,7 +19,7 @@ const RatingsGuide = () => {
         </Grid>
         <Grid item md={12} xs={12}>
           <Box sx={{ mt: 4, px: 4 }}>
-            <img src={EtfSVG} alt="" style={{ width: "100%" }} />
+            <img src={RatingsGuideTab} alt="" style={{ width: "100%" }} />
           </Box>
         </Grid>
       </Grid>
