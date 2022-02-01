@@ -17,6 +17,7 @@ import Landing from 'pages/Landing'
 import Paywall from 'pages/Paywall'
 import Account from 'pages/Account'
 import News from 'pages/News'
+import RatingsGuide from 'pages/RatingsGuide'
 import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
@@ -43,6 +44,7 @@ const routes = () => (
         <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
         <AuthedRoute path='/pulse' component={Pulse} />
         <AuthedRoute path='/account' component={Account} />
+        <Route exact path='/rating-guide' component={RatingsGuide} />
       </Layout>
     </ScrollToTop>
   </Router>

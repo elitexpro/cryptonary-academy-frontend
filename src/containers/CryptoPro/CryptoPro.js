@@ -24,7 +24,7 @@ const CustomTab = styled(Tab)(() => {
     textTransform: 'none !important',
     fontSize: 18,
     fontWeight: "normal",
-    color: '#FFF'
+    color: '#FFF !important'
   }
 })
 
@@ -105,7 +105,7 @@ const CryptoPro = () => {
                   sx={{
                     borderBottom: "1px solid",
                     borderColor: currentTab === index + 1 ? "#7BE05D" : "#E4E4E4",
-                    color: currentTab === index + 1 ? "#FFF" : "#909090",
+                    color: currentTab === index + 1 ? "#FFF !important" : "#909090 !important",
                     background: currentTab === index + 1 ? "#1D1D1D" : "#141414",
                     mb: 3,
                     py: 1

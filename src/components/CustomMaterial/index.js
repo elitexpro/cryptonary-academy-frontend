@@ -5,6 +5,7 @@ import MBreadcrumbs from './MBreadcrumbs'
 import MButtonMenu from './MButtonMenu'
 import MAlert from './MAlert'
 import MSwitch from './MSwitch'
+import MDropBox from './MDropBox'
 
 export {
   MButton,
@@ -13,5 +14,6 @@ export {
   MBreadcrumbs,
   MButtonMenu,
   MAlert,
-  MSwitch
+  MSwitch,
+  MDropBox
 }
