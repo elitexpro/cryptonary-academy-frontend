@@ -8,7 +8,7 @@ import {
   Skeleton,
   Link,
 } from '@mui/material'
-import { getAllArticles } from 'redux/modules/article/actions'
+import { getLatestNews } from 'redux/modules/article/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { LazyImage } from 'components/LazyImage'
 import ShowMoreText from "react-show-more-text"
@@ -27,7 +27,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    dispatch(getAllArticles({
+    dispatch(getLatestNews({
       params: {
         page: 1,
         perPage: 5
