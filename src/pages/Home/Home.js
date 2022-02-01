@@ -12,6 +12,7 @@ import { Footer } from 'containers/Footer'
 
 const Home = () => {
 
+  console.log('fix hot fix')
   return (
     <>
       <Container maxWidth="xl" sx={{ py: 4 }}>
