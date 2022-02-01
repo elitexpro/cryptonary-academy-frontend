@@ -20,7 +20,7 @@ const SOCIAL_ITEMS = [
   { to: "#", icon: <FiFacebook style={{ color: "#141414", fontSize: 22 }} /> },
 ]
 
-const ArticleInfo = ({ article }) => {
+const ArticleInfo = ({ article, isLoading }) => {
   const history = useHistory()
 
   const handleClick = (to) => {

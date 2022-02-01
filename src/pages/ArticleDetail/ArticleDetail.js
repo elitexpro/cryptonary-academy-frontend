@@ -6,6 +6,7 @@ import {
   Typography,
   Stack,
   IconButton,
+  Skeleton,
 } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { MBreadcrumbs } from 'components/CustomMaterial'
@@ -50,38 +51,60 @@ const ArticleDetail = (props) => {
   return (
     <>
       <Container maxWidth="xl" sx={{ mb: 8 }} >
-        <Hidden mdDown>
-          <MBreadcrumbs data={detailRoot} sx={{ mt: 5 }} />
+        <Hidden mdDown >
+          {
+            isLoading
+              ? <Skeleton animation="wave" width="50%" sx={{ mt: 5 }} />
+              : <MBreadcrumbs data={detailRoot} sx={{ mt: 5 }} />
+          }
         </Hidden>
 
         <Box sx={{ my: 3 }}>
           <Stack direction="row" alignItems="center">
-            <Typography variant="h1" sx={{ color: "#141414", fontSize: { md: "38px", xs: "24px" }, fontWeight: 500 }}>
-              {currentArticle?.title}
-              <Hidden mdDown>
-                <IconButton size="small" sx={{ ml: 3 }}>
-                  <BookmarkBorderIcon />
-                </IconButton>
-              </Hidden>
-            </Typography>
+            {
+              isLoading
+                ? <Skeleton animation="wave" width="80%" />
+                :
+                <Typography variant="h1" sx={{ color: "#141414", fontSize: { md: "38px", xs: "24px" }, fontWeight: 500 }}>
+                  {currentArticle?.title}
+                  <Hidden mdDown>
+                    <IconButton size="small" sx={{ ml: 3 }}>
+                      <BookmarkBorderIcon />
+                    </IconButton>
+                  </Hidden>
+                </Typography>
+            }
           </Stack>
 
           <Box sx={{ mb: 3, mt: 4, height: "100%" }}>
-            <LazyImage src={currentArticle.featureImage} height="100%" minHeight="300px" />
+            {
+              isLoading
+                ? <Skeleton variant="rectangular" animation="wave" width="100%" height="300px" />
+                : <LazyImage src={currentArticle.featureImage} height="100%" minHeight="300px" />
+            }
           </Box>
           <Box sx={{
             display: { md: "flex", xs: "block" },
             mb: 5
           }}>
             <Hidden mdUp>
-              <ArticleInfo article={currentArticle} />
+              <ArticleInfo article={currentArticle} isLoading={isLoading} />
             </Hidden>
             <Box >
-              <section className="gh-content gh-canvas" dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
+              {
+                isLoading
+                  ? <>
+                    <Skeleton animation="wave" width="80%" />
+                    <Skeleton animation="wave" width="100%" />
+                    <Skeleton animation="wave" width="60%" />
+                    <Skeleton animation="wave" width="40%" />
+                  </>
+                  : <section className="gh-content gh-canvas" dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
+              }
             </Box>
             <Hidden mdDown>
               <Box sx={{ flexGrow: 1 }} />
-              <ArticleInfo article={currentArticle} />
+              <ArticleInfo article={currentArticle} isLoading={isLoading} />
             </Hidden>
           </Box>
         </Box>
