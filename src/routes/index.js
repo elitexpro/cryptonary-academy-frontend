@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Education from 'pages/Education'
 import Home from 'pages/Home'
 import Signup from 'pages/Signup'
@@ -18,6 +18,8 @@ import Paywall from 'pages/Paywall'
 import Account from 'pages/Account'
 import News from 'pages/News'
 import RatingsGuide from 'pages/RatingsGuide'
+import PageNotFound from 'pages/PageNotFound'
+import CoinDetail from 'pages/CoinDetail'
 import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
@@ -27,24 +29,28 @@ const routes = () => (
   <Router>
     <ScrollToTop>
       <Layout>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/app' component={Landing} />
-        <Route exact path='/news' component={News} />
-        <Route exact path='/education' component={Education} />
-        <AuthedRoute path='/preference' component={Preference} />
-        <PublicRoute path='/signup' component={Signup} />
-        <PublicRoute path='/login' component={Login} />
-        <Route path='/paywall' component={Paywall} />
-        <AuthedRoute path='/verify' component={Verify} />
-        <Route path='/forgot-password' component={ForgotPassword} />
-        <Route path='/reset-password' component={ResetPassword} />
-        <AuthedRoute path='/video-detail' component={VideoDetail} />
-        <Route exact path='/article/:id' component={ArticleDetail} />
-        <Route exact path='/article' component={Article} />
-        <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
-        <AuthedRoute path='/pulse' component={Pulse} />
-        <AuthedRoute path='/account' component={Account} />
-        <Route exact path='/rating-guide' component={RatingsGuide} />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/app' component={Landing} />
+          <Route exact path='/news' component={News} />
+          <Route exact path='/education' component={Education} />
+          <AuthedRoute path='/preference' component={Preference} />
+          <PublicRoute path='/signup' component={Signup} />
+          <PublicRoute path='/login' component={Login} />
+          <Route path='/paywall' component={Paywall} />
+          <AuthedRoute path='/verify' component={Verify} />
+          <Route path='/forgot-password' component={ForgotPassword} />
+          <Route path='/reset-password' component={ResetPassword} />
+          <AuthedRoute path='/video-detail' component={VideoDetail} />
+          <Route exact path='/article/:id' component={ArticleDetail} />
+          <Route exact path='/article' component={Article} />
+          <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
+          <AuthedRoute path='/pulse' component={Pulse} />
+          <AuthedRoute path='/account' component={Account} />
+          <Route exact path='/rating-guide' component={RatingsGuide} />
+          <AuthedRoute path='/rating-guide/:symbol' component={CoinDetail} />
+          <Route component={PageNotFound} />
+        </Switch>
       </Layout>
     </ScrollToTop>
   </Router>

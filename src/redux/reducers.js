@@ -4,6 +4,7 @@ import auth from './modules/auth/reducers'
 import article from './modules/article/reducers'
 import author from './modules/author/reducers'
 import tag from './modules/tag/reducers'
+import coin from './modules/coin/reducers'
 
 export default combineReducers({
   auth,
@@ -11,4 +12,5 @@ export default combineReducers({
   article,
   author,
   tag,
+  coin,
 })
