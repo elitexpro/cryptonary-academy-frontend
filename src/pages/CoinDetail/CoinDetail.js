@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { styled } from '@mui/styles'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Grid,
   Container,
@@ -12,7 +12,8 @@ import {
   Tab,
   Tabs,
 } from '@mui/material'
-import { getCoinById } from 'redux/modules/coin/actions'
+import { getCoinById, getRelatedCoins } from 'redux/modules/coin/actions'
+import { relatedCoinsSelector } from 'redux/modules/coin/selectors'
 import Overview from 'components/CoinOverview'
 import { Footer } from 'containers/Footer'
 import CoinTable from 'components/CoinTable'
@@ -30,6 +31,7 @@ const CustomTab = styled(Tab)(() => {
 
 const CoinDetail = (props) => {
   const dispatch = useDispatch()
+  const relatedCoins = useSelector(relatedCoinsSelector)
   const [currentCoin, setCurrentCoin] = useState({})
   const [isLoading, setIsloading] = useState(false)
   const [currentTab, setCurrentTab] = useState('overview')
@@ -58,6 +60,12 @@ const CoinDetail = (props) => {
   useEffect(() => {
     loadCoin(props.match.params.symbol)
   }, [loadCoin, props.match.params.symbol])
+
+  useEffect(() => {
+    dispatch(getRelatedCoins({
+      id: currentCoin.coinSectors && currentCoin.coinSectors[0].id
+    }))
+  }, [dispatch, currentCoin])
 
   const handleChange = (e, value) => {
     setCurrentTab(value)
@@ -127,7 +135,11 @@ const CoinDetail = (props) => {
           </Tabs>
           {currentTab === 'overview' && <Overview coin={currentCoin} />}
           {currentTab === 'news' && <Overview />}
-          {currentTab === 'related_coins' && <CoinTable />}
+          {currentTab === 'related_coins' &&
+            <Box sx={{ mt: 4 }}>
+              <CoinTable tableData={relatedCoins} noHeader={true} viewAllButton={true} />
+            </Box>
+          }
         </Box>
       }
 

@@ -23,8 +23,16 @@ const doGetCoinById = apiCall({
   path: ({ payload }) => `coin-ratings/${payload.symbol}/`,
 })
 
+const doGetRelatedCoins = apiCall({
+  type: CONSTANTS.GET_RELATED_COINS,
+  isGhostApi: true,
+  method: 'get',
+  path: ({ payload }) => `coin-ratings/filter?coinSector=${payload.id}/`,
+})
+
 export default function* rootSaga() {
   yield takeLatest(CONSTANTS.GET_COIN_RATING_LIST, doGetCoinRatingList)
   yield takeLatest(CONSTANTS.GET_COIN_RATING_TYPE_LIST, doGetCoinRatingTypeList)
   yield takeLatest(CONSTANTS.GET_COIN_BY_ID, doGetCoinById)
+  yield takeLatest(CONSTANTS.GET_RELATED_COINS, doGetRelatedCoins)
 }

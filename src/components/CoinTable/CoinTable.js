@@ -35,7 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   border: 'non',
 }))
 
-const CoinTable = ({ coinRatings }) => {
+const CoinTable = ({ tableData, noHeader, viewAllButton }) => {
   const history = useHistory()
   const [orderBy, setOrderBy] = useState('')
   const [order, setOrder] = useState('asc')
@@ -48,92 +48,106 @@ const CoinTable = ({ coinRatings }) => {
   }
 
   return (
-    <Table>
-      <TableHead>
-        <StyledTableRow>
-          {TABLE_HEADERS.map((item, index) => (
-            index === 1 || index === 2 ?
-              <Hidden mdDown key={index}>
-                <StyledTableCell key={index}>
-                  <TableSortLabel
-                    active={orderBy === item}
-                    direction={orderBy === item ? order : 'asc'}
-                    onClick={handleSort(item)}
-                  >{item}</TableSortLabel>
-                </StyledTableCell>
-              </Hidden> :
-              <StyledTableCell key={index}>
-                <TableSortLabel
-                  active={orderBy === item}
-                  direction={orderBy === item ? order : 'asc'}
-                  onClick={handleSort(item)}
-                >{item}</TableSortLabel>
-              </StyledTableCell>
-          ))}
-          <StyledTableCell></StyledTableCell>
-        </StyledTableRow>
-      </TableHead>
-      <TableBody>
-        {coinRatings?.data && coinRatings?.data.map((item, index) => {
-          const {
-            tokenName, coinSymbol, coinTypes, coinSectors, logo, infoCommunityReview, infoTeamDeveloper,
-            infoTokenomicAllocation, infoUsageReview, infoValueAccural
-          } = item.attributes
+    <Box>
+      <Table>
+        {!noHeader &&
+          <TableHead>
+            <StyledTableRow>
+              {TABLE_HEADERS.map((item, index) => (
+                index === 1 || index === 2 ?
+                  <Hidden mdDown key={index}>
+                    <StyledTableCell key={index}>
+                      <TableSortLabel
+                        active={orderBy === item}
+                        direction={orderBy === item ? order : 'asc'}
+                        onClick={handleSort(item)}
+                      >{item}</TableSortLabel>
+                    </StyledTableCell>
+                  </Hidden> :
+                  <StyledTableCell key={index}>
+                    <TableSortLabel
+                      active={orderBy === item}
+                      direction={orderBy === item ? order : 'asc'}
+                      onClick={handleSort(item)}
+                    >{item}</TableSortLabel>
+                  </StyledTableCell>
+              ))}
+              <StyledTableCell></StyledTableCell>
+            </StyledTableRow>
+          </TableHead>
+        }
+        <TableBody>
+          {tableData?.data && tableData?.data.map((item, index) => {
+            const {
+              tokenName, coinSymbol, coinTypes, coinSectors, logo, infoCommunityReview, infoTeamDeveloper,
+              infoTokenomicAllocation, infoUsageReview, infoValueAccural
+            } = item.attributes
 
-          const rating = (infoCommunityReview + infoTeamDeveloper + infoTokenomicAllocation + infoUsageReview + infoValueAccural) / 5
+            const rating = (infoCommunityReview + infoTeamDeveloper + infoTokenomicAllocation + infoUsageReview + infoValueAccural) / 5
 
-          return (
-            <TableRow key={index}>
-              <TableCell>
-                <Stack direction="row" alignItems="center">
-                  <img src={logo.url} alt="" style={{ width: 40, height: 40 }} />
-                  <Box
-                    sx={{
-                      ml: 1,
-                      display: 'flex',
-                      flexDirection: { md: 'row', xs: 'column' },
-                      alignItems: { md: 'center', xs: 'flex-start' },
-                      justifyContent: 'center',
-                    }}>
-                    <Box sx={{ mr: 0.5 }}>
+            return (
+              <TableRow key={index}>
+                <TableCell>
+                  <Stack direction="row" alignItems="center">
+                    <img src={logo.url} alt="" style={{ width: 40, height: 40 }} />
+                    <Box
+                      sx={{
+                        ml: 1,
+                        display: 'flex',
+                        flexDirection: { md: 'row', xs: 'column' },
+                        alignItems: { md: 'center', xs: 'flex-start' },
+                        justifyContent: 'center',
+                      }}>
                       <Typography variant="subTitle1" color="#555">{tokenName}</Typography>
-                    </Box>
-                    <Box>
                       <Typography variant="subTitle4" color="#858585">{coinSymbol}</Typography>
                     </Box>
-                  </Box>
-                </Stack>
-              </TableCell>
-              <Hidden mdDown>
-                <TableCell>{coinTypes[0].name}</TableCell>
-                <TableCell>{coinSectors[0].name}</TableCell>
-              </Hidden>
-              <TableCell>
-                <Stack direction="row" spacing={1}>
-                  <Rating defaultValue={rating} precision={0.1} size='small' readOnly />
-                  <Typography variant="subTitle1" color="#141414">{rating}</Typography>
-                </Stack>
-              </TableCell>
-              <TableCell>
+                  </Stack>
+                </TableCell>
                 <Hidden mdDown>
-                  <MButton
-                    variant="outlined"
-                    color="success"
-                    endIcon={<FiChevronRight />}
-                    onClick={() => history.push(`rating-guide/${coinSymbol}`)}
-                  >
-                    Details
-                  </MButton>
+                  <TableCell>{coinTypes[0].name}</TableCell>
+                  <TableCell>{coinSectors[0].name}</TableCell>
                 </Hidden>
-                <Hidden mdUp>
-                  <FiChevronRight style={{ fontSize: '20px', color: '#4AAF47' }} />
-                </Hidden>
-              </TableCell>
-            </TableRow>
-          )
-        })}
-      </TableBody>
-    </Table>
+                <TableCell>
+                  <Stack direction="row" spacing={1}>
+                    <Rating defaultValue={rating} precision={0.1} size='small' readOnly />
+                    <Typography variant="subTitle1" color="#141414">{rating}</Typography>
+                  </Stack>
+                </TableCell>
+                <TableCell>
+                  <Hidden mdDown>
+                    <MButton
+                      variant="outlined"
+                      color="success"
+                      endIcon={<FiChevronRight />}
+                      onClick={() => history.push(`rating-guide/${coinSymbol}`)}
+                    >
+                      Details
+                    </MButton>
+                  </Hidden>
+                  <Hidden mdUp>
+                    <FiChevronRight style={{ fontSize: '20px', color: '#4AAF47' }} />
+                  </Hidden>
+                </TableCell>
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
+      {viewAllButton &&
+        <Box sx={{ mt: 6, textAlign: 'center' }}>
+          <MButton
+            variant="contained"
+            color="success"
+            sx={{
+              color: '#FFF',
+              fontSize: 16,
+              px: 4,
+              py: '12px',
+            }}
+          >View all coins</MButton>
+        </Box>
+      }
+    </Box>
   )
 }
 
