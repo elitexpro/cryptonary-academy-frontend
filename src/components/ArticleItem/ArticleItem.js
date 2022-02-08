@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   Box,
   Typography,
   Stack,
   IconButton,
   Link,
+  CardActionArea,
 } from '@mui/material'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
 import { useHistory } from 'react-router-dom'
@@ -18,18 +19,24 @@ import { LazyImage } from 'components/LazyImage'
 const ArticleItem = ({ data }) => {
   const history = useHistory()
   const currentUser = useSelector(currentUserSelector)
+  const url = useMemo(() => {
+    return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
+  }, [currentUser, data])
+
 
   return (
     <Box>
       <Stack spacing={1}>
-        <LazyImage src={data.featureImage} height={220} />
+        <CardActionArea onClick={() => history.push(url)}>
+          <LazyImage src={data.featureImage} />
+        </CardActionArea>
 
         <Typography variant="subTitle4" sx={{ color: "#4AAF47", pt: 1 }}>{data?.primaryTag.name}</Typography>
 
         <Typography variant="subTitle3" >
           <Link
             component={'span'}
-            onClick={() => history.push(!currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`)}
+            onClick={() => history.push(url)}
             underline="hover"
             sx={{ color: "#232A45", fontSize: "20x", cursor: "pointer" }}
           >

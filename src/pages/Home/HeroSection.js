@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useMemo } from 'react'
 import {
   Box,
   Typography,
@@ -7,6 +7,7 @@ import {
   Grid,
   Skeleton,
   Link,
+  CardActionArea,
 } from '@mui/material'
 import { getLatestNews } from 'redux/modules/article/actions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,6 +25,10 @@ const HeroSection = () => {
   const videoRef = useRef(null)
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
+
+  const url = useMemo(() => {
+    return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
+  }, [currentUser, data])
 
   useEffect(() => {
     setIsLoading(true)
@@ -58,8 +63,9 @@ const HeroSection = () => {
               </Stack>
               :
               <Stack spacing={1}>
-                <LazyImage src={data[0].featureImage} height={"100%"} minHeight={300}/>
-
+                <CardActionArea onClick={() => history.push(url)}>
+                  <LazyImage src={data[0].featureImage} />
+                </CardActionArea>
                 <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
                   {data[0]?.primaryTag.name}
                   <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
@@ -71,7 +77,7 @@ const HeroSection = () => {
                 <Typography variant="h2" sx={{ fontWeight: 500 }}>
                   <Link
                     component={'span'}
-                    onClick={() => history.push(!currentUser && isPremium(data[0].tags) ? `/paywall` : `article/${data[0]?.id}`)}
+                    onClick={() => history.push(url)}
                     underline="hover"
                     sx={{ color: "#232A45", fontSize: "32x", cursor: "pointer" }}
                   >
@@ -125,6 +131,11 @@ const HeroSection = () => {
                             {item.title}
                           </ShowMoreText>
                         </Link>
+                      </Typography>
+                      <Typography variant="subTitle" sx={{ color: "#858585" }}>
+                        <ShowMoreText lines={1} expandByClick={false} more="">
+                          {item.excerpt}
+                        </ShowMoreText>
                       </Typography>
                     </Stack>
                   )

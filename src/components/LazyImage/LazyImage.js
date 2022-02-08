@@ -1,21 +1,31 @@
-import React from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import React, { useRef } from 'react'
+import { LazyLoadComponent } from 'react-lazy-load-image-component'
 import {
   Box,
   Skeleton,
 } from '@mui/material'
+import useDimension from 'helpers/useDimension'
 
-const LazyImage = ({ src, height, minHeight = "100%" }) => {
+const LazyImage = ({ src, height }) => {
+  const videoRef = useRef(null)
+  const { width } = useDimension(videoRef)
 
   return (
-    <Box sx={{ background: "#F5F5F5", height, minHeight, position: "relative", zIndex: 1 }}>
-      <LazyLoadImage
-        alt=""
-        effect="blur"
-        width="100%"
-        height="100%"
-        src={src}
-      />
+    <Box sx={{ background: "#F5F5F5", position: "relative", zIndex: 1, height: height ? width : width / 2, }} ref={videoRef}>
+      <LazyLoadComponent >
+        <img
+          alt=""
+          effect="blur"
+          loading="lazy"
+          style={{
+            width: "100%",
+            height: height ? width : width / 2,
+            objectFit: "cover"
+          }}
+          src={src}
+        />
+      </LazyLoadComponent>
+
       <Skeleton
         animation="wave"
         variant="rectangular"

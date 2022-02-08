@@ -64,7 +64,7 @@ const LatestNews = () => {
                   </Stack>
                   :
                   <Stack spacing={1}>
-                    <LazyImage src={data[0].featureImage} height={300} />
+                    <LazyImage src={data[0].featureImage} />
 
                     <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
                       {data[0]?.primaryTag.name}

@@ -80,7 +80,7 @@ const ArticleDetail = (props) => {
             {
               isLoading
                 ? <Skeleton variant="rectangular" animation="wave" width="100%" height="300px" />
-                : <LazyImage src={currentArticle.featureImage} height="100%" minHeight="300px" />
+                : <LazyImage src={currentArticle.featureImage} />
             }
           </Box>
           <Box sx={{

@@ -57,7 +57,7 @@ const FeaturedNews = () => {
                 (isLoading || featuredNews.length === 0) ?
                   <Skeleton variant="rectangular" width="100%" height={250} />
                   :
-                  <LazyImage src={featuredNews[0].featureImage} height={250} />
+                  <LazyImage src={featuredNews[0].featureImage} />
               }
             </Box>
           </Grid>

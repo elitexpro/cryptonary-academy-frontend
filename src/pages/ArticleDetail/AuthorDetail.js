@@ -28,7 +28,7 @@ const AuthorDetail = ({ authorInfo, isLoading }) => {
             {isLoading ?
               <Skeleton variant="rectangular" animation="wave" width="100%" height="200px" />
               :
-              <LazyImage src={authorInfo?.profileImage} height={200} />
+              <LazyImage src={authorInfo?.profileImage} height="100%" />
             }
           </Box>
           <Stack

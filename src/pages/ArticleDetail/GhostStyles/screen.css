@@ -30,16 +30,16 @@ production stylesheet in assets/built/screen.css
 /* Import CSS reset and base styles */
 /* @import "global.css"; */
 
-li {
+.gh-content > li {
     padding-left: 0.3em;
     line-height: 1.6em;
 }
 
-li + li {
+.gh-content > li + li {
     margin-top: 0.5em;
 }
 
-img {
+.gh-content > img {
     border: 0;
     display: block;
     max-width: 100%;
@@ -83,24 +83,24 @@ img {
 /* 2. Layout - Page building blocks
 /* ---------------------------------------------------------- */
 
-.viewport {
+.gh-content > .viewport {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.site-content {
+.gh-content > .site-content {
     flex-grow: 1;
 }
 
 /* Full width page blocks */
-.outer {
+.gh-content > .outer {
     position: relative;
     padding: 0 4vmin;
 }
 
 /* Centered content container blocks */
-.inner {
+.gh-content > .inner {
     margin: 0 auto;
     max-width: 1200px;
     width: 100%;
@@ -110,7 +110,7 @@ img {
 /* 4. Site Header
 /* ---------------------------------------------------------- */
 
-.site-header {
+.gh-content > .site-header {
     position: relative;
     color: #fff;
     background: var(--ghost-accent-color);
