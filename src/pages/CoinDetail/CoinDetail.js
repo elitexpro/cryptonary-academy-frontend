@@ -17,6 +17,7 @@ import { relatedCoinsSelector } from 'redux/modules/coin/selectors'
 import Overview from 'components/CoinOverview'
 import { Footer } from 'containers/Footer'
 import CoinTable from 'components/CoinTable'
+import CoinNews from 'components/CoinNews'
 
 const CustomTab = styled(Tab)(() => {
   return {
@@ -130,11 +131,11 @@ const CoinDetail = (props) => {
             }}
           >
             <CustomTab label="Overview" value="overview" />
-            <CustomTab label="News" value="news" />
+            <CustomTab label="Bitcoin News" value="news" />
             <CustomTab label="Related Coins" value="related_coins" />
           </Tabs>
           {currentTab === 'overview' && <Overview coin={currentCoin} />}
-          {currentTab === 'news' && <Overview />}
+          {currentTab === 'news' && <CoinNews />}
           {currentTab === 'related_coins' &&
             <Box sx={{ mt: 4 }}>
               <CoinTable tableData={relatedCoins} noHeader={true} viewAllButton={true} />
