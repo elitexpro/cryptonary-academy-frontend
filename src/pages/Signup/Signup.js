@@ -23,6 +23,7 @@ import { validator } from 'helpers/validator'
 import { useDispatch } from 'react-redux'
 import { signup } from 'redux/modules/auth/actions'
 import { useHistory } from 'react-router-dom'
+import { CRYPTONARY_SUPPORT_MAIL } from 'helpers/utils'
 
 const Signup = () => {
   const dispatch = useDispatch()
@@ -158,7 +159,7 @@ const Signup = () => {
               </Box>
               <Box sx={{ textAlign: "center", mt: 10 }}>
                 <Typography variant="subTitle" sx={{ color: "#858585" }}>Having troubles signing up? <Link
-                  href='mailto:support@cryptonary.com' color="#555">
+                  href={CRYPTONARY_SUPPORT_MAIL} color="#555">
                   Contact our support team</Link>
                 </Typography>
               </Box>

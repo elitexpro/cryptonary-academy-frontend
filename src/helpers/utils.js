@@ -4,6 +4,7 @@ const CRYPTONARY_TWITTER = 'https://twitter.com/#'
 const CRYPTONARY_FACEBOOK = 'https://facebook.com/#'
 const CRYPTONARY_DISCORD = 'https://discord.com/#'
 const CRYPTONARY_HELP_CENTER = 'https://www.cryptonary.com/contact/'
+const CRYPTONARY_SUPPORT_MAIL = 'mailto:support@cryptonary.com'
 
 const CG_AUTH_TOKEN = 'eaa1aeb9b6416bbaaf197f68ff'
 
@@ -15,4 +16,5 @@ export {
   CRYPTONARY_FACEBOOK,
   CRYPTONARY_DISCORD,
   CRYPTONARY_HELP_CENTER,
+  CRYPTONARY_SUPPORT_MAIL,
 }
