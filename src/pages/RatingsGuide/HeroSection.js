@@ -18,7 +18,6 @@ const HeroSection = () => {
   const [defaultLabel, setDefaultLabel] = useState('Sort By')
 
   const sortByItems = [
-    { text: 'Popular', value: 'popular' },
     { text: 'Newest', value: 'newest' },
     { text: 'Oldest', value: 'oldest' },
     { text: '4 star or more', value: '4star' },

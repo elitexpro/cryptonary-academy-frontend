@@ -94,7 +94,7 @@ const RatingsTable = () => {
           </Box>
         </Stack>
       </Hidden>
-      <CoinTable tableData={coinRatings} />
+      <CoinTable tableData={coinRatings.data} />
     </Box>
   )
 }

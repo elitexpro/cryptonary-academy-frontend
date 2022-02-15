@@ -11,6 +11,3 @@ export const coinRatingTypesSelector = (state) =>
 
 export const currentCoinSelector = (state) =>
   get(state, 'coin.current_coin', [])
-
-export const relatedCoinsSelector = (state) =>
-  get(state, 'coin.related_coins', [])

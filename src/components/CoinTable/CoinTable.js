@@ -77,7 +77,7 @@ const CoinTable = ({ tableData, noHeader, viewAllButton }) => {
           </TableHead>
         }
         <TableBody>
-          {tableData?.data && tableData?.data.map((item, index) => {
+          {tableData && tableData.map((item, index) => {
             const {
               tokenName, coinSymbol, coinTypes, coinSectors, logo, infoCommunityReview, infoTeamDeveloper,
               infoTokenomicAllocation, infoUsageReview, infoValueAccural
@@ -97,8 +97,9 @@ const CoinTable = ({ tableData, noHeader, viewAllButton }) => {
                         flexDirection: { md: 'row', xs: 'column' },
                         alignItems: { md: 'center', xs: 'flex-start' },
                         justifyContent: 'center',
-                      }}>
-                      <Typography variant="subTitle1" color="#555">{tokenName}</Typography>
+                      }}
+                    >
+                      <Typography variant="subTitle1" color="#555" sx={{ mr: 0.5 }}>{tokenName}</Typography>
                       <Typography variant="subTitle4" color="#858585">{coinSymbol}</Typography>
                     </Box>
                   </Stack>

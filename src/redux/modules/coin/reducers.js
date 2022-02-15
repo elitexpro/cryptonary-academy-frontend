@@ -9,7 +9,6 @@ const getInitialState = () => {
     ratings: [],
     rating_types: [],
     current_coin: {},
-    related_coins: [],
   }
 }
 
@@ -58,19 +57,4 @@ export default handleActions({
     status: 'FAILED',
     error: payload,
   }),
-
-  [CONSTANTS.GET_RELATED_COINS]: (state, { payload }) => ({
-    ...state,
-    status: 'PENDING',
-  }),
-  [requestSuccess(CONSTANTS.GET_RELATED_COINS)]: (state, { payload }) => ({
-    ...state,
-    status: 'SUCCESS',
-    related_coins: payload,
-  }),
-  [requestFail(CONSTANTS.GET_RELATED_COINS)]: (state, { payload }) => ({
-    ...state,
-    status: 'FAILED',
-    error: payload,
-  })
 }, getInitialState())
