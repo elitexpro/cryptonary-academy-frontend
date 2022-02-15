@@ -27,7 +27,9 @@ const HeroSection = () => {
   const [data, setData] = useState([])
 
   const url = useMemo(() => {
-    return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
+    if(data.length > 0) {
+      return !currentUser && isPremium(data[0].tags) ? `/paywall` : `article/${data[0]?.id}`
+    }
   }, [currentUser, data])
 
   useEffect(() => {

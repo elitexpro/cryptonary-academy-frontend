@@ -72,7 +72,7 @@ const AuthorDetail = ({ authorInfo, isLoading }) => {
                 underline="hover"
                 sx={{ color: "#232A45", display: "flex", alignItems: "center" }}
               >
-                View Latest articles from {authorInfo?.name}
+                View latest articles from {authorInfo?.name}
                 <ArrowForwardRoundedIcon />
               </Link>
             </Typography>

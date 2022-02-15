@@ -7,27 +7,33 @@ import {
   Skeleton,
   Grid,
 } from '@mui/material'
-import { VideoItem } from 'components/VideoItem'
 import { MButton } from 'components/CustomMaterial'
 import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getAllArticles } from 'redux/modules/article/actions'
-import { articleListSelector, articleStatusSelector } from 'redux/modules/article/selectors'
+import { ArticleItem } from 'components/ArticleItem'
 
 const ArticleSection = ({ id }) => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const articles = useSelector(articleListSelector)
-  const status = useSelector(articleStatusSelector)
-  const [posts, setPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState([])
 
   useEffect(() => {
-    dispatch(getAllArticles())
+    setIsLoading(true)
+    dispatch(getAllArticles({
+      params: {
+        page: 1,
+        perPage: 3
+      },
+      success: ({ data }) => {
+        setData(data?.posts)
+        setIsLoading(false)
+      },
+      fail: () => {
+      }
+    }))
   }, [dispatch])
-
-  useEffect(() => {
-    setPosts(articles)
-  }, [articles, status])
 
   return (
     <Stack
@@ -48,37 +54,38 @@ const ArticleSection = ({ id }) => {
 
       <Grid container spacing={2}>
         {
-          status === 'SUCCESS' ?
-            posts?.posts?.slice(0, 3).map((post, index) => {
+          (isLoading || data.length === 0)
+            ?
+            [0, 1, 2].map((value, index) => {
               return (
                 <Grid item key={index} xs={12} md={4}>
                   <Card
                     variant="outlined"
                     sx={{ p: 2, borderRadius: '8px' }}
                   >
-                    <VideoItem post={post} />
+                    <Stack spacing={1}>
+                      <Skeleton variant="rectangular" width="100%" height={250} />
+                      <Skeleton />
+                      <Skeleton />
+                      <Skeleton width="60%" />
+                    </Stack>
                   </Card>
                 </Grid>
               )
-            }) : (
-              [0, 1, 2].map((value, index) => {
-                return (
-                  <Grid item key={index} xs={12} md={4}>
-                    <Card
-                      variant="outlined"
-                      sx={{ p: 2, borderRadius: '8px' }}
-                    >
-                      <Stack spacing={1}>
-                        <Skeleton variant="rectangular" width="100%" height={247} />
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton width="60%" />
-                      </Stack>
-                    </Card>
-                  </Grid>
-                )
-              })
-            )
+            })
+            :
+            data.map((post, index) => {
+              return (
+                <Grid item key={index} xs={12} md={4}>
+                  <Card
+                    variant="outlined"
+                    sx={{ p: 2, borderRadius: '8px' }}
+                  >
+                    <ArticleItem data={post} />
+                  </Card>
+                </Grid>
+              )
+            })
         }
       </Grid>
 
