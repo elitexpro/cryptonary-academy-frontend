@@ -77,7 +77,7 @@ const Login = () => {
       <Grid container>
         <Grid item md={6} xs={12}>
           <Stack justifyContent="center" alignItems="center" sx={{ minHeight: "calc(100vh - 80px)" }}>
-            <Box sx={{ maxWidth: '400px', width: '100%', my: 3 }}>
+            <Box sx={{ maxWidth: '500px', width: '100%', my: 3 }}>
               <Container>
                 <Box sx={{ mb: 2 }}>
                   <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>
