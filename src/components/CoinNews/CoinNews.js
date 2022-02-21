@@ -8,11 +8,12 @@ import {
   Box,
   Divider,
   IconButton,
+  CardActionArea,
 } from '@mui/material'
 import ShowMoreText from "react-show-more-text"
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import NewsSVG from 'assets/image/news.svg'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
+import { LazyImage } from 'components/LazyImage'
 
 const NEWS_DATA = [
   {
@@ -53,12 +54,9 @@ const CoinNews = ({ data, isGlobalSearch }) => {
               <Grid item md={4} xs={4} order={!isGlobalSearch && { md: 1, xs: 2 }}>
                 <Box sx={{ display: !isGlobalSearch && 'none' }}>
                   {image ? image :
-                    <LazyLoadImage
-                      effect="blur"
-                      src={type ? item.attributes.thumbnail.url : item.featureImage}
-                      alt=""
-                      width="100%"
-                    />
+                    <CardActionArea>
+                      <LazyImage src={type ? item.attributes.thumbnail.url : item.featureImage} />
+                    </CardActionArea>
                   }
                 </Box>
               </Grid>
@@ -72,11 +70,13 @@ const CoinNews = ({ data, isGlobalSearch }) => {
                     </Box>
 
                     <Typography variant="subTitle1" color="#232A45">
-                      {type === 'videos' ? item.attributes.title : title}
+                      <ShowMoreText lines={1} expandByClick={false} more="">
+                        {type === 'videos' ? item.attributes.title : title}
+                      </ShowMoreText>
                     </Typography>
 
                     <Box sx={{ display: !isGlobalSearch && 'none' }}>
-                      <ShowMoreText lines={3} expandByClick={false} more="">
+                      <ShowMoreText lines={1} expandByClick={false} more="">
                         {content ? content : type === 'videos' ? item.attributes.description : excerpt}
                       </ShowMoreText>
                     </Box>
