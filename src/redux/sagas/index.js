@@ -6,8 +6,9 @@ import author from './author'
 import tag from './tag'
 import coin from './coin'
 import video from './video'
+import pulse from './pulse'
 
-export default function* rootSaga () {
+export default function* rootSaga() {
   yield all([
     auth(),
     global(),
@@ -16,5 +17,6 @@ export default function* rootSaga () {
     tag(),
     coin(),
     video(),
+    pulse(),
   ])
 }

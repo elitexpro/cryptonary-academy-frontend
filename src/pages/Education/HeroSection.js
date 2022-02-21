@@ -1,40 +1,35 @@
 import React from 'react'
 import {
-  Hidden,
   Box,
   Grid,
   Typography,
-  Stack,
 } from '@mui/material'
-import heroImg from 'assets/image/hero-image.svg'
+import SvgArticleHeroImg from 'assets/image/article-hero-image.svg'
 
 const HeroSection = () => {
   return (
-    <Box sx={{ px: { md: 4, xs: 0 }, py: { md: 6, xs: 4 }, color: "#FFF", flexGrow: 1 }}>
-      <Grid container spacing={0}>
-        <Grid item md={6} xs={12} >
-          <Stack justifyContent="center" alignItems="flex-start" sx={{ height: "100%" }}>
-            <Typography variant="headTitle2" sx={{ color: "#FFF" }}>
-              Crypto knowledge for all
-            </Typography>
-            <Typography varaint="subTitle" sx={{ mt: 1 }}>
-              Cold Storage is the term given to digital wallets held offline to protect
-              cryptocurrency funds from fraudulent use by others ...
-            </Typography>
-          </Stack>
+    <Box sx={{ py: { md: 8, xs: 3 }, px: { md: 5, xs: 0 } }}>
+      <Grid container spacing={2}>
+        <Grid
+          item md={6} xs={12}
+          sx={{ pt: 6, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+          order={{ md: 1, xs: 2 }}
+        >
+          <Typography variant="headTitle2">Crypto School</Typography>
+          <Typography variant="subTitle1" sx={{ color: "#555", maxWidth: 620 }}>
+            All you need to know about the basics of cryptocurrency in one place.
+            Learn how Bitcoin, blockchain and altcoins work, how to actually use them, and why it matters to you.
+          </Typography>
         </Grid>
-        <Hidden mdDown>
-          <Grid item md={6}>
-            <Box sx={{
-              backgroundImage: `url(${heroImg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundColor: "#141414",
-              height: 240
-            }} />
-          </Grid>
-        </Hidden>
+        <Grid item md={6} xs={12} order={{ md: 2, xs: 1 }}>
+          <Box sx={{
+            backgroundImage: `url(${SvgArticleHeroImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            height: 240
+          }} />
+        </Grid>
       </Grid>
     </Box>
   )

@@ -25,8 +25,8 @@ const NavButtons = [
   { text: 'News', to: '/news' },
   { component: <Alpha />, isCustomized: true },
   { text: 'Education', to: '/education' },
-  { text: 'Ratings Guide', to: '/rating-guide' },
-  { text: 'Pulse', to: '/pulse', isForAuthed: true },
+  { text: 'Ratings Guide', to: '/rating-guide', isForPro: true },
+  { text: 'Pulse', to: '/pulse', isForPro: true },
   { component: <GlobalSearch />, isCustomized: true },
 ]
 
@@ -54,7 +54,7 @@ const Header = () => {
                   return (
                     <Fragment key={key}>
                       {
-                        !item.isForAuthed || (item.isForAuthed && currentUser) ?
+                        !item.isForPro || (item.isForPro && currentUser?.role === "pro") ?
                           item.isCustomized ?
                             item.component :
                             <MButton

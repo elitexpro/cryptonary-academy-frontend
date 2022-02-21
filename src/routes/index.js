@@ -22,6 +22,7 @@ import PageNotFound from 'pages/PageNotFound'
 import CoinDetail from 'pages/CoinDetail'
 import SearchResult from 'pages/SearchResult'
 import AuthedRoute from './AuthedRoute'
+import CproRoute from './CproRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
 import ScrollToTop from 'react-router-scroll-top'
@@ -46,9 +47,9 @@ const routes = () => (
           <Route exact path='/article/:id' component={ArticleDetail} />
           <Route exact path='/article' component={Article} />
           <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
-          <AuthedRoute path='/pulse' component={Pulse} />
+          <CproRoute path='/pulse' component={Pulse} />
           <AuthedRoute path='/account' component={Account} />
-          <Route exact path='/rating-guide' component={RatingsGuide} />
+          <CproRoute exact path='/rating-guide' component={RatingsGuide} />
           <AuthedRoute path='/rating-guide/:symbol' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />
           <Route component={PageNotFound} />

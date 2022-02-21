@@ -7,6 +7,7 @@ import {
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { VideoItem } from 'components/VideoItem'
+import { useDispatch, useSelector } from 'react-redux'
 
 const DeepDives = () => {
   return (

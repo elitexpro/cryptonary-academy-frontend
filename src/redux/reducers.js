@@ -6,6 +6,7 @@ import author from './modules/author/reducers'
 import tag from './modules/tag/reducers'
 import coin from './modules/coin/reducers'
 import video from './modules/video/reducers'
+import pulse from './modules/pulse/reducers'
 
 export default combineReducers({
   auth,
@@ -15,4 +16,5 @@ export default combineReducers({
   tag,
   coin,
   video,
+  pulse,
 })

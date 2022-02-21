@@ -15,8 +15,8 @@ const HeroSection = () => {
           sx={{ pt: 6, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
           order={{ md: 1, xs: 2 }}
         >
-          <Typography variant="headTitle2"> Basics </Typography>
-          <Typography variant="subTitle1" sx={{ color: "#555" }}>
+          <Typography variant="headTitle2">Crypto School</Typography>
+          <Typography variant="subTitle1" sx={{ color: "#555", maxWidth: 620 }}>
             All you need to know about the basics of cryptocurrency in one place.
             Learn how Bitcoin, blockchain and altcoins work, how to actually use them, and why it matters to you.
           </Typography>

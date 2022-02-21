@@ -22,6 +22,34 @@ import { useDispatch } from 'react-redux'
 import { login } from 'redux/modules/auth/actions'
 import { useHistory } from 'react-router-dom'
 import { CRYPTONARY_SUPPORT_MAIL } from 'helpers/utils'
+import sliderImg from 'assets/image/slider.png'
+
+const CAROUSELS = [
+  {
+    title: 'Tailored to power your learning',
+    description: `We’re excited to start delivering you insightful crypto knowledge.
+     Answer a few questions to help us recommend personalized content to you.`,
+    image: sliderImg
+  },
+  {
+    title: 'Tailored to power your learning',
+    description: `We’re excited to start delivering you insightful crypto knowledge.
+    Answer a few questions to help us recommend personalized content to you.`,
+    image: sliderImg
+  },
+  {
+    title: 'Tailored to power your learning',
+    description: `We’re excited to start delivering you insightful crypto knowledge.
+    Answer a few questions to help us recommend personalized content to you.`,
+    image: sliderImg
+  }
+]
+
+const CAROUSEL_ITEM_STYLE = {
+  imageStyle: { width: "320px" },
+  titleStyle: { fontSize: "24px", color: "#141414", fontWeight: 500 },
+  descriptionStyle: { color: "#555", fontSize: "16px" }
+}
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -147,10 +175,9 @@ const Login = () => {
                 border: 'none',
                 boxShadow: 'none',
                 width: '100%',
-                maxWidth: 550,
-                height: 550,
+                maxWidth: 440,
               }}>
-                <Carousel />
+                <Carousel data={CAROUSELS} style={CAROUSEL_ITEM_STYLE}/>
               </Card>
             </Stack>
           </Grid>

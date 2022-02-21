@@ -5,24 +5,44 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import SvgVideo from 'assets/image/video.svg'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
-const PulseItem = ({ icon, data }) => {
+const PulseItem = ({ data }) => {
+  const { attributes } = data
 
   return (
     <Box sx={{ py: 4, px: { md: 4, xs: 2 }, backgroundColor: "#FAFAFA", borderRadius: "8px" }}>
       <Stack direction="row" spacing={2} alignItems="center">
-        <img src={icon} alt="" style={{ width: 40, height: 40 }} />
-        <Typography variant="subTitle3" sx={{ color: "#141414" }}>{data.title}</Typography>
+        {
+          attributes?.coin?.url &&
+          <LazyLoadImage
+            alt=""
+            effect="blur"
+            width={40}
+            height={40}
+            src={attributes?.coin?.url}
+          />
+        }
+        <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>
+          {attributes?.title}
+        </Typography>
       </Stack>
 
       <Divider sx={{ my: 3 }} />
 
-      <Typography variant="subTitle1" sx={{ color: "#555" }}>{data.content}</Typography>
+      <Typography variant="subTitle1" sx={{ color: "#555" }}>{attributes?.description}</Typography>
 
-      <Box sx={{ mt: 2 }}>
-        <img src={SvgVideo} alt="" style={{ maxWidth: 480, width: "100%" }} />
-      </Box>
+      {
+        attributes && attributes?.images.length > 0 &&
+        <Box sx={{ mt: 2, maxWidth: 480 }}>
+          <LazyLoadImage
+            alt=""
+            effect="blur"
+            width="100%"
+            src={attributes?.images[0]}
+          />
+        </Box>
+      }
     </Box>
   )
 }

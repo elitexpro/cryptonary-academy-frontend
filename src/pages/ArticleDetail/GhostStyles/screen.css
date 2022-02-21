@@ -39,7 +39,7 @@ production stylesheet in assets/built/screen.css
     margin-top: 0.5em;
 }
 
-img {
+.gh-content > img {
     border: 0;
     display: block;
     max-width: 100%;

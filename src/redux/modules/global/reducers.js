@@ -1,9 +1,10 @@
 import { handleActions } from 'redux-actions'
-// import { requestSuccess, requestFail } from 'redux/api/request'
 import * as CONSTANTS from './constants'
 
 const getInitialState = () => {
   return {
+    isLoading: false,
+    pulsePinDate: Date.now(),
     status: 'INIT',
     error: null,
     exploreTopics: [],
@@ -14,6 +15,10 @@ export default handleActions({
   [CONSTANTS.SET_EXPLORE_TOPICS]: (state, { payload }) => ({
     ...state,
     exploreTopics: payload,
+  }),
+  [CONSTANTS.SET_PULSE_PIN_DATE]: (state, { payload }) => ({
+    ...state,
+    pulsePinDate: payload,
   }),
 
 }, getInitialState())

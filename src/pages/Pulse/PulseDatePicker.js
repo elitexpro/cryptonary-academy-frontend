@@ -21,12 +21,17 @@ import Sticky from 'react-stickynode'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import StaticDatePicker from '@mui/lab/StaticDatePicker'
+import { useDispatch, useSelector } from 'react-redux'
+import { pulsePinDateSelector } from 'redux/modules/global/selectors'
+import { setPulsePinDate } from 'redux/modules/global/actions'
+import moment from 'moment'
 
 const PulseDatePicker = () => {
+  const dispatch = useDispatch()
   const [isPinned, setIsPinned] = useState(false)
-  const [value, setValue] = React.useState(new Date())
   const [openDatePicker, setOpenDatePicker] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
+  const pinDate = useSelector(pulsePinDateSelector)
 
   const handleStickyStateChange = (status) => {
     if (status.status === Sticky.STATUS_FIXED) {
@@ -40,6 +45,14 @@ const PulseDatePicker = () => {
   const handlePickerToggle = (e) => {
     setOpenDatePicker(prev => !prev)
     setAnchorEl(e.currentTarget)
+  }
+
+  const HandlePrevDate = () => {
+    dispatch(setPulsePinDate(moment(pinDate).subtract(1, "day")))
+  }
+
+  const HandleNextDate = () => {
+    dispatch(setPulsePinDate(moment(pinDate).add(1, "day")))
   }
 
   return (
@@ -65,6 +78,7 @@ const PulseDatePicker = () => {
                     color="inherit"
                     variant="text"
                     sx={{ width: 48, minWidth: 0, background: "#FAFAFA", borderRadius: "2px 0px 0px 2px" }}
+                    onClick={HandlePrevDate}
                   >
                     <KeyboardArrowLeftRoundedIcon />
                   </MButton>
@@ -72,7 +86,9 @@ const PulseDatePicker = () => {
                   <Divider orientation='vertical' />
 
                   <Stack sx={{ flexGrow: 1 }} alignItems="center" justifyContent="center">
-                    <Typography variant="subTitle4" sx={{ color: "#141414" }}>November 19 2021</Typography>
+                    <Typography variant="subTitle4" sx={{ color: "#141414" }}>
+                      {moment(pinDate).format("MMMM DD YYYY")}
+                    </Typography>
                   </Stack>
 
                   <Divider orientation='vertical' />
@@ -81,6 +97,7 @@ const PulseDatePicker = () => {
                     color="inherit"
                     variant="text"
                     sx={{ width: 48, minWidth: 0, background: "#FAFAFA", borderRadius: "0px 2px 2px 0px" }}
+                    onClick={HandleNextDate}
                   >
                     <ChevronRightRoundedIcon />
                   </MButton>
@@ -118,17 +135,18 @@ const PulseDatePicker = () => {
             <Paper elevation={3} sx={{ p: 1, mt: 0.5 }}>
               <ClickAwayListener onClickAway={() => setOpenDatePicker(false)}>
                 <Box>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <StaticDatePicker
-                    displayStaticWrapperAs="desktop"
-                    openTo="day"
-                    value={value}
-                    onChange={(newValue) => {
-                      setValue(newValue)
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <StaticDatePicker
+                      displayStaticWrapperAs="desktop"
+                      openTo="day"
+                      value={pinDate}
+                      onChange={(newValue) => {
+                        dispatch(setPulsePinDate(newValue))
+                        setOpenDatePicker(false)
+                      }}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
                 </Box>
               </ClickAwayListener>
             </Paper>

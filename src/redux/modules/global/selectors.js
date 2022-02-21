@@ -5,3 +5,6 @@ export const globalStateSelector = (state) =>
 
 export const exploreTopicsSelector = (state) =>
   get(state, 'global.exploreTopics', null)
+
+export const pulsePinDateSelector = (state) =>
+  get(state, 'global.pulsePinDate', null)

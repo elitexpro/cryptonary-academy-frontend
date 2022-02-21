@@ -93,7 +93,7 @@ const doRequestAccountVerify = apiCall({
 const doCheckAccountVerification = apiCall({
   type: CONSTANTS.CHECK_ACCOUNT_VERIFICATION,
   method: 'get',
-  path: ({ payload }) => `/auth/check-verify/${payload.token}/`,
+  path: ({ payload }) => `/auth/verify-email/${payload.token}/`,
   success: (res, action) => {
     localStorage.setItem('cryptonary_user', JSON.stringify(res.data))
   }

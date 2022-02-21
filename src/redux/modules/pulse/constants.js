@@ -1,0 +1,2 @@
+export const GET_PULSES_BY_DATE = 'GET_PULSES_BY_DATE'
+export const GET_LATEST_PULSE = 'GET_LATEST_PULSE'

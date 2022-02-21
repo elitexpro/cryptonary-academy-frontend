@@ -20,12 +20,14 @@ export default handleActions({
     ...state,
     status: 'PENDING',
   }),
-  [requestSuccess(CONSTANTS.DO_SIGNUP)]: (state, { payload }) => ({
-    ...state,
-    status: 'SUCCESS',
-    me: payload.data.data,
-    token: payload.data.meta.tokens,
-  }),
+  [requestSuccess(CONSTANTS.DO_SIGNUP)]: (state, { payload }) => {
+    return ({
+      ...state,
+      status: 'SUCCESS',
+      me: payload.data,
+      token: payload.meta.tokens,
+    })
+  },
   [requestFail(CONSTANTS.DO_SIGNUP)]: (state, { payload }) => ({
     ...state,
     status: 'FAILED',

@@ -7,12 +7,13 @@ import {
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { VideoItem } from 'components/VideoItem'
+import { useDispatch, useSelector } from 'react-redux'
 
 const MustKnow = () => {
   return (
     <Box sx={{ mb: 3 }}>
-      <Stack direction="row">
-        <Typography variant="h2" sx={{ color: "#141414", mb: 3 }}>Must Knows</Typography>
+      <Stack direction="row" sx={{ mb: 3 }}>
+        <Typography variant="h2" sx={{ color: "#141414" }}>Must Knows</Typography>
         <Box sx={{ flexGrow: 1 }} />
         <MButton color='inherit' size="small">
           View all

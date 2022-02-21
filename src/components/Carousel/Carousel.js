@@ -1,50 +1,50 @@
-import React, { useRef } from 'react'
+import React, { useRef, useMemo } from 'react'
 import Slider from 'react-slick'
-// material
-import {
-  useTheme,
-  styled
-} from '@mui/styles'
-import { Box } from '@mui/material'
-import {
-  CarouselControlsPaging2,
-} from './controls'
-import sliderImg from 'assets/image/slider.png'
+import { useTheme } from '@mui/styles'
+import { Box, Hidden, Typography, Stack } from '@mui/material'
+import { CarouselControlsPaging1, CarouselControlsPaging2 } from './controls'
 
-
-const CAROUSELS = [...Array(3)].map((_, index) => {
-  return {
-    title: 'Tailored to power your learning',
-    description: '121221',
-    image: sliderImg
-  }
-})
-
-const RootStyle = styled('div')(({ theme }) => ({
-  position: 'relative',
-  '& .slick-track': {
-    display: 'flex',
-  }
-}))
-
-
-function CarouselItem({ item }) {
-  const { image, title } = item
+const CarouselItem = ({ item, itemStyle }) => {
+  const { image, title, description } = item
+  const { imageStyle, titleStyle, descriptionStyle } = itemStyle
 
   return (
-    <Box sx={{ width: '100%', height: 480, objectFit: 'cover', textAlign: 'center', cursor: 'pointer', userSelect: 'none' }}>
-      <img src={image} alt='' />
-      <h2>{title}</h2>
-      <p>We’re excited to start delivering you insightful crypto knowledge.
-        Answer a few questions to help us recommend personalized content to you.</p>
+    <Box sx={{ width: '100%', objectFit: 'cover', textAlign: 'center', cursor: 'pointer', userSelect: 'none' }}>
+      <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Box sx={{ ...imageStyle }}>
+          <img src={image} alt='' style={{ width: "100%", margin: "auto" }} />
+        </Box>
+      </Stack>
+      <Box sx={{ mb: 2 }}>
+        <Typography variant="subTitle" sx={{ ...titleStyle }}>{title}</Typography>
+      </Box>
+      <Hidden mdDown>
+        <Typography variant="subTitle" sx={{ ...descriptionStyle }}>{description}</Typography>
+      </Hidden>
     </Box>
   )
 }
 
-
-const Carousel = () => {
+const Carousel = ({ data, style, pagingStyle }) => {
   const theme = useTheme()
   const carouselRef = useRef()
+
+  const carouselController = useMemo(() => {
+    switch (pagingStyle) {
+      case "circle":
+        return CarouselControlsPaging1({
+          sx: { mt: { md: 4, xs: 10 } }
+        })
+      default:
+        return CarouselControlsPaging2({
+          sx: { mt: 3 }
+        })
+    }
+  }, [pagingStyle])
 
   const settings = {
     speed: 500,
@@ -53,20 +53,17 @@ const Carousel = () => {
     autoplay: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    rtl: Boolean(theme.direction === 'rtl'),
-    ...CarouselControlsPaging2({
-      sx: { mt: 3 }
-    })
+    rtl: Boolean(theme.direction === 'rtl'), ...carouselController
   }
 
   return (
-    <RootStyle>
+    <Box>
       <Slider ref={carouselRef} {...settings} >
-        {CAROUSELS.map((item) => (
-          <CarouselItem key={item.title} item={item} />
+        {data.map((item) => (
+          <CarouselItem key={item.title} item={item} itemStyle={style} />
         ))}
       </Slider>
-    </RootStyle>
+    </Box>
   )
 
 }
