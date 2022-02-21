@@ -114,13 +114,12 @@ const CoinTable = ({ tableData, noHeader, viewAllButton }) => {
                     <Typography variant="subTitle1" color="#141414">{rating}</Typography>
                   </Stack>
                 </TableCell>
-                <TableCell>
+                <TableCell onClick={() => history.push(`rating-guide/${coinSymbol}`)}>
                   <Hidden mdDown>
                     <MButton
                       variant="outlined"
                       color="success"
                       endIcon={<FiChevronRight />}
-                      onClick={() => history.push(`rating-guide/${coinSymbol}`)}
                     >
                       Details
                     </MButton>
@@ -145,6 +144,7 @@ const CoinTable = ({ tableData, noHeader, viewAllButton }) => {
               px: 4,
               py: '12px',
             }}
+            onClick={() => history.push('/rating-guide')}
           >View all coins</MButton>
         </Box>
       }

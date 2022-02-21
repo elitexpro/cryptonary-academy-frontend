@@ -80,89 +80,91 @@ const Signup = () => {
   }
 
   return (
-    <Container maxWidth="xl">
+    <Box>
       <MAlert open={openAlert} setOpen={setOpenAlert} message={errorMessage} type="error" />
       <BackLoader open={isLoading} />
 
       <Grid container spacing={0}>
         <Grid item md={6} xs={12}>
-          <Stack justifyContent="center" alignItems="center">
-            <Box sx={{ maxWidth: '400px', width: '100%', my: 4 }}>
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>Sign up to Crypto School</Typography>
-              </Box>
-              <MInput
-                label='First Name'
-                placeholder='Your first Name'
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)}
-                error={validationStr[0]}
-              />
-              <MInput
-                label='Last Name'
-                placeholder='Your last name'
-                value={lastName}
-                onChange={e => setLastName(e.target.value)}
-                error={validationStr[1]}
-              />
-              <MInput
-                label='Email Address'
-                placeholder='Your email address'
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                error={validationStr[2]}
-              />
-              <MInput
-                type='password'
-                label='Password'
-                placeholder='Your password'
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                error={validationStr[3]}
-              />
-              <MInput
-                type='password'
-                label='Confirm Password'
-                placeholder='Your confirm password'
-                value={confirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)}
-                error={validationStr[4]}
-              />
+          <Stack justifyContent="center" alignItems="center" sx={{ minHeight: "calc(100vh - 80px)" }}>
+            <Box sx={{ maxWidth: '500px', width: '100%', my: 4 }}>
+              <Container>
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>Sign up to Crypto School</Typography>
+                </Box>
+                <MInput
+                  label='First Name'
+                  placeholder='Your first Name'
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  error={validationStr[0]}
+                />
+                <MInput
+                  label='Last Name'
+                  placeholder='Your last name'
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                  error={validationStr[1]}
+                />
+                <MInput
+                  label='Email Address'
+                  placeholder='Your email address'
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  error={validationStr[2]}
+                />
+                <MInput
+                  type='password'
+                  label='Password'
+                  placeholder='Your password'
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  error={validationStr[3]}
+                />
+                <MInput
+                  type='password'
+                  label='Confirm Password'
+                  placeholder='Your confirm password'
+                  value={confirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  error={validationStr[4]}
+                />
 
-              <FormControlLabel
-                value={isChecked}
-                sx={{ mt: 2 }}
-                control={<MCheckbox color='success' />}
-                onChange={() => setIsChecked(prev => !prev)}
-                label={
-                  <Typography variant="subTitle" sx={{ color: "#858585" }}>I accept <Link
-                    href="/terms" target="_blank" color="#000">terms
-                  </Link> and <Link href="/terms" target="_blank" color="#000">privacy policy</Link>
+                <FormControlLabel
+                  value={isChecked}
+                  sx={{ mt: 2 }}
+                  control={<MCheckbox color='success' />}
+                  onChange={() => setIsChecked(prev => !prev)}
+                  label={
+                    <Typography variant="subTitle" sx={{ color: "#858585" }}>I accept <Link
+                      href="/terms" target="_blank" color="#000">terms
+                    </Link> and <Link href="/terms" target="_blank" color="#000">privacy policy</Link>
+                    </Typography>
+                  }
+                />
+
+                <MButton
+                  color='success'
+                  variant='contained'
+                  fullWidth
+                  disabled={!isChecked}
+                  sx={{ height: 48, my: 5, color: '#FFF', fontSize: 16 }}
+                  onClick={handleSignup}
+                >
+                  Sign Up
+                </MButton>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography variant="subTitle1" sx={{ color: "#555" }}>Already have an account? <RouterLink to="/login">
+                    <Link component="button" color="#62BE5F" sx={{ fontSize: "1.125rem" }}>Sign in</Link></RouterLink>
                   </Typography>
-                }
-              />
-
-              <MButton
-                color='success'
-                variant='contained'
-                fullWidth
-                disabled={!isChecked}
-                sx={{ height: 48, my: 5, color: '#FFF', fontSize: 16 }}
-                onClick={handleSignup}
-              >
-                Sign Up
-              </MButton>
-              <Box sx={{ textAlign: "center" }}>
-                <Typography variant="subTitle1" sx={{ color: "#555" }}>Already have an account? <RouterLink to="/login">
-                  <Link component="button" color="#62BE5F" sx={{ fontSize: "1.125rem" }}>Sign in</Link></RouterLink>
-                </Typography>
-              </Box>
-              <Box sx={{ textAlign: "center", mt: 10 }}>
-                <Typography variant="subTitle" sx={{ color: "#858585" }}>Having troubles signing up? <Link
-                  href={CRYPTONARY_SUPPORT_MAIL} color="#555">
-                  Contact our support team</Link>
-                </Typography>
-              </Box>
+                </Box>
+                <Box sx={{ textAlign: "center", mt: 10 }}>
+                  <Typography variant="subTitle" sx={{ color: "#858585" }}>Having troubles signing up? <Link
+                    href={CRYPTONARY_SUPPORT_MAIL} color="#555">
+                    Contact our support team</Link>
+                  </Typography>
+                </Box>
+              </Container>
             </Box>
           </Stack>
         </Grid>
@@ -184,7 +186,7 @@ const Signup = () => {
           </Grid>
         </Hidden>
       </Grid>
-    </Container>
+    </Box>
   )
 }
 

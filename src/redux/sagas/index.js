@@ -5,6 +5,7 @@ import article from './article'
 import author from './author'
 import tag from './tag'
 import coin from './coin'
+import video from './video'
 
 export default function* rootSaga () {
   yield all([
@@ -14,5 +15,6 @@ export default function* rootSaga () {
     author(),
     tag(),
     coin(),
+    video(),
   ])
 }

@@ -13,17 +13,36 @@ import {
 import { getCoinRatingList, getCoinRatingTypeList } from 'redux/modules/coin/actions'
 import { coinRatingsSelector, coinRatingTypesSelector } from 'redux/modules/coin/selectors'
 import CoinTable from 'components/CoinTable'
+import { BackLoader } from 'components/Loader'
 
 const RatingsTable = () => {
   const dispatch = useDispatch()
   const coinRatings = useSelector(coinRatingsSelector)
   const coinRatingTypes = useSelector(coinRatingTypesSelector)
   const [types, setTypes] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [flag, setFlag] = useState(0)
 
   useEffect(() => {
-    dispatch(getCoinRatingList())
-    dispatch(getCoinRatingTypeList())
+    setIsLoading(true)
+    dispatch(getCoinRatingList({
+      success: () => {
+        setFlag(prev => prev + 1)
+      }
+    }))
+    dispatch(getCoinRatingTypeList({
+      success: () => {
+        setFlag(prev => prev + 1)
+      }
+    }))
   }, [dispatch])
+
+  useEffect(() => {
+    if (flag === 2) {
+      setIsLoading(false)
+      setFlag(0)
+    }
+  }, [flag])
 
   useEffect(() => {
     const formattedTypes = coinRatingTypes.data && coinRatingTypes.data.map(item => {
@@ -50,6 +69,7 @@ const RatingsTable = () => {
 
   return (
     <Box sx={{ px: { md: 5, xs: 0 } }}>
+      <BackLoader open={isLoading} />
       <Divider sx={{ color: '#E4E4E4', my: 4 }} />
       <Hidden mdDown>
         <Stack sx={{ mb: 4 }} direction='row' justifyContent='space-between' alignItems='center'>

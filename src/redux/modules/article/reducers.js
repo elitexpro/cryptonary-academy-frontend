@@ -8,6 +8,7 @@ const getInitialState = () => {
     error: null,
     articles: [],
     article: {},
+    filteredArticles: [],
   }
 }
 
@@ -36,6 +37,20 @@ export default handleActions({
     article: payload.posts[0],
   }),
   [requestFail(CONSTANTS.GET_ARTICLE_BY_ID)]: (state, { payload }) => ({
+    ...state,
+    status: 'FAILED',
+    error: payload,
+  }),
+  [CONSTANTS.GET_FILTERED_ARTICLES]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+  }),
+  [requestSuccess(CONSTANTS.GET_FILTERED_ARTICLES)]: (state, { payload }) => ({
+    ...state,
+    status: 'SUCCESS',
+    filteredArticles: payload,
+  }),
+  [requestFail(CONSTANTS.GET_FILTERED_ARTICLES)]: (state, { payload }) => ({
     ...state,
     status: 'FAILED',
     error: payload,

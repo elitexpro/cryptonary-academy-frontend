@@ -20,6 +20,7 @@ import News from 'pages/News'
 import RatingsGuide from 'pages/RatingsGuide'
 import PageNotFound from 'pages/PageNotFound'
 import CoinDetail from 'pages/CoinDetail'
+import SearchResult from 'pages/SearchResult'
 import AuthedRoute from './AuthedRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
@@ -49,6 +50,7 @@ const routes = () => (
           <AuthedRoute path='/account' component={Account} />
           <Route exact path='/rating-guide' component={RatingsGuide} />
           <AuthedRoute path='/rating-guide/:symbol' component={CoinDetail} />
+          <AuthedRoute path='/search-result' component={SearchResult} />
           <Route component={PageNotFound} />
         </Switch>
       </Layout>
