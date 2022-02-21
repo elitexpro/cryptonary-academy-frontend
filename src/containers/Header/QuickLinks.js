@@ -11,13 +11,11 @@ import {
   Skeleton,
 } from '@mui/material'
 import { getFilteredArticles } from 'redux/modules/article/actions'
-import { getFilteredVideos } from 'redux/modules/video/actions'
 
 const QuickLinks = ({ setOpen, data, isSearchHistory }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
-  const [filteredArticles, setFilteredArticles] = useState([])
 
   const handleClick = (link) => () => {
     if (isSearchHistory) {
@@ -32,25 +30,16 @@ const QuickLinks = ({ setOpen, data, isSearchHistory }) => {
           searchString: link,
         },
         success: ({ data }) => {
-          setFilteredArticles(data?.posts)
-          dispatch(getFilteredVideos({
-            params: {
-              search: link,
-            },
-            success: ({ data }) => {
-              // setFilteredArticles(data?.data)
-              setOpen(false)
-              setIsLoading(false)
-              history.push({
-                pathname: '/search-result',
-                search: link,
-                state: {
-                  data: filteredArticles,
-                  tag: 'all'
-                }
-              })
+          setOpen(false)
+          setIsLoading(false)
+          history.push({
+            pathname: '/search-result',
+            search: link,
+            state: {
+              data: data?.posts,
+              tag: 'all'
             }
-          }))
+          })
         }
       }))
     } else {

@@ -51,12 +51,16 @@ const CoinNews = ({ data, isGlobalSearch }) => {
           <Box key={index}>
             <Grid container spacing={{ md: 3, xs: 1 }}>
               <Grid item md={4} xs={4} order={!isGlobalSearch && { md: 1, xs: 2 }}>
-                {isGlobalSearch ?
-                  <Hidden mdDown>
-                    {image ? image : <LazyLoadImage effect="blur" src={type ? item.attributes.thumbnail.url : item.featureImage} alt="" />}
-                  </Hidden> :
-                  image ? image : <LazyLoadImage effect="blur" src={type ? item.attributes.thumbnail.url : item.featureImage} alt="" />
-                }
+                <Box sx={{ display: !isGlobalSearch && 'none' }}>
+                  {image ? image :
+                    <LazyLoadImage
+                      effect="blur"
+                      src={type ? item.attributes.thumbnail.url : item.featureImage}
+                      alt=""
+                      width="100%"
+                    />
+                  }
+                </Box>
               </Grid>
               <Grid item md={8} xs={isGlobalSearch ? 12 : 8} order={!isGlobalSearch && { md: 2, xs: 1 }}>
                 <Stack sx={{ maxWidth: 513, height: '100%' }}>
