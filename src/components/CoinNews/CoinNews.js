@@ -52,38 +52,38 @@ const CoinNews = ({ data, isGlobalSearch }) => {
           <Box key={index}>
             <Grid container spacing={{ md: 3, xs: 1 }}>
               <Grid item md={4} xs={4} order={!isGlobalSearch && { md: 1, xs: 2 }}>
-                <Box sx={{ display: !isGlobalSearch && 'none' }}>
+                <Hidden mdDown={isGlobalSearch && true}>
                   {image ? image :
                     <CardActionArea>
                       <LazyImage src={type ? item.attributes.thumbnail.url : item.featureImage} />
                     </CardActionArea>
                   }
-                </Box>
+                </Hidden>
               </Grid>
               <Grid item md={8} xs={isGlobalSearch ? 12 : 8} order={!isGlobalSearch && { md: 2, xs: 1 }}>
-                <Stack sx={{ maxWidth: 513, height: '100%' }}>
+                <Stack sx={{ maxWidth: 513 }}>
                   <Stack spacing={1}>
-                    <Box sx={{ display: !isGlobalSearch && 'none' }}>
+                    <Hidden mdDown={!isGlobalSearch && true}>
                       <Typography variant="subTitle4" color="#4AAF47">
                         {primaryTag ? primaryTag.name : 'Bitcoin BTC'}
                       </Typography>
-                    </Box>
+                    </Hidden>
 
                     <Typography variant="subTitle1" color="#232A45">
-                      <ShowMoreText lines={1} expandByClick={false} more="">
+                      <ShowMoreText expandByClick={false} more="">
                         {type === 'videos' ? item.attributes.title : title}
                       </ShowMoreText>
                     </Typography>
 
-                    <Box sx={{ display: !isGlobalSearch && 'none' }}>
+                    <Hidden mdDown={!isGlobalSearch && true}>
                       <ShowMoreText lines={1} expandByClick={false} more="">
                         {content ? content : type === 'videos' ? item.attributes.description : excerpt}
                       </ShowMoreText>
-                    </Box>
+                    </Hidden>
                   </Stack>
 
                   {isGlobalSearch &&
-                    <Box sx={{ display: 'flex', pt: 2, alignItems: 'flex-end', height: '100%' }}>
+                    <Box sx={{ display: 'flex', pt: 2 }}>
                       <Typography variant="subTitle4" sx={{ color: "#858585" }}>
                         {moment(Date.now()).diff(updatedAt, 'hours')} hours ago
                       </Typography>

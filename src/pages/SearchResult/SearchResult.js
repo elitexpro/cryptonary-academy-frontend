@@ -8,6 +8,7 @@ import {
   Tabs,
   Tab,
   Hidden,
+  Container,
 } from '@mui/material'
 import { SearchBox } from 'components/SearchBox'
 import { MDropBox } from 'components/CustomMaterial'
@@ -44,8 +45,8 @@ const SearchResult = () => {
   }, [location])
 
   return (
-    <Box>
-      <Box sx={{ background: '#FAFAFA', px: { md: 5, xs: 2 }, py: 4 }}>
+    <Container maxWidth="xl">
+      <Box sx={{ background: '#FAFAFA', px: { md: 5 }, py: 4 }}>
         <Box>
           <Hidden mdDown>
             <Typography
@@ -66,7 +67,7 @@ const SearchResult = () => {
       {data.length === 0 ?
         <NoResults />
         :
-        <Box sx={{ px: { md: 5, xs: 2 }, py: 4 }}>
+        <Box sx={{ px: { md: 5 }, py: 4 }}>
           <Tabs
             value={currentTab}
             onChange={(e, value) => setCurrentTab(value)}
@@ -94,7 +95,7 @@ const SearchResult = () => {
           </Box>
         </Box>
       }
-    </Box>
+    </Container>
   )
 }
 

@@ -32,6 +32,7 @@ const MDropBox = ({ items, label, onChange }) => {
         px: 2,
         display: 'flex',
         justifyContent: 'center',
+        zIndex: '1102'
       }}
       onClick={handleToggle}
     >
@@ -45,7 +46,6 @@ const MDropBox = ({ items, label, onChange }) => {
         transition
         disablePortal
         placement='bottom-end'
-        sx={{ zIndex: '1102', mt: 1 }}
       >
         {({ TransitionProps }) => (
           <Grow {...TransitionProps}>
