@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/styles'
 import { useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import {
   Box,
   Typography,
@@ -15,6 +16,8 @@ import { MDropBox } from 'components/CustomMaterial'
 import CoinNews from 'components/CoinNews'
 import NoResults from 'components/NoResults'
 
+import { filteredPostsSelector } from 'redux/modules/global/selectors'
+
 const CustomTab = styled(Tab)(() => {
   return {
     textTransform: 'none !important',
@@ -27,9 +30,9 @@ const CustomTab = styled(Tab)(() => {
 
 const SearchResult = () => {
   const location = useLocation()
+  const posts = useSelector(filteredPostsSelector)
   const [defaultLabel, setDefaultLabel] = useState('Sort By')
   const [currentTab, setCurrentTab] = useState('all')
-  const [data, setData] = useState([])
 
   const sortByItems = [
     { text: 'Newest', value: 'newest' },
@@ -38,11 +41,6 @@ const SearchResult = () => {
     { text: '3 star or more', value: '3star' },
     { text: '2 star or more', value: '2star' },
   ]
-
-  useEffect(() => {
-    setData(location.state && location.state.data)
-    setCurrentTab(location.state.tag ? location.state.tag : 'all')
-  }, [location])
 
   return (
     <Container maxWidth="xl">
@@ -64,7 +62,7 @@ const SearchResult = () => {
         </Box>
       </Box>
 
-      {data.length === 0 ?
+      {posts.length === 0 ?
         <NoResults />
         :
         <Box sx={{ px: { md: 5 }, py: 4 }}>
@@ -88,9 +86,9 @@ const SearchResult = () => {
           </Tabs>
 
           <Box sx={{ mt: 4 }}>
-            {currentTab === 'all' && <CoinNews data={data} isGlobalSearch={true} />}
-            {currentTab === 'news' && <CoinNews data={data.filter(item => item.access)} isGlobalSearch={true} />}
-            {currentTab === 'alpha' && <CoinNews data={data.filter(item => !item.access)} isGlobalSearch={true} />}
+            {currentTab === 'all' && <CoinNews data={posts} isGlobalSearch={true} />}
+            {currentTab === 'news' && <CoinNews data={posts.filter(item => item)} isGlobalSearch={true} />}
+            {currentTab === 'alpha' && <CoinNews data={posts.filter(item => !item)} isGlobalSearch={true} />}
             {currentTab === 'crypto_school' && <CoinNews isGlobalSearch={true} />}
           </Box>
         </Box>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import {
   Box,
   Stack,
@@ -8,15 +9,18 @@ import {
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 
-const HighLights = ({ data, searchText, setOpen, setText }) => {
+import { filteredPostsSelector } from 'redux/modules/global/selectors'
+
+const HighLights = ({ searchText, setOpen, setText }) => {
   const history = useHistory()
+  const posts = useSelector(filteredPostsSelector)
   const [news, setNews] = useState([])
   const [alpha, setAlpha] = useState([])
 
   useEffect(() => {
-    setNews(data.filter(item => item.access).slice(0, 5))
-    setAlpha(data.filter(item => !item.access).slice(0, 5))
-  }, [data])
+    setNews(posts?.filter(item => item).slice(0, 5))
+    setAlpha(posts?.filter(item => !item).slice(0, 5))
+  }, [posts])
 
   const handleClick = (tag) => () => {
     let search = localStorage.getItem('search_history') ? JSON.parse(localStorage.getItem('search_history')) : []
@@ -26,7 +30,6 @@ const HighLights = ({ data, searchText, setOpen, setText }) => {
       pathname: '/search-result',
       search: searchText,
       state: {
-        data,
         tag
       }
     })
@@ -39,7 +42,7 @@ const HighLights = ({ data, searchText, setOpen, setText }) => {
   return (
     <Box>
       {alpha && alpha.length > 0 &&
-        <Box>
+        <Box sx={{ mb: 3 }}>
           <Stack direction="row" spacing={1}>
             <Typography
               variant="subTitle4"
@@ -56,14 +59,14 @@ const HighLights = ({ data, searchText, setOpen, setText }) => {
 
           <Stack sx={{ mt: 1, borderRadius: '4px', p: 2, background: '#FFF' }} spacing={2}>
             {alpha.map((item, index) => {
-              const { primaryTag, title, type } = item
+              const { title, tagName } = item
 
               return (
                 <Box key={index}>
                   <Box sx={{ display: 'flex', flexDirection: 'row', mb: 2 }}>
-                    <Typography variant="subTitle" color="#4AAF47" sx={{ mr: 1, minWidth: 72 }}>{type ? type : primaryTag.name}</Typography>
+                    <Typography variant="subTitle" color="#4AAF47" sx={{ mr: 1, minWidth: 72 }}>{tagName}</Typography>
                     <Box>
-                      <Typography variant="subTitle" color="#555">{type ? item.attributes.title : title}</Typography>
+                      <Typography variant="subTitle" color="#555">{title}</Typography>
                     </Box>
                   </Box>
 
@@ -93,7 +96,7 @@ const HighLights = ({ data, searchText, setOpen, setText }) => {
 
       {news && news.length > 0 &&
         <Box>
-          <Box sx={{ mt: 3 }}>
+          <Box>
             <Typography
               variant="subTitle4"
               color="#909090"
@@ -107,16 +110,16 @@ const HighLights = ({ data, searchText, setOpen, setText }) => {
 
           <Stack sx={{ mt: 1, borderRadius: '4px', p: 2, background: '#FFF' }} spacing={2}>
             {news.map((item, index) => {
-              const { primaryTag, title, type } = item
+              const { title, tagName } = item
 
               return (
                 <Box key={index}>
                   <Box sx={{ display: 'flex', flexDirection: 'row', mb: 2 }}>
                     <Typography variant="subTitle" color="#4AAF47" sx={{ mr: 1, minWidth: 120 }}>
-                      {type ? type : primaryTag.name}
+                      {tagName}
                     </Typography>
                     <Box>
-                      <Typography variant="subTitle" color="#555">{type ? item.attributes.title : title}</Typography>
+                      <Typography variant="subTitle" color="#555">{title}</Typography>
                     </Box>
                   </Box>
 

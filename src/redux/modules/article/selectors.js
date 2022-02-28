@@ -8,3 +8,6 @@ export const articleListSelector = (state) =>
 
 export const articleStatusSelector = (state) =>
   get(state, 'article.status', null)
+
+export const filteredArticleSelector = (state) =>
+  get(state, 'article.filteredArticles', null)

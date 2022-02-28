@@ -8,6 +8,7 @@ const getInitialState = () => {
     status: 'INIT',
     error: null,
     exploreTopics: [],
+    filteredPosts: [],
   }
 }
 
@@ -19,6 +20,10 @@ export default handleActions({
   [CONSTANTS.SET_PULSE_PIN_DATE]: (state, { payload }) => ({
     ...state,
     pulsePinDate: payload,
+  }),
+  [CONSTANTS.SET_FILTERED_POSTS]: (state, { payload }) => ({
+    ...state,
+    filteredPosts: payload,
   }),
 
 }, getInitialState())

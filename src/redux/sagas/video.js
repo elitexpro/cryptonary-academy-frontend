@@ -6,7 +6,7 @@ const doGetFilteredVideos = apiCall({
   type: CONSTANTS.GET_FILTERED_VIDEOS,
   isGhostApi: false,
   method: 'get',
-  path: 'videos',
+  path: 'videos/search',
 })
 
 export default function* rootSaga() {

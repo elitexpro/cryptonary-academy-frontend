@@ -46,7 +46,7 @@ const CoinNews = ({ data, isGlobalSearch }) => {
   return (
     <Stack spacing={{ md: 4, xs: 2 }} sx={{ mt: 4 }}>
       {(data ? data : NEWS_DATA).map((item, index) => {
-        const { image, title, excerpt, content, type, primaryTag, updatedAt } = item
+        const { image, title, excerpt, content, tagName, updatedAt, featureImage } = item
 
         return (
           <Box key={index}>
@@ -55,7 +55,7 @@ const CoinNews = ({ data, isGlobalSearch }) => {
                 <Hidden mdDown={isGlobalSearch && true}>
                   {image ? image :
                     <CardActionArea>
-                      <LazyImage src={type ? item.attributes.thumbnail.url : item.featureImage} />
+                      <LazyImage src={featureImage} />
                     </CardActionArea>
                   }
                 </Hidden>
@@ -65,19 +65,19 @@ const CoinNews = ({ data, isGlobalSearch }) => {
                   <Stack spacing={1}>
                     <Hidden mdDown={!isGlobalSearch && true}>
                       <Typography variant="subTitle4" color="#4AAF47">
-                        {primaryTag ? primaryTag.name : 'Bitcoin BTC'}
+                        {tagName}
                       </Typography>
                     </Hidden>
 
                     <Typography variant="subTitle1" color="#232A45">
                       <ShowMoreText expandByClick={false} more="">
-                        {type === 'videos' ? item.attributes.title : title}
+                        {title}
                       </ShowMoreText>
                     </Typography>
 
                     <Hidden mdDown={!isGlobalSearch && true}>
                       <ShowMoreText lines={1} expandByClick={false} more="">
-                        {content ? content : type === 'videos' ? item.attributes.description : excerpt}
+                        {isGlobalSearch ? excerpt : content}
                       </ShowMoreText>
                     </Hidden>
                   </Stack>

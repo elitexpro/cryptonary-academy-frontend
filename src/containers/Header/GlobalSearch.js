@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect, useCallback } from 'react'
+import moment from 'moment'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import {
   IconButton,
@@ -8,12 +9,16 @@ import {
   InputBase,
   Skeleton,
 } from '@mui/material'
-import { getFilteredArticles } from 'redux/modules/article/actions'
-import { getFilteredVideos } from 'redux/modules/video/actions'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import CloseIcon from '@mui/icons-material/Close'
 import QuickLinks from './QuickLinks'
 import HighLights from './HighLights'
+
+import { getFilteredArticles } from 'redux/modules/article/actions'
+import { getFilteredVideos } from 'redux/modules/video/actions'
+import { setFilteredPosts } from 'redux/modules/global/actions'
+import { filteredArticleSelector } from 'redux/modules/article/selectors'
+import { filteredVideosSelector } from 'redux/modules/video/selectors'
 
 const LINKS = [
   {
@@ -41,11 +46,13 @@ const LINKS = [
 const GlobalSearch = () => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const filteredArticles = useSelector(filteredArticleSelector)
+  const filteredVideos = useSelector(filteredVideosSelector)
 
   const [open, setOpen] = useState(false)
-  const [filteredArticles, setFilteredArticles] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchText, setSearchText] = useState('')
+  const [flag, setFlag] = useState(0)
 
   const handleGlobalSearch = (e) => {
     if (e.target.value.length > 3) {
@@ -60,25 +67,59 @@ const GlobalSearch = () => {
         params: {
           searchString: e.target.value,
         },
-        success: ({ data }) => {
-          setFilteredArticles(data?.posts)
-          dispatch(getFilteredVideos({
-            params: {
-              search: e.target.value,
-            },
-            success: ({ data }) => {
-              setIsLoading(false)
-              // setFilteredArticles(prev => {
-              //   const temp = data?.data.map(item => prev.push(item))
+        success: () => {
+          setFlag(prev => prev + 1)
+        }
+      }))
 
-              //   return prev
-              // })
-            }
-          }))
+      dispatch(getFilteredVideos({
+        params: {
+          search: e.target.value,
+        },
+        success: () => {
+          setFlag(prev => prev + 1)
         }
       }))
     }
   }
+
+  const getFilteredPosts = useCallback(() => {
+    let posts = []
+
+    setFlag(0)
+    setIsLoading(false)
+    filteredArticles.map((item) => {
+      const { featureImage, primaryTag, title, excerpt, updatedAt } = item
+
+      return posts.push({
+        featureImage,
+        tagName: primaryTag.name,
+        title,
+        excerpt,
+        updatedAt: moment(updatedAt),
+      })
+    })
+
+    filteredVideos.map(item => {
+      const { attributes } = item
+
+      return posts.push({
+        featureImage: attributes.thumbnail.url,
+        tagName: 'Videos',
+        title: attributes.title,
+        excerpt: attributes.description,
+        updatedAt: moment(),
+      })
+    })
+
+    dispatch(setFilteredPosts(posts))
+  }, [filteredArticles, filteredVideos, dispatch])
+
+  useEffect(() => {
+    if (flag === 2) {
+      getFilteredPosts()
+    }
+  }, [flag, getFilteredPosts])
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 && !isLoading) {
@@ -96,7 +137,6 @@ const GlobalSearch = () => {
         pathname: '/search-result',
         search: searchText,
         state: {
-          data: filteredArticles,
           tag: 'all'
         }
       })
@@ -178,7 +218,6 @@ const GlobalSearch = () => {
                 </Box>
                 :
                 <HighLights
-                  data={filteredArticles}
                   searchText={searchText}
                   setOpen={setOpen}
                   setText={setSearchText}

@@ -97,7 +97,7 @@ const Overview = ({ coin }) => {
                   </Tooltip>
                 </Stack>
                 <Stack direction="row" spacing={1} alignItems="center">
-                  <Rating defaultValue={value} size="small" readOnly />
+                  <Rating value={value ? value : 0} precision={0.1} size="small" readOnly />
                   <Typography variant="subTitle1" color="#141414">({value ? value.toFixed(1) : '0.0'})</Typography>
                 </Stack>
               </Stack>

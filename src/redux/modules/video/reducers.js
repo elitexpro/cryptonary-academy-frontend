@@ -20,7 +20,7 @@ export default handleActions({
   [requestSuccess(CONSTANTS.GET_FILTERED_VIDEOS)]: (state, { payload }) => ({
     ...state,
     status: 'SUCCESS',
-    filteredVideos: payload,
+    filteredVideos: payload.data,
   }),
   [requestFail(CONSTANTS.GET_FILTERED_VIDEOS)]: (state, { payload }) => ({
     ...state,

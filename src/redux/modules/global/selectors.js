@@ -8,3 +8,6 @@ export const exploreTopicsSelector = (state) =>
 
 export const pulsePinDateSelector = (state) =>
   get(state, 'global.pulsePinDate', null)
+
+export const filteredPostsSelector = (state) =>
+  get(state, 'global.filteredPosts', null)

@@ -9,6 +9,7 @@ const getInitialState = () => {
     articles: [],
     article: {},
     filteredArticles: [],
+    filteredPosts: [],
   }
 }
 
@@ -48,7 +49,7 @@ export default handleActions({
   [requestSuccess(CONSTANTS.GET_FILTERED_ARTICLES)]: (state, { payload }) => ({
     ...state,
     status: 'SUCCESS',
-    filteredArticles: payload,
+    filteredArticles: payload.posts,
   }),
   [requestFail(CONSTANTS.GET_FILTERED_ARTICLES)]: (state, { payload }) => ({
     ...state,

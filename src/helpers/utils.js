@@ -6,7 +6,7 @@ const CRYPTONARY_DISCORD = 'https://discord.com/#'
 const CRYPTONARY_HELP_CENTER = 'https://www.cryptonary.com/contact/'
 const CRYPTONARY_SUPPORT_MAIL = 'mailto:support@cryptonary.com'
 
-const CG_AUTH_TOKEN = 'eaa1aeb9b6416bbaaf197f68ff'
+const CG_AUTH_TOKEN = '2c3c129c2273d9c596c27ac93fb9d8fb80597a1b8ca5c11de21b1919c1d5ff71'
 
 export {
   SERVER_BASE_URL,
