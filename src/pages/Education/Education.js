@@ -27,8 +27,8 @@ import {
   beginnerArticleSelector,
   intermediateArticleSelector,
   advanceArticleSelector,
-  educationReadingTimeSelector,
-  educationDurationSelector,
+  // educationReadingTimeSelector,
+  // educationDurationSelector,
 } from 'redux/modules/education/selectors'
 import {
   beginnerVideoSelector,
@@ -59,8 +59,8 @@ const Education = (props) => {
   const [advanceData, setAdvanceData] = useState([])
   const [page, setPage] = useState(1)
   const [levelData, setLevelData] = useState([])
-  const readingTime = useSelector(educationReadingTimeSelector)
-  const duration = useSelector(educationDurationSelector)
+  // const readingTime = useSelector(educationReadingTimeSelector)
+  // const duration = useSelector(educationDurationSelector)
 
   if (currentUser && !currentUser?.isEmailVerified) {
     history.push('/verify')
