@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import moment from 'moment'
 import {
   Box,
   Typography,
@@ -13,21 +12,18 @@ import {
 } from '@mui/material'
 import { getFilteredArticles } from 'redux/modules/article/actions'
 import { getFilteredVideos } from 'redux/modules/video/actions'
-import { filteredArticleSelector } from 'redux/modules/article/selectors'
-import { filteredVideosSelector } from 'redux/modules/video/selectors'
-import { setFilteredPosts } from 'redux/modules/global/actions'
 
 const QuickLinks = ({ setOpen, data, isSearchHistory }) => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const filteredArticles = useSelector(filteredArticleSelector)
-  const filteredVideos = useSelector(filteredVideosSelector)
   const [isLoading, setIsLoading] = useState(false)
   const [flag, setFlag] = useState(0)
+  const [url, setUrl] = useState('')
 
   const handleClick = (link) => () => {
     if (isSearchHistory) {
       setIsLoading(true)
+      setUrl(link)
       dispatch(getFilteredArticles({
         body: {
           tags: [
@@ -56,45 +52,21 @@ const QuickLinks = ({ setOpen, data, isSearchHistory }) => {
     }
   }
 
-  const setPosts = useCallback(() => {
-    let posts = []
-
-    setFlag(0)
-    setIsLoading(false)
-    filteredArticles.map((item) => {
-      const { featureImage, primaryTag, title, excerpt, updatedAt } = item
-
-      return posts.push({
-        featureImage,
-        tagName: primaryTag.name,
-        title,
-        excerpt,
-        updatedAt: moment(updatedAt),
-      })
-    })
-
-    filteredVideos.map(item => {
-      const { attributes } = item
-
-      return posts.push({
-        featureImage: attributes.thumbnail.url,
-        tagName: 'Videos',
-        title: attributes.title,
-        excerpt: attributes.description,
-        updatedAt: moment(),
-      })
-    })
-
-    console.log('debug -------------- ', filteredArticles)
-    dispatch(setFilteredPosts(posts))
-  }, [filteredArticles, filteredVideos, dispatch])
-
   useEffect(() => {
     if (flag === 2) {
       setOpen(false)
-      setPosts()
+      setIsLoading(false)
+      setFlag(0)
+
+      history.push({
+        pathname: '/search-result',
+        search: url,
+        state: {
+          tag: 'all'
+        }
+      })
     }
-  }, [flag, setPosts, setOpen])
+  }, [flag, setOpen, url, history])
 
   return (
     <Box sx={{ background: '#FAFAFA', p: 2, borderRadius: '0 0 4px 4px' }}>

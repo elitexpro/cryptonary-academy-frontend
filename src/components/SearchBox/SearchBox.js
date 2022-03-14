@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
@@ -50,6 +50,10 @@ const SearchBox = ({ placeholder, value, onChange }) => {
   const handleKeyPress = useCallback((e) => {
     e.keyCode === 13 && onChange && onChange(inputValue)
   }, [onChange, inputValue])
+
+  useEffect(() => {
+    setInputValue(value)
+  }, [value])
 
   return (
     <Search>

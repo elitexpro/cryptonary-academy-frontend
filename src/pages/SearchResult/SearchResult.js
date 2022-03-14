@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { styled } from '@mui/styles'
 import { useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Box,
   Typography,
@@ -12,11 +12,14 @@ import {
   Container,
 } from '@mui/material'
 import { SearchBox } from 'components/SearchBox'
-import { MDropBox } from 'components/CustomMaterial'
+import { MDropdown } from 'components/CustomMaterial'
 import CoinNews from 'components/CoinNews'
 import NoResults from 'components/NoResults'
 
-import { filteredPostsSelector } from 'redux/modules/global/selectors'
+import { getFilteredArticles } from 'redux/modules/article/actions'
+import { getFilteredVideos } from 'redux/modules/video/actions'
+import { filteredArticleSelector } from 'redux/modules/article/selectors'
+import { filteredVideosSelector } from 'redux/modules/video/selectors'
 
 const CustomTab = styled(Tab)(() => {
   return {
@@ -30,17 +33,79 @@ const CustomTab = styled(Tab)(() => {
 
 const SearchResult = () => {
   const location = useLocation()
-  const posts = useSelector(filteredPostsSelector)
+  const dispatch = useDispatch()
+  const filteredArticles = useSelector(filteredArticleSelector)
+  const filteredVideos = useSelector(filteredVideosSelector)
   const [defaultLabel, setDefaultLabel] = useState('Sort By')
   const [currentTab, setCurrentTab] = useState('all')
+  const [filteredResult, setFilteredResult] = useState([])
+  const [searchString, setSearchString] = useState('')
 
   const sortByItems = [
-    { text: 'Newest', value: 'newest' },
-    { text: 'Oldest', value: 'oldest' },
-    { text: '4 star or more', value: '4star' },
-    { text: '3 star or more', value: '3star' },
-    { text: '2 star or more', value: '2star' },
+    { text: 'Newest', value: 'desc' },
+    { text: 'Oldest', value: 'asc' },
+    { text: '4 star or more', value: '4' },
+    { text: '3 star or more', value: '3' },
+    { text: '2 star or more', value: '2' },
   ]
+
+  const defaultText = sortByItems.find(item => item.value === defaultLabel) ?
+    sortByItems.find(item => item.value === defaultLabel).text : 'Sort By'
+
+  useEffect(() => {
+    let posts = []
+    filteredArticles.map((item) => {
+      const { featureImage, primaryTag, title, id, excerpt, updatedAt } = item
+
+      return posts.push({
+        id,
+        featureImage,
+        tagName: primaryTag.name,
+        title,
+        excerpt,
+        updatedAt
+      })
+    })
+
+    filteredVideos.map(item => {
+      const { id, attributes } = item
+
+      return posts.push({
+        id,
+        featureImage: attributes.thumbnail.url,
+        tagName: 'Videos',
+        title: attributes.title,
+        excerpt: attributes.description,
+        updatedAt: Date.now()
+      })
+    })
+    setFilteredResult(posts)
+  }, [filteredArticles, filteredVideos])
+
+  useEffect(() => {
+    dispatch(getFilteredArticles({
+      body: {
+        tags: [
+          'news',
+        ]
+      },
+      params: {
+        searchString: searchString,
+        order: defaultLabel
+      },
+    }))
+
+    dispatch(getFilteredVideos({
+      params: {
+        search: searchString,
+        order: defaultLabel
+      },
+    }))
+  }, [defaultLabel, dispatch, searchString])
+
+  useEffect(() => {
+    setSearchString(location.search.slice(1, location.search.length))
+  }, [location.search])
 
   return (
     <Container maxWidth="xl">
@@ -51,18 +116,18 @@ const SearchResult = () => {
               variant="subTitle1"
               color="#000"
             >
-              Search results for "{location.search.slice(1, location.search.length)}"
+              Search results for "{searchString}"
             </Typography>
           </Hidden>
 
           <Stack direction="row" sx={{ pt: 2 }} spacing={2}>
-            <SearchBox placeholder="Search Coins" />
-            <MDropBox items={sortByItems} label={defaultLabel} onChange={(text) => setDefaultLabel(text)} />
+            <SearchBox placeholder="Search Coins" value={searchString} onChange={setSearchString} />
+            <MDropdown items={sortByItems} label={defaultText} onChange={(text) => setDefaultLabel(text)} />
           </Stack>
         </Box>
       </Box>
 
-      {posts.length === 0 ?
+      {filteredResult.length === 0 ?
         <NoResults />
         :
         <Box sx={{ px: { md: 5 }, py: 4 }}>
@@ -86,10 +151,27 @@ const SearchResult = () => {
           </Tabs>
 
           <Box sx={{ mt: 4 }}>
-            {currentTab === 'all' && <CoinNews data={posts} isGlobalSearch={true} />}
-            {currentTab === 'news' && <CoinNews data={posts.filter(item => item)} isGlobalSearch={true} />}
-            {currentTab === 'alpha' && <CoinNews data={posts.filter(item => !item)} isGlobalSearch={true} />}
-            {currentTab === 'crypto_school' && <CoinNews isGlobalSearch={true} />}
+            {currentTab === 'all' &&
+              <CoinNews
+                data={filteredResult}
+                isGlobalSearch={true}
+              />
+            }
+            {currentTab === 'news' &&
+              <CoinNews
+                data={filteredResult.filter(item => item.tagName !== 'Videos')}
+                isGlobalSearch={true}
+              />
+            }
+            {currentTab === 'alpha' &&
+              <CoinNews isGlobalSearch={true} />
+            }
+            {currentTab === 'crypto_school' &&
+              <CoinNews
+                data={filteredResult.filter(item => item.tagName === 'Videos')}
+                isGlobalSearch={true}
+              />
+            }
           </Box>
         </Box>
       }

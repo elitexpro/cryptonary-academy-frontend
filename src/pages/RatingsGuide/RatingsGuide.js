@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Container,
   Box,
@@ -11,7 +12,7 @@ import {
   Checkbox,
   Alert,
 } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { getCoinRatingList, getCoinRatingTypeList } from 'redux/modules/coin/actions'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import HeroSection from './HeroSection'
 import BitcoinOverview from './BitcoinOverview'
@@ -29,19 +30,98 @@ const DISCLAIMER = [
 ]
 
 const RatingsGuide = () => {
+  const dispatch = useDispatch()
   const currentUser = useSelector(currentUserSelector)
   const [open, setOpen] = useState(!localStorage.getItem('ratings_guide_close'))
   const [openWarning, setOpenWarning] = useState(false)
+  const [defaultLabel, setDefaultLabel] = useState('Sort By')
+  const [searchString, setSearchString] = useState('')
+  const [types, setTypes] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [flag, setFlag] = useState(0)
+
+  const filters = useMemo(() => {
+    let filteredTypes = types?.map(item => item.isSelected ? item.id : null)
+    filteredTypes = filteredTypes?.filter(item => item)
+
+    let copyFilters = {}
+    copyFilters['filteredTypes'] = filteredTypes
+    copyFilters['defaultLabel'] = defaultLabel === 'Sort By' ? '' : defaultLabel
+    copyFilters['searchString'] = searchString
+
+    return copyFilters
+  }, [types, defaultLabel, searchString])
+
+  useEffect(() => {
+    setIsLoading(true)
+    dispatch(getCoinRatingTypeList({
+      success: ({ data }) => {
+        const formattedTypes = data.data && data.data.map(item => {
+          const { name } = item.attributes
+
+          return {
+            name,
+            isSelected: false,
+            id: item.id
+          }
+        })
+
+        setTypes(formattedTypes)
+        setFlag(prev => prev + 1)
+      }
+    }))
+  }, [dispatch])
+
+  const getCoinRatingListData = useCallback(() => {
+    dispatch(getCoinRatingList({
+      params: {
+        page: currentPage,
+        coinType: filters?.filteredTypes?.join(','),
+        order: filters?.defaultLabel,
+        coinName: filters?.searchString
+      },
+      success: () => {
+        setFlag(prev => prev + 1)
+      }
+    }))
+  }, [dispatch, currentPage, filters])
+
+  useEffect(() => {
+    types && getCoinRatingListData()
+  }, [types, currentPage, getCoinRatingListData])
+
+  useEffect(() => {
+    if (flag === 2) {
+      setIsLoading(false)
+      setFlag(0)
+    }
+  }, [flag])
 
   return (
     <Box>
       <Box sx={{ background: "linear-gradient(180deg, #F8FCF8 0%, rgba(248, 252, 248, 0) 100%)" }}>
         <Container maxWidth="xl">
-          <HeroSection />
+          <HeroSection
+            defaultLabel={defaultLabel}
+            setDefaultLabel={setDefaultLabel}
+            setSearchString={setSearchString}
+            searchString={searchString}
+          />
         </Container>
       </Box>
       <Container maxWidth="xl">
-        {!currentUser ? <BitcoinOverview /> : <RatingsTable />}
+        {
+          !currentUser ?
+            <BitcoinOverview /> :
+            <RatingsTable
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              types={types}
+              setTypes={setTypes}
+              isLoading={isLoading}
+            />
+        }
       </Container>
       {!currentUser && <Paywall />}
       <Container maxWidth="xl">

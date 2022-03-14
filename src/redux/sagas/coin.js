@@ -4,9 +4,8 @@ import apiCall from '../api/apiCall'
 
 const doGetCoinRatingList = apiCall({
   type: CONSTANTS.GET_COIN_RATING_LIST,
-  isGhostApi: true,
   method: 'get',
-  path: '/coin-ratings',
+  path: `coin-ratings`,
 })
 
 const doGetCoinRatingTypeList = apiCall({
@@ -18,7 +17,6 @@ const doGetCoinRatingTypeList = apiCall({
 
 const doGetCoinById = apiCall({
   type: CONSTANTS.GET_COIN_BY_ID,
-  isGhostApi: true,
   method: 'get',
   path: ({ payload }) => `coin-ratings/${payload.symbol}/`,
 })

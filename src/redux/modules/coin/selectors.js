@@ -11,3 +11,6 @@ export const coinRatingTypesSelector = (state) =>
 
 export const currentCoinSelector = (state) =>
   get(state, 'coin.current_coin', [])
+
+export const totalPagesSelector = (state) =>
+  get(state, 'coin.totalPages', [])

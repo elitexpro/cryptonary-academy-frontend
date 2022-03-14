@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Grid,
   Typography,
@@ -9,21 +9,22 @@ import {
 import { useSelector } from 'react-redux'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { SearchBox } from 'components/SearchBox'
-import { MDropBox } from 'components/CustomMaterial'
+import { MDropdown } from 'components/CustomMaterial'
 import RatingsGuideSVG from 'assets/image/ratings-guide.svg'
 import RatingsGuideMobileSVG from 'assets/image/ratings-guide-mobile.svg'
 
-const HeroSection = () => {
-  const currentUser = useSelector(currentUserSelector)
-  const [defaultLabel, setDefaultLabel] = useState('Sort By')
+const sortByItems = [
+  { text: 'Newest', value: 'desc' },
+  { text: 'Oldest', value: 'asc' },
+  { text: '4 star or more', value: '4' },
+  { text: '3 star or more', value: '3' },
+  { text: '2 star or more', value: '2' },
+]
 
-  const sortByItems = [
-    { text: 'Newest', value: 'newest' },
-    { text: 'Oldest', value: 'oldest' },
-    { text: '4 star or more', value: '4star' },
-    { text: '3 star or more', value: '3star' },
-    { text: '2 star or more', value: '2star' },
-  ]
+const HeroSection = ({ defaultLabel, setDefaultLabel, setSearchString, searchString }) => {
+  const currentUser = useSelector(currentUserSelector)
+  const defaultText = sortByItems.find(item => item.value === defaultLabel) ?
+    sortByItems.find(item => item.value === defaultLabel).text : 'Sort By'
 
   return (
     <Grid container spacing={6} sx={{ px: { md: 5, xs: 2 } }}>
@@ -59,8 +60,8 @@ const HeroSection = () => {
             </Hidden>
           </Box> :
           <Stack direction="row" sx={{ py: { md: 10 } }} spacing={2}>
-            <SearchBox placeholder="Search Coins" />
-            <MDropBox items={sortByItems} label={defaultLabel} onChange={(text) => setDefaultLabel(text)} />
+            <SearchBox placeholder="Search Coins" value={searchString} onChange={setSearchString} />
+            <MDropdown items={sortByItems} label={defaultText} onChange={(text) => setDefaultLabel(text)} />
           </Stack>
         }
       </Grid>

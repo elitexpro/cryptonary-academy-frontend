@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { styled } from '@mui/material/styles'
+import { useSelector } from 'react-redux'
 import {
   Hidden,
   Table,
@@ -17,6 +18,7 @@ import {
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import { MButton } from 'components/CustomMaterial'
 import { FiChevronRight } from 'react-icons/fi'
+import { coinRatingsSelector } from 'redux/modules/coin/selectors'
 
 const TABLE_HEADERS = [
   'Name', 'Type', 'Sector', 'Rating'
@@ -36,11 +38,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   border: 'non',
 }))
 
-const CoinTable = ({ tableData, noHeader, viewAllButton, isLoading }) => {
+const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
   const history = useHistory()
+  const coinRatings = useSelector(coinRatingsSelector)
+
   const [orderBy, setOrderBy] = useState('')
   const [order, setOrder] = useState('asc')
 
+  const tableData = isRelated ? data : coinRatings
   const handleSort = (property) => (e) => {
     const isAsc = orderBy === property && order === 'asc'
 
@@ -49,9 +54,9 @@ const CoinTable = ({ tableData, noHeader, viewAllButton, isLoading }) => {
   }
 
   return (
-    <Box>
+    <Box sx={{ minHeight: `calc(100vh - 705px)` }}>
       <Table>
-        {!noHeader &&
+        {!isRelated &&
           <TableHead>
             <StyledTableRow>
               {TABLE_HEADERS.map((item, index) => (
@@ -119,7 +124,8 @@ const CoinTable = ({ tableData, noHeader, viewAllButton, isLoading }) => {
                 infoTokenomicAllocation, infoUsageReview, infoValueAccural
               } = item.attributes
 
-              const rating = (infoCommunityReview + infoTeamDeveloper + infoTokenomicAllocation + infoUsageReview + infoValueAccural) / 5
+              const rating = (infoCommunityReview + infoTeamDeveloper +
+                infoTokenomicAllocation + infoUsageReview + infoValueAccural) / 5
 
               return (
                 <TableRow key={index}>
@@ -150,7 +156,10 @@ const CoinTable = ({ tableData, noHeader, viewAllButton, isLoading }) => {
                       <Typography variant="subTitle1" color="#141414">{rating}</Typography>
                     </Stack>
                   </TableCell>
-                  <TableCell onClick={() => history.push(`rating-guide/${coinSymbol}`)}>
+                  <TableCell onClick={() => {
+                    isRelated && setCurrentTab('overview')
+                    history.push(`/rating-guide/${coinSymbol}`)
+                  }}>
                     <Hidden mdDown>
                       <MButton
                         variant="outlined"
@@ -170,20 +179,28 @@ const CoinTable = ({ tableData, noHeader, viewAllButton, isLoading }) => {
           </TableBody>
         }
       </Table>
-      {viewAllButton &&
-        <Box sx={{ mt: 6, textAlign: 'center' }}>
-          <MButton
-            variant="contained"
-            color="success"
-            sx={{
-              color: '#FFF',
-              fontSize: 16,
-              px: 4,
-              py: '12px',
-            }}
-            onClick={() => history.push('/rating-guide')}
-          >View all coins</MButton>
-        </Box>
+
+      {isRelated &&
+        (
+          data && data.length > 0 ?
+            <Box sx={{ mt: 6, textAlign: 'center' }}>
+              <MButton
+                variant="contained"
+                color="success"
+                sx={{
+                  color: '#FFF',
+                  fontSize: 16,
+                  px: 4,
+                  py: '12px',
+                }}
+                onClick={() => history.push('/rating-guide')}
+              >View all coins</MButton>
+            </Box>
+            :
+            <Box>
+              No Related Coins
+            </Box>
+        )
       }
     </Box>
   )

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import moment from 'moment'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Box,
   Stack,
@@ -9,18 +10,54 @@ import {
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 
-import { filteredPostsSelector } from 'redux/modules/global/selectors'
+import { filteredArticleSelector } from 'redux/modules/article/selectors'
+import { filteredVideosSelector } from 'redux/modules/video/selectors'
+import { setFilteredPosts } from 'redux/modules/global/actions'
 
 const HighLights = ({ searchText, setOpen, setText }) => {
   const history = useHistory()
-  const posts = useSelector(filteredPostsSelector)
+  const dispatch = useDispatch()
+  const filteredArticles = useSelector(filteredArticleSelector)
+  const filteredVideos = useSelector(filteredVideosSelector)
   const [news, setNews] = useState([])
   const [alpha, setAlpha] = useState([])
+  const [filteredResult, setFilteredResult] = useState([])
 
   useEffect(() => {
-    setNews(posts?.filter(item => item).slice(0, 5))
-    setAlpha(posts?.filter(item => !item).slice(0, 5))
-  }, [posts])
+    let posts = []
+
+    filteredArticles.map((item) => {
+      const { featureImage, primaryTag, title, excerpt, updatedAt } = item
+
+      return posts.push({
+        featureImage,
+        tagName: primaryTag.name,
+        title,
+        excerpt,
+        updatedAt: moment(updatedAt),
+      })
+    })
+
+    filteredVideos.map(item => {
+      const { attributes } = item
+
+      return posts.push({
+        featureImage: attributes.thumbnail.url,
+        tagName: 'Videos',
+        title: attributes.title,
+        excerpt: attributes.description,
+        updatedAt: moment(),
+      })
+    })
+
+    setFilteredResult(posts)
+    dispatch(setFilteredPosts(posts))
+  }, [filteredArticles, filteredVideos, dispatch])
+
+  useEffect(() => {
+    setNews(filteredResult.length > 0 && filteredResult.filter(item => item).slice(0, 5))
+    setAlpha(filteredResult.length > 0 && filteredResult.filter(item => !item).slice(0, 5))
+  }, [filteredResult])
 
   const handleClick = (tag) => () => {
     let search = localStorage.getItem('search_history') ? JSON.parse(localStorage.getItem('search_history')) : []

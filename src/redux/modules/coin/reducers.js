@@ -9,6 +9,7 @@ const getInitialState = () => {
     ratings: [],
     rating_types: [],
     current_coin: {},
+    totalPages: 0,
   }
 }
 
@@ -20,7 +21,8 @@ export default handleActions({
   [requestSuccess(CONSTANTS.GET_COIN_RATING_LIST)]: (state, { payload }) => ({
     ...state,
     status: 'SUCCESS',
-    ratings: payload,
+    ratings: payload.data,
+    totalPages: payload.meta.pagination.totalPages,
   }),
   [requestFail(CONSTANTS.GET_COIN_RATING_LIST)]: (state, { payload }) => ({
     ...state,
@@ -50,7 +52,7 @@ export default handleActions({
   [requestSuccess(CONSTANTS.GET_COIN_BY_ID)]: (state, { payload }) => ({
     ...state,
     status: 'SUCCESS',
-    current_coin: payload,
+    current_coin: payload.data.attributes,
   }),
   [requestFail(CONSTANTS.GET_COIN_BY_ID)]: (state, { payload }) => ({
     ...state,
