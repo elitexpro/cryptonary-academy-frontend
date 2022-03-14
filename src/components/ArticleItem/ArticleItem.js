@@ -16,13 +16,12 @@ import { isPremium } from 'helpers'
 import moment from 'moment'
 import { LazyImage } from 'components/LazyImage'
 
-const ArticleItem = ({ data }) => {
+const ArticleItem = ({ data, showPrimaryTag = true }) => {
   const history = useHistory()
   const currentUser = useSelector(currentUserSelector)
   const url = useMemo(() => {
     return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
   }, [currentUser, data])
-
 
   return (
     <Box>
@@ -31,7 +30,11 @@ const ArticleItem = ({ data }) => {
           <LazyImage src={data.featureImage} />
         </CardActionArea>
 
-        <Typography variant="subTitle4" sx={{ color: "#4AAF47", pt: 1 }}>{data?.primaryTag.name}</Typography>
+        {showPrimaryTag &&
+          <Typography variant="subTitle4" sx={{ color: "#4AAF47", pt: 1 }}>
+            {data?.primaryTag.name}
+          </Typography>
+        }
 
         <Typography variant="subTitle3" >
           <Link
@@ -46,7 +49,7 @@ const ArticleItem = ({ data }) => {
           </Link>
         </Typography>
 
-        <Typography variant="subTitle" sx={{ color: "#858585" }}>
+        <Typography variant="subTitle" sx={{ color: "#858585", height: '40px' }}>
           <ShowMoreText lines={2} expandByClick={false} more="">
             {data.excerpt}
           </ShowMoreText>

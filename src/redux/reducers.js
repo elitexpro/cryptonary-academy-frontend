@@ -7,6 +7,7 @@ import tag from './modules/tag/reducers'
 import coin from './modules/coin/reducers'
 import video from './modules/video/reducers'
 import pulse from './modules/pulse/reducers'
+import education from './modules/education/reducers'
 
 export default combineReducers({
   auth,
@@ -17,4 +18,5 @@ export default combineReducers({
   coin,
   video,
   pulse,
+  education,
 })

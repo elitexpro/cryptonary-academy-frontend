@@ -11,3 +11,9 @@ export const pulsePinDateSelector = (state) =>
 
 export const filteredPostsSelector = (state) =>
   get(state, 'global.filteredPosts', null)
+
+export const educationMediaTypeSelector = (state) =>
+  get(state, 'global.education.mediaType', null)
+
+export const educationSearchValueSelector = (state) =>
+  get(state, 'global.education.searchValue', null)

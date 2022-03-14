@@ -65,7 +65,7 @@ const UserAvatar = () => {
         transition
         disablePortal
         placement='bottom-end'
-        sx={{ zIndex: '1102' }}
+        style={{ zIndex: '1102' }}
       >
         {({ TransitionProps }) => (
           <Grow {...TransitionProps}>

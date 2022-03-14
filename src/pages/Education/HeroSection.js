@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   Box,
   Grid,
@@ -6,7 +6,20 @@ import {
 } from '@mui/material'
 import SvgArticleHeroImg from 'assets/image/article-hero-image.svg'
 
-const HeroSection = () => {
+const HeroSection = ({ level }) => {
+  const levelString = useMemo(() => {
+    switch (level) {
+      case 'beginner':
+        return "Basics"
+      case 'intermediate':
+        return "Intermediate"
+      case 'advance':
+        return "Advance"
+      default:
+        return "Crypto School"
+    }
+  }, [level])
+
   return (
     <Box sx={{ py: { md: 8, xs: 3 }, px: { md: 5, xs: 0 } }}>
       <Grid container spacing={2}>
@@ -15,7 +28,7 @@ const HeroSection = () => {
           sx={{ pt: 6, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
           order={{ md: 1, xs: 2 }}
         >
-          <Typography variant="headTitle2">Crypto School</Typography>
+          <Typography variant="headTitle2">{levelString}</Typography>
           <Typography variant="subTitle1" sx={{ color: "#555", maxWidth: 620 }}>
             All you need to know about the basics of cryptocurrency in one place.
             Learn how Bitcoin, blockchain and altcoins work, how to actually use them, and why it matters to you.

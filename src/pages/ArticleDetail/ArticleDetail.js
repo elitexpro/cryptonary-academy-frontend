@@ -16,7 +16,6 @@ import AuthorDetail from './AuthorDetail'
 import { getArticleById } from 'redux/modules/article/actions'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import { LazyImage } from 'components/LazyImage'
-// import './GhostStyles/screen.css'
 
 const detailRoot = [
   { text: 'Crypto School', to: '#' },

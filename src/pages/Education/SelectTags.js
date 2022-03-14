@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import {
   Box,
   Stack,
@@ -14,52 +14,84 @@ import { MButton } from 'components/CustomMaterial'
 import { FiHash } from 'react-icons/fi'
 import TopicSelectPaper from './TopicSelectPaper'
 import CloseIcon from '@mui/icons-material/Close'
+import { tagStatusSelector, tagListSelector } from 'redux/modules/tag/selectors'
+import { getAllTags } from 'redux/modules/tag/actions'
+import { setEducationTopicTags } from 'redux/modules/education/actions'
+import { educationTopicTagsSelector } from 'redux/modules/education/selectors'
+import { useDispatch, useSelector } from 'react-redux'
 
-const SelectTags = ({
-  tags,
-  open,
-  toggle,
-  apply,
-  isLoading,
-}) => {
+const SelectTags = () => {
+  const dispatch = useDispatch()
+  const tagList = useSelector(tagListSelector)
+  const tagStatus = useSelector(tagStatusSelector)
+  const topicTags = useSelector(educationTopicTagsSelector)
   const [anchorEl, setAnchorEl] = useState(null)
   const [selectedTags, setSelectedTags] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    setSelectedTags(tags)
-  }, [tags])
+    if (tagStatus === "PENDING") {
+      dispatch(setEducationTopicTags([]))
+      setIsLoading(true)
+    } else {
+      tagList.length > 0 && dispatch(setEducationTopicTags(tagList.map((item, index) => {
+        return ({
+          ...item,
+          value: index,
+          isSelected: false
+        })
+      })))
+      setIsLoading(false)
+    }
+  }, [dispatch, tagStatus, tagList])
 
-  const selectedCount = useMemo(() => {
-    return selectedTags.filter(item => item.isSelected).length
-  }, [selectedTags])
+  useEffect(() => {
+    if (open) {
+      let selected = []
+      topicTags.forEach((item, index) => {
+        item.isSelected && selected.push(index)
+      })
+      setSelectedTags(selected)
+    }
+  }, [open, topicTags])
+
+  const loadTopicTags = useCallback(() => {
+    dispatch(getAllTags())
+  }, [dispatch])
+
+  useEffect(() => {
+    open && (tagStatus === "INIT" || tagStatus === "FAILED") && loadTopicTags()
+  }, [open, tagStatus, loadTopicTags])
+
+  const selectedCount = useMemo(() => topicTags.filter(item => item.isSelected).length, [topicTags])
+
+  const toggle = () => setOpen(prev => !prev)
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget)
     toggle()
   }
 
-  const handleClear = () => {
-    apply(tags.map(item => {
-      const { name } = item
+  const handleClear = useCallback(() => {
+    dispatch(setEducationTopicTags(topicTags.map(item => {
       return ({
-        name,
+        ...item,
         isSelected: false
       })
-    }))
+    })))
+    setOpen(false)
+  }, [dispatch, topicTags])
 
-    toggle()
-  }
-
-  const handleApply = () => {
-    apply(selectedTags)
-    toggle()
-  }
-
-  const handleClose = () => {
-    console.log(tags, selectedTags, 'ere')
-    apply(tags)
-    toggle()
-  }
+  const handleApply = useCallback(() => {
+    dispatch(setEducationTopicTags(topicTags.map((item, index) => {
+      return ({
+        ...item,
+        isSelected: !!selectedTags.find(x => x === index)
+      })
+    })))
+    setOpen(false)
+  }, [dispatch, topicTags, selectedTags])
 
   return (
     <>
@@ -92,33 +124,33 @@ const SelectTags = ({
       >
         {({ TransitionProps }) => (
           <Grow {...TransitionProps}>
-            <Paper>
+            <Paper elevation={3} sx={{ mt: 2 }}>
               {isLoading && <LinearProgress sx={{
                 borderTopLeftRadius: '8px',
                 borderTopRightRadius: '8px',
               }} />}
-              <ClickAwayListener onClickAway={toggle}>
-                <Box sx={{ mt: 2, py: 4 }}>
-
-                  <Stack direction="row" sx={{ px: 4 }}>
+              <ClickAwayListener onClickAway={() => setOpen(false)}>
+                <Box sx={{ py: 3 }}>
+                  <Stack direction="row" sx={{ px: 3 }}>
                     <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>Select Topics</Typography>
                     <Box sx={{ flexGrow: 1 }} />
-                    <IconButton onClick={handleClose}>
+                    <IconButton onClick={() => setOpen(false)}>
                       <CloseIcon />
                     </IconButton>
                   </Stack>
 
-                  <TopicSelectPaper topics={selectedTags} setTopics={setSelectedTags} />
+                  <TopicSelectPaper topics={topicTags} selectedTopics={selectedTags} selectTopics={setSelectedTags} />
 
-                  <Stack direction="row" spacing={2} sx={{ px: 4 }}>
+                  <Stack direction="row" spacing={2} sx={{ px: 3 }}>
                     <Box sx={{ flexGrow: 1 }} />
-                    <MButton color="inherit" sx={{ width: 108, height: 48 }} onClick={handleClear}>Clear all</MButton>
+                    <MButton color="inherit" onClick={handleClear}>Clear all</MButton>
                     <MButton
                       color="success"
                       variant="outlined"
-                      sx={{ width: 108, height: 48 }}
                       onClick={handleApply}
-                    >Apply</MButton>
+                    >
+                      Apply
+                    </MButton>
                   </Stack>
                 </Box>
               </ClickAwayListener>

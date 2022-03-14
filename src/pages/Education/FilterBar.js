@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import {
   Hidden,
   Box,
@@ -7,103 +7,85 @@ import {
   Grid,
   Chip
 } from '@mui/material'
-import { MButton } from 'components/CustomMaterial'
+import { MButton, MDropdown } from 'components/CustomMaterial'
 import { SearchBox } from 'components/SearchBox'
 import { Filter } from 'containers/Filter'
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import { FiSliders } from 'react-icons/fi'
 import SelectTags from './SelectTags'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllTags } from 'redux/modules/tag/actions'
-import { tagStatusSelector, tagListSelector } from 'redux/modules/tag/selectors'
+import {
+  setEducationMediaType,
+  setEducationSearchValue,
+  setEducationTopicTags,
+  setEducationReadingTime,
+  setEducationDuration,
+} from 'redux/modules/education/actions'
+import {
+  educationMediaTypeSelector,
+  educationSearchValueSelector,
+  educationTopicTagsSelector,
+  educationReadingTimeSelector,
+  educationDurationSelector,
+} from 'redux/modules/education/selectors'
+import { useHistory } from 'react-router-dom'
+import DoneIcon from '@mui/icons-material/Done'
 
-// const OPTIONS = [
-//   { title: "Both", isSelected: true },
-//   { title: "Articles", isSelected: false },
-//   { title: "Videos", isSelected: false },
-// ]
 
-// const CONTENT = [
-//   {
-//     category: "Video Duration",
-//     data: [
-//       { name: "15 mins", isSelected: false },
-//       { name: "30 mins", isSelected: false },
-//       { name: "Over 1 hour", isSelected: false },
-//     ]
-//   },
-//   {
-//     category: "Reading Time",
-//     data: [
-//       { name: "3 mins", isSelected: false },
-//       { name: "5 mins", isSelected: false },
-//       { name: "10+ mins", isSelected: false },
-//     ]
-//   },
-// ]
+const MEDIA_OPTIONS = [
+  { text: "Both", value: "both" },
+  { text: "Articles", value: "article" },
+  { text: "Videos", value: "video" },
+]
 
-const FilterBar = () => {
+const DIFFICULTY_OPTIONS = [
+  { text: "Beginner", value: "beginner" },
+  { text: "Intermediate", value: "intermediate" },
+  { text: "Advance", value: "advance" },
+]
+
+const DETAIL_OPTION = [
+  {
+    category: "Video Duration",
+    data: [
+      { text: "15 mins", value: '15 mins' },
+      { text: "30 mins", value: '30 mins' },
+      { text: "Over 1 hour", value: 'Over 1 hour' },
+    ]
+  },
+  {
+    category: "Reading Time",
+    data: [
+      { text: "3 mins", value: '3 mins' },
+      { text: "5 mins", value: '5 mins' },
+      { text: "10+ mins", value: '10+ mins' },
+    ]
+  },
+]
+
+const FilterBar = ({ isLevelFilter }) => {
+  const history = useHistory()
   const dispatch = useDispatch()
   const [filterDrawer, setFilterDrawer] = useState(false)
-  const tagList = useSelector(tagListSelector)
-  const tagStatus = useSelector(tagStatusSelector)
-  const [isLoading, setIsLoading] = useState(false)
-  // const [options, setOptions] = useState(OPTIONS)
-  const [openTopic, setOpenTopic] = useState(false)
-  const [topics, setTopics] = useState([])
+  const mediaType = useSelector(educationMediaTypeSelector)
+  const searchValue = useSelector(educationSearchValueSelector)
+  const topicTags = useSelector(educationTopicTagsSelector)
+  const readingTime = useSelector(educationReadingTimeSelector)
+  const duration = useSelector(educationDurationSelector)
 
   const selectedTopics = useMemo(() => {
-    return topics.filter(item => item.isSelected)
-  }, [topics])
+    return topicTags.filter(item => item.isSelected)
+  }, [topicTags])
 
-  // const handleChangeType = (item) => () => {
-  //   setOptions(prev => {
-  //     const res = prev.map(option => {
-  //       const { title } = option
+  const mediaLabel = useMemo(() => {
+    return mediaType !== "unset" ? MEDIA_OPTIONS.find(item => item.value === mediaType).text : "Media Type"
+  }, [mediaType])
 
-  //       return {
-  //         title,
-  //         isSelected: title === item.title ? true : false,
-  //       }
-  //     })
+  const handleRemoveSelectedTag = useCallback((index) => () => {
+    const compyTopics = [...topicTags]
+    compyTopics[index].isSelected = false
+    dispatch(setEducationTopicTags(compyTopics))
+  }, [dispatch, topicTags])
 
-  //     return res
-  //   })
-  // }
-
-  useEffect(() => {
-    if (tagStatus === "PENDING") {
-      setTopics([])
-      setIsLoading(true)
-    } else {
-      setTopics(tagList.map(item => {
-        return ({
-          name: item.name,
-          isSelected: false
-        })
-      }))
-      setIsLoading(false)
-    }
-  }, [tagStatus, tagList])
-
-  const loadTopicTags = useCallback(() => {
-    dispatch(getAllTags())
-  }, [dispatch])
-
-  useEffect(() => {
-    openTopic && (tagStatus === "INIT" || tagStatus === "FAILED") && loadTopicTags()
-  }, [openTopic, tagStatus, loadTopicTags])
-
-  const handleTopicToggle = (e) => {
-    setOpenTopic(prev => !prev)
-  }
-
-
-  const handleDelete = (index) => () => {
-    const tmp = [...topics]
-    tmp[index].isSelected = false
-    setTopics(tmp)
-  }
   const toggleDrawer = (open) => (event) => {
     setFilterDrawer(open)
   }
@@ -111,43 +93,105 @@ const FilterBar = () => {
   return (
     <Box sx={{ mt: { xs: 4, md: 5 } }}>
       <Stack direction="row">
-        <SearchBox />
+        <SearchBox
+          placeholder="Search Crypto School"
+          value={searchValue}
+          onChange={val => dispatch(setEducationSearchValue(val))}
+        />
 
         <Hidden mdDown>
-          <MButton
-            color='inherit'
-            variant='outlined'
-            sx={{ ml: 2, px: 2, color: '#555', borderColor: '#EAEAEA' }}
-            endIcon={<KeyboardArrowDownRoundedIcon sx={{ fontSize: '24px' }} />}
-          >
-            Difficulty Level
-          </MButton>
-          <MButton
-            color='inherit'
-            variant='outlined'
-            sx={{ ml: 2, px: 2, color: '#555', borderColor: '#EAEAEA' }}
-            endIcon={<KeyboardArrowDownRoundedIcon sx={{ fontSize: '24px' }} />}
-          >
-            Media Type
-          </MButton>
+          {
+            !isLevelFilter ?
+              <>
+                <MDropdown
+                  items={DIFFICULTY_OPTIONS}
+                  label="Difficulty Level"
+                  buttonStyle={{ width: '100px' }}
+                  dropboxStyle={{ width: '150px' }}
+                  onChange={val => history.push(`/education/${val}`)}
+                />
+                <MDropdown
+                  items={MEDIA_OPTIONS}
+                  label={mediaLabel}
+                  buttonStyle={{ width: '85px' }}
+                  dropboxStyle={{ width: '135px' }}
+                  onChange={val => dispatch(setEducationMediaType(val))}
+                />
+              </>
+              :
+              <>
+                <Stack direction="row" sx={{ p: 0.5, border: "1px solid #E4E4E4", borderRadius: "2px", ml: 2 }} spacing={1}>
+                  {
+                    MEDIA_OPTIONS.map((option, index) => {
+                      const { value, text } = option
+                      const isSelected = mediaType === 'unset' ? value === 'both' ? true : false : mediaType === value
+                      return (
+                        <MButton
+                          color={isSelected ? "success" : "inherit"}
+                          key={index}
+                          variant={isSelected ? "contained" : undefined}
+                          fullWidth
+                          sx={{
+                            px: 3,
+                            color: isSelected ? "#FFF" : "#909090",
+                          }}
+                          onClick={() => dispatch(setEducationMediaType(value))}
+                        >
+                          {text}
+                          {
+                            isSelected ?
+                              <DoneIcon sx={{ ml: 1, fontSize: 16 }} style={{ color: isSelected ? "#FFF" : undefined }} /> :
+                              null
+                          }
+                        </MButton>
+                      )
+                    })
+                  }
+                </Stack>
+                {(mediaType === 'unset' || mediaType === 'both' || mediaType === 'video') &&
+                  <MDropdown
+                    items={DETAIL_OPTION[0].data}
+                    label={readingTime ?? DETAIL_OPTION[0].category}
+                    buttonStyle={{ width: '100px' }}
+                    dropboxStyle={{ width: '135px' }}
+                    onChange={val => dispatch(setEducationReadingTime(val))}
+                  />
+                }
+                {(mediaType === 'unset' || mediaType === 'both' || mediaType === 'article') &&
+                  <MDropdown
+                    items={DETAIL_OPTION[1].data}
+                    label={duration ?? DETAIL_OPTION[1].category}
+                    buttonStyle={{ width: '100px' }}
+                    dropboxStyle={{ width: '135px' }}
+                    onChange={val => dispatch(setEducationDuration(val))}
+                  />
+                }
+
+              </>
+          }
+
         </Hidden>
 
         <Box sx={{ flexGrow: 1 }} />
 
         <Box>
           <Hidden mdDown>
-            <SelectTags
-              tags={topics}
-              open={openTopic}
-              toggle={handleTopicToggle}
-              apply={setTopics}
-              isLoading={isLoading}
-            />
+            <SelectTags />
           </Hidden>
+
           <Hidden mdUp>
+            {/* need to update on detail level sectin filter */}
             <MButton
               color='inherit'
-              sx={{ ml: 2, px: 2, color: '#000', borderColor: '#EAEAEA', backgroundColor: '#F6F8FE', minWidth: '120px', height: '100%' }}
+              sx={{
+                ml: 2,
+                px: 2,
+                color: '#000',
+                borderColor: '#EAEAEA',
+                backgroundColor: '#F6F8FE',
+                minWidth: '120px',
+                height: '100%'
+              }}
               startIcon={<FiSliders sx={{ fontSize: '24px', color: '#000' }} />}
               onClick={toggleDrawer(true)}
             >
@@ -169,7 +213,7 @@ const FilterBar = () => {
                     color="success"
                     label={item.name}
                     variant="outlined"
-                    onDelete={handleDelete(index)}
+                    onDelete={handleRemoveSelectedTag(item.value)}
                   />
                 </Grid>
               ))

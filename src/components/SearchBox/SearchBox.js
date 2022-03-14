@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
@@ -44,7 +44,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }))
 
-const SearchBox = ({ placeholder }) => {
+const SearchBox = ({ placeholder, value, onChange }) => {
+  const [inputValue, setInputValue] = useState(value)
+
+  const handleKeyPress = useCallback((e) => {
+    e.keyCode === 13 && onChange && onChange(inputValue)
+  }, [onChange, inputValue])
 
   return (
     <Search>
@@ -52,8 +57,11 @@ const SearchBox = ({ placeholder }) => {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder={placeholder ? placeholder : "Search Crypto School"}
+        placeholder={placeholder ?? "Search ..."}
         inputProps={{ 'aria-label': 'search' }}
+        value={inputValue}
+        onChange={e => setInputValue(e.target.value)}
+        onKeyDown={handleKeyPress}
       />
     </Search>
   )

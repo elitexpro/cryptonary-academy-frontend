@@ -6,7 +6,7 @@ import {
   Skeleton,
   Stack,
 } from '@mui/material'
-import { VideoItem } from 'components/VideoItem'
+// import { VideoItem } from 'components/VideoItem'
 
 const Posts = () => {
   const articles = useSelector((state) => state.article.articles)
@@ -25,7 +25,7 @@ const Posts = () => {
             posts?.posts?.map((post, index) => {
               return (
                 <Grid item key={index} xs={12} md={4}>
-                  <VideoItem post={post} />
+                  {/* <VideoItem post={post} /> */}
                 </Grid>
               )
             }) : (

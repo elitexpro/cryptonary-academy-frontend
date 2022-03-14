@@ -1,70 +1,73 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import vidoeItemSvg from 'assets/image/video.svg'
+import React, { useMemo } from 'react'
 import {
   Box,
   IconButton,
   Typography,
   Stack,
   Link,
+  CardActionArea,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
-import { currentUserSelector } from 'redux/modules/auth/selectors'
 import ShowMoreText from "react-show-more-text"
 import { useHistory } from 'react-router-dom'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { LazyImage } from 'components/LazyImage'
 
-const defaultString =
-  "Cold Storage is the term given to digital wallets held offline to protect cryptocurrency funds from fraudulent use by others ..."
-
-const VideoItem = ({ post }) => {
+const VideoItem = ({ data }) => {
+  const { id, attributes } = data
   const history = useHistory()
-  const currentUser = useSelector(currentUserSelector)
-  const isPremium = post?.tags?.find((tag) => tag.slug === "hash-cpro")
+
+  const difficultyBadge = useMemo(() => {
+    switch (attributes.difficultyLevel) {
+      case 'beginner':
+        return 'success'
+      case 'intermediate':
+        return 'warning'
+      case 'advance':
+        return 'error'
+      default:
+        return 'success'
+    }
+  }, [attributes])
 
   return (
-    <Stack>
-      <Box sx={{ minHeight: "200px", backgroundColor: "#F5F5F5" }}>
-        <LazyLoadImage
-          alt=""
-          effect="blur"
-          width="100%"
-          src={post ? post.featureImage : vidoeItemSvg}
-        />
-      </Box>
+    <Box>
+      <Stack spacing={1}>
+        <CardActionArea onClick={() => history.push(`video-detail/${id}`)}>
+          <LazyImage src={attributes?.thumbnail.url} />
+        </CardActionArea>
 
-      <Typography variant="subTitle3" sx={{ mt: 2, mb: 1 }}>
-        <Link
-          component={'span'}
-          onClick={() => history.push(!currentUser && isPremium ? `/paywall` : `article/${post?.id}`)}
-          underline="hover"
-          sx={{ color: "#232A45", fontSize: "20px", cursor: "pointer" }}
-        >
-          <ShowMoreText lines={1} expandByClick={false} more="">
-            {post ? post.title : "What is Cold Storage?"}
+        <Typography variant="subTitle3" >
+          <Link
+            component={'span'}
+            onClick={() => history.push(`video-detail/${id}`)}
+            underline="hover"
+            sx={{ color: "#232A45", fontSize: "20x", cursor: "pointer" }}
+          >
+            <ShowMoreText lines={1} expandByClick={false} more="">
+              {attributes.title}
+            </ShowMoreText>
+          </Link>
+        </Typography>
+
+        <Typography variant="subTitle" sx={{ color: "#858585", height: '40px' }} >
+          <ShowMoreText lines={2} expandByClick={false} more="">
+            {attributes.description}
           </ShowMoreText>
-        </Link>
-      </Typography>
+        </Typography>
 
-      <Typography variant="subTitle" sx={{ color: "#858585" }}>
-        <ShowMoreText lines={3} expandByClick={false} more="">
-          {post ? post.customExcerpt : defaultString}
-        </ShowMoreText>
-      </Typography>
-
-      <Stack direction="row" sx={{ mt: 3 }}>
-        <MButton color='success' variant='outlined'>
-          Beginner
-        </MButton>
-        <Box sx={{ flexGrow: 1 }} />
-        <IconButton size="small">
-          <BookmarkBorderRoundedIcon sx={{ fontSize: '24px' }} />
-        </IconButton>
+        <Box sx={{ display: 'flex', pt: 2 }}>
+          <MButton color={difficultyBadge} variant='outlined' size="sm">
+            {attributes.difficultyLevel}
+          </MButton>
+          <Box sx={{ flexGrow: 1 }} />
+          <IconButton size="small">
+            <BookmarkBorderRoundedIcon />
+          </IconButton>
+        </Box>
       </Stack>
-    </Stack>
+    </Box>
   )
-
 }
 
 export default VideoItem

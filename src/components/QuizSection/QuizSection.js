@@ -9,7 +9,7 @@ import quizImg from 'assets/image/quiz_background.png'
 
 const QuizSection = () => {
   return (
-    <Box sx={{ mt: 4 }}>
+    <Box sx={{ my: 4 }}>
       <Box
         sx={{
           backgroundImage: `url(${quizImg})`,

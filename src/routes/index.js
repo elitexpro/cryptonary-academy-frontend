@@ -36,6 +36,7 @@ const routes = () => (
           <Route exact path='/app' component={Landing} />
           <Route exact path='/news' component={News} />
           <Route exact path='/education' component={Education} />
+          <Route exact path='/education/:level' component={Education} />
           <AuthedRoute path='/preference' component={Preference} />
           <PublicRoute path='/signup' component={Signup} />
           <PublicRoute path='/login' component={Login} />
