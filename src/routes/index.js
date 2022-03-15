@@ -21,6 +21,8 @@ import RatingsGuide from 'pages/RatingsGuide'
 import PageNotFound from 'pages/PageNotFound'
 import CoinDetail from 'pages/CoinDetail'
 import SearchResult from 'pages/SearchResult'
+import ResearchReports from 'pages/ResearchReports'
+import Analysis from 'pages/Analysis'
 import AuthedRoute from './AuthedRoute'
 import CproRoute from './CproRoute'
 import PublicRoute from './PublicRoute'
@@ -53,6 +55,8 @@ const routes = () => (
           <CproRoute exact path='/rating-guide' component={RatingsGuide} />
           <AuthedRoute path='/rating-guide/:symbol' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />
+          <CproRoute path='/research-reports' component={ResearchReports} />
+          <CproRoute path='/analysis' component={Analysis} />
           <Route component={PageNotFound} />
         </Switch>
       </Layout>

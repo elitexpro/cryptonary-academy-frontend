@@ -6,8 +6,6 @@ import {
   Stack,
   Grid,
   Chip,
-  FormControlLabel,
-  Checkbox,
   Hidden,
   Skeleton,
   Pagination,
@@ -53,31 +51,6 @@ const RatingsTable = ({ currentPage, setCurrentPage, types, setTypes, isLoading 
                 ))
               }
             </Grid>
-            <Box
-              sx={{
-                background: '#FCFCFC',
-                px: 3,
-                height: 40,
-                width: 310,
-                borderRadius: 4,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
-              <FormControlLabel
-                sx={{ fontSize: 14, color: '#909090' }}
-                control={
-                  <Checkbox
-                    sx={{
-                      '&.Mui-checked': {
-                        color: '#141414'
-                      }
-                    }}
-                  />
-                }
-                label='Show new coins only'
-              />
-            </Box>
           </Stack>
         }
       </Hidden>

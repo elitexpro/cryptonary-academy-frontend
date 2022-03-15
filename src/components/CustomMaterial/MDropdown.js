@@ -12,7 +12,7 @@ import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import ArrowUpIcon from '@mui/icons-material/KeyboardArrowUpRounded'
 import { MButton } from 'components/CustomMaterial'
 
-const MDropdown = ({ items, label, onChange, buttonStyle, dropboxStyle }) => {
+const MDropdown = ({ items, label, onChange, buttonStyle, dropboxStyle, layoutStyle }) => {
   const [openTopic, setOpenTopic] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -27,7 +27,7 @@ const MDropdown = ({ items, label, onChange, buttonStyle, dropboxStyle }) => {
         color='inherit'
         variant='outlined'
         onClick={handleToggle}
-        sx={{ ml: 2, px: 2, color: '#555', borderColor: '#EAEAEA' }}
+        sx={{ ml: 2, px: 2, color: '#555', borderColor: '#EAEAEA', ...layoutStyle }}
         endIcon={!openTopic ? <ArrowDownIcon sx={{ fontSize: '28px' }} /> : <ArrowUpIcon sx={{ fontSize: '28px' }} />}
       >
         <Box sx={{ width: '100px', fontSize: '14px', ...buttonStyle }}>

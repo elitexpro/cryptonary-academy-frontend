@@ -8,6 +8,7 @@ import coin from './coin'
 import video from './video'
 import pulse from './pulse'
 import education from './education'
+import alpha from './alpha'
 
 export default function* rootSaga() {
   yield all([
@@ -19,6 +20,7 @@ export default function* rootSaga() {
     coin(),
     video(),
     pulse(),
-    education()
+    education(),
+    alpha(),
   ])
 }

@@ -46,7 +46,7 @@ const AlphaContent = () => {
 
             <Link
               component={RouterLink}
-              to='/analysis?tab=on-chain'
+              to='/analysis?tab=on-chain-forensics'
               underline="hover"
               sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}
             >
@@ -58,7 +58,7 @@ const AlphaContent = () => {
 
             <Link
               component={RouterLink}
-              to='/analysis?tab=technical'
+              to='/analysis?tab=technical-analysis'
               underline="hover"
               sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}
             >

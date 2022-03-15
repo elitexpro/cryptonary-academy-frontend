@@ -18,3 +18,10 @@ export const hhmmss = (val) => {
 }
 
 export const isPremium = (tags) => tags?.find((tag) => tag.slug === "hash-cpro")
+
+export const getFormattedText = (text) => {
+  let words = text.split('-')
+  words = words.map(item => item.charAt(0).toUpperCase() + item.slice(1))
+
+  return words.join(' ')
+}

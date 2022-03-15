@@ -8,6 +8,7 @@ import coin from './modules/coin/reducers'
 import video from './modules/video/reducers'
 import pulse from './modules/pulse/reducers'
 import education from './modules/education/reducers'
+import alpha from './modules/alpha/reducers'
 
 export default combineReducers({
   auth,
@@ -19,4 +20,5 @@ export default combineReducers({
   video,
   pulse,
   education,
+  alpha,
 })
