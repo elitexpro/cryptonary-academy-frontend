@@ -4,6 +4,7 @@ import {
   Box,
 } from '@mui/material'
 import HeroSection from './HeroSection'
+import HighLight from './HighLight'
 import FeaturedNews from './FeaturedNews'
 import NewsSection from './NewsSection'
 import { Footer } from 'containers/Footer'
@@ -15,6 +16,7 @@ const News = () => {
     <>
       <Container maxWidth="xl" sx={{ py: 4 }}>
         <HeroSection />
+        <HighLight />
       </Container>
 
       <Box sx={{ background: "#FAFAFA" }}>

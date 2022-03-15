@@ -7,6 +7,7 @@ import MAlert from './MAlert'
 import MSwitch from './MSwitch'
 import MDropdown from './MDropdown'
 import MPagination from './MPagination'
+import MTab from './MTab'
 
 export {
   MButton,
@@ -17,5 +18,6 @@ export {
   MAlert,
   MSwitch,
   MDropdown,
-  MPagination
+  MPagination,
+  MTab,
 }

@@ -9,6 +9,7 @@ import video from './modules/video/reducers'
 import pulse from './modules/pulse/reducers'
 import education from './modules/education/reducers'
 import alpha from './modules/alpha/reducers'
+import news from './modules/news/reducers'
 
 export default combineReducers({
   auth,
@@ -21,4 +22,5 @@ export default combineReducers({
   pulse,
   education,
   alpha,
+  news,
 })

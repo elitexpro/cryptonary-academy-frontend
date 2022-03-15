@@ -5,23 +5,35 @@ import {
   Skeleton,
   Grid,
 } from '@mui/material'
-import { getAllArticles } from 'redux/modules/article/actions'
-import { useDispatch } from 'react-redux'
+import { getFilteredNews } from 'redux/modules/news/actions'
 import { MButton } from 'components/CustomMaterial'
 import { ArticleItem } from 'components/ArticleItem'
 import { FiRefreshCw } from "react-icons/fi"
+import { useDispatch, useSelector } from 'react-redux'
+import { newsTagSelector, newsSortBySelector, newsSearchValueSelector } from 'redux/modules/news/selectors'
 
 const NewsSection = () => {
   const dispatch = useDispatch()
+  const newsTag = useSelector(newsTagSelector)
+  const sortByValue = useSelector(newsSortBySelector)
+  const searchString = useSelector(newsSearchValueSelector)
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
+  const [page, setPage] = useState(1)
 
-  useEffect(() => {
+  const loadNews = useCallback(() => {
     setIsLoading(true)
-    dispatch(getAllArticles({
+    const tags = ['news']
+    newsTag !== 'all' && tags.push(newsTag)
+
+    dispatch(getFilteredNews({
       params: {
-        page: 1,
-        perPage: 9
+        page,
+        perPage: 9,
+        search: searchString
+      },
+      body: {
+        tags
       },
       success: ({ data }) => {
         setData(data?.posts)
@@ -31,10 +43,14 @@ const NewsSection = () => {
         // handle error 
       }
     }))
-  }, [dispatch])
+  }, [dispatch, newsTag, searchString, page])
+
+  useEffect(() => {
+    loadNews()
+  }, [loadNews])
 
   const handleLoadMoreNews = useCallback(() => {
-    console.log('here')
+    // setPage(prev => prev + 1)
   }, [])
 
   return (

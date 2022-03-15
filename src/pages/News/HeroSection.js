@@ -1,153 +1,78 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import {
-  Box,
-  Typography,
   Stack,
-  Divider,
+  Typography,
   Grid,
-  Skeleton,
-  Link,
-  CardActionArea,
+  Box,
+  Hidden
 } from '@mui/material'
-import { getLatestNews } from 'redux/modules/article/actions'
+import { SearchBox } from 'components/SearchBox'
+import { MDropdown, MTab } from 'components/CustomMaterial'
 import { useDispatch, useSelector } from 'react-redux'
-import { LazyImage } from 'components/LazyImage'
-import ShowMoreText from "react-show-more-text"
-import { useHistory } from 'react-router-dom'
-import { currentUserSelector } from 'redux/modules/auth/selectors'
-import { isPremium } from 'helpers'
-import moment from 'moment'
+import { newsTagSelector, newsSortBySelector, newsSearchValueSelector } from 'redux/modules/news/selectors'
+import { setNewsTag, setNewsSortBy, setNewsSearchValue } from 'redux/modules/news/actions'
+
+const SORTBY_ITEMS = [
+  { text: 'Newest', value: 'newest' },
+  { text: 'Oldest', value: 'oldest' },
+  { text: 'Title A - Z', value: 'a-z' },
+  { text: 'Title Z - A', value: 'z-a' },
+  { text: 'Most Popular', value: 'popularity' },
+]
+
+const TAB_CONTENT = [
+  { label: 'All News', value: 'all' },
+  { label: 'Bitcoin News', value: 'bitcoin-btc-news' },
+  { label: 'Ethereum News', value: 'ethereum-eth-news' },
+  { label: 'Alt News', value: 'altcoin-news' },
+  { label: 'Defi News', value: 'defi' },
+  { label: 'Blockchain News', value: 'blockchain-news' },
+]
 
 const HeroSection = () => {
-  const history = useHistory()
   const dispatch = useDispatch()
-  const currentUser = useSelector(currentUserSelector)
-  const videoRef = useRef(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [data, setData] = useState([])
+  const newsTag = useSelector(newsTagSelector)
+  const sortByValue = useSelector(newsSortBySelector)
+  const searchString = useSelector(newsSearchValueSelector)
 
-  const url = useMemo(() => {
-    return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
-  }, [currentUser, data])
+  const sortLabel = useMemo(() => {
+    const sortByItem = SORTBY_ITEMS.find(item => item.value === sortByValue)
+    return sortByItem ? sortByItem.text : 'Sort By'
+  }, [sortByValue])
 
-  useEffect(() => {
-    setIsLoading(true)
-    dispatch(getLatestNews({
-      params: {
-        page: 1,
-        perPage: 5
-      },
-      success: ({ data }) => {
-        setData(data?.posts)
-        setIsLoading(false)
-      },
-      fail: () => {
-        // handle error 
-      }
-    }))
-  }, [dispatch])
 
   return (
-    <Grid container spacing={5} >
-      <Grid item xs={12} md={7}>
-        <Box ref={videoRef} >
-          {
-            (isLoading || data.length === 0)
-              ?
-              <Stack spacing={1}>
-                <Skeleton variant="rectangular" width="100%" height={300} />
-                <Skeleton width="150px" />
-                <Skeleton width="60%" />
-                <Skeleton />
-                <Skeleton />
-              </Stack>
-              :
-              <Stack spacing={1}>
-                <CardActionArea onClick={() => history.push(url)}>
-                  <LazyImage src={data[0].featureImage} />
-                </CardActionArea>
-
-                <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
-                  {data[0]?.primaryTag.name}
-                  <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
-                  <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-                    {moment(Date.now()).diff(data[0].updatedAt, 'hours')} hours ago
-                  </Typography>
-                </Typography>
-
-                <Typography variant="h2" sx={{ fontWeight: 500 }}>
-                  <Link
-                    component={'span'}
-                    onClick={() => history.push(url)}
-                    underline="hover"
-                    sx={{ color: "#232A45", fontSize: "32x", cursor: "pointer" }}
-                  >
-                    <ShowMoreText lines={2} expandByClick={false} more="">
-                      {data[0].title}
-                    </ShowMoreText>
-                  </Link>
-                </Typography>
-
-                <Typography variant="subTitle" sx={{ color: "#858585" }}>
-                  <ShowMoreText lines={2} expandByClick={false} more="">
-                    {data[0].excerpt}
-                  </ShowMoreText>
-                </Typography>
-              </Stack>
-          }
-
-        </Box>
-      </Grid>
-
-      <Grid item xs={12} md={5}>
-        <Box>
-          <Stack direction="column" spacing={1.5} divider={<Divider />}>
-            {
-              (isLoading || data.length === 0)
-                ?
-                [0, 1, 3].map((item, index) => {
-                  return (
-                    <Stack spacing={1} key={index}>
-                      <Skeleton width="50px" />
-                      <Skeleton />
-                      <Skeleton width="60%" />
-                    </Stack>
-                  )
-                })
-                :
-                data.map((item, index) => {
-                  return (
-                    <Stack key={index}>
-                      <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
-                        {item?.primaryTag.name}
-                      </Typography>
-                      <Typography variant="subTitle3" sx={{ fontWeight: 500 }}>
-                        <Link
-                          component={'span'}
-                          onClick={() => history.push(!currentUser && isPremium(item.tags) ? `/paywall` : `article/${item?.id}`)}
-                          underline="hover"
-                          sx={{ color: "#232A45", fontSize: "20x", cursor: "pointer" }}
-                        >
-                          <ShowMoreText lines={2} expandByClick={false} more="">
-                            {item.title}
-                          </ShowMoreText>
-                        </Link>
-                      </Typography>
-                      <Typography variant="subTitle" sx={{ color: "#858585" }}>
-                        <ShowMoreText lines={1} expandByClick={false} more="">
-                          {item.excerpt}
-                        </ShowMoreText>
-                      </Typography>
-                    </Stack>
-                  )
-                })
-            }
+    <>
+      <Grid container sx={{ mb: 4 }}>
+        <Grid item xs={12} md={6}>
+          <Stack spacing={1}>
+            <Typography variant="h4" color="#141414" fontWeight={500}>All News</Typography>
+            <Typography variant="subTitle" color="#555">
+              Insights into the biggest events shaping the crypto industry.
+            </Typography>
           </Stack>
-        </Box>
-      </Grid>
-    </Grid>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Stack direction="row" spacing={2} sx={{ mt: { md: 0, xs: 2 } }}>
+            <Hidden mdDown>
+              <Box sx={{ flexGrow: 1 }} />
+            </Hidden>
+            <SearchBox placeholder="Search in News" value={searchString} onChange={val => dispatch(setNewsSearchValue(val))} />
+            <MDropdown items={SORTBY_ITEMS} label={sortLabel} onChange={(val) => dispatch(setNewsSortBy(val))} />
+          </Stack>
+        </Grid>
+      </Grid >
+
+      <MTab
+        currentTab={newsTag}
+        handleChange={(val) => dispatch(setNewsTag(val))}
+        items={TAB_CONTENT}
+        tabStyle={{ mb: 6 }}
+        itemStyle={{ fontSize: 16, width: 180 }}
+      />
+    </>
   )
 }
-
 
 export default HeroSection
