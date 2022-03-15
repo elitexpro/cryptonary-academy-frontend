@@ -27,20 +27,11 @@ import {
   educationReadingTimeSelector,
   educationDurationSelector,
 } from 'redux/modules/education/selectors'
-import { useHistory } from 'react-router-dom'
 import DoneIcon from '@mui/icons-material/Done'
 
-
 const MEDIA_OPTIONS = [
-  { text: "Both", value: "both" },
   { text: "Articles", value: "article" },
   { text: "Videos", value: "video" },
-]
-
-const DIFFICULTY_OPTIONS = [
-  { text: "Beginner", value: "beginner" },
-  { text: "Intermediate", value: "intermediate" },
-  { text: "Advance", value: "advance" },
 ]
 
 const DETAIL_OPTION = [
@@ -62,8 +53,7 @@ const DETAIL_OPTION = [
   },
 ]
 
-const FilterBar = ({ isLevelFilter }) => {
-  const history = useHistory()
+const FilterBar = () => {
   const dispatch = useDispatch()
   const [filterDrawer, setFilterDrawer] = useState(false)
   const mediaType = useSelector(educationMediaTypeSelector)
@@ -76,9 +66,6 @@ const FilterBar = ({ isLevelFilter }) => {
     return topicTags.filter(item => item.isSelected)
   }, [topicTags])
 
-  const mediaLabel = useMemo(() => {
-    return mediaType !== "unset" ? MEDIA_OPTIONS.find(item => item.value === mediaType).text : "Media Type"
-  }, [mediaType])
 
   const handleRemoveSelectedTag = useCallback((index) => () => {
     const compyTopics = [...topicTags]
@@ -100,76 +87,54 @@ const FilterBar = ({ isLevelFilter }) => {
         />
 
         <Hidden mdDown>
-          {
-            !isLevelFilter ?
-              <>
-                <MDropdown
-                  items={DIFFICULTY_OPTIONS}
-                  label="Difficulty Level"
-                  buttonStyle={{ width: '100px' }}
-                  dropboxStyle={{ width: '150px' }}
-                  onChange={val => history.push(`/education/${val}`)}
-                />
-                <MDropdown
-                  items={MEDIA_OPTIONS}
-                  label={mediaLabel}
-                  buttonStyle={{ width: '85px' }}
-                  dropboxStyle={{ width: '135px' }}
-                  onChange={val => dispatch(setEducationMediaType(val))}
-                />
-              </>
-              :
-              <>
-                <Stack direction="row" sx={{ p: 0.5, border: "1px solid #E4E4E4", borderRadius: "2px", ml: 2 }} spacing={1}>
-                  {
-                    MEDIA_OPTIONS.map((option, index) => {
-                      const { value, text } = option
-                      const isSelected = mediaType === 'unset' ? value === 'both' ? true : false : mediaType === value
-                      return (
-                        <MButton
-                          color={isSelected ? "success" : "inherit"}
-                          key={index}
-                          variant={isSelected ? "contained" : undefined}
-                          fullWidth
-                          sx={{
-                            px: 3,
-                            color: isSelected ? "#FFF" : "#909090",
-                          }}
-                          onClick={() => dispatch(setEducationMediaType(value))}
-                        >
-                          {text}
-                          {
-                            isSelected ?
-                              <DoneIcon sx={{ ml: 1, fontSize: 16 }} style={{ color: isSelected ? "#FFF" : undefined }} /> :
-                              null
-                          }
-                        </MButton>
-                      )
-                    })
-                  }
-                </Stack>
-                {(mediaType === 'unset' || mediaType === 'both' || mediaType === 'video') &&
-                  <MDropdown
-                    items={DETAIL_OPTION[0].data}
-                    label={readingTime ?? DETAIL_OPTION[0].category}
-                    buttonStyle={{ width: '100px' }}
-                    dropboxStyle={{ width: '135px' }}
-                    onChange={val => dispatch(setEducationReadingTime(val))}
-                  />
-                }
-                {(mediaType === 'unset' || mediaType === 'both' || mediaType === 'article') &&
-                  <MDropdown
-                    items={DETAIL_OPTION[1].data}
-                    label={duration ?? DETAIL_OPTION[1].category}
-                    buttonStyle={{ width: '100px' }}
-                    dropboxStyle={{ width: '135px' }}
-                    onChange={val => dispatch(setEducationDuration(val))}
-                  />
-                }
+          <Stack direction="row" sx={{ p: 0.5, border: "1px solid #E4E4E4", borderRadius: "2px", ml: 2 }} spacing={1}>
+            {
+              MEDIA_OPTIONS.map((option, index) => {
+                const { value, text } = option
+                const isSelected = mediaType === value
+                return (
+                  <MButton
+                    color={isSelected ? "success" : "inherit"}
+                    key={index}
+                    variant={isSelected ? "contained" : undefined}
+                    fullWidth
+                    sx={{
+                      px: 3,
+                      color: isSelected ? "#FFF" : "#909090",
+                    }}
+                    onClick={() => dispatch(setEducationMediaType(value))}
+                  >
+                    {text}
+                    {
+                      isSelected ?
+                        <DoneIcon sx={{ ml: 1, fontSize: 16 }} style={{ color: isSelected ? "#FFF" : undefined }} /> :
+                        null
+                    }
+                  </MButton>
+                )
+              })
+            }
+          </Stack>
 
-              </>
+          {mediaType === 'video' &&
+            <MDropdown
+              items={DETAIL_OPTION[0].data}
+              label={readingTime ?? DETAIL_OPTION[0].category}
+              buttonStyle={{ width: '100px' }}
+              dropboxStyle={{ width: '135px' }}
+              onChange={val => dispatch(setEducationReadingTime(val))}
+            />
           }
 
+          {mediaType === 'article' &&
+            <MDropdown
+              items={DETAIL_OPTION[1].data}
+              label={duration ?? DETAIL_OPTION[1].category}
+              buttonStyle={{ width: '100px' }}
+              dropboxStyle={{ width: '135px' }}
+              onChange={val => dispatch(setEducationDuration(val))}
+            />
+          }
         </Hidden>
 
         <Box sx={{ flexGrow: 1 }} />

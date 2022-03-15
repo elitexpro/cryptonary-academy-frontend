@@ -1,36 +1,18 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import {
   Box,
   Grid,
-  Typography,
   Stack,
   Skeleton,
 } from '@mui/material'
-import { MButton } from 'components/CustomMaterial'
 import { VideoItem } from 'components/VideoItem'
 import { ArticleItem } from 'components/ArticleItem'
-import { useHistory } from 'react-router-dom'
 
-const LevelSection = ({ level, data, isLoading, hideSectionHeader }) => {
-  const history = useHistory()
-
-  const levelString = useMemo(() => {
-    switch (level) {
-      case 'beginner':
-        return "Basics"
-      case 'intermediate':
-        return "Must Knows"
-      case 'advance':
-        return "Deep Dives"
-      default:
-        return ""
-    }
-  }, [level])
-
+const LevelSection = ({ data, isLoading, mediaType }) => {
 
   return (
     <Box>
-      {
+      {/* {
         !hideSectionHeader &&
         <Stack direction="row" sx={{ mb: 3 }}>
           <Typography variant="h2" sx={{ color: "#141414" }}>{levelString}</Typography>
@@ -39,11 +21,11 @@ const LevelSection = ({ level, data, isLoading, hideSectionHeader }) => {
             View all
           </MButton>
         </Stack>
-      }
+      } */}
 
       <Grid container spacing={2}>
         {
-          (isLoading || data.length === 0)
+          (isLoading)
             ?
             [0, 1, 2].map((value, index) => {
               return (
@@ -62,11 +44,11 @@ const LevelSection = ({ level, data, isLoading, hideSectionHeader }) => {
               return (
                 <Grid item key={index} xs={12} md={4}>
                   {
-                    item.type === 'videos'
+                    mediaType === 'video'
                       ?
                       <VideoItem data={item} />
                       :
-                      <ArticleItem data={item.attributes} showPrimaryTag={false} />
+                      <ArticleItem data={item} showPrimaryTag={false} />
                   }
                 </Grid>
               )

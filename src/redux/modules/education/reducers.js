@@ -7,18 +7,22 @@ const getInitialState = () => {
     status: 'INIT',
     error: null,
     searchValue: '',
-    mediaType: 'unset',
+    mediaType: 'article',
     topicTags: [],
+    tabTag: 'all',
     readingTime: null,
     duration: null,
     filteredTagsName: [],
-    beginnerArticles: [],
-    intermediateArticles: [],
-    advanceArticles: [],
+    articles: [],
+    videos: [],
   }
 }
 
 export default handleActions({
+  [CONSTANTS.SET_EDUCATION_TAB_TAG]: (state, { payload }) => ({
+    ...state,
+    tabTag: payload
+  }),
   [CONSTANTS.SET_EDUCATION_MEDIA_TYPE]: (state, { payload }) => ({
     ...state,
     mediaType: payload
@@ -45,21 +49,16 @@ export default handleActions({
     searchValue: '',
     mediaType: 'unset',
     topicTags: [],
-    beginnerArticles: [],
-    intermediateArticles: [],
-    advanceArticles: [],
+    articles: [],
+    videos: [],
   }),
 
-  [requestSuccess(CONSTANTS.GET_BEGINNER_ARTICLES)]: (state, { payload }) => ({
+  [requestSuccess(CONSTANTS.GET_EDUCATION_ARTICLES)]: (state, { payload }) => ({
     ...state,
-    beginnerArticles: payload.posts,
+    articles: payload.posts,
   }),
-  [requestSuccess(CONSTANTS.GET_INTERMEDIATE_ARTICLES)]: (state, { payload }) => ({
+  [requestSuccess(CONSTANTS.GET_EDUCATION_VIDEOS)]: (state, { payload }) => ({
     ...state,
-    intermediateArticles: payload.posts,
-  }),
-  [requestSuccess(CONSTANTS.GET_ADVANCE_ARTICLES)]: (state, { payload }) => ({
-    ...state,
-    advanceArticles: payload.posts,
+    videos: payload.data,
   }),
 }, getInitialState())

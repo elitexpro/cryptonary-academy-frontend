@@ -12,14 +12,11 @@ export const educationSearchValueSelector = (state) =>
 export const educationTopicTagsSelector = (state) =>
   get(state, 'education.topicTags', null)
 
-export const beginnerArticleSelector = (state) =>
-  get(state, 'education.beginnerArticles', null)
+export const educationArticlesSelector = (state) =>
+  get(state, 'education.articles', null)
 
-export const intermediateArticleSelector = (state) =>
-  get(state, 'education.intermediateArticles', null)
-
-export const advanceArticleSelector = (state) =>
-  get(state, 'education.advanceArticles', null)
+export const educationVideosSelector = (state) =>
+  get(state, 'education.videos', null)
 
 export const educationFilteredTagNameSelector = (state) =>
   get(state, 'education.filteredTagsName', null)
@@ -29,3 +26,6 @@ export const educationReadingTimeSelector = (state) =>
 
 export const educationDurationSelector = (state) =>
   get(state, 'education.duration', null)
+
+export const educationTabTagSelector = (state) =>
+  get(state, 'education.tabTag', null)
