@@ -8,3 +8,6 @@ export const alphaTagsSelector = (state) =>
 
 export const totalPagesSelector = (state) =>
   get(state, 'alpha.total', null)
+
+export const latestAlphaSelector = (state) =>
+  get(state, 'alpha.latestAlpha', null)

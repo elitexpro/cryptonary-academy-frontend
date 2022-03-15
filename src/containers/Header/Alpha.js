@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useStyles from './styles.js'
+import { useDispatch } from 'react-redux'
 import {
   Popper,
   Fade,
@@ -12,16 +13,31 @@ import {
   KeyboardArrowDownRounded,
 } from '@mui/icons-material'
 import AlphaContent from './AlphaContent'
+import { getLatestAlphaList } from 'redux/modules/alpha/actions'
 
 const Alpha = () => {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const [openAlpha, setOpenAlpha] = useState(0)
   const [anchorEl, setAnchorEl] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleAlphaToggle = (e) => {
     setOpenAlpha(prev => prev + 1)
     setAnchorEl(e.currentTarget)
   }
+
+  useEffect(() => {
+    setIsLoading(true)
+    dispatch(getLatestAlphaList({
+      params: {
+        perPage: 2,
+      },
+      success: () => {
+        setIsLoading(false)
+      }
+    }))
+  }, [dispatch])
 
   return (
     <>
@@ -52,7 +68,7 @@ const Alpha = () => {
             >
               <Box>
                 <Divider sx={{ background: "#c3c3c3" }} />
-                <AlphaContent />
+                <AlphaContent isLoading={isLoading} />
               </Box>
             </Paper>
           </Fade >

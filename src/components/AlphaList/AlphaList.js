@@ -3,6 +3,7 @@ import {
   Grid,
   Stack,
   Skeleton,
+  Hidden,
 } from '@mui/material'
 import { ArticleItem } from 'components/ArticleItem'
 import { MPagination } from 'components/CustomMaterial'
@@ -14,7 +15,7 @@ const PAGE_ITEMS = [
   { text: 'All', value: 'all' },
 ]
 
-const AlphaList = ({ isLoading, perPage, setPerPage, page, setPage, data,  total }) => {
+const AlphaList = ({ isLoading, perPage, setPerPage, page, setPage, data, total }) => {
   const perPageText = PAGE_ITEMS.find(item => item.value === perPage)?.text
 
   const handleResetPage = (value) => {
@@ -45,21 +46,23 @@ const AlphaList = ({ isLoading, perPage, setPerPage, page, setPage, data,  total
               </Grid>
             ))}
 
-            <MPagination
-              listCount={total}
-              items={PAGE_ITEMS}
-              label={perPageText}
-              perPage={perPage}
-              onChange={handleResetPage}
-              page={page}
-              setPage={setPage}
-              buttonStyle={{
-                width: '30px !important'
-              }}
-              layoutStyle={{
-                ml: '8px !important'
-              }}
-            />
+            <Hidden mdDown>
+              <MPagination
+                listCount={total}
+                items={PAGE_ITEMS}
+                label={perPageText}
+                perPage={perPage}
+                onChange={handleResetPage}
+                page={page}
+                setPage={setPage}
+                buttonStyle={{
+                  width: '30px !important'
+                }}
+                layoutStyle={{
+                  ml: '8px !important'
+                }}
+              />
+            </Hidden>
           </>
       }
     </Grid>

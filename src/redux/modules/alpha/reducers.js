@@ -8,6 +8,7 @@ const getInitialState = () => {
     error: null,
     alphaList: [],
     alphaTags: [],
+    latestAlpha: [],
     total: 0,
   }
 }
@@ -38,6 +39,20 @@ export default handleActions({
     alphaTags: payload,
   }),
   [requestFail(CONSTANTS.GET_ALPHA_TAGS)]: (state, { payload }) => ({
+    ...state,
+    status: 'FAILED',
+    error: payload,
+  }),
+  [CONSTANTS.GET_LATEST_ALPHA_LIST]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+  }),
+  [requestSuccess(CONSTANTS.GET_LATEST_ALPHA_LIST)]: (state, { payload }) => ({
+    ...state,
+    status: 'SUCCESS',
+    latestAlpha: payload.posts,
+  }),
+  [requestFail(CONSTANTS.GET_LATEST_ALPHA_LIST)]: (state, { payload }) => ({
     ...state,
     status: 'FAILED',
     error: payload,

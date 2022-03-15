@@ -3,11 +3,13 @@ import {
   Stack,
   Typography,
   Grid,
+  Box,
+  Hidden,
 } from '@mui/material'
 import { SearchBox } from 'components/SearchBox'
 import { MDropdown } from 'components/CustomMaterial'
 
-const sortByItems = [
+const SORTBY_ITEMS = [
   { text: 'Newest', value: 'desc' },
   { text: 'Oldest', value: 'asc' },
   { text: '4 star or more', value: '4' },
@@ -15,9 +17,9 @@ const sortByItems = [
   { text: '2 star or more', value: '2' },
 ]
 
-const HeroSection = ({ defaultLabel, setDefaultLabel, searchString, setSearchStrinhg }) => {
-  const defaultText = sortByItems.find(item => item.value === defaultLabel) ?
-    sortByItems.find(item => item.value === defaultLabel).text : 'Sort By'
+const HeroSection = ({ defaultLabel, setDefaultLabel, searchString, setSearchString }) => {
+  const sortLabel = SORTBY_ITEMS.find(item => item.value === defaultLabel) ?
+    SORTBY_ITEMS.find(item => item.value === defaultLabel).text : 'Sort By'
 
   return (
     <Grid container sx={{ mt: 4 }}>
@@ -30,9 +32,12 @@ const HeroSection = ({ defaultLabel, setDefaultLabel, searchString, setSearchStr
         </Stack>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Stack direction="row" spacing={2}>
-          <SearchBox placeholder="Search in Analysis" value={searchString} onChange={setSearchStrinhg} />
-          <MDropdown items={sortByItems} label={defaultText} onChange={(text) => setDefaultLabel(text)} />
+        <Stack direction="row" spacing={2} sx={{ mt: { md: 0, xs: 2 } }}>
+          <Hidden mdDown>
+            <Box sx={{ flexGrow: 1 }} />
+          </Hidden>
+          <SearchBox placeholder="Search in Analysis" value={searchString} onChange={setSearchString} />
+          <MDropdown items={SORTBY_ITEMS} label={sortLabel} onChange={setDefaultLabel} />
         </Stack>
       </Grid>
     </Grid>

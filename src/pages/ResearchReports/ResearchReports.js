@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Box,
+  Container,
 } from '@mui/material'
 import HeroSection from './HeroSection'
 import AlphaTags from './AlphaTags'
@@ -17,7 +17,7 @@ const ResearchReports = () => {
   const [page, setPage] = useState(1)
   const [alphaTags, setAlphaTags] = useState([])
   const [defaultLabel, setDefaultLabel] = useState('Sort By')
-  const [searchString, setSearchStrinhg] = useState('')
+  const [searchString, setSearchString] = useState('')
   const alphaList = useSelector(alphaListSelector)
   const total = useSelector(totalPagesSelector)
 
@@ -30,7 +30,7 @@ const ResearchReports = () => {
         perPage: perPage !== 'all' ? perPage : null,
         page,
         searchString,
-        sort: defaultLabel,
+        order: defaultLabel,
       },
       body: {
         tags: selectedTags?.length > 0 ? selectedTags : ['research']
@@ -50,12 +50,12 @@ const ResearchReports = () => {
   }, [dispatch])
 
   return (
-    <Box sx={{ px: 5 }}>
+    <Container maxWidth="xl" sx={{ px: { md: 5, xs: 2 } }}>
       <HeroSection
         defaultLabel={defaultLabel}
         setDefaultLabel={setDefaultLabel}
         searchString={searchString}
-        setSearchStrinhg={setSearchStrinhg}
+        setSearchString={setSearchString}
       />
 
       <AlphaTags
@@ -74,7 +74,7 @@ const ResearchReports = () => {
         total={total}
       />
       <Footer minimal={true} />
-    </Box>
+    </Container>
   )
 }
 

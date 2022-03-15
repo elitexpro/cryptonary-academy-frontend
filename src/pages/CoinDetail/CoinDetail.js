@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { styled } from '@mui/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Grid,
@@ -9,8 +8,6 @@ import {
   Rating,
   Typography,
   Divider,
-  Tab,
-  Tabs,
   Skeleton,
 } from '@mui/material'
 import { getCoinById } from 'redux/modules/coin/actions'
@@ -19,17 +16,7 @@ import Overview from 'components/CoinOverview'
 import { Footer } from 'containers/Footer'
 import CoinTable from 'components/CoinTable'
 import CoinNews from 'components/CoinNews'
-
-const CustomTab = styled(Tab)(() => {
-  return {
-    textTransform: 'none !important',
-    fontSize: 18,
-    fontWeight: 400,
-    width: "50%",
-    minWidth: 160,
-    maxWidth: 240
-  }
-})
+import { MTab } from 'components/CustomMaterial'
 
 const CoinDetail = (props) => {
   const dispatch = useDispatch()
@@ -61,9 +48,15 @@ const CoinDetail = (props) => {
     loadCoin(props.match.params.symbol)
   }, [loadCoin, props.match.params.symbol])
 
-  const handleChange = (e, value) => {
+  const handleChange = (value) => {
     setCurrentTab(value)
   }
+
+  const TABS = [
+    { label: 'Overview', value: 'overview' },
+    { label: 'Bitcoin News', value: 'news' },
+    { label: 'Related Coins', value: 'related_coins' },
+  ]
 
   return (
     <Container maxWidth="xl">
@@ -145,23 +138,13 @@ const CoinDetail = (props) => {
             </Grid>
           </Grid>
 
-          <Tabs
-            value={currentTab}
-            onChange={handleChange}
-            textColor="inherit"
-            variant="fullWidth"
-            sx={{ borderBottom: '1px solid #EAEAEA' }}
-            TabIndicatorProps={{
-              style: {
-                background: "#4AAF47",
-                height: 1
-              }
-            }}
-          >
-            <CustomTab label="Overview" value="overview" />
-            <CustomTab label="Bitcoin News" value="news" />
-            <CustomTab label="Related Coins" value="related_coins" />
-          </Tabs>
+          <MTab
+            items={TABS}
+            currentTab={currentTab}
+            handleChange={handleChange}
+            itemStyle={{ maxWidth: '240px !important' }}
+          />
+
           {currentTab === 'overview' && <Overview coin={currentCoin} />}
           {currentTab === 'news' && <CoinNews />}
           {currentTab === 'related_coins' &&

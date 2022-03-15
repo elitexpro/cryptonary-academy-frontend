@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { styled } from '@mui/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  Tabs,
-  Tab,
   Box,
 } from '@mui/material'
 import { getAlphaList } from 'redux/modules/alpha/actions'
 import AlphaList from 'components/AlphaList'
+import { MTab } from 'components/CustomMaterial'
 import { alphaListSelector, totalPagesSelector } from 'redux/modules/alpha/selectors'
 
-const CustomTab = styled(Tab)(() => {
-  return {
-    textTransform: 'none !important',
-    fontSize: 14,
-    fontWeight: 400,
-    minWidth: 120,
-    maxWidth: 200
-  }
-})
+const TABS = [
+  { label: 'Technical Analysis', value: 'technical-analysis' },
+  { label: 'On-Chain Forensics', value: 'on-chain-forensics' },
+]
 
 const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel }) => {
   const dispatch = useDispatch()
@@ -28,7 +21,7 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
   const alphaList = useSelector(alphaListSelector)
   const total = useSelector(totalPagesSelector)
 
-  const handleChange = (e, tab) => {
+  const handleChange = (tab) => {
     setCurrentTab(tab)
     setPage(1)
   }
@@ -40,7 +33,7 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
         perPage: perPage !== 'all' ? perPage : null,
         page,
         searchString,
-        sort: defaultLabel,
+        order: defaultLabel,
       },
       body: {
         tags: [
@@ -55,21 +48,12 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
 
   return (
     <Box sx={{ mt: 6 }}>
-      <Tabs
-        value={currentTab}
-        onChange={handleChange}
-        variant="fullWidth"
-        textColor="inherit"
-        TabIndicatorProps={{
-          style: {
-            background: "#4AAF47",
-            height: 1
-          }
-        }}
-      >
-        <CustomTab label="Technical Analysis" value="technical-analysis" />
-        <CustomTab label="On-Chain Forensics" value="on-chain-forensics" />
-      </Tabs>
+      <MTab
+        items={TABS}
+        currentTab={currentTab}
+        handleChange={handleChange}
+        itemStyle={{ maxWidth: '240px !important' }}
+      />
 
       <AlphaList
         isLoading={isLoading}

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import {
-  Stack,
   Chip,
   Skeleton,
   Box,
+  Grid,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { getFormattedText } from 'helpers'
@@ -45,28 +45,29 @@ const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
   }
 
   return (
-    <Box sx={{ mt: 6 }}>
+    <Box sx={{ mt: 6, display: 'flex', alignItems: 'center' }}>
       {
         (isLoading && tags?.length === 0)
           ?
           <Skeleton width="100%" />
           :
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Grid container columnSpacing={1} alignItems="center">
             {alphaTags?.map((item, index) => (
-              <Chip
-                key={index}
-                color={item.isSelected ? 'success' : undefined}
-                label={getFormattedText(item.text)}
-                variant={!item.isSelected ? 'outlined' : undefined}
-                onClick={handleClickTopic(item)}
-              />
+              <Grid item md="auto" key={index}>
+                <Chip
+                  color={item.isSelected ? 'success' : undefined}
+                  label={getFormattedText(item.text)}
+                  variant={!item.isSelected ? 'outlined' : undefined}
+                  onClick={handleClickTopic(item)}
+                />
+              </Grid>
             ))}
 
             <MButton
               variant="inherit"
               onClick={handleClearFilter}
             >Clear filters</MButton>
-          </Stack>
+          </Grid>
       }
     </Box>
   )

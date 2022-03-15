@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   Box,
   Grid,
@@ -7,10 +8,15 @@ import {
   Typography,
   Link,
   Skeleton,
+  CardActionArea,
 } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
+import { HorizontalArticleItem } from 'components/HorizontalArticleItem'
+import { latestAlphaSelector } from 'redux/modules/alpha/selectors'
+import { LazyImage } from 'components/LazyImage'
 
-const AlphaContent = () => {
+const AlphaContent = ({ isLoading }) => {
+  const latestAlphaList = useSelector(latestAlphaSelector)
 
   return (
     <Box sx={{ py: 5, px: 10, background: "#FCFCFC" }}>
@@ -83,39 +89,34 @@ const AlphaContent = () => {
 
             <Divider />
 
-            <Stack spacing={2} direction="row">
-              <Box sx={{ minWidth: "175px", height: "100px" }}>
-                <Skeleton variant="rectangular" width="100%" height="100%" />
-              </Box>
-              <Stack spacing={1}>
-                <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
-                  On-chain forensics
-                </Typography>
-                <Typography variant="subTitle4" sx={{ color: "#141414" }}>
-                  The Full GIGA-BRAIN Plan
-                </Typography>
-                <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-                  In crypto, opportunities are everywhere but the really great ones only
-                  show up every once in a while – we estimate ...
-                </Typography>
-              </Stack>
+            <Stack spacing={4}>
+              {
+                !isLoading ?
+                  latestAlphaList?.map((item, index) => (
+                    <HorizontalArticleItem data={item} key={index} />
+                  ))
+                  :
+                  [0, 1].map((value, index) => (
+                    <Grid container key={index}>
+                      <Grid item xs={12} md={4}>
+                        <CardActionArea>
+                          <LazyImage>
+                            <Skeleton variant="rectangular" width="100%" />
+                          </LazyImage>
+                        </CardActionArea>
+                      </Grid>
 
-            </Stack>
-            <Stack spacing={2} direction="row">
-              <Box sx={{ minWidth: "175px", height: "100px" }}>
-                <Skeleton variant="rectangular" width="100%" height="100%" />
-              </Box>
-              <Stack spacing={1}>
-                <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
-                  Explained
-                </Typography>
-                <Typography variant="subTitle4" sx={{ color: "#141414" }}>
-                  Layer 1s Explained
-                </Typography>
-                <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-                  What is a Layer 1 blockchain? Simply, a Layer 1 blockchain is the underlying core architecture upon which other ...
-                </Typography>
-              </Stack>
+                      <Grid item xs={12} md={8}>
+                        <Stack spacing={1} sx={{ pl: 2 }}>
+                          <Skeleton width="30%" />
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton width="60%" />
+                        </Stack>
+                      </Grid>
+                    </Grid>
+                  ))
+              }
             </Stack>
           </Stack>
         </Grid>
