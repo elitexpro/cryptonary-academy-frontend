@@ -9,7 +9,9 @@ const getInitialState = () => {
     ratings: [],
     rating_types: [],
     current_coin: {},
+    coin_news: [],
     totalPages: 0,
+    newsTotalPages: 0,
   }
 }
 
@@ -55,6 +57,21 @@ export default handleActions({
     current_coin: payload.data.attributes,
   }),
   [requestFail(CONSTANTS.GET_COIN_BY_ID)]: (state, { payload }) => ({
+    ...state,
+    status: 'FAILED',
+    error: payload,
+  }),
+  [CONSTANTS.GET_COIN_NEWS]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+  }),
+  [requestSuccess(CONSTANTS.GET_COIN_NEWS)]: (state, { payload }) => ({
+    ...state,
+    status: 'SUCCESS',
+    coin_news: payload.posts,
+    newsTotalPages: payload.meta.pagination.total,
+  }),
+  [requestFail(CONSTANTS.GET_COIN_NEWS)]: (state, { payload }) => ({
     ...state,
     status: 'FAILED',
     error: payload,

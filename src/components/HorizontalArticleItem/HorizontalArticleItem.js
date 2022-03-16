@@ -22,12 +22,12 @@ const HorizontalArticleItem = ({ data, showPrimaryTag = true }) => {
   return (
     <Grid container alignItems="center">
       <Grid item md={4} xs={12}>
-        <CardActionArea onClick={() => history.push(url)} sx={{ pr: 2 }}>
+        <CardActionArea onClick={() => history.push(url)}>
           <LazyImage src={data.featureImage} />
         </CardActionArea>
       </Grid>
 
-      <Grid item md={8} xs={12}>
+      <Grid item md={8} xs={12} sx={{ pl: 2 }}>
         {showPrimaryTag &&
           <Typography variant="subTitle4" sx={{ color: "#4AAF47", pt: 1 }}>
             {data?.primaryTag.name}

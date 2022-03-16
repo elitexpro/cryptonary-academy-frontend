@@ -14,3 +14,9 @@ export const currentCoinSelector = (state) =>
 
 export const totalPagesSelector = (state) =>
   get(state, 'coin.totalPages', [])
+
+export const coinNewsSelector = (state) =>
+  get(state, 'coin.coin_news', [])
+
+export const newsTotalPagesSelector = (state) =>
+  get(state, 'coin.newsTotalPages', [])

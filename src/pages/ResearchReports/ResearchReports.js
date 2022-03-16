@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Container,
@@ -21,13 +21,17 @@ const ResearchReports = () => {
   const alphaList = useSelector(alphaListSelector)
   const total = useSelector(totalPagesSelector)
 
+  const currntPerPage = useMemo(() => {
+    return perPage !== 'all' ? perPage : total
+  }, [perPage, total])
+
   const loadData = useCallback(() => {
     const selectedTags = alphaTags?.map(item => item.isSelected && item.text).filter(item => item)
 
     setIsLoading(true)
     dispatch(getAlphaList({
       params: {
-        perPage: perPage !== 'all' ? perPage : null,
+        perPage: currntPerPage,
         page,
         searchString,
         order: defaultLabel,
@@ -39,7 +43,7 @@ const ResearchReports = () => {
         setIsLoading(false)
       }
     }))
-  }, [dispatch, page, perPage, alphaTags, searchString, defaultLabel])
+  }, [dispatch, page, alphaTags, searchString, defaultLabel, currntPerPage])
 
   useEffect(() => {
     alphaTags?.length > 0 && loadData()

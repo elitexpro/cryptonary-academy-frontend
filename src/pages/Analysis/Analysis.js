@@ -9,7 +9,7 @@ import { Footer } from 'containers/Footer'
 
 const Analysis = () => {
   const location = useLocation()
-  const [currentTab, setCurrentTab] = useState('technical-analysis')
+  const [currentTab, setCurrentTab] = useState()
   const [defaultLabel, setDefaultLabel] = useState('Sort By')
   const [searchString, setSearchString] = useState('')
 

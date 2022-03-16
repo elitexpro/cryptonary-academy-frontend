@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Box,
@@ -21,16 +21,20 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
   const alphaList = useSelector(alphaListSelector)
   const total = useSelector(totalPagesSelector)
 
+  const currentPerPage = useMemo(() => {
+    return perPage !== 'all' ? perPage : total
+  }, [perPage, total])
+
   const handleChange = (tab) => {
     setCurrentTab(tab)
     setPage(1)
   }
 
-  useEffect(() => {
+  const loadData = useCallback(() => {
     setIsLoading(true)
     dispatch(getAlphaList({
       params: {
-        perPage: perPage !== 'all' ? perPage : null,
+        perPage: currentPerPage,
         page,
         searchString,
         order: defaultLabel,
@@ -44,7 +48,11 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
         setIsLoading(false)
       }
     }))
-  }, [dispatch, currentTab, searchString, defaultLabel, perPage, page])
+  }, [dispatch, currentTab, searchString, defaultLabel, page, currentPerPage])
+
+  useEffect(() => {
+    currentTab && loadData()
+  }, [loadData, currentTab])
 
   return (
     <Box sx={{ mt: 6 }}>

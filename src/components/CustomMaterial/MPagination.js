@@ -15,11 +15,12 @@ const MPagination = ({
   buttonStyle,
   dropboxStyle,
   layoutStyle,
+  positionStyle,
   page,
   setPage
 }) => {
   return (
-    <Stack direction="row" justifyContent="space-between" sx={{ width: '100%', mt: 4, ml: 4 }}>
+    <Stack direction="row" justifyContent="space-between" sx={{ width: '100%', mt: 4, ml: 4, ...positionStyle }}>
       <Stack spacing={1} direction="row" alignItems="center">
         <Typography variant="subTitle" color="#909090">Showing</Typography>
         <MDropdown

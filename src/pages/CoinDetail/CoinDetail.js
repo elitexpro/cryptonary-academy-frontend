@@ -15,7 +15,7 @@ import { currentCoinSelector } from 'redux/modules/coin/selectors'
 import Overview from 'components/CoinOverview'
 import { Footer } from 'containers/Footer'
 import CoinTable from 'components/CoinTable'
-import CoinNews from 'components/CoinNews'
+import News from './News'
 import { MTab } from 'components/CustomMaterial'
 
 const CoinDetail = (props) => {
@@ -146,7 +146,7 @@ const CoinDetail = (props) => {
           />
 
           {currentTab === 'overview' && <Overview coin={currentCoin} />}
-          {currentTab === 'news' && <CoinNews />}
+          {currentTab === 'news' && <News currentTab={currentTab} />}
           {currentTab === 'related_coins' &&
             <Box sx={{ mt: 4 }}>
               <CoinTable isRelated={true} setCurrentTab={setCurrentTab} data={relatedCoinRatings} />

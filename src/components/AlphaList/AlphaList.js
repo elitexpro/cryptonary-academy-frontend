@@ -55,12 +55,9 @@ const AlphaList = ({ isLoading, perPage, setPerPage, page, setPage, data, total 
                 onChange={handleResetPage}
                 page={page}
                 setPage={setPage}
-                buttonStyle={{
-                  width: '30px !important'
-                }}
-                layoutStyle={{
-                  ml: '8px !important'
-                }}
+                buttonStyle={{ width: '30px' }}
+                layoutStyle={{ ml: '8px' }}
+                dropboxStyle={{ width: '80px' }}
               />
             </Hidden>
           </>

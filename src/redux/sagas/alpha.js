@@ -6,7 +6,7 @@ const doGetAlphaList = apiCall({
   type: CONSTANTS.GET_ALPHA_LIST,
   isGhostApi: true,
   method: 'post',
-  path: 'ghost/articles/search',
+  path: 'ghost/articles/alpha-articles',
 })
 
 const doGetAlphaTags = apiCall({
