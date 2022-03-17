@@ -9,6 +9,7 @@ import {
 import { MButton } from 'components/CustomMaterial'
 import { getFormattedText } from 'helpers'
 import { alphaTagsSelector } from 'redux/modules/alpha/selectors'
+import CheckIcon from '@mui/icons-material/Check'
 
 const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
   const tags = useSelector(alphaTagsSelector)
@@ -57,8 +58,16 @@ const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
                 <Chip
                   color={item.isSelected ? 'success' : undefined}
                   label={getFormattedText(item.text)}
-                  variant={!item.isSelected ? 'outlined' : undefined}
+                  variant='outlined'
                   onClick={handleClickTopic(item)}
+                  icon={
+                    item.isSelected ?
+                      <CheckIcon
+                        style={{ width: 16, height: 16, marginLeft: '-8px', marginRight: '8px' }}
+                      /> :
+                      undefined
+                  }
+                  sx={{ flexDirection: 'row-reverse' }}
                 />
               </Grid>
             ))}
