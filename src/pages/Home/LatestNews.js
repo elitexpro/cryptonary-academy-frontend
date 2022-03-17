@@ -8,7 +8,7 @@ import {
   Skeleton,
   Link,
 } from '@mui/material'
-import { getAllArticles } from 'redux/modules/article/actions'
+import { getFilteredArticles } from 'redux/modules/article/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import ShowMoreText from "react-show-more-text"
 import { useHistory } from 'react-router-dom'
@@ -27,10 +27,13 @@ const LatestNews = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    dispatch(getAllArticles({
+    dispatch(getFilteredArticles({
       params: {
         page: 1,
-        perPage: 5
+        perPage: 6
+      },
+      body: {
+        tags: ['crypto-school']
       },
       success: ({ data }) => {
         setData(data?.posts)
@@ -114,7 +117,7 @@ const LatestNews = () => {
                       )
                     })
                     :
-                    data.map((item, index) => {
+                    data.slice(1).map((item, index) => {
                       return (
                         <Stack key={index}>
                           <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
@@ -131,6 +134,11 @@ const LatestNews = () => {
                                 {item.title}
                               </ShowMoreText>
                             </Link>
+                          </Typography>
+                          <Typography variant="subTitle" sx={{ color: "#858585" }}>
+                            <ShowMoreText lines={1} expandByClick={false} more="">
+                              {item.excerpt}
+                            </ShowMoreText>
                           </Typography>
                         </Stack>
                       )

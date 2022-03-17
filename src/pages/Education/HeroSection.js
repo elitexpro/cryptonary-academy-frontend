@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import {
   Box,
   Grid,
@@ -29,7 +29,7 @@ const HeroSection = () => {
         handleChange={(val) => dispatch(setEducationTabTag(val))}
         items={TAB_CONTENT}
         tabStyle={{ my: 4 }}
-        itemStyle={{ fontSize: 16, width: 180 }}
+        itemStyle={{ fontSize: '16px !important', width: '180px !important' }}
       />
 
       <Box sx={{

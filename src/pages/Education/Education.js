@@ -1,5 +1,5 @@
-import React, { useEffect, useCallback, useState, useMemo } from 'react'
-import { Container, Box, Divider } from '@mui/material'
+import React, { useEffect, useCallback, useState } from 'react'
+import { Container } from '@mui/material'
 import HeroSection from './HeroSection'
 import FilterBar from './FilterBar'
 import LevelSection from './LevelSection'
@@ -33,6 +33,7 @@ const Education = (props) => {
   const tabTag = useSelector(educationTabTagSelector)
   const [page, setPage] = useState(1)
   const [data, setData] = useState([])
+  const [dataType, setDataType] = useState('article')
   const [isLoading, setIsLoading] = useState(true)
   // const readingTime = useSelector(educationReadingTimeSelector)
   // const duration = useSelector(educationDurationSelector)
@@ -43,6 +44,7 @@ const Education = (props) => {
 
   const loadData = useCallback(() => {
     setIsLoading(true)
+    setData([])
 
     const tags = [...selectedTags]
     tabTag !== 'all' && tags.push(tabTag)
@@ -51,13 +53,14 @@ const Education = (props) => {
       params: {
         page,
         perPage: 9,
-        // searchString: searchValue
+        searchString: searchValue
       },
       body: {
         tags,
       },
       success: ({ data }) => {
         setData(data?.posts)
+        setDataType(mediaType)
         setIsLoading(false)
       },
       fail: () => {
@@ -76,6 +79,7 @@ const Education = (props) => {
       // },
       success: ({ data }) => {
         setData(data?.data)
+        setDataType(mediaType)
         setIsLoading(false)
       },
       fail: () => {
@@ -98,7 +102,7 @@ const Education = (props) => {
 
       <Container maxWidth="xl" sx={{ mb: 8 }} >
         <FilterBar />
-        <LevelSection isLoading={isLoading} data={data} mediaType={mediaType} />
+        <LevelSection isLoading={isLoading} data={data} mediaType={dataType} />
         <QuizSection />
       </Container>
       <Paywall />

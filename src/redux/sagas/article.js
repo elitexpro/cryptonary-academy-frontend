@@ -19,7 +19,7 @@ const doGetArticleById = apiCall({
 const doGetFeaturedArticles = apiCall({
   type: CONSTANTS.GET_FEATURED_ARTICLES,
   isGhostApi: true,
-  method: 'get',
+  method: 'post',
   path: 'ghost/articles/featured',
 })
 
@@ -42,5 +42,5 @@ export default function* rootSaga() {
   yield takeLatest(CONSTANTS.GET_ARTICLE_BY_ID, doGetArticleById)
   yield takeEvery(CONSTANTS.GET_FEATURED_ARTICLES, doGetFeaturedArticles)
   yield takeEvery(CONSTANTS.GET_LATEST_NEWS, doGetLatestNews)
-  yield takeLatest(CONSTANTS.GET_FILTERED_ARTICLES, doGetFilteredArticles)
+  yield takeEvery(CONSTANTS.GET_FILTERED_ARTICLES, doGetFilteredArticles)
 }

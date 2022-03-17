@@ -35,7 +35,7 @@ const HighLight = () => {
     dispatch(getLatestNews({
       params: {
         page: 1,
-        perPage: 5
+        perPage: 6
       },
       success: ({ data }) => {
         setData(data?.posts)
@@ -115,7 +115,7 @@ const HighLight = () => {
                   )
                 })
                 :
-                data.map((item, index) => {
+                data.slice(1).map((item, index) => {
                   return (
                     <Stack key={index}>
                       <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>

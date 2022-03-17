@@ -69,7 +69,7 @@ const HeroSection = () => {
         handleChange={(val) => dispatch(setNewsTag(val))}
         items={TAB_CONTENT}
         tabStyle={{ mb: 6 }}
-        itemStyle={{ fontSize: 16, width: 180 }}
+        itemStyle={{ fontSize: '16px !important', width: '180px !important' }}
       />
     </>
   )

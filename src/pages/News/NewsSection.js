@@ -23,17 +23,15 @@ const NewsSection = () => {
 
   const loadNews = useCallback(() => {
     setIsLoading(true)
-    const tags = ['news']
-    newsTag !== 'all' && tags.push(newsTag)
 
     dispatch(getFilteredNews({
       params: {
         page,
         perPage: 9,
-        search: searchString
+        searchString
       },
       body: {
-        tags
+        tags: newsTag === 'all' ? ['news'] : [newsTag]
       },
       success: ({ data }) => {
         setData(data?.posts)

@@ -5,7 +5,7 @@ import {
   Skeleton,
   Grid,
 } from '@mui/material'
-import { getAllArticles } from 'redux/modules/article/actions'
+import { getFilteredArticles } from 'redux/modules/article/actions'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { MButton } from 'components/CustomMaterial'
@@ -19,10 +19,13 @@ const NewsSection = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    dispatch(getAllArticles({
+    dispatch(getFilteredArticles({
       params: {
         page: 1,
         perPage: 3
+      },
+      body: {
+        tags: ['news']
       },
       success: ({ data }) => {
         setData(data?.posts)

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import {
   Box,
   IconButton,
@@ -7,7 +7,6 @@ import {
   Link,
   CardActionArea,
 } from '@mui/material'
-import { MButton } from 'components/CustomMaterial'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
 import ShowMoreText from "react-show-more-text"
 import { useHistory } from 'react-router-dom'
@@ -16,19 +15,6 @@ import { LazyImage } from 'components/LazyImage'
 const VideoItem = ({ data }) => {
   const { id, attributes } = data
   const history = useHistory()
-
-  const difficultyBadge = useMemo(() => {
-    switch (attributes.difficultyLevel) {
-      case 'beginner':
-        return 'success'
-      case 'intermediate':
-        return 'warning'
-      case 'advance':
-        return 'error'
-      default:
-        return 'success'
-    }
-  }, [attributes])
 
   return (
     <Box>
@@ -57,9 +43,6 @@ const VideoItem = ({ data }) => {
         </Typography>
 
         <Box sx={{ display: 'flex', pt: 2 }}>
-          <MButton color={difficultyBadge} variant='outlined' size="sm">
-            {attributes.difficultyLevel}
-          </MButton>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton size="small">
             <BookmarkBorderRoundedIcon />

@@ -28,7 +28,10 @@ const FeaturedNews = () => {
     dispatch(getFeaturedArticles({
       params: {
         page: 1,
-        perPage: 3
+        perPage: 4,
+      },
+      body: {
+        tags: []
       },
       success: ({ data }) => {
         setFeaturedNews(data?.posts)
