@@ -23,8 +23,8 @@ import { CRYPTONARY_HELP_CENTER } from 'helpers/utils'
 
 const NavButtons = [
   { text: 'News', to: '/news' },
-  { component: <Alpha />, isCustomized: true },
-  { text: 'Education', to: '/education' },
+  { component: <Alpha text="Alpha" />, isCustomized: true },
+  { component: <Alpha text="Education" />, isCustomized: true },
   { text: 'Ratings Guide', to: '/rating-guide', isForPro: true },
   { text: 'Pulse', to: '/pulse', isForPro: true },
   { component: <GlobalSearch />, isCustomized: true },

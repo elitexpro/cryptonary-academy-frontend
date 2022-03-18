@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import useStyles from './styles.js'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import {
   Popper,
   Fade,
@@ -13,11 +14,13 @@ import {
   KeyboardArrowDownRounded,
 } from '@mui/icons-material'
 import AlphaContent from './AlphaContent'
+import EducationContent from './EducationContent'
 import { getLatestAlphaList } from 'redux/modules/alpha/actions'
 
-const Alpha = () => {
+const Alpha = ({ text }) => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const history = useHistory()
   const [openAlpha, setOpenAlpha] = useState(0)
   const [anchorEl, setAnchorEl] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +32,7 @@ const Alpha = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    dispatch(getLatestAlphaList({
+    text === 'Alpha' && dispatch(getLatestAlphaList({
       params: {
         perPage: 2,
       },
@@ -37,7 +40,7 @@ const Alpha = () => {
         setIsLoading(false)
       }
     }))
-  }, [dispatch])
+  }, [dispatch, text])
 
   return (
     <>
@@ -47,8 +50,9 @@ const Alpha = () => {
         endIcon={<KeyboardArrowDownRounded />}
         onMouseEnter={handleAlphaToggle}
         onMouseLeave={() => setOpenAlpha(prev => prev - 1)}
+        onClick={() => text === 'Education' && history.push('/education')}
       >
-        Alpha
+        {text}
       </MButton>
 
       <Popper
@@ -68,7 +72,11 @@ const Alpha = () => {
             >
               <Box>
                 <Divider sx={{ background: "#c3c3c3" }} />
-                <AlphaContent isLoading={isLoading} />
+                {text === 'Education' ?
+                  <EducationContent isLoading={isLoading} />
+                  :
+                  <AlphaContent isLoading={isLoading} />
+                }
               </Box>
             </Paper>
           </Fade >
