@@ -55,8 +55,8 @@ const routes = () => (
           <CproRoute exact path='/rating-guide' component={RatingsGuide} />
           <AuthedRoute path='/rating-guide/:symbol' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />
-          <CproRoute path='/research-reports' component={ResearchReports} />
-          <CproRoute path='/analysis' component={Analysis} />
+          <Route path='/research-reports' component={ResearchReports} />
+          <Route path='/analysis' component={Analysis} />
           <Route component={PageNotFound} />
         </Switch>
       </Layout>

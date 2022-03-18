@@ -44,7 +44,7 @@ const EditProfile = () => {
     <Grid container>
       <Grid item md={6} xs={12}>
         <Stack sx={{ my: 4 }} direction="row" spacing={2} alignItems="center">
-          <img src={currentPicture || ProfileSVG} alt="" style={{ width: 56, height: 56, borderRadius: 28 }}/>
+          <img src={currentPicture || ProfileSVG} alt="" style={{ width: 56, height: 56, borderRadius: 28 }} />
           <MButton
             variant="contained"
             color="inherit"
@@ -52,7 +52,10 @@ const EditProfile = () => {
               color: "#555",
               height: 32
             }}
-            onClick={() => setShowPicUploadModal(true)}
+            onClick={() => {
+              setProfilePicture(null)
+              setShowPicUploadModal(true)
+            }}
           >Update profile picture</MButton>
           <Dialog
             fullWidth

@@ -6,7 +6,6 @@ import {
   Typography,
   Stack,
   IconButton,
-  Divider,
   Link,
 } from '@mui/material'
 import { FiFacebook, FiTwitter, FiLink } from "react-icons/fi"
@@ -18,6 +17,7 @@ const SOCIAL_ITEMS = [
   { to: "#", icon: <FiLink style={{ color: "#141414", fontSize: 22 }} /> },
   { to: "#", icon: <FiTwitter style={{ color: "#141414", fontSize: 22 }} /> },
   { to: "#", icon: <FiFacebook style={{ color: "#141414", fontSize: 22 }} /> },
+  { to: "#", icon: <BookmarkBorderIcon style={{ color: "#141414", fontSize: 22 }} /> },
 ]
 
 const ArticleInfo = ({ article, isLoading }) => {
@@ -46,7 +46,11 @@ const ArticleInfo = ({ article, isLoading }) => {
               SOCIAL_ITEMS.map((item, index) => {
                 const { to, icon } = item
                 return (
-                  <IconButton key={index} sx={{ width: 40, height: 40 }} onClick={() => handleClick(to)}>
+                  <IconButton
+                    key={index}
+                    sx={{ width: 40, height: 40, background: '#F8F8F8', borderRadius: '4px' }}
+                    onClick={() => handleClick(to)}
+                  >
                     {icon}
                   </IconButton>
                 )
@@ -63,14 +67,12 @@ const ArticleInfo = ({ article, isLoading }) => {
         </Hidden>
       </Box>
 
-      <Divider sx={{ my: 2 }} />
-
       <Box
         sx={{
           display: "flex",
           flexDirection: { md: "column", xs: "row" },
           textAlign: { md: "right", xs: "left" },
-          mt: { md: 0, xs: 2 }
+          mt: { md: 3, xs: 2 }
         }}
       >
         <Typography variant="subTitle" sx={{ color: "#555" }}>
@@ -92,6 +94,11 @@ const ArticleInfo = ({ article, isLoading }) => {
           variant="subTitle"
           sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
           {moment(article?.publishedAt).format('DD MMM YYYY : kk:mm')}
+        </Typography>
+        <Typography
+          variant="subTitle"
+          sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
+          2 min read
         </Typography>
       </Box>
     </Box >

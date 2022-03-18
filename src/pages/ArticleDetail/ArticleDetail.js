@@ -5,7 +5,6 @@ import {
   Hidden,
   Typography,
   Stack,
-  IconButton,
   Skeleton,
 } from '@mui/material'
 import { useDispatch } from 'react-redux'
@@ -13,8 +12,8 @@ import { MBreadcrumbs } from 'components/CustomMaterial'
 import { Footer } from 'containers/Footer'
 import ArticleInfo from './ArticleInfo'
 import AuthorDetail from './AuthorDetail'
+import RelatedNews from './RelatedNews'
 import { getArticleById } from 'redux/modules/article/actions'
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import { LazyImage } from 'components/LazyImage'
 
 const detailRoot = [
@@ -49,7 +48,7 @@ const ArticleDetail = (props) => {
 
   return (
     <>
-      <Container maxWidth="xl" sx={{ mb: 8 }} >
+      <Container maxWidth="xl" sx={{ mb: 8, width: { md: '60%' } }} >
         <Hidden mdDown >
           {
             isLoading
@@ -66,11 +65,6 @@ const ArticleDetail = (props) => {
                 :
                 <Typography variant="h1" sx={{ color: "#141414", fontSize: { md: "38px", xs: "24px" }, fontWeight: 500 }}>
                   {currentArticle?.title}
-                  <Hidden mdDown>
-                    <IconButton size="small" sx={{ ml: 3 }}>
-                      <BookmarkBorderIcon />
-                    </IconButton>
-                  </Hidden>
                 </Typography>
             }
           </Stack>
@@ -84,7 +78,8 @@ const ArticleDetail = (props) => {
           </Box>
           <Box sx={{
             display: { md: "flex", xs: "block" },
-            mb: 5
+            mb: 5,
+            position: 'relative'
           }}>
             <Hidden mdUp>
               <ArticleInfo article={currentArticle} isLoading={isLoading} />
@@ -101,10 +96,14 @@ const ArticleDetail = (props) => {
                   : <section className="gh-content gh-canvas" dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
               }
             </Box>
-            <Hidden mdDown>
-              <Box sx={{ flexGrow: 1 }} />
-              <ArticleInfo article={currentArticle} isLoading={isLoading} />
-            </Hidden>
+
+            {!isLoading && <Box sx={{ position: 'absolute', top: 0, left: '-250px', pt: 2 }}>
+              <Hidden mdDown>
+                <Box sx={{ flexGrow: 1 }} />
+                <ArticleInfo article={currentArticle} />
+              </Hidden>
+            </Box>
+            }
           </Box>
         </Box>
 
@@ -112,6 +111,7 @@ const ArticleDetail = (props) => {
       </Container >
 
       <Container maxWidth="xl">
+        <RelatedNews tag={currentArticle?.primaryTag?.slug} />
         <Footer minimal={true} />
       </Container >
     </>

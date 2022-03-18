@@ -20,7 +20,7 @@ const ArticleItem = ({ data, showPrimaryTag = true }) => {
   const history = useHistory()
   const currentUser = useSelector(currentUserSelector)
   const url = useMemo(() => {
-    return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
+    return !currentUser && isPremium(data.tags) ? `/paywall` : `/article/${data?.id}`
   }, [currentUser, data])
 
   return (

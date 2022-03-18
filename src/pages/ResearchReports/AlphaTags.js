@@ -48,7 +48,7 @@ const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
   return (
     <Box sx={{ mt: 6, display: 'flex', alignItems: 'center' }}>
       {
-        (isLoading && tags?.length === 0)
+        (isLoading && alphaTags?.length === 0)
           ?
           <Skeleton width="100%" />
           :
