@@ -85,10 +85,11 @@ const FieldSection = () => {
 
         <MInput
           label='First Name'
-          placeholder='Enter first Name'
+          placeholder='Enter first name'
           value={firstName}
           onChange={e => setFirstName(e.target.value)}
           error={validationStr[0]}
+          isSmall={true}
         />
         <MInput
           label='Last Name'
@@ -96,6 +97,7 @@ const FieldSection = () => {
           value={lastName}
           onChange={e => setLastName(e.target.value)}
           error={validationStr[1]}
+          isSmall={true}
         />
         <MInput
           label='Email Address'
@@ -103,6 +105,7 @@ const FieldSection = () => {
           value={email}
           onChange={e => setEmail(e.target.value)}
           error={validationStr[2]}
+          isSmall={true}
         />
         <MInput
           type='password'
@@ -111,6 +114,7 @@ const FieldSection = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
           error={validationStr[3]}
+          isSmall={true}
         />
 
         <FormControlLabel
@@ -138,7 +142,7 @@ const FieldSection = () => {
         </MButton>
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="subTitle1" sx={{ color: "#555" }}>Already have an account? <RouterLink to="/login">
-            <Link component="button" color="#62BE5F" sx={{ fontSize: "1.125rem" }}>Sign in</Link></RouterLink>
+            <Link component="button" color="#909090" sx={{ fontSize: "1rem" }} underline="hover">Log in</Link></RouterLink>
           </Typography>
         </Box>
         <Box sx={{ textAlign: "center", mt: 5 }}>

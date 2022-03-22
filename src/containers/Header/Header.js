@@ -25,7 +25,7 @@ const NavButtons = [
   { text: 'News', to: '/news' },
   { component: <Alpha text="Alpha" />, isCustomized: true },
   { component: <Alpha text="Education" />, isCustomized: true },
-  { text: 'Ratings Guide', to: '/rating-guide', isForPro: true },
+  { text: 'Ratings Guide', to: '/rating-guide' },
   { text: 'Pulse', to: '/pulse', isForPro: true },
   { component: <GlobalSearch />, isCustomized: true },
 ]

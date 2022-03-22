@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   Stack,
@@ -8,16 +8,13 @@ import {
   DialogActions,
   Grid,
   Typography,
-  Link
+  Avatar as UserAvatar,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import Avatar from 'react-avatar-edit'
-
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { updateUserProfile } from 'redux/modules/auth/actions'
-
 import { MButton, MInput } from 'components/CustomMaterial'
-import ProfileSVG from 'assets/image/profile.svg'
 
 const EditProfile = () => {
   const dispatch = useDispatch()
@@ -26,16 +23,16 @@ const EditProfile = () => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState(currentUser ? currentUser.email : '')
   const [showPicUploadModal, setShowPicUploadModal] = useState(false)
-  const [currentPicture, setCurrentPicture] = useState(currentUser ? currentUser.profilePicture.url : null)
   const [profilePicture, setProfilePicture] = useState(null)
-  const changePhoto = useRef()
-
-  const handlePictureSelected = (event) => {
-    setCurrentPicture(URL.createObjectURL(event.target.files[0]))
-  }
+  const currentPicture = currentUser ? currentUser.profilePicture?.url : null
 
   const handleSavePhoto = async () => {
-    await dispatch(updateUserProfile({ body: profilePicture }))
+    const formData = new FormData()
+    formData.append('profilePicture', profilePicture)
+
+    await dispatch(updateUserProfile({
+      body: formData,
+    }))
     setShowPicUploadModal(false)
     setProfilePicture(null)
   }
@@ -44,7 +41,7 @@ const EditProfile = () => {
     <Grid container>
       <Grid item md={6} xs={12}>
         <Stack sx={{ my: 4 }} direction="row" spacing={2} alignItems="center">
-          <img src={currentPicture || ProfileSVG} alt="" style={{ width: 56, height: 56, borderRadius: 28 }} />
+          <UserAvatar src={currentPicture} alt="" sx={{ width: 56, height: 56, borderRadius: 28 }} />
           <MButton
             variant="contained"
             color="inherit"
@@ -74,7 +71,6 @@ const EditProfile = () => {
                     height={250}
                     onCrop={(preview) => setProfilePicture(preview)}
                     onClose={() => setProfilePicture(null)}
-                    src={currentPicture}
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -86,18 +82,6 @@ const EditProfile = () => {
               </Grid>
             </DialogContent>
             <DialogActions>
-              <input type="file" ref={changePhoto} onChange={handlePictureSelected} style={{ display: "none" }} />
-              <Link
-                component="button"
-                variant="outlined"
-                underline="hover"
-                sx={{
-                  cursor: "pointer",
-                  color: "#4AAF47",
-                  mr: 2
-                }}
-                onClick={() => changePhoto.current.click()}
-              >{currentPicture ? "Change Image" : "Upload Image"}</Link>
               <MButton
                 variant="contained"
                 color="success"

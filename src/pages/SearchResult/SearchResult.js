@@ -83,11 +83,27 @@ const SearchResult = () => {
   }, [filteredArticles, filteredVideos])
 
   useEffect(() => {
+    let tags = []
+    switch (currentTab) {
+      case 'all':
+        tags = ['news', 'alpha', 'crypto-school']
+        break
+      case 'news':
+        tags = ['news']
+        break
+      case 'alpha':
+        tags = ['alpha']
+        break
+      case 'crypto_school':
+        tags = ['crypto-school']
+        break
+      default:
+        tags = []
+        break
+    }
     dispatch(getFilteredArticles({
       body: {
-        tags: [
-          'news',
-        ]
+        tags
       },
       params: {
         searchString: searchString,
@@ -101,7 +117,7 @@ const SearchResult = () => {
         order: defaultLabel
       },
     }))
-  }, [defaultLabel, dispatch, searchString])
+  }, [defaultLabel, dispatch, searchString, currentTab])
 
   useEffect(() => {
     setSearchString(location.search.slice(1, location.search.length))
@@ -127,52 +143,35 @@ const SearchResult = () => {
         </Box>
       </Box>
 
+      <Box sx={{ px: { md: 5 }, py: 4 }}>
+        <Tabs
+          value={currentTab}
+          onChange={(e, value) => setCurrentTab(value)}
+          textColor="inherit"
+          variant="fullWidth"
+          sx={{ borderBottom: '1px solid #EAEAEA' }}
+          TabIndicatorProps={{
+            style: {
+              background: "#4AAF47",
+              height: 1
+            }
+          }}
+        >
+          <CustomTab label="All" value="all" />
+          <CustomTab label="News" value="news" />
+          <CustomTab label="Alpha" value="alpha" />
+          <CustomTab label="Crypto School" value="crypto_school" />
+        </Tabs>
+      </Box>
+
       {filteredResult.length === 0 ?
         <NoResults />
         :
-        <Box sx={{ px: { md: 5 }, py: 4 }}>
-          <Tabs
-            value={currentTab}
-            onChange={(e, value) => setCurrentTab(value)}
-            textColor="inherit"
-            variant="fullWidth"
-            sx={{ borderBottom: '1px solid #EAEAEA' }}
-            TabIndicatorProps={{
-              style: {
-                background: "#4AAF47",
-                height: 1
-              }
-            }}
-          >
-            <CustomTab label="All" value="all" />
-            <CustomTab label="News" value="news" />
-            <CustomTab label="Alpha" value="alpha" />
-            <CustomTab label="Crypto School" value="crypto_school" />
-          </Tabs>
-
-          <Box sx={{ mt: 4 }}>
-            {currentTab === 'all' &&
-              <CoinNews
-                data={filteredResult}
-                isGlobalSearch={true}
-              />
-            }
-            {currentTab === 'news' &&
-              <CoinNews
-                data={filteredResult.filter(item => item.tagName !== 'Videos')}
-                isGlobalSearch={true}
-              />
-            }
-            {currentTab === 'alpha' &&
-              <CoinNews isGlobalSearch={true} />
-            }
-            {currentTab === 'crypto_school' &&
-              <CoinNews
-                data={filteredResult.filter(item => item.tagName === 'Videos')}
-                isGlobalSearch={true}
-              />
-            }
-          </Box>
+        <Box sx={{ mt: 4 }}>
+          <CoinNews
+            data={filteredResult}
+            isGlobalSearch={true}
+          />
         </Box>
       }
     </Container>

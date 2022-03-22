@@ -8,6 +8,7 @@ import {
   Hidden,
 } from '@mui/material'
 import { Logo } from 'components/Logo'
+import HyphenSVG from 'assets/image/hyphen.svg'
 
 const FooterCompany = () => {
 
@@ -20,14 +21,14 @@ const FooterCompany = () => {
   return (
     <Box>
       <Divider sx={{ my: 3 }} />
-      <Box sx={{ mb: 4, display: {xs: "block", md: "flex"} }}>
+      <Box sx={{ mb: 4, display: { xs: "block", md: "flex" } }}>
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="center"
           spacing={1}
           sx={{
-            mb: {xs: 2, md: 0}
+            mb: { xs: 2, md: 0 }
           }}
         >
           <Logo />
@@ -45,7 +46,7 @@ const FooterCompany = () => {
           alignItems="center"
           justifyContent="center"
           spacing={2}
-          divider={<Divider orientation="vertical" flexItem />}
+          divider={<img src={HyphenSVG} alt=""/>}
         >
           {
             RELATIVE_PAGES.map((page, index) => (
@@ -55,7 +56,7 @@ const FooterCompany = () => {
                 sx={{ fontWeight: 500, color: "#777" }}
                 underline="hover"
               >
-                { page.name }
+                {page.name}
               </Link>
             ))
           }

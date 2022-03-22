@@ -9,14 +9,14 @@ import {
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { AiOutlineTwitter, AiFillInstagram } from 'react-icons/ai'
-import { RiFacebookFill } from 'react-icons/ri'
-import { CRYPTONARY_INSTAGRAM, CRYPTONARY_TWITTER, CRYPTONARY_FACEBOOK } from 'helpers/utils'
+// import { RiFacebookFill } from 'react-icons/ri'
+import { CRYPTONARY_INSTAGRAM, CRYPTONARY_TWITTER } from 'helpers/utils'
 import SvgCoinDrip from 'assets/image/coin-drip.svg'
 
 const SOCIAL_LINKS = [
   { icon: <AiOutlineTwitter style={{ color: '#FFF', fontSize: 20 }} />, to: CRYPTONARY_TWITTER },
   { icon: <AiFillInstagram style={{ color: '#FFF', fontSize: 20 }} />, to: CRYPTONARY_INSTAGRAM },
-  { icon: <RiFacebookFill style={{ color: '#FFF', fontSize: 20 }} />, to: CRYPTONARY_FACEBOOK },
+  // { icon: <RiFacebookFill style={{ color: '#FFF', fontSize: 20 }} />, to: CRYPTONARY_FACEBOOK },
 ]
 
 const FooterSocial = () => {
@@ -33,7 +33,9 @@ const FooterSocial = () => {
             </Typography>
 
             <MButton color="black" variant="contained" sx={{ backgroundColor: "#FFFFFF1A", color: "#FFF", minWidth: "100px" }}>
-              Visit Store
+              <Link href="https://coindrip.store/collections/all" target="_blank" underline="none" color="inherit">
+                Visit Store
+              </Link>
             </MButton>
             <Box sx={{ flexGrow: 1 }} />
           </Hidden>
@@ -42,7 +44,7 @@ const FooterSocial = () => {
             <Box sx={{ flexGrow: 1 }} />
           </Hidden>
 
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Stack direction="row" alignItems="center">
             {
               SOCIAL_LINKS.map((item, index) => {
                 const { icon, to } = item

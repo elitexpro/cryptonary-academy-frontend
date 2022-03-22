@@ -121,8 +121,9 @@ const Login = () => {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  error={validationStr[0]}
+                  // error={validationStr[0]}
                 />
+                {/* <Typography variant="subTitle4" color="red">{validationStr[0]}</Typography> */}
                 <MInput
                   type='password'
                   label='Password'

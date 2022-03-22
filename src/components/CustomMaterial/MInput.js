@@ -45,7 +45,7 @@ const InputStyle = styled(Input)(({ theme, styleProps }) => {
 // ---------------------------------------- ------------------------------
 
 const MInput = forwardRef(
-  ({ type = 'text', error, label, children, ...other }, ref) => {
+  ({ type = 'text', error, label, children, isSmall, ...other }, ref) => {
     const classes = useStyles()
     const [showPassword, setShowPassword] = useState(false)
 
@@ -53,7 +53,7 @@ const MInput = forwardRef(
       <>
         {
           label &&
-          <p className={classes.labelText}>{label}</p>
+          <p className={classes.labelText} style={{ fontSize: isSmall ? '14px' : '16px' }}>{label}</p>
         }
         <InputStyle
           ref={ref}

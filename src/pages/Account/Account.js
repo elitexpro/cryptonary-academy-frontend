@@ -31,7 +31,7 @@ const Account = () => {
   return (
     <Container maxWidth="xl">
       <Stack sx={{ pt: 4, pb: 5 }}>
-        <Typography variant="h4" color="#141414" sx={{ mb: 2 }}>My Account</Typography>
+        <Typography variant="h2" color="#141414" sx={{ mb: 2 }}>My Account</Typography>
         <Typography variant="subTitle4" color="#909090" sx={{ mb: 4, textTransform: "capitalize" }}>
           Edit your account details or manage your subscription
         </Typography>

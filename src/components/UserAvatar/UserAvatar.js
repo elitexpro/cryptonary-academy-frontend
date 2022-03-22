@@ -16,11 +16,12 @@ import {
 import avatarImg from 'assets/image/avatar.png'
 import { FiUser, FiSliders, FiLogOut } from "react-icons/fi"
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import useStyles from './styles.js'
 import { logout } from 'redux/modules/auth/actions'
 import { authClear } from 'helpers/localCheck'
 import { useDispatch } from 'react-redux'
-
+import { currentUserSelector } from 'redux/modules/auth/selectors'
 
 const UserAvatar = () => {
   const classes = useStyles()
@@ -28,6 +29,7 @@ const UserAvatar = () => {
   const dispatch = useDispatch()
   const [openTopic, setOpenTopic] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
+  const currentUser = useSelector(currentUserSelector)
 
   const profileMenu = [
     { text: 'My Account', icon: <FiUser className={classes.avatarListIcon} />, to: '/account' },
@@ -56,7 +58,7 @@ const UserAvatar = () => {
         sx={{ p: 0.5, width: '40px', height: '40px' }}
         onClick={handleAvatarToggle}
       >
-        <Avatar alt="user" src={avatarImg} />
+        <Avatar alt="user" src={currentUser ? currentUser.profilePicture?.url : avatarImg} />
       </IconButton>
 
       <Popper

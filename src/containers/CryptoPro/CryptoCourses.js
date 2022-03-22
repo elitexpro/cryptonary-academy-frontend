@@ -52,10 +52,12 @@ const CryptoCourses = () => {
   }
 
   return (
-    <Box sx={{ width: "100%", textAlign: { md: "center" } }}>
-      <Typography variant="subTitle" color="#FFF">
-        Learn or sharpen up your basics with our 1-hour basics course to get you warmed up for the community and research reports.
-      </Typography>
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", textAlign: 'center' }}>
+        <Typography variant="subTitle" color="#FFF">
+          Learn or sharpen up your basics with our 1-hour basics course to get you warmed up for the community and research reports.
+        </Typography>
+      </Box>
       <Grid container sx={{ mt: 6 }}>
         <Grid item xs={12} md={6}>
           <Box sx={{ px: { xs: 4 } }}>

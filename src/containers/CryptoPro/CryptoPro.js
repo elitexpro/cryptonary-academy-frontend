@@ -64,7 +64,7 @@ const CryptoPro = () => {
 
   return (
     <Stack sx={{ py: 6, px: { md: 6, xs: 2 }, backgroundColor: "#141414" }} alignItems="center">
-      <Typography color="#FFF" sx={{ maxWidth: 786, fontSize: { xs: 20, md: 32 } }} textAlign="center">
+      <Typography color="#FFF" sx={{ maxWidth: 900, fontSize: { xs: 20, md: 32 } }} textAlign="center">
         Join Cryptonary Pro to get full access to our basics to advance crypto courses, exclusive insights, research & analysis.
       </Typography>
       <Box sx={{ px: { md: 4 }, mt: 4, width: "100%" }}>

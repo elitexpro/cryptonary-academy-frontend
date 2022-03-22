@@ -12,6 +12,7 @@ import {
 import { MButton } from 'components/CustomMaterial'
 import {
   KeyboardArrowDownRounded,
+  KeyboardArrowUpRounded
 } from '@mui/icons-material'
 import AlphaContent from './AlphaContent'
 import EducationContent from './EducationContent'
@@ -46,8 +47,8 @@ const Alpha = ({ text }) => {
     <>
       <MButton
         color='inherit'
-        sx={{ color: '#858585', fontSize: '16px' }}
-        endIcon={<KeyboardArrowDownRounded />}
+        sx={{ color: openAlpha ? '#4AAF47' : '#858585', fontSize: '16px' }}
+        endIcon={openAlpha ? <KeyboardArrowUpRounded /> : <KeyboardArrowDownRounded />}
         onMouseEnter={handleAlphaToggle}
         onMouseLeave={() => setOpenAlpha(prev => prev - 1)}
         onClick={() => text === 'Education' && history.push('/education')}
