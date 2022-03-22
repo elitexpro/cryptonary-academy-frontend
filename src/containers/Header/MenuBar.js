@@ -8,114 +8,160 @@ import {
   Link,
   List,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   Collapse,
   IconButton,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
-import TopicSelectPaper from './TopicSelectPaper'
 import { Scrollbar } from 'components/Scrollbar'
-import { FiHash, FiEdit3, FiBookmark, FiUser, FiSliders, FiLogOut, FiHelpCircle } from 'react-icons/fi'
-import { MdKeyboardArrowDown, MdOutlineQuiz, MdKeyboardArrowUp } from 'react-icons/md'
+import { FiHelpCircle } from 'react-icons/fi'
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { AiOutlineTwitter, AiFillInstagram } from 'react-icons/ai'
 import { RiFacebookFill, RiDiscordFill } from 'react-icons/ri'
 import { CRYPTONARY_INSTAGRAM, CRYPTONARY_TWITTER, CRYPTONARY_FACEBOOK, CRYPTONARY_DISCORD } from 'helpers/utils'
-import SvgCPro from 'assets/image/cryptonary-pro.svg'
-
-const MENU = [
-  { icon: <FiEdit3 style={{ fontSize: 24, color: "#141414" }} />, title: "My Notes" },
-  { icon: <FiBookmark style={{ fontSize: 24, color: "#141414" }} />, title: "Saved Items" },
-  { icon: <MdOutlineQuiz style={{ fontSize: 24, color: "#141414" }} />, title: "Quizzes" },
-  { icon: <FiUser style={{ fontSize: 24, color: "#141414" }} />, title: "My Account" },
-  { icon: <FiSliders style={{ fontSize: 24, color: "#141414" }} />, title: "My Preferences" },
-  { icon: <FiLogOut style={{ fontSize: 24, color: "#141414" }} />, title: "Sign out" },
-]
+import { useHistory } from 'react-router-dom'
+import ImgPremium from 'assets/image/premium-icon.png'
+import { currentUserSelector } from 'redux/modules/auth/selectors'
+import { logout } from 'redux/modules/auth/actions'
+import { useSelector, useDispatch } from 'react-redux'
+import { authClear } from 'helpers/localCheck'
 
 const SOCIAL_LINKS = [
-  { icon: <AiOutlineTwitter style={{ color: '#141414', fontSize: 20 }} />, to: CRYPTONARY_TWITTER },
-  { icon: <RiDiscordFill style={{ color: '#141414', fontSize: 20 }} />, to: CRYPTONARY_DISCORD },
-  { icon: <AiFillInstagram style={{ color: '#141414', fontSize: 20 }} />, to: CRYPTONARY_INSTAGRAM },
-  { icon: <RiFacebookFill style={{ color: '#141414', fontSize: 20 }} />, to: CRYPTONARY_FACEBOOK },
+  { icon: <AiOutlineTwitter style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_TWITTER },
+  { icon: <RiDiscordFill style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_DISCORD },
+  { icon: <AiFillInstagram style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_INSTAGRAM },
+  { icon: <RiFacebookFill style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_FACEBOOK },
 ]
 
-const MenuBar = ({ open, onClose }) => {
-  const [openTopic, setOpenTopic] = useState(false)
+const menuItemStyle = { color: "#858585", fontSize: "18px", display: 'inline-flex', alignItems: 'center' }
 
-  const handleTopicToggle = () => {
-    setOpenTopic(prev => !prev)
+const MenuBar = ({ open, onClose }) => {
+  const currentUser = useSelector(currentUserSelector)
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const [openSubMenu, setOpenSubMenu] = useState(0)
+
+  const handleOpenSubMenu = (val) => {
+    openSubMenu === val ? setOpenSubMenu(0) : setOpenSubMenu(val)
+  }
+
+  const handleUrl = (url) => {
+    history.push(url)
+    onClose()
+  }
+
+  const handleSignOut = () => {
+    dispatch(logout())
+    authClear()
+    handleUrl('/')
   }
 
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
-      <Box sx={{ width: 320, overflowX: "hidden" }}>
-        <Scrollbar>
+      <Box sx={{ width: '85vw', overflowX: "hidden", px: 2 }}>
+        <Scrollbar sx={{ height: '100vh', flexDirection: 'column', display: 'flex' }}>
           <List
-            sx={{ mt: 8 }}
+            sx={{ mt: 6 }}
             component="nav"
             dense
             disablePadding
           >
-            <ListItemButton sx={{ py: 2 }} onClick={handleTopicToggle}>
-              <ListItemIcon>
-                <FiHash style={{ fontSize: 24, color: "#141414" }} />
-              </ListItemIcon>
-              <ListItemText primary="Explore Topics" />
+            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleUrl('/news')}>
+              <ListItemText primary="News" primaryTypographyProps={menuItemStyle} />
+            </ListItemButton>
+            <Divider />
+
+            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleOpenSubMenu(1)}>
+              <ListItemText
+                primary={<>Alpha<img src={ImgPremium} alt='' style={{ marginLeft: '8px' }} /></>}
+                primaryTypographyProps={menuItemStyle}
+              />
               {
-                !openTopic ?
-                  <MdKeyboardArrowDown style={{ color: "#000", fontSize: 24 }} /> :
-                  <MdKeyboardArrowUp style={{ color: "#000", fontSize: 24 }} />
+                openSubMenu === 1 ?
+                  <MdKeyboardArrowDown style={{ color: "#A2A2A2", fontSize: 24 }} /> :
+                  <MdKeyboardArrowUp style={{ color: "#A2A2A2", fontSize: 24 }} />
               }
             </ListItemButton>
-            <Collapse in={openTopic} timeout="auto" unmountOnExit>
-              <TopicSelectPaper />
-              <Box sx={{ px: 4, pb: 4, width: { xs: "100%", md: "auto" } }}>
-                <MButton
-                  variant="contained"
-                  color="success"
-                  sx={{ color: "#FFF", px: 4, py: 1, mt: 3, width: "100%" }}
-                >Apply Filters</MButton>
-              </Box>
-            </Collapse>
-            {
-              MENU.map((item, index) => {
-                const { icon, title } = item
 
-                return (
-                  <Box key={index}>
-                    <Divider />
-                    <ListItemButton sx={{ py: 2 }}>
-                      <ListItemIcon>{icon}</ListItemIcon>
-                      <ListItemText primary={title} />
-                    </ListItemButton>
-                  </Box>
-                )
-              })
-            }
+            <Collapse in={openSubMenu === 1} timeout="auto" unmountOnExit>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/research-reports')}>
+                <ListItemText primary="Crypto Research" primaryTypographyProps={menuItemStyle} />
+              </ListItemButton>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/analysis?tab=on-chain-forensics')}>
+                <ListItemText primary="Market Analysis" primaryTypographyProps={menuItemStyle} />
+              </ListItemButton>
+            </Collapse>
+            <Divider />
+
+            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleOpenSubMenu(2)}>
+              <ListItemText
+                primary={<>Education<img src={ImgPremium} alt='' style={{ marginLeft: '8px' }} /></>}
+                primaryTypographyProps={menuItemStyle}
+              />
+              {
+                openSubMenu === 2 ?
+                  <MdKeyboardArrowDown style={{ color: "#A2A2A2", fontSize: 24 }} /> :
+                  <MdKeyboardArrowUp style={{ color: "#A2A2A2", fontSize: 24 }} />
+              }
+            </ListItemButton>
+            <Collapse in={openSubMenu === 2} timeout="auto" unmountOnExit>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education')}>
+                <ListItemText primary="Crypto School" primaryTypographyProps={menuItemStyle} />
+              </ListItemButton>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education')}>
+                <ListItemText primary="Course Library" primaryTypographyProps={menuItemStyle} />
+              </ListItemButton>
+            </Collapse>
+            <Divider />
+            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleUrl('/rating-guide')}>
+              <ListItemText primary="Ratings Guide" primaryTypographyProps={menuItemStyle} />
+            </ListItemButton>
           </List>
-          <Divider sx={{ mt: 3, borderColor: "#141414" }} />
-          <Box sx={{ width: "100%", px: 2, mt: 4 }}>
-            <Box sx={{ mb: 2 }}>
-              <img src={SvgCPro} alt="" />
-            </Box>
-            <Box>
-              <Typography variant="subTitle1" sx={{ color: "#141414" }}>
-                Access trend analysis, expert advice, and a community of like-minded people.
-              </Typography>
-            </Box>
-            <MButton
-              color="success"
-              variant="contained"
-              sx={{ width: "100%", height: 48, color: "#FFF", mt: 3 }}
-            >
-              Subscribe
-            </MButton>
+          <Divider />
+
+          <Box sx={{ flexGrow: 1 }} />
+
+          <Box sx={{ width: "100%" }}>
+            {
+              currentUser ?
+                <MButton
+                  color="inherit"
+                  variant="contained"
+                  sx={{ width: "100%", height: 48, color: "#555555", mt: 2 }}
+                  onClick={handleSignOut}
+                >
+                  Sign out
+                </MButton>
+                :
+                <>
+                  <Typography variant="subTitle" sx={{ color: "#141414" }}>
+                    Join today to get full access to our basics to advance crypto courses, exclusive insights, research & analysis.
+                  </Typography>
+                  <MButton
+                    color="success"
+                    variant="contained"
+                    sx={{ width: "100%", height: 48, color: "#FFF", mt: 2 }}
+                    onClick={() => handleUrl('/signup')}
+                  >
+                    Get Started
+                  </MButton>
+                  <MButton
+                    color="inherit"
+                    variant="contained"
+                    sx={{ width: "100%", height: 48, color: "#555555", mt: 2 }}
+                    onClick={() => handleUrl('/login')}
+                  >
+                    Sign In
+                  </MButton>
+                </>
+            }
+
             <Divider sx={{ mt: 4, mb: 1 }} />
             <Stack direction="row" sx={{ mb: 2 }} alignItems="center">
               <MButton
                 color="inherit"
                 sx={{ px: 2 }}
-                startIcon={<FiHelpCircle style={{ color: "#141414", fontSize: 20 }} />}
+                startIcon={<FiHelpCircle style={{ color: "#A2A2A2", fontSize: 20 }} />}
               >
                 Help
               </MButton>
