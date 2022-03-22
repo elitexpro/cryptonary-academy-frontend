@@ -64,7 +64,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [validationStr, setValidationStr] = useState([])
   const [openAlert, setOpenAlert] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('Error on Signup')
+  const [errorMessage, setErrorMessage] = useState('Error on create an account!')
   const [isLoading, setIsloading] = useState(false)
 
   const doSignup = useCallback(() => {

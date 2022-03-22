@@ -25,7 +25,6 @@ export default handleActions({
       ...state,
       status: 'SUCCESS',
       me: payload.data,
-      token: payload.meta.tokens,
     })
   },
   [requestFail(CONSTANTS.DO_SIGNUP)]: (state, { payload }) => ({

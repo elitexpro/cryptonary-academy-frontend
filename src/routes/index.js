@@ -24,6 +24,7 @@ import SearchResult from 'pages/SearchResult'
 import ResearchReports from 'pages/ResearchReports'
 import Analysis from 'pages/Analysis'
 import AuthedRoute from './AuthedRoute'
+import VerifiedRoute from './VerifiedRoute'
 import CproRoute from './CproRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
@@ -34,29 +35,29 @@ const routes = () => (
     <ScrollToTop>
       <Layout>
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/app' component={Landing} />
-          <Route exact path='/news' component={News} />
-          <Route exact path='/education' component={Education} />
-          <Route exact path='/education/:level' component={Education} />
+          <VerifiedRoute exact path='/' component={Home} />
+          <VerifiedRoute exact path='/app' component={Landing} />
+          <VerifiedRoute exact path='/news' component={News} />
+          <VerifiedRoute exact path='/education' component={Education} />
+          <VerifiedRoute exact path='/education/:level' component={Education} />
           <AuthedRoute path='/preference' component={Preference} />
           <PublicRoute path='/signup' component={Signup} />
           <PublicRoute path='/login' component={Login} />
           <Route path='/paywall' component={Paywall} />
-          <AuthedRoute path='/verify' component={Verify} />
+          <Route path='/verify' component={Verify} />
           <Route path='/forgot-password' component={ForgotPassword} />
           <Route path='/reset-password' component={ResetPassword} />
           <AuthedRoute path='/video-detail' component={VideoDetail} />
-          <Route exact path='/article/:id' component={ArticleDetail} />
-          <Route exact path='/article' component={Article} />
+          <VerifiedRoute exact path='/article/:id' component={ArticleDetail} />
+          <VerifiedRoute exact path='/article' component={Article} />
           <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
           <CproRoute path='/pulse' component={Pulse} />
           <AuthedRoute path='/account' component={Account} />
           <CproRoute exact path='/rating-guide' component={RatingsGuide} />
           <AuthedRoute path='/rating-guide/:symbol' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />
-          <Route path='/research-reports' component={ResearchReports} />
-          <Route path='/analysis' component={Analysis} />
+          <VerifiedRoute path='/research-reports' component={ResearchReports} />
+          <VerifiedRoute path='/analysis' component={Analysis} />
           <Route component={PageNotFound} />
         </Switch>
       </Layout>

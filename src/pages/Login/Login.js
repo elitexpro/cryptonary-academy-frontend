@@ -58,6 +58,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [validationStr, setValidationStr] = useState([])
   const [openAlert, setOpenAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('Incorrect email or password!')
   const [isLoading, setIsloading] = useState(false)
 
   const doLogin = useCallback(() => {
@@ -70,7 +71,8 @@ const Login = () => {
         setIsloading(false)
         history.push('/app')
       },
-      fail: (e) => {
+      fail: ({ data }) => {
+        data && data.error && setAlertMessage(data.error)
         setOpenAlert(true)
         setIsloading(false)
       }
@@ -100,7 +102,7 @@ const Login = () => {
 
   return (
     <Box>
-      <MAlert open={openAlert} setOpen={setOpenAlert} message='Incorrect email or password!' type="error" />
+      <MAlert open={openAlert} setOpen={setOpenAlert} message={alertMessage} type="error" />
       <BackLoader open={isLoading} />
 
       <Grid container>
@@ -177,7 +179,7 @@ const Login = () => {
                 width: '100%',
                 maxWidth: 440,
               }}>
-                <Carousel data={CAROUSELS} style={CAROUSEL_ITEM_STYLE}/>
+                <Carousel data={CAROUSELS} style={CAROUSEL_ITEM_STYLE} />
               </Card>
             </Stack>
           </Grid>

@@ -7,8 +7,8 @@ const doSignup = apiCall({
   method: 'post',
   path: 'auth/signup',
   success: ({ data }, action) => {
-    localStorage.setItem('cryptonary_token', JSON.stringify(data.meta.tokens))
-    localStorage.setItem('cryptonary_user', JSON.stringify(data.data))
+    const { attributes: { tokens, ...rest }, id, type } = data.data
+    localStorage.setItem('cryptonary_user', JSON.stringify({ id, type, ...rest }))
   }
 })
 
