@@ -13,9 +13,9 @@ import HyphenSVG from 'assets/image/hyphen.svg'
 const FooterCompany = () => {
 
   const RELATIVE_PAGES = [
-    { name: "Terms", to: "#" },
-    { name: "Privacy", to: "#" },
-    { name: "Cookies", to: "#" },
+    { name: "Terms", to: "/terms-conditions" },
+    { name: "Privacy", to: "/privacy-policy" },
+    { name: "Cookies", to: "/cookie-policy" },
   ]
 
   return (

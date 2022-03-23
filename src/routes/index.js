@@ -29,6 +29,9 @@ import CproRoute from './CproRoute'
 import PublicRoute from './PublicRoute'
 import { Layout } from 'containers/Layout'
 import ScrollToTop from 'react-router-scroll-top'
+import TermsConditions from 'pages/TermsConditions'
+import CookiePolicy from 'pages/CookiePolicy'
+import PrivacyPolicy from 'pages/PrivacyPolicy'
 
 const routes = () => (
   <Router>
@@ -58,6 +61,9 @@ const routes = () => (
           <AuthedRoute path='/search-result' component={SearchResult} />
           <VerifiedRoute path='/research-reports' component={ResearchReports} />
           <VerifiedRoute path='/analysis' component={Analysis} />
+		  <Route path='/terms-conditions' component={TermsConditions} />
+		  <Route path='/cookie-policy' component={CookiePolicy} />
+		  <Route path='/privacy-policy' component={PrivacyPolicy} />
           <Route component={PageNotFound} />
         </Switch>
       </Layout>
