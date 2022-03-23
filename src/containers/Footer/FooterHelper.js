@@ -30,7 +30,7 @@ const FooterHelper = () => {
         }}
       >
         <EmailOutlinedIcon sx={{ fill: "#62BE5F", mr: 2 }} />
-        <Link href="#" underline="hover" color="#555">support@cryptonary.com</Link>
+        <Link href="mailto:support@cryptonary.com" underline="hover" color="#555">support@cryptonary.com</Link>
       </Stack>
     </Stack>
   )

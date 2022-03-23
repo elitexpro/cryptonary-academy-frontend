@@ -10,12 +10,12 @@ import {
 import { MButton } from 'components/CustomMaterial'
 import { AiOutlineTwitter, AiFillInstagram } from 'react-icons/ai'
 // import { RiFacebookFill } from 'react-icons/ri'
-import { CRYPTONARY_INSTAGRAM, CRYPTONARY_TWITTER } from 'helpers/utils'
+import { COINDRIP_TWITTER , COINDRIP_INSTAGRAM } from 'helpers/utils'
 import SvgCoinDrip from 'assets/image/coin-drip.svg'
 
 const SOCIAL_LINKS = [
-  { icon: <AiOutlineTwitter style={{ color: '#FFF', fontSize: 20 }} />, to: CRYPTONARY_TWITTER },
-  { icon: <AiFillInstagram style={{ color: '#FFF', fontSize: 20 }} />, to: CRYPTONARY_INSTAGRAM },
+  { icon: <AiOutlineTwitter style={{ color: '#FFF', fontSize: 20 }} />, to: COINDRIP_TWITTER },
+  { icon: <AiFillInstagram style={{ color: '#FFF', fontSize: 20 }} />, to: COINDRIP_INSTAGRAM },
   // { icon: <RiFacebookFill style={{ color: '#FFF', fontSize: 20 }} />, to: CRYPTONARY_FACEBOOK },
 ]
 
