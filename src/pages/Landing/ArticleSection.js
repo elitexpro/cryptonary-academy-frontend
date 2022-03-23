@@ -6,7 +6,9 @@ import {
   Card,
   Skeleton,
   Grid,
+  Hidden,
 } from '@mui/material'
+import Slider from 'react-slick'
 import { MButton } from 'components/CustomMaterial'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -18,6 +20,16 @@ const ArticleSection = ({ id }) => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
+
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    centerPadding: '20px',
+    centerMode: true,
+    arrows: false,
+  }
 
   useEffect(() => {
     setIsLoading(true)
@@ -38,13 +50,12 @@ const ArticleSection = ({ id }) => {
   return (
     <Stack
       spacing={2}
-      direction="column"
       justifyContent="center"
       alignItems="center"
       sx={{ my: { md: 10, xs: 4 } }}
       id={id}
     >
-      <Typography variant="headTitle2" >
+      <Typography textAlign="center" fontSize={{ md: '40px', xs: '32px' }} color="#141414">
         In-Depth journals and articles
       </Typography>
 
@@ -74,20 +85,42 @@ const ArticleSection = ({ id }) => {
               )
             })
             :
-            data.map((post, index) => {
-              return (
-                <Grid item key={index} xs={12} md={4}>
-                  <Card
-                    variant="outlined"
-                    sx={{ p: 2, borderRadius: '8px' }}
-                  >
-                    <ArticleItem data={post} />
-                  </Card>
-                </Grid>
-              )
-            })
+            <>
+              <Hidden mdDown>
+                {data.map((post, index) => {
+                  return (
+                    <Grid item key={index} md={4}>
+                      <Card
+                        variant="outlined"
+                        sx={{ p: 2, borderRadius: '8px' }}
+                      >
+                        <ArticleItem data={post} />
+                      </Card>
+                    </Grid>
+                  )
+                })}
+              </Hidden>
+            </>
         }
       </Grid>
+
+      <Hidden mdUp>
+        <Box sx={{ width: '100%' }}>
+          <Slider {...settings}>
+            {data.map((post, index) => {
+              return (
+                <Card
+                  variant="outlined"
+                  sx={{ p: 2, borderRadius: '8px', mr: 1 }}
+                  key={index}
+                >
+                  <ArticleItem data={post} />
+                </Card>
+              )
+            })}
+          </Slider>
+        </Box>
+      </Hidden>
 
       <Box sx={{ pt: 6 }}>
         <MButton

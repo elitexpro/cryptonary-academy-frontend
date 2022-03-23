@@ -13,6 +13,13 @@ const DailySection = () => {
 
   return (
     <Box sx={{ py: { md: 10, xs: 3 } }}>
+      <Hidden mdUp>
+        <Grid item md={6} xs={12} >
+          <Box sx={{ maxWidth: { md: 520, xs: "100%" } }}>
+            <img src={ImgLandingDaily} alt='' style={{ width: "100%" }} />
+          </Box>
+        </Grid>
+      </Hidden>
       <Grid container spacing={2}>
         <Hidden mdDown>
           <Grid item md={6} xs={12} >
@@ -29,7 +36,7 @@ const DailySection = () => {
               <Box>
                 <img src={ImgLandingDailyBadge} alt='' />
               </Box>
-              <Typography variant="headTitle2">
+              <Typography variant="headTitle2" fontSize={{ md: '40px', xs: '32px' }}>
                 Daily market analysis
               </Typography>
 
@@ -41,13 +48,6 @@ const DailySection = () => {
             </Stack>
           </Stack>
         </Grid>
-        <Hidden mdUp>
-          <Grid item md={6} xs={12} >
-            <Box sx={{ maxWidth: { md: 520, xs: "100%" } }}>
-              <img src={ImgLandingDaily} alt='' style={{ width: "100%" }} />
-            </Box>
-          </Grid>
-        </Hidden>
       </Grid>
     </Box >
   )

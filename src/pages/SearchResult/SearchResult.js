@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { SearchBox } from 'components/SearchBox'
 import { MDropdown } from 'components/CustomMaterial'
-import CoinNews from 'components/CoinNews'
+import CoinNews from './CoinNews'
 import NoResults from 'components/NoResults'
 
 import { getFilteredArticles } from 'redux/modules/article/actions'

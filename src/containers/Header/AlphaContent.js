@@ -12,9 +12,9 @@ import {
   Container,
 } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
-import { HorizontalArticleItem } from 'components/HorizontalArticleItem'
 import { latestAlphaSelector } from 'redux/modules/alpha/selectors'
 import { LazyImage } from 'components/LazyImage'
+import { HorizontalArticleItem } from 'components/ArticleItem'
 
 const AlphaContent = ({ isLoading }) => {
   const latestAlphaList = useSelector(latestAlphaSelector)

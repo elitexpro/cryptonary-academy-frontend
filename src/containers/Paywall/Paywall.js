@@ -92,7 +92,7 @@ const Paywall = () => {
               </LightTooltip>
             </Stack>
           </Stack>
-          <Box sx={{ px: 4, width: "100%", mx: 4 }}>
+          <Box sx={{ px: { md: 4, xs: 0 }, width: "100%", mx: 4 }}>
             <MembershipPlan />
           </Box>
         </Stack>

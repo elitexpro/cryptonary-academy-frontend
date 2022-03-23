@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Container,
   Box,
+  Hidden,
 } from '@mui/material'
 import HeroSection from './HeroSection'
 import LessonSection from './LessonSection'
@@ -36,11 +37,13 @@ const Landing = () => {
           <DailySection />
         </Container>
       </Box>
-      <Box sx={{ background: "#FAFAFA" }}>
-        <Container maxWidth="xl">
-          <InteractiveSection />
-        </Container>
-      </Box>
+      <Hidden mdDown>
+        <Box sx={{ background: "#FAFAFA" }}>
+          <Container maxWidth="xl">
+            <InteractiveSection />
+          </Container>
+        </Box>
+      </Hidden>
       <Box sx={{ background: "#FFF" }}>
         <Container maxWidth="xl">
           <LibrarySection />
@@ -48,7 +51,7 @@ const Landing = () => {
       </Box>
       <Paywall />
       <Container maxWidth="xl">
-        <Footer />
+        <Footer minimal={true} noCompanyInfo={true} />
       </Container >
     </>
   )

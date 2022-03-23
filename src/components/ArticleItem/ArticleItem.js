@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux'
 import { isPremium } from 'helpers'
 import moment from 'moment'
 import { LazyImage } from 'components/LazyImage'
+import PremiumImg from 'assets/image/premium-icon.png'
 
 const ArticleItem = ({ data, showPrimaryTag = true }) => {
   const history = useHistory()
@@ -24,7 +25,7 @@ const ArticleItem = ({ data, showPrimaryTag = true }) => {
   }, [currentUser, data])
 
   return (
-    <Box>
+    <Box sx={{ position: 'relative' }}>
       <Stack spacing={1}>
         <CardActionArea onClick={() => history.push(url)}>
           <LazyImage src={data.featureImage} />
@@ -65,6 +66,19 @@ const ArticleItem = ({ data, showPrimaryTag = true }) => {
           </IconButton>
         </Box>
       </Stack>
+
+      {data.isPremium &&
+        <img
+          src={PremiumImg}
+          alt=""
+          style={{
+            position: 'absolute',
+            top: '8px',
+            left: '8px',
+            zIndex: 1001,
+          }}
+        />
+      }
     </Box>
   )
 

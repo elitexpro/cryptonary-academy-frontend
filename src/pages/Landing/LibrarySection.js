@@ -11,8 +11,15 @@ import ImgLanding6 from 'assets/image/landing6.png'
 const LibrarySection = () => {
 
   return (
-    <Box sx={{ py: { md: 10, xs: 3 } }}>
+    <Box sx={{ py: { md: 10, xs: 6 }, mb: 4 }}>
       <Grid container spacing={2}>
+        <Hidden mdUp>
+          <Grid item md={6} xs={12} >
+            <Box sx={{ maxWidth: { md: 580, xs: "100%" } }}>
+              <img src={ImgLanding6} alt='' style={{ width: "100%" }} />
+            </Box>
+          </Grid>
+        </Hidden>
         <Hidden mdDown>
           <Grid item md={6} xs={12} >
             <Stack justifyContent="center" alignItems="center" >
@@ -36,13 +43,6 @@ const LibrarySection = () => {
             </Stack>
           </Stack>
         </Grid>
-        <Hidden mdUp>
-          <Grid item md={6} xs={12} >
-            <Box sx={{ maxWidth: { md: 580, xs: "100%" } }}>
-              <img src={ImgLanding6} alt='' style={{ width: "100%" }} />
-            </Box>
-          </Grid>
-        </Hidden>
       </Grid>
     </Box >
   )

@@ -10,9 +10,9 @@ import {
 } from '@mui/material'
 import { getCoinNews } from 'redux/modules/coin/actions'
 import { coinNewsSelector, newsTotalPagesSelector } from 'redux/modules/coin/selectors'
-import { HorizontalArticleItem } from 'components/HorizontalArticleItem'
 import { LazyImage } from 'components/LazyImage'
 import { MPagination } from 'components/CustomMaterial'
+import { HorizontalArticleItem } from 'components/ArticleItem'
 
 const PAGE_ITEMS = [
   { text: '09', value: 9 },
