@@ -13,7 +13,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import avatarImg from 'assets/image/avatar.png'
 import { FiUser, FiSliders, FiLogOut } from "react-icons/fi"
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -58,7 +57,7 @@ const UserAvatar = () => {
         sx={{ p: 0.5, width: '40px', height: '40px' }}
         onClick={handleAvatarToggle}
       >
-        <Avatar alt="user" src={currentUser ? currentUser.profilePicture?.url : avatarImg} />
+        <Avatar alt="user" src={currentUser ? currentUser.profilePicture?.url : undefined} />
       </IconButton>
 
       <Popper

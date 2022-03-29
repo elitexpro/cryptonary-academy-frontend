@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/styles'
 import { MdOutlineRemove, MdOutlineAdd } from 'react-icons/md'
-import MacbookProSVG from 'assets/image/Macbook Pro.svg'
+import MacbookProSVG from 'assets/image/macbook.png'
 
 const DATA = [
   {

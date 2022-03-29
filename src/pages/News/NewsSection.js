@@ -63,9 +63,7 @@ const NewsSection = () => {
         tags: newsTag === 'all' ? ['news'] : [newsTag]
       },
       success: (res) => {
-        let copyData = [...data]
-        const result = res?.data && res.data?.posts.map(item => copyData.push(item))
-
+        let copyData = data.concat(res.data?.posts)
         setData(copyData)
         setIsLoadingMore(false)
       },

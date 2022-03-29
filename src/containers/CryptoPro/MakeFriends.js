@@ -4,7 +4,7 @@ import {
   Box,
   Grid,
 } from '@mui/material'
-import MakeFriendsSVG from 'assets/image/Make Friends.svg'
+import MakeFriendsSVG from 'assets/image/make-friends.png'
 
 const MakeFriends = () => {
   return (

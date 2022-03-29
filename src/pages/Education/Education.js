@@ -29,7 +29,6 @@ const Education = (props) => {
   const mediaType = useSelector(educationMediaTypeSelector)
   const searchValue = useSelector(educationSearchValueSelector)
   const selectedTags = useSelector(educationFilteredTagNameSelector)
-  const [page, setPage] = useState(1)
   const [data, setData] = useState([])
   const [dataType, setDataType] = useState('article')
   const [isLoading, setIsLoading] = useState(true)
@@ -53,7 +52,7 @@ const Education = (props) => {
 
     mediaType === 'article' && dispatch(getEducationArticles({
       params: {
-        page,
+        page: 1,
         perPage: 9,
         searchString: searchValue
       },
@@ -72,7 +71,7 @@ const Education = (props) => {
 
     mediaType === 'video' && dispatch(getEducationVideos({
       params: {
-        page,
+        page: 1,
         perPage: 9,
         search: searchValue
       },
@@ -88,7 +87,7 @@ const Education = (props) => {
         // handle error 
       }
     }))
-  }, [dispatch, mediaType, searchValue, page, tab, selectedTags])
+  }, [dispatch, mediaType, searchValue, tab, selectedTags])
 
   useEffect(() => {
     currentUser && loadData()

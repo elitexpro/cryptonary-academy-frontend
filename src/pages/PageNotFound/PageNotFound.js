@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { CRYPTONARY_SUPPORT_MAIL } from 'helpers/utils'
-import PageNotFoundSVG from 'assets/image/404.svg'
+import PageNotFoundSVG from 'assets/image/404.png'
 
 const PageNotFound = () => {
   const history = useHistory()

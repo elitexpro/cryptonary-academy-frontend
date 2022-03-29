@@ -4,7 +4,7 @@ import {
   Box,
   Grid,
 } from '@mui/material'
-import EtfSVG from 'assets/image/etf.svg'
+import EtfSVG from 'assets/image/etf.png'
 
 const ResearchReports = () => {
   return (

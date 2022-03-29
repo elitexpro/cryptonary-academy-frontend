@@ -4,7 +4,7 @@ import {
   Box,
   Grid,
 } from '@mui/material'
-import RatingsGuideTab from 'assets/image/ratings-guide-tab.svg'
+import RatingsGuideTab from 'assets/image/ratings-guide-tab.png'
 
 const RatingsGuide = () => {
   return (

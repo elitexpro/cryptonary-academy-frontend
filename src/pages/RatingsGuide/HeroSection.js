@@ -10,8 +10,8 @@ import { useSelector } from 'react-redux'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { SearchBox } from 'components/SearchBox'
 import { MDropdown } from 'components/CustomMaterial'
-import RatingsGuideSVG from 'assets/image/ratings-guide.svg'
-import RatingsGuideMobileSVG from 'assets/image/ratings-guide-mobile.svg'
+import RatingsGuideSVG from 'assets/image/ratings-guide.png'
+import RatingsGuideMobileSVG from 'assets/image/ratings-guide-mobile.png'
 
 const sortByItems = [
   { text: 'Newest', value: 'desc' },

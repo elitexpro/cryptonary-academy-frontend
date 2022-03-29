@@ -8,7 +8,7 @@ import {
   Grid,
   Hidden,
 } from '@mui/material'
-import BitcoinSVG from 'assets/image/bitcoin.svg'
+import BitcoinSVG from 'assets/image/bitcoin.png'
 import Overview from 'components/CoinOverview'
 
 const HEADERS = ['Name', 'Type', 'Sector', 'Rating']

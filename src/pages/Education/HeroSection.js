@@ -4,7 +4,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material'
-import SvgArticleHeroImg from 'assets/image/article-hero-image.svg'
+import SvgArticleHeroImg from 'assets/image/article-hero-image.png'
 import { MTab } from 'components/CustomMaterial'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
