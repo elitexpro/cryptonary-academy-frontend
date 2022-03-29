@@ -5,13 +5,12 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { Link } from 'react-scroll'
 import SvgLandingHero from 'assets/image/landing1.svg'
 import { useHistory } from 'react-router-dom'
 import { MButton } from 'components/CustomMaterial'
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded'
 
-const HeroSection = () => {
+const HeroSection = ({ executeScroll }) => {
   const history = useHistory()
 
   return (
@@ -55,16 +54,9 @@ const HeroSection = () => {
                         width: '100%'
                       }}
                       endIcon={<ArrowDownwardRoundedIcon />}
+                      onClick={executeScroll}
                     >
-                      <Link
-                        to="learn_more"
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                      >
-                        Learn more
-                      </Link>
+                      Learn more
                     </MButton>
                   </Grid>
                 </Grid>

@@ -41,7 +41,7 @@ export default handleActions({
   }),
   [CONSTANTS.SET_EDUCATION_TOPIC_TAGS]: (state, { payload }) => ({
     ...state,
-    filteredTagsName: payload.filter(item => item.isSelected).map(item => item.name),
+    filteredTagsName: payload.filter(item => item.isSelected).map(item => item.slug),
     topicTags: payload
   }),
   [CONSTANTS.CLEAR_EDUCATION_STATE]: (state, { payload }) => ({

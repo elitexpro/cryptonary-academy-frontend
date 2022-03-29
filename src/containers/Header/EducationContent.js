@@ -50,7 +50,7 @@ const CustomAccordion = styled((props) => (
   },
 }))
 
-const EducationContent = ({ isLoading }) => {
+const EducationContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
   const [expanded, setExpanded] = useState(0)
 
   const handleChange = (index) => () => {
@@ -133,10 +133,12 @@ const EducationContent = ({ isLoading }) => {
             <Divider sx={{ mt: 1, mb: 4 }} />
             <Link
               component={RouterLink}
-              to="/education"
+              to="/education/all"
               underline="none"
             >
-              <img src={CryptoSchoolImage} style={{ width: '100%' }} alt="Crypto School" />
+              <Box onClick={() => setOpenAlpha(false)}>
+                <img src={CryptoSchoolImage} style={{ width: '100%' }} alt="Crypto School" />
+              </Box>
             </Link>
           </Grid>
         </Grid>

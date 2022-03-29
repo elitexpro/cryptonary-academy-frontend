@@ -76,6 +76,8 @@ const ResearchReports = () => {
         setPage={setPage}
         data={alphaList}
         total={total}
+        blog="Research"
+        blogTo="/research-reports"
       />
       <Footer minimal={true} />
     </Container>

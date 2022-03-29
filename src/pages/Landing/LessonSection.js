@@ -72,16 +72,18 @@ const LessonSection = () => {
             </Stack>
           </Box>
 
-          <Box sx={{ pt: 6, textAlign: 'center' }}>
-            <MButton
-              variant='outlined'
-              color='inherit'
-              sx={{ fontSize: '16px', px: 2, color: '#555' }}
-              onClick={() => history.push('/article')}
-            >
-              View more
-            </MButton>
-          </Box>
+          <Hidden mdUp>
+            <Box sx={{ pt: 6, textAlign: 'center' }}>
+              <MButton
+                variant='outlined'
+                color='inherit'
+                sx={{ fontSize: '16px', px: 2, color: '#555' }}
+                onClick={() => history.push('/article')}
+              >
+                View more
+              </MButton>
+            </Box>
+          </Hidden>
         </Grid>
       </Grid>
     </Box >

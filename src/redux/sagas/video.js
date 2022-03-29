@@ -26,9 +26,23 @@ const doGetAdvanceVideos = apiCall({
   path: 'videos/search',
 })
 
+const doGetVideoById = apiCall({
+  type: CONSTANTS.GET_VIDEO_BY_ID,
+  method: 'get',
+  path: ({ payload }) => `videos/${payload.id}`,
+})
+
+const doGetRelatedVideos = apiCall({
+  type: CONSTANTS.GET_RELATED_VIDEOS,
+  method: 'get',
+  path: 'videos/search',
+})
+
 export default function* rootSaga() {
   yield takeLatest(CONSTANTS.GET_FILTERED_VIDEOS, doGetFilteredVideos)
   yield takeEvery(CONSTANTS.GET_BEGINNER_VIDEOS, doGetBeginnerVideos)
   yield takeEvery(CONSTANTS.GET_INTERMEDIATE_VIDEOS, doGetIntermediateVideos)
   yield takeEvery(CONSTANTS.GET_ADVANCE_VIDEOS, doGetAdvanceVideos)
+  yield takeEvery(CONSTANTS.GET_VIDEO_BY_ID, doGetVideoById)
+  yield takeEvery(CONSTANTS.GET_RELATED_VIDEOS, doGetRelatedVideos)
 }

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useState, useMemo } from 'react'
 import {
   Container,
 } from '@mui/material'
@@ -7,15 +6,12 @@ import HeroSection from './HeroSection'
 import AnalysisList from './AnalysisList'
 import { Footer } from 'containers/Footer'
 
-const Analysis = () => {
-  const location = useLocation()
-  const [currentTab, setCurrentTab] = useState()
+const Analysis = (props) => {
   const [defaultLabel, setDefaultLabel] = useState('Sort By')
   const [searchString, setSearchString] = useState('')
-
-  useEffect(() => {
-    setCurrentTab(location.search && location.search.split('=')[1])
-  }, [location.search])
+  const currentTab = useMemo(() => {
+    return props.match.params.tab
+  }, [props])
 
   return (
     <Container maxWidth="xl" sx={{ px: { md: 5, xs: 2 } }}>
@@ -27,7 +23,6 @@ const Analysis = () => {
       />
       <AnalysisList
         currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
         searchString={searchString}
         defaultLabel={defaultLabel}
       />

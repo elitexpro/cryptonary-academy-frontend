@@ -41,15 +41,15 @@ const FooterResources = () => {
                   backgroundColor: "#fff",
                   width: "100%",
                   justifyContent: "flex-start",
-                  fontSize: {xs: "16px", md: "18px"}
+                  fontSize: { xs: "16px", md: "18px" }
                 }}
                 startIcon={
-                  <Box sx={{ height: {xs: 32, md: 48} }}>
-                    <img src={resource.src} alt="" style={{ height: "100%" }}/>
+                  <Box sx={{ height: { xs: 32, md: 48 } }}>
+                    <img src={resource.src} alt="" style={{ height: "100%", marginRight: '20px' }} />
                   </Box>
                 }
               >
-                { resource.content }
+                {resource.content}
               </MButton>
             </Grid>
           ))

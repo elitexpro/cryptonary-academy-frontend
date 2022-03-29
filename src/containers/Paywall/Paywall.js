@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Stack,
   Typography,
@@ -15,6 +16,7 @@ import { MSwitch } from 'components/CustomMaterial'
 import { Link as RouterLink } from 'react-router-dom'
 import { BsFillInfoCircleFill } from 'react-icons/bs'
 import { FiLock } from 'react-icons/fi'
+import { currentUserSelector } from 'redux/modules/auth/selectors'
 
 const LightTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -32,6 +34,7 @@ const LightTooltip = styled(({ className, ...props }) => (
 
 const Paywall = () => {
   const [checked, setChecked] = useState(false)
+  const currentUser = useSelector(currentUserSelector)
 
   const handleChange = (e) => {
     setChecked(e.target.checked)
@@ -97,18 +100,20 @@ const Paywall = () => {
           </Box>
         </Stack>
       </Container>
-      <Stack
-        direction="row"
-        spacing={2}
-        justifyContent="center"
-        alignItems="center"
-        sx={{ background: "rgba(255, 255, 255, 0.04)", width: "100%", height: 64 }}
-      >
-        <Typography variant="subTitle" sx={{ color: "#555" }}>Already have an account?</Typography>
-        <RouterLink to="/login">
-          <Link component="button" color="#FFF" underline="hover">Log in</Link>
-        </RouterLink>
-      </Stack>
+      {!currentUser &&
+        <Stack
+          direction="row"
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+          sx={{ background: "rgba(255, 255, 255, 0.04)", width: "100%", height: 64 }}
+        >
+          <Typography variant="subTitle" sx={{ color: "#555" }}>Already have an account?</Typography>
+          <RouterLink to="/login">
+            <Link component="button" color="#FFF" underline="hover">Log in</Link>
+          </RouterLink>
+        </Stack>
+      }
     </Stack>
   )
 }

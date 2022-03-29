@@ -30,6 +30,10 @@ const HighLight = () => {
     return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
   }, [currentUser, data])
 
+  const hours = useMemo(() => {
+    return moment(Date.now()).diff(data[0]?.updatedAt, 'hours')
+  }, [data])
+
   useEffect(() => {
     setIsLoading(true)
     dispatch(getLatestNews({
@@ -71,7 +75,7 @@ const HighLight = () => {
                   {data[0]?.primaryTag.name}
                   <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
                   <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-                    {moment(Date.now()).diff(data[0].updatedAt, 'hours')} hours ago
+                    {hours < 48 ? `${hours} hours ago` : moment(data[0].updatedAt).format('YYYY-MM-DD')}
                   </Typography>
                 </Typography>
 

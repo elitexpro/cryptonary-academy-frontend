@@ -13,7 +13,7 @@ import { Footer } from 'containers/Footer'
 import LatestArticles from './LatestArticles'
 import LatestArticleSkeletonItem from './LatestArticleSkeletonItem'
 import { useDispatch } from 'react-redux'
-import { getAuthorById } from 'redux/modules/author/actions'
+import { getAuthorById, getLatestArticlesOfAuthor } from 'redux/modules/author/actions'
 import { LazyImage } from 'components/LazyImage'
 
 
@@ -21,7 +21,7 @@ const AuthorDetail = (props) => {
   const dispatch = useDispatch()
   const [authorInfo, setAuthorInfo] = useState({})
   const [isLoading, setIsloading] = useState(false)
-
+  const [latestArticleLoding, setLatestArticleLoading] = useState(false)
 
   const detailRoot = [
     { text: 'Home', to: '#' },
@@ -35,7 +35,7 @@ const AuthorDetail = (props) => {
     dispatch(getAuthorById({
       id,
       success: ({ data }) => {
-        setAuthorInfo(data?.authors && data?.authors.length > 0 && data?.authors[0])
+        setAuthorInfo(data?.users && data?.users.length > 0 && data?.users[0])
         setIsloading(false)
       },
       fail: (err) => {
@@ -47,6 +47,16 @@ const AuthorDetail = (props) => {
   useEffect(() => {
     loadAuthor(props.match.params.id)
   }, [loadAuthor, props.match.params.id])
+
+  useEffect(() => {
+    setLatestArticleLoading(true)
+    authorInfo?.slug && dispatch(getLatestArticlesOfAuthor({
+      slug: authorInfo?.slug,
+      success: () => {
+        setLatestArticleLoading(false)
+      }
+    }))
+  }, [dispatch, authorInfo])
 
   return (
     <Container maxWidth="xl">
@@ -60,7 +70,7 @@ const AuthorDetail = (props) => {
             <Skeleton variant="rectangular" animation="wave" width="100%" height="200px" />
             :
             <LazyImage src={authorInfo?.profileImage} height="100%" />
-        }
+          }
         </Box>
         <Stack
           spacing={1}
@@ -104,7 +114,7 @@ const AuthorDetail = (props) => {
           </Hidden>
         </Box>
 
-        {isLoading ?
+        {isLoading || latestArticleLoding ?
           <LatestArticleSkeletonItem />
           :
           <LatestArticles />

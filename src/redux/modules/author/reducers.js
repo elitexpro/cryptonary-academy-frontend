@@ -8,6 +8,7 @@ const getInitialState = () => {
     error: null,
     authors: [],
     author: {},
+    latestArticles: [],
   }
 }
 
@@ -37,6 +38,21 @@ export default handleActions({
     author: payload.authors[0],
   }),
   [requestFail(CONSTANTS.GET_AUTOR_BY_ID)]: (state, { payload }) => ({
+    ...state,
+    status: 'FAILED',
+    error: payload,
+  }),
+
+  [CONSTANTS.GET_LATEST_ARTICLES]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+  }),
+  [requestSuccess(CONSTANTS.GET_LATEST_ARTICLES)]: (state, { payload }) => ({
+    ...state,
+    status: 'SUCCESS',
+    latestArticles: payload.posts,
+  }),
+  [requestFail(CONSTANTS.GET_LATEST_ARTICLES)]: (state, { payload }) => ({
     ...state,
     status: 'FAILED',
     error: payload,

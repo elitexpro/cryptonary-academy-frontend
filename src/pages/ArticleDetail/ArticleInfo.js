@@ -7,6 +7,7 @@ import {
   Stack,
   IconButton,
   Link,
+  Divider,
 } from '@mui/material'
 import { FiFacebook, FiTwitter, FiLink } from "react-icons/fi"
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
@@ -17,10 +18,10 @@ const SOCIAL_ITEMS = [
   { to: "#", icon: <FiLink style={{ color: "#141414", fontSize: 22 }} /> },
   { to: "#", icon: <FiTwitter style={{ color: "#141414", fontSize: 22 }} /> },
   { to: "#", icon: <FiFacebook style={{ color: "#141414", fontSize: 22 }} /> },
-  { to: "#", icon: <BookmarkBorderIcon style={{ color: "#141414", fontSize: 22 }} /> },
+  { to: "#", icon: <BookmarkBorderIcon style={{ color: "#141414", fontSize: 22 }} />, hideOnMobile: true },
 ]
 
-const ArticleInfo = ({ article, isLoading }) => {
+const ArticleInfo = ({ article }) => {
   const history = useHistory()
 
   const handleClick = (to) => {
@@ -44,15 +45,17 @@ const ArticleInfo = ({ article, isLoading }) => {
           <Stack spacing={1} direction="row">
             {
               SOCIAL_ITEMS.map((item, index) => {
-                const { to, icon } = item
+                const { to, icon, hideOnMobile } = item
                 return (
-                  <IconButton
-                    key={index}
-                    sx={{ width: 40, height: 40, background: '#F8F8F8', borderRadius: '4px' }}
-                    onClick={() => handleClick(to)}
-                  >
-                    {icon}
-                  </IconButton>
+                  <Hidden mdDown={hideOnMobile}>
+                    <IconButton
+                      key={index}
+                      sx={{ width: 40, height: 40, background: '#F8F8F8', borderRadius: '4px' }}
+                      onClick={() => handleClick(to)}
+                    >
+                      {icon}
+                    </IconButton>
+                  </Hidden>
                 )
               })
             }
@@ -66,6 +69,10 @@ const ArticleInfo = ({ article, isLoading }) => {
           </IconButton>
         </Hidden>
       </Box>
+
+      <Hidden mdUp>
+        <Divider sx={{ my: 2 }} />
+      </Hidden>
 
       <Box
         sx={{
@@ -95,11 +102,13 @@ const ArticleInfo = ({ article, isLoading }) => {
           sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
           {moment(article?.publishedAt).format('DD MMM YYYY : kk:mm')}
         </Typography>
-        <Typography
-          variant="subTitle"
-          sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
-          2 min read
-        </Typography>
+        <Hidden mdDown>
+          <Typography
+            variant="subTitle"
+            sx={{ color: "#858585", mt: { md: 2, xs: 0 } }}>
+            2 min read
+          </Typography>
+        </Hidden>
       </Box>
     </Box >
   )

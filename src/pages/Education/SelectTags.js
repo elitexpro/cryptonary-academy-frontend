@@ -87,7 +87,7 @@ const SelectTags = () => {
     dispatch(setEducationTopicTags(topicTags.map((item, index) => {
       return ({
         ...item,
-        isSelected: !!selectedTags.find(x => x === index)
+        isSelected: selectedTags.find(x => x === index) >= 0 ? true : false
       })
     })))
     setOpen(false)

@@ -12,6 +12,7 @@ const getInitialState = () => {
     beginnerVideos: [],
     intermediateVideos: [],
     advanceVideos: [],
+    relatedVideos: [],
   }
 }
 
@@ -26,6 +27,36 @@ export default handleActions({
     filteredVideos: payload.data,
   }),
   [requestFail(CONSTANTS.GET_FILTERED_VIDEOS)]: (state, { payload }) => ({
+    ...state,
+    status: 'FAILED',
+    error: payload,
+  }),
+
+  [CONSTANTS.GET_VIDEO_BY_ID]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+  }),
+  [requestSuccess(CONSTANTS.GET_VIDEO_BY_ID)]: (state, { payload }) => ({
+    ...state,
+    status: 'SUCCESS',
+    video: payload.data,
+  }),
+  [requestFail(CONSTANTS.GET_VIDEO_BY_ID)]: (state, { payload }) => ({
+    ...state,
+    status: 'FAILED',
+    error: payload,
+  }),
+  
+  [CONSTANTS.GET_RELATED_VIDEOS]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+  }),
+  [requestSuccess(CONSTANTS.GET_RELATED_VIDEOS)]: (state, { payload }) => ({
+    ...state,
+    status: 'SUCCESS',
+    relatedVideos: payload.data,
+  }),
+  [requestFail(CONSTANTS.GET_RELATED_VIDEOS)]: (state, { payload }) => ({
     ...state,
     status: 'FAILED',
     error: payload,

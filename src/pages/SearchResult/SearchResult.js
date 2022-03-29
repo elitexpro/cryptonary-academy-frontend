@@ -44,9 +44,9 @@ const SearchResult = () => {
   const sortByItems = [
     { text: 'Newest', value: 'desc' },
     { text: 'Oldest', value: 'asc' },
-    { text: '4 star or more', value: '4' },
-    { text: '3 star or more', value: '3' },
-    { text: '2 star or more', value: '2' },
+    { text: 'Title A - Z', value: 'asc' },
+    { text: 'Title Z - A', value: 'desc' },
+    { text: 'Most Popular', value: 'popularity' },
   ]
 
   const defaultText = sortByItems.find(item => item.value === defaultLabel) ?
@@ -76,7 +76,7 @@ const SearchResult = () => {
         tagName: 'Videos',
         title: attributes.title,
         excerpt: attributes.description,
-        updatedAt: Date.now()
+        updatedAt: attributes.updatedAt,
       })
     })
     setFilteredResult(posts)
@@ -101,7 +101,7 @@ const SearchResult = () => {
         tags = []
         break
     }
-    dispatch(getFilteredArticles({
+    searchString && dispatch(getFilteredArticles({
       body: {
         tags
       },
@@ -111,7 +111,7 @@ const SearchResult = () => {
       },
     }))
 
-    dispatch(getFilteredVideos({
+    searchString && dispatch(getFilteredVideos({
       params: {
         search: searchString,
         order: defaultLabel

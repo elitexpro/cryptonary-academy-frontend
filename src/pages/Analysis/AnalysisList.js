@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import {
   Box,
 } from '@mui/material'
@@ -15,6 +16,7 @@ const TABS = [
 
 const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(9)
@@ -26,7 +28,7 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
   }, [perPage, total])
 
   const handleChange = (tab) => {
-    setCurrentTab(tab)
+    history.push(`/analysis/${tab}`)
     setPage(1)
   }
 
@@ -71,6 +73,9 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
         setPage={setPage}
         perPage={perPage}
         setPerPage={setPerPage}
+        blog="Analysis"
+        blogTo="/analysis/technical-analysis"
+        tag={currentTab}
       />
     </Box>
   )

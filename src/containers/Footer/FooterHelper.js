@@ -5,6 +5,7 @@ import {
   Stack,
 } from '@mui/material'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
+import { CRYPTONARY_SUPPORT_MAIL } from 'helpers/utils'
 
 const FooterHelper = () => {
   return (
@@ -30,7 +31,7 @@ const FooterHelper = () => {
         }}
       >
         <EmailOutlinedIcon sx={{ fill: "#62BE5F", mr: 2 }} />
-        <Link href="mailto:support@cryptonary.com" underline="hover" color="#555">support@cryptonary.com</Link>
+        <Link href={CRYPTONARY_SUPPORT_MAIL} underline="hover" color="#555">support@cryptonary.com</Link>
       </Stack>
     </Stack>
   )

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Stack,
   Dialog,
@@ -10,7 +10,6 @@ import {
   Typography,
   Avatar as UserAvatar,
 } from '@mui/material'
-import { useSelector } from 'react-redux'
 import Avatar from 'react-avatar-edit'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { updateUserProfile } from 'redux/modules/auth/actions'
@@ -26,11 +25,11 @@ const EditProfile = () => {
   const [profilePicture, setProfilePicture] = useState(null)
   const currentPicture = currentUser ? currentUser.profilePicture?.url : null
 
-  const handleSavePhoto = async () => {
+  const handleSavePhoto = () => {
     const formData = new FormData()
     formData.append('profilePicture', profilePicture)
 
-    await dispatch(updateUserProfile({
+    dispatch(updateUserProfile({
       body: formData,
     }))
     setShowPicUploadModal(false)

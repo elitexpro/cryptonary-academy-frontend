@@ -22,7 +22,7 @@ import GlobalSearch from './GlobalSearch'
 import { CRYPTONARY_HELP_CENTER } from 'helpers/utils'
 
 const NavButtons = [
-  { text: 'News', to: '/news' },
+  { text: 'News', to: '/news/all' },
   { component: <Alpha text="Alpha" />, isCustomized: true },
   { component: <Alpha text="Education" />, isCustomized: true },
   { text: 'Ratings Guide', to: '/rating-guide' },

@@ -1,9 +1,13 @@
 import React, { useMemo } from 'react'
+import moment from 'moment'
 import {
   Typography,
   Link,
   CardActionArea,
   Grid,
+  Box,
+  IconButton,
+  Divider,
 } from '@mui/material'
 import { useHistory } from 'react-router-dom'
 import ShowMoreText from "react-show-more-text"
@@ -11,23 +15,25 @@ import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { useSelector } from 'react-redux'
 import { isPremium } from 'helpers'
 import { LazyImage } from 'components/LazyImage'
+import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
 
-const HorizontalArticleItem = ({ data, showPrimaryTag = true }) => {
+const HorizontalArticleItem = ({ data, showPrimaryTag = true, showHours = false }) => {
   const history = useHistory()
   const currentUser = useSelector(currentUserSelector)
   const url = useMemo(() => {
-    return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
+    let coinUrl = `/article/${data?.id}?blog=RatingGuide&blogTo=/rating-guide&tag=news`
+    return !currentUser && isPremium(data.tags) ? `/paywall` : coinUrl
   }, [currentUser, data])
 
   return (
     <Grid container alignItems="center">
-      <Grid item md={4} xs={12}>
+      <Grid item md={5} xs={12}>
         <CardActionArea onClick={() => history.push(url)}>
           <LazyImage src={data.featureImage} />
         </CardActionArea>
       </Grid>
 
-      <Grid item md={8} xs={12} sx={{ pl: 2 }}>
+      <Grid item md={7} xs={12} sx={{ pl: 2 }}>
         {showPrimaryTag &&
           <Typography variant="subTitle4" sx={{ color: "#4AAF47", pt: 1 }}>
             {data?.primaryTag.name}
@@ -52,6 +58,21 @@ const HorizontalArticleItem = ({ data, showPrimaryTag = true }) => {
             {data.excerpt}
           </ShowMoreText>
         </Typography>
+
+        {showHours &&
+          <>
+            <Divider sx={{ mt: 2, flexGrow: 1 }} />
+            <Box sx={{ display: 'flex', pt: 2 }}>
+              <Typography variant="subTitle4" sx={{ color: "#858585" }}>
+                {moment(data?.publishedAt).format('DD MMM YYYY : kk:mm')}
+              </Typography>
+              <Box sx={{ flexGrow: 1 }} />
+              <IconButton size="small">
+                <BookmarkBorderRoundedIcon />
+              </IconButton>
+            </Box>
+          </>
+        }
       </Grid>
     </Grid>
   )

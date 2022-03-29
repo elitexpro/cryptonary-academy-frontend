@@ -12,9 +12,9 @@ import { MDropdown } from 'components/CustomMaterial'
 const SORTBY_ITEMS = [
   { text: 'Newest', value: 'desc' },
   { text: 'Oldest', value: 'asc' },
-  { text: '4 star or more', value: '4' },
-  { text: '3 star or more', value: '3' },
-  { text: '2 star or more', value: '2' },
+  { text: 'Title A - Z', value: 'asc' },
+  { text: 'Title Z - A', value: 'desc' },
+  { text: 'Most Popular', value: 'popularity' },
 ]
 
 const HeroSection = ({ defaultLabel, setDefaultLabel, searchString, setSearchString }) => {

@@ -87,7 +87,7 @@ const MenuBar = ({ open, onClose }) => {
               <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/research-reports')}>
                 <ListItemText primary="Crypto Research" primaryTypographyProps={menuItemStyle} />
               </ListItemButton>
-              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/analysis?tab=on-chain-forensics')}>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/analysis/on-chain-forensics')}>
                 <ListItemText primary="Market Analysis" primaryTypographyProps={menuItemStyle} />
               </ListItemButton>
             </Collapse>
@@ -105,10 +105,10 @@ const MenuBar = ({ open, onClose }) => {
               }
             </ListItemButton>
             <Collapse in={openSubMenu === 2} timeout="auto" unmountOnExit>
-              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education')}>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education/all')}>
                 <ListItemText primary="Crypto School" primaryTypographyProps={menuItemStyle} />
               </ListItemButton>
-              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education')}>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education/all')}>
                 <ListItemText primary="Course Library" primaryTypographyProps={menuItemStyle} />
               </ListItemButton>
             </Collapse>

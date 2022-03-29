@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react'
+import React, { useEffect, useCallback, useState, useMemo } from 'react'
 import { Container } from '@mui/material'
 import HeroSection from './HeroSection'
 import FilterBar from './FilterBar'
@@ -18,7 +18,6 @@ import {
   educationMediaTypeSelector,
   educationSearchValueSelector,
   educationFilteredTagNameSelector,
-  educationTabTagSelector,
   // educationReadingTimeSelector,
   // educationDurationSelector,
 } from 'redux/modules/education/selectors'
@@ -30,7 +29,6 @@ const Education = (props) => {
   const mediaType = useSelector(educationMediaTypeSelector)
   const searchValue = useSelector(educationSearchValueSelector)
   const selectedTags = useSelector(educationFilteredTagNameSelector)
-  const tabTag = useSelector(educationTabTagSelector)
   const [page, setPage] = useState(1)
   const [data, setData] = useState([])
   const [dataType, setDataType] = useState('article')
@@ -42,12 +40,16 @@ const Education = (props) => {
     history.push('/verify')
   }
 
+  const tab = useMemo(() => {
+    return props.match.params.level
+  }, [props])
+
   const loadData = useCallback(() => {
     setIsLoading(true)
     setData([])
 
     const tags = [...selectedTags]
-    tabTag !== 'all' && tags.push(tabTag)
+    tab !== 'all' && tags.push(tab)
 
     mediaType === 'article' && dispatch(getEducationArticles({
       params: {
@@ -86,7 +88,7 @@ const Education = (props) => {
         // handle error 
       }
     }))
-  }, [dispatch, mediaType, searchValue, page, tabTag, selectedTags])
+  }, [dispatch, mediaType, searchValue, page, tab, selectedTags])
 
   useEffect(() => {
     currentUser && loadData()
@@ -97,12 +99,12 @@ const Education = (props) => {
       {!currentUser && <CreateAccountModal />}
 
       <Container maxWidth="xl">
-        <HeroSection />
+        <HeroSection tab={tab} />
       </Container>
 
       <Container maxWidth="xl" sx={{ mb: 8 }} >
         <FilterBar />
-        <LevelSection isLoading={isLoading} data={data} mediaType={dataType} />
+        <LevelSection isLoading={isLoading} data={data} mediaType={dataType} tag={tab} />
         <QuizSection />
       </Container>
       <Paywall />

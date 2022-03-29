@@ -16,7 +16,7 @@ import { latestAlphaSelector } from 'redux/modules/alpha/selectors'
 import { LazyImage } from 'components/LazyImage'
 import { HorizontalArticleItem } from 'components/ArticleItem'
 
-const AlphaContent = ({ isLoading }) => {
+const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
   const latestAlphaList = useSelector(latestAlphaSelector)
 
   return (
@@ -35,7 +35,9 @@ const AlphaContent = ({ isLoading }) => {
                 underline="hover"
                 sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}
               >
-                Research Reports
+                <Box onClick={() => setOpenAlpha(false)}>
+                  Research Reports
+                </Box>
               </Link>
               <Typography variant="subTitle4" sx={{ color: "#858585" }}>
                 In crypto, opportunities are everywhere but the really great
@@ -54,11 +56,13 @@ const AlphaContent = ({ isLoading }) => {
 
               <Link
                 component={RouterLink}
-                to='/analysis?tab=on-chain-forensics'
+                to='/analysis/on-chain-forensics'
                 underline="hover"
                 sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}
               >
-                On-chain forensics
+                <Box onClick={() => setOpenAlpha(false)}>
+                  On-chain forensics
+                </Box>
               </Link>
               <Typography variant="subTitle4" sx={{ color: "#858585" }}>
                 Quick Access to BTC related news
@@ -66,11 +70,13 @@ const AlphaContent = ({ isLoading }) => {
 
               <Link
                 component={RouterLink}
-                to='/analysis?tab=technical-analysis'
+                to='/analysis/technical-analysis'
                 underline="hover"
                 sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}
               >
-                Weekly Technicals
+                <Box onClick={() => setOpenAlpha(false)}>
+                  Weekly Technicals
+                </Box>
               </Link>
               <Typography variant="subTitle4" sx={{ color: "#858585" }}>
                 Quick Access to BTC related news
@@ -124,7 +130,7 @@ const AlphaContent = ({ isLoading }) => {
           </Grid>
         </Grid>
       </Box>
-    </Container>
+    </Container >
   )
 }
 

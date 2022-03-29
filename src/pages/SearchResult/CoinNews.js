@@ -27,20 +27,21 @@ const CoinNews = ({ data, isGlobalSearch }) => {
     <Stack spacing={{ md: 4, xs: 2 }} sx={{ mt: 4, minHeight: `calc(100vh - 705px)` }}>
       {data && data.map((item, index) => {
         const { title, excerpt, content, tagName, updatedAt, featureImage } = item
-        const url = !currentUser && isPremium(item.tags) ? `/paywall` : `article/${item?.id}`
+        const hours = moment(Date.now()).diff(updatedAt, 'hours')
+        const url = !currentUser && isPremium(item.tags) ? `/paywall` : `/article/${item?.id}`
 
         return (
           <Box key={index}>
             <Grid container spacing={{ md: 3, xs: 1 }}>
               <Grid item md={4} xs={4} order={!isGlobalSearch && { md: 1, xs: 2 }}>
                 <Hidden mdDown={isGlobalSearch}>
-                  <CardActionArea>
+                  <CardActionArea onClick={() => history.push(url)}>
                     <LazyImage src={featureImage} />
                   </CardActionArea>
                 </Hidden>
               </Grid>
               <Grid item md={8} xs={isGlobalSearch ? 12 : 8} order={!isGlobalSearch && { md: 2, xs: 1 }}>
-                <Stack sx={{ maxWidth: 513 }}>
+                <Stack sx={{ maxWidth: 513, height: '100%' }}>
                   <Stack spacing={1}>
                     <Hidden mdDown={!isGlobalSearch}>
                       <Typography variant="subTitle4" color="#4AAF47">
@@ -68,10 +69,12 @@ const CoinNews = ({ data, isGlobalSearch }) => {
                     </Hidden>
                   </Stack>
 
+                  <Box sx={{ flexGrow: 1 }} />
+
                   {isGlobalSearch &&
                     <Box sx={{ display: 'flex', pt: 2 }}>
                       <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-                        {moment(Date.now()).diff(updatedAt, 'hours')} hours ago
+                        {hours < 48 ? `${hours} hours ago` : moment(updatedAt).format('YYYY-MM-DD')}
                       </Typography>
                       <Box sx={{ flexGrow: 1 }} />
                       <IconButton size="small">

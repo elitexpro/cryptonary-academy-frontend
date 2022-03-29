@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   Container,
   Box,
@@ -9,13 +10,20 @@ import FeaturedNews from './FeaturedNews'
 import NewsSection from './NewsSection'
 import { Footer } from 'containers/Footer'
 import { Paywall } from 'containers/Paywall'
+import { setNewsTag } from 'redux/modules/news/actions'
 
-const News = () => {
+const News = (props) => {
+  const dispatch = useDispatch()
+
+  const tab = useMemo(() => {
+    dispatch(setNewsTag(props.match.params.tab))
+    return props.match.params.tab
+  }, [props, dispatch])
 
   return (
     <>
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <HeroSection />
+        <HeroSection tab={tab} />
         <HighLight />
       </Container>
 

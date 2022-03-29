@@ -8,7 +8,7 @@ import {
 import { VideoItem } from 'components/VideoItem'
 import { ArticleItem } from 'components/ArticleItem'
 
-const LevelSection = ({ data, isLoading, mediaType }) => {
+const LevelSection = ({ data, isLoading, mediaType, tag }) => {
 
   return (
     <Box>
@@ -46,9 +46,9 @@ const LevelSection = ({ data, isLoading, mediaType }) => {
                   {
                     mediaType === 'video'
                       ?
-                      <VideoItem data={item} />
+                      <VideoItem data={item} blog="Education" blogTo="/education/all" tag={tag} />
                       :
-                      <ArticleItem data={item} showPrimaryTag={false} />
+                      <ArticleItem data={item} showPrimaryTag={false} blog="Education" blogTo="/education/all" tag={tag} />
                   }
                 </Grid>
               )

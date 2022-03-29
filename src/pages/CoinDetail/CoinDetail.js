@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Grid,
@@ -23,6 +23,14 @@ const CoinDetail = (props) => {
   const currentCoin = useSelector(currentCoinSelector)
   const [isLoading, setIsloading] = useState(false)
   const [currentTab, setCurrentTab] = useState('overview')
+
+  const tab = useMemo(() => {
+    return props.match.params.tab
+  }, [props])
+
+  useEffect(() => {
+    setCurrentTab(tab ? tab : 'overview')
+  }, [tab])
 
   const {
     logo, tokenName, coinSymbol, infoCommunityReview, infoTeamDeveloper,

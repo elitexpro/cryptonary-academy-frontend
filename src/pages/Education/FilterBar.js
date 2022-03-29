@@ -18,14 +18,14 @@ import {
   setEducationSearchValue,
   setEducationTopicTags,
   setEducationReadingTime,
-  setEducationDuration,
+  // setEducationDuration,
 } from 'redux/modules/education/actions'
 import {
   educationMediaTypeSelector,
   educationSearchValueSelector,
   educationTopicTagsSelector,
   educationReadingTimeSelector,
-  educationDurationSelector,
+  // educationDurationSelector,
 } from 'redux/modules/education/selectors'
 import DoneIcon from '@mui/icons-material/Done'
 
@@ -60,7 +60,7 @@ const FilterBar = () => {
   const searchValue = useSelector(educationSearchValueSelector)
   const topicTags = useSelector(educationTopicTagsSelector)
   const readingTime = useSelector(educationReadingTimeSelector)
-  const duration = useSelector(educationDurationSelector)
+  // const duration = useSelector(educationDurationSelector)
 
   const selectedTopics = useMemo(() => {
     return topicTags.filter(item => item.isSelected)
@@ -126,7 +126,7 @@ const FilterBar = () => {
             />
           }
 
-          {mediaType === 'article' &&
+          {/* {mediaType === 'article' &&
             <MDropdown
               items={DETAIL_OPTION[1].data}
               label={duration ?? DETAIL_OPTION[1].category}
@@ -134,7 +134,7 @@ const FilterBar = () => {
               dropboxStyle={{ width: '135px' }}
               onChange={val => dispatch(setEducationDuration(val))}
             />
-          }
+          } */}
         </Hidden>
 
         <Box sx={{ flexGrow: 1 }} />

@@ -17,12 +17,20 @@ import moment from 'moment'
 import { LazyImage } from 'components/LazyImage'
 import PremiumImg from 'assets/image/premium-icon.png'
 
-const ArticleItem = ({ data, showPrimaryTag = true }) => {
+const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
   const history = useHistory()
   const currentUser = useSelector(currentUserSelector)
   const url = useMemo(() => {
-    return !currentUser && isPremium(data.tags) ? `/paywall` : `/article/${data?.id}`
-  }, [currentUser, data])
+    let articleUrl = `/article/${data?.id}?blog=${blog}&blogTo=${blogTo}`
+    if (tag) {
+      articleUrl += `&tag=${tag}`
+    }
+    return !currentUser && isPremium(data.tags) ? `/paywall` : articleUrl
+  }, [currentUser, data, blog, blogTo, tag])
+
+  const hours = useMemo(() => {
+    return moment(Date.now()).diff(data.updatedAt, 'hours')
+  }, [data])
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -56,9 +64,9 @@ const ArticleItem = ({ data, showPrimaryTag = true }) => {
           </ShowMoreText>
         </Typography>
 
-        <Box sx={{ display: 'flex', pt: 2 }}>
+        <Box sx={{ display: 'flex', pt: 2, alignItems: 'center' }}>
           <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-            {moment(Date.now()).diff(data.updatedAt, 'hours')} hours ago
+            {hours < 48 ? `${hours} hours ago` : moment(data.updatedAt).format('YYYY-MM-DD')}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton size="small">

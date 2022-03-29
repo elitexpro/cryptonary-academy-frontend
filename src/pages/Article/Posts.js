@@ -6,15 +6,16 @@ import {
   Skeleton,
   Stack,
 } from '@mui/material'
-// import { VideoItem } from 'components/VideoItem'
+import { ArticleItem } from 'components/ArticleItem'
+import { articleListSelector, articleStatusSelector } from 'redux/modules/article/selectors'
 
 const Posts = () => {
-  const articles = useSelector((state) => state.article.articles)
-  const status = useSelector((state) => state.article.status)
+  const articles = useSelector(articleListSelector)
+  const status = useSelector(articleStatusSelector)
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    setPosts(articles)
+    setPosts(articles.posts)
   }, [articles])
 
   return (
@@ -22,10 +23,10 @@ const Posts = () => {
       <Grid container spacing={4}>
         {
           status === 'SUCCESS' ?
-            posts?.posts?.map((post, index) => {
+            posts?.map((post, index) => {
               return (
                 <Grid item key={index} xs={12} md={4}>
-                  {/* <VideoItem post={post} /> */}
+                  <ArticleItem data={post} />
                 </Grid>
               )
             }) : (

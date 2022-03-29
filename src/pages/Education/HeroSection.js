@@ -6,8 +6,8 @@ import {
 } from '@mui/material'
 import SvgArticleHeroImg from 'assets/image/article-hero-image.svg'
 import { MTab } from 'components/CustomMaterial'
-import { useDispatch, useSelector } from 'react-redux'
-import { educationTabTagSelector } from 'redux/modules/education/selectors'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
 import { setEducationTabTag } from 'redux/modules/education/actions'
 
 const TAB_CONTENT = [
@@ -18,15 +18,18 @@ const TAB_CONTENT = [
   { label: 'Course', value: 'course', to: "#" },
 ]
 
-const HeroSection = () => {
+const HeroSection = ({ tab }) => {
   const dispatch = useDispatch()
-  const tabTag = useSelector(educationTabTagSelector)
+  const history = useHistory()
 
   return (
     <>
       <MTab
-        currentTab={tabTag}
-        handleChange={(val) => dispatch(setEducationTabTag(val))}
+        currentTab={tab}
+        handleChange={(val) => {
+          dispatch(setEducationTabTag(val))
+          history.push(`/education/${val}`)
+        }}
         items={TAB_CONTENT}
         tabStyle={{ my: 4 }}
         itemStyle={{ fontSize: '16px !important', width: '180px !important' }}

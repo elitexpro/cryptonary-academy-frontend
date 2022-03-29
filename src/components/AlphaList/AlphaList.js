@@ -15,7 +15,7 @@ const PAGE_ITEMS = [
   { text: 'All', value: 'all' },
 ]
 
-const AlphaList = ({ isLoading, perPage, setPerPage, page, setPage, data, total }) => {
+const AlphaList = ({ isLoading, perPage, setPerPage, page, setPage, data, total, blog, blogTo, tag }) => {
   const perPageText = PAGE_ITEMS.find(item => item.value === perPage)?.text
 
   const handleResetPage = (value) => {
@@ -42,7 +42,7 @@ const AlphaList = ({ isLoading, perPage, setPerPage, page, setPage, data, total 
           <>
             {data?.map((item, index) => (
               <Grid item md={4} xs={12} key={index}>
-                <ArticleItem data={item} showPrimaryTag={true} />
+                <ArticleItem data={item} showPrimaryTag={true} blog={blog} blogTo={blogTo} tag={tag} />
               </Grid>
             ))}
 

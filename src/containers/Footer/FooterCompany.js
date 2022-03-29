@@ -51,6 +51,7 @@ const FooterCompany = () => {
           {
             RELATIVE_PAGES.map((page, index) => (
               <Link
+                target="_blank"
                 href={page.to}
                 key={index}
                 sx={{ fontWeight: 500, color: "#777" }}

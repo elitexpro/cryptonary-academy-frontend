@@ -4,7 +4,6 @@ import {
   Box,
   Typography,
   Stack,
-  Link,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { CRYPTONARY_SUPPORT_MAIL } from 'helpers/utils'
@@ -41,18 +40,15 @@ const PageNotFound = () => {
           onClick={() => history.push('/')}
         >Go to Homepage</MButton>
 
-        <Link
-          component="button"
-          underline="none"
-          variant="body2"
-          href={CRYPTONARY_SUPPORT_MAIL}
-          sx={{
-            color: '#858585',
-            border: '1px solid #EAEAEA',
-            borderRadius: '4px',
-            px: 2,
+        <MButton
+          variant="outlined"
+          color="inherit"
+          onClick={(e) => {
+            window.location.href = CRYPTONARY_SUPPORT_MAIL
+            e.preventDefault()
           }}
-        >Contact us</Link>
+          sx={{ px: 2, color: '#858585' }}
+        >Contact us</MButton>
       </Stack>
     </Box>
   )

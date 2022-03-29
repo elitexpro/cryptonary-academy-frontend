@@ -22,12 +22,12 @@ const Alpha = ({ text }) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const [openAlpha, setOpenAlpha] = useState(0)
+  const [openAlpha, setOpenAlpha] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleAlphaToggle = (e) => {
-    setOpenAlpha(prev => prev + 1)
+    setOpenAlpha(true)
     setAnchorEl(e.currentTarget)
   }
 
@@ -50,14 +50,19 @@ const Alpha = ({ text }) => {
         sx={{ color: openAlpha ? '#4AAF47' : '#858585', fontSize: '16px' }}
         endIcon={openAlpha ? <KeyboardArrowUpRounded /> : <KeyboardArrowDownRounded />}
         onMouseEnter={handleAlphaToggle}
-        onMouseLeave={() => setOpenAlpha(prev => prev - 1)}
-        onClick={() => text === 'Education' && history.push('/education')}
+        onMouseLeave={() => setOpenAlpha(false)}
+        onClick={() => {
+          if (text === 'Education') {
+            setOpenAlpha(false)
+            history.push('/education/all')
+          }
+        }}
       >
         {text}
       </MButton>
 
       <Popper
-        open={openAlpha > 0}
+        open={openAlpha}
         anchorEl={anchorEl}
         transition
         disablePortal
@@ -68,15 +73,15 @@ const Alpha = ({ text }) => {
           <Fade  {...TransitionProps}>
             <Paper
               elevation={0}
-              onMouseEnter={() => setOpenAlpha(prev => prev + 1)}
-              onMouseLeave={() => setOpenAlpha(prev => prev - 1)}
+              onMouseEnter={() => setOpenAlpha(true)}
+              onMouseLeave={() => setOpenAlpha(false)}
             >
               <Box>
                 <Divider sx={{ background: "#c3c3c3" }} />
                 {text === 'Education' ?
-                  <EducationContent isLoading={isLoading} />
+                  <EducationContent isLoading={isLoading} setOpenAlpha={setOpenAlpha} />
                   :
-                  <AlphaContent isLoading={isLoading} />
+                  <AlphaContent isLoading={isLoading} setOpenAlpha={setOpenAlpha} />
                 }
               </Box>
             </Paper>

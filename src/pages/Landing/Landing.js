@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {
   Container,
   Box,
@@ -14,16 +14,21 @@ import { Paywall } from 'containers/Paywall'
 import { Footer } from 'containers/Footer'
 
 const Landing = () => {
+  const myRef = useRef(null)
+
+  const executeScroll = () => {
+    myRef.current.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
     <>
-      <Box sx={{ background: "#FAFAFA" }}>
+      <Box sx={{ background: "#FFF" }}>
         <Container maxWidth="xl">
-          <HeroSection />
+          <HeroSection executeScroll={executeScroll} />
         </Container>
       </Box>
       <Box sx={{ background: "#FFF" }}>
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" ref={myRef}>
           <ArticleSection id="learn_more" />
         </Container>
       </Box>

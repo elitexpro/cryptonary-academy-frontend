@@ -10,7 +10,7 @@ import { getFilteredArticles } from 'redux/modules/article/actions'
 import { useDispatch } from 'react-redux'
 import { ArticleItem } from 'components/ArticleItem'
 
-const RelatedNews = ({ tag }) => {
+const RelatedNews = ({ tag, id }) => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
@@ -20,20 +20,20 @@ const RelatedNews = ({ tag }) => {
     tag && dispatch(getFilteredArticles({
       params: {
         page: 1,
-        perPage: 3
+        perPage: 4
       },
       body: {
         tags: [tag]
       },
       success: ({ data }) => {
-        setData(data?.posts)
+        setData(data?.posts.filter(item => item.id !== id).slice(0, 3))
         setIsLoading(false)
       },
       fail: () => {
         // handle error 
       }
     }))
-  }, [dispatch, tag])
+  }, [dispatch, tag, id])
 
   return (
     <Stack spacing={6}>

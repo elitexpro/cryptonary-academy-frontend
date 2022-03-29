@@ -11,3 +11,6 @@ export const intermediateVideoSelector = (state) =>
 
 export const advanceVideoSelector = (state) =>
   get(state, 'video.advanceVideos', null)
+
+export const relatedVideosSelector = (state) =>
+  get(state, 'video.relatedVideos', null)

@@ -8,3 +8,6 @@ export const authorListSelector = (state) =>
 
 export const currentAuthorSelector = (state) =>
   get(state, 'author.author', null)
+
+export const latestArticlesOfAuthorSelector = (state) =>
+  get(state, 'author.latestArticles', null)

@@ -40,7 +40,7 @@ const routes = () => (
         <Switch>
           <VerifiedRoute exact path='/' component={Home} />
           <VerifiedRoute exact path='/app' component={Landing} />
-          <VerifiedRoute exact path='/news' component={News} />
+          <VerifiedRoute path='/news/:tab' component={News} />
           <VerifiedRoute exact path='/education' component={Education} />
           <VerifiedRoute exact path='/education/:level' component={Education} />
           <AuthedRoute path='/preference' component={Preference} />
@@ -50,20 +50,21 @@ const routes = () => (
           <Route path='/verify' component={Verify} />
           <Route path='/forgot-password' component={ForgotPassword} />
           <Route path='/reset-password' component={ResetPassword} />
-          <AuthedRoute path='/video-detail' component={VideoDetail} />
-          <VerifiedRoute exact path='/article/:id' component={ArticleDetail} />
+          <AuthedRoute path='/video/:id' component={VideoDetail} />
+          <VerifiedRoute path='/article/:id' component={ArticleDetail} />
           <VerifiedRoute exact path='/article' component={Article} />
           <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
           <CproRoute path='/pulse' component={Pulse} />
           <AuthedRoute path='/account' component={Account} />
           <CproRoute exact path='/rating-guide' component={RatingsGuide} />
-          <AuthedRoute path='/rating-guide/:symbol' component={CoinDetail} />
+          <AuthedRoute exact path='/rating-guide/:symbol' component={CoinDetail} />
+          <AuthedRoute exact path='/rating-guide/:symbol/:tab' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />
           <VerifiedRoute path='/research-reports' component={ResearchReports} />
-          <VerifiedRoute path='/analysis' component={Analysis} />
-		  <Route path='/terms-conditions' component={TermsConditions} />
-		  <Route path='/cookie-policy' component={CookiePolicy} />
-		  <Route path='/privacy-policy' component={PrivacyPolicy} />
+          <VerifiedRoute path='/analysis/:tab' component={Analysis} />
+          <Route path='/terms-conditions' component={TermsConditions} />
+          <Route path='/cookie-policy' component={CookiePolicy} />
+          <Route path='/privacy-policy' component={PrivacyPolicy} />
           <Route component={PageNotFound} />
         </Switch>
       </Layout>

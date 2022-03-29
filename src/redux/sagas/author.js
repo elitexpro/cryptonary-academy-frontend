@@ -16,7 +16,15 @@ const doGetAuthorById = apiCall({
   path: ({ payload }) => `ghost/authors/${payload.id}/`,
 })
 
+const doGetLatestArticles = apiCall({
+  type: CONSTANTS.GET_LATEST_ARTICLES,
+  isGhostApi: true,
+  method: 'get',
+  path: ({ payload }) => `ghost/authors/${payload.slug}/articles`,
+})
+
 export default function* rootSaga() {
   yield takeLatest(CONSTANTS.GET_ALL_AUTHORS, doGetAllAuthors)
   yield takeLatest(CONSTANTS.GET_AUTOR_BY_ID, doGetAuthorById)
+  yield takeLatest(CONSTANTS.GET_LATEST_ARTICLES, doGetLatestArticles)
 }
