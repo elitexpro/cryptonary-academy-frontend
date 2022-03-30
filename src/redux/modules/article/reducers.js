@@ -10,6 +10,8 @@ const getInitialState = () => {
     article: {},
     filteredArticles: [],
     filteredPosts: [],
+    authors: [],
+    totalAuthorsCount: 0,
   }
 }
 
@@ -52,6 +54,21 @@ export default handleActions({
     filteredArticles: payload.posts,
   }),
   [requestFail(CONSTANTS.GET_FILTERED_ARTICLES)]: (state, { payload }) => ({
+    ...state,
+    status: 'FAILED',
+    error: payload,
+  }),
+  [CONSTANTS.GET_AUTHORS_LIST]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+  }),
+  [requestSuccess(CONSTANTS.GET_AUTHORS_LIST)]: (state, { payload }) => ({
+    ...state,
+    status: 'SUCCESS',
+    authors: payload.users,
+    totalAuthorsCount: payload.meta.pagination.total
+  }),
+  [requestFail(CONSTANTS.GET_AUTHORS_LIST)]: (state, { payload }) => ({
     ...state,
     status: 'FAILED',
     error: payload,

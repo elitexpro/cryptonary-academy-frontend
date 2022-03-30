@@ -37,10 +37,18 @@ const doGetFilteredArticles = apiCall({
   path: 'ghost/articles/search',
 })
 
+const doGetAuthorsList = apiCall({
+  type: CONSTANTS.GET_AUTHORS_LIST,
+  isGhostApi: true,
+  method: 'get',
+  path: 'ghost/authors',
+})
+
 export default function* rootSaga() {
   yield takeEvery(CONSTANTS.GET_ALL_ARTICLES, doGetAllArticles)
   yield takeLatest(CONSTANTS.GET_ARTICLE_BY_ID, doGetArticleById)
   yield takeEvery(CONSTANTS.GET_FEATURED_ARTICLES, doGetFeaturedArticles)
   yield takeEvery(CONSTANTS.GET_LATEST_NEWS, doGetLatestNews)
   yield takeEvery(CONSTANTS.GET_FILTERED_ARTICLES, doGetFilteredArticles)
+  yield takeEvery(CONSTANTS.GET_AUTHORS_LIST, doGetAuthorsList)
 }

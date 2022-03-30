@@ -27,7 +27,7 @@ const HighLight = () => {
   const [data, setData] = useState([])
 
   const url = useMemo(() => {
-    return !currentUser && isPremium(data.tags) ? `/paywall` : `article/${data?.id}`
+    return !currentUser && isPremium(data.tags) ? `/paywall` : `/article/${data?.id}`
   }, [currentUser, data])
 
   const hours = useMemo(() => {
@@ -128,7 +128,7 @@ const HighLight = () => {
                       <Typography variant="subTitle3" sx={{ fontWeight: 500 }}>
                         <Link
                           component={'span'}
-                          onClick={() => history.push(!currentUser && isPremium(item.tags) ? `/paywall` : `article/${item?.id}`)}
+                          onClick={() => history.push(!currentUser && isPremium(item.tags) ? `/paywall` : `/article/${item?.id}`)}
                           underline="hover"
                           sx={{ color: "#232A45", fontSize: "20x", cursor: "pointer" }}
                         >

@@ -28,7 +28,7 @@ const HeroSection = () => {
 
   const url = useMemo(() => {
     if(data.length > 0) {
-      return !currentUser && isPremium(data[0].tags) ? `/paywall` : `article/${data[0]?.id}`
+      return !currentUser && isPremium(data[0].tags) ? `/paywall` : `/article/${data[0]?.id}`
     }
   }, [currentUser, data])
 
@@ -125,7 +125,7 @@ const HeroSection = () => {
                       <Typography variant="subTitle3" sx={{ fontWeight: 500 }}>
                         <Link
                           component={'span'}
-                          onClick={() => history.push(!currentUser && isPremium(item.tags) ? `/paywall` : `article/${item?.id}`)}
+                          onClick={() => history.push(!currentUser && isPremium(item.tags) ? `/paywall` : `/article/${item?.id}`)}
                           underline="hover"
                           sx={{ color: "#232A45", fontSize: "20x", cursor: "pointer" }}
                         >

@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import {
   Container,
   Box,
@@ -7,21 +9,24 @@ import {
   Stack,
   Skeleton,
 } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import ShowMoreText from "react-show-more-text"
 import { MBreadcrumbs } from 'components/CustomMaterial'
-import { Footer } from 'containers/Footer'
-import ArticleInfo from './ArticleInfo'
-import AuthorDetail from './AuthorDetail'
-import RelatedNews from './RelatedNews'
+import AuthorDetail from 'components/AuthorDetail'
 import { LazyImage } from 'components/LazyImage'
+import { Footer } from 'containers/Footer'
+import { Paywall } from 'containers/Paywall'
+import { CreateAccountModal } from 'containers/CreateAccountModal'
+import ArticleInfo from './ArticleInfo'
+import RelatedNews from './RelatedNews'
 import { getArticleById } from 'redux/modules/article/actions'
 import { currentCoinSelector } from 'redux/modules/coin/selectors'
+import { currentUserSelector } from 'redux/modules/auth/selectors'
 
 const ArticleDetail = (props) => {
   const dispatch = useDispatch()
   const location = useLocation()
   const currentCoin = useSelector(currentCoinSelector)
+  const currentUser = useSelector(currentUserSelector)
   const [currentArticle, setCurrentArticle] = useState({})
   const [isLoading, setIsloading] = useState(false)
 
@@ -55,7 +60,7 @@ const ArticleDetail = (props) => {
 
   const detailRoot = [
     { text: 'Home', to: '/' },
-    { text: crumbs[0].split('=')[1], to: crumbs[1].split('=')[1] },
+    { text: crumbs[0]?.split('=')[1], to: crumbs[1]?.split('=')[1] },
     { text: currentTabData.label, to: currentTabData.to },
     { text: currentArticle?.title },
   ]
@@ -82,6 +87,8 @@ const ArticleDetail = (props) => {
 
   return (
     <>
+      {!currentUser && currentArticle?.isPremium && <CreateAccountModal />}
+
       <Container maxWidth="xl" sx={{ mb: 8, width: { md: '60%' } }} >
         <Hidden mdDown >
           {
@@ -115,10 +122,26 @@ const ArticleDetail = (props) => {
             mb: 5,
             position: 'relative'
           }}>
-            <Hidden mdUp>
-              <ArticleInfo article={currentArticle} isLoading={isLoading} />
-            </Hidden>
-            <Box >
+            {!currentArticle?.isPremium &&
+              <Hidden mdUp>
+                <ArticleInfo article={currentArticle} isLoading={isLoading} />
+              </Hidden>
+            }
+
+            {currentArticle?.isPremium &&
+              <Box
+                sx={{
+                  position: 'absolute',
+                  background: "linear-gradient(to bottom, transparent 50%, white)",
+                  width: '100%',
+                  height: '500px',
+                  bottom: 0,
+                  left: 0
+                }}
+              ></Box>
+            }
+
+            <Box className="gh-content gh-canvas">
               {
                 isLoading
                   ? <>
@@ -127,11 +150,14 @@ const ArticleDetail = (props) => {
                     <Skeleton animation="wave" width="60%" />
                     <Skeleton animation="wave" width="40%" />
                   </>
-                  : <section className="gh-content gh-canvas" dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
+                  :
+                  <ShowMoreText lines={10} expandByClick={false} more="">
+                    <section dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
+                  </ShowMoreText>
               }
             </Box>
 
-            {!isLoading && <Box sx={{ position: 'absolute', top: 0, left: '-250px', pt: 2 }}>
+            {!isLoading && !currentArticle?.isPremium && <Box sx={{ position: 'absolute', top: 0, left: '-250px', pt: 2 }}>
               <Hidden mdDown>
                 <Box sx={{ flexGrow: 1 }} />
                 <ArticleInfo article={currentArticle} />
@@ -141,10 +167,15 @@ const ArticleDetail = (props) => {
           </Box>
         </Box>
 
-        <AuthorDetail authorInfo={currentArticle?.primaryAuthor} isLoading={isLoading} />
+        {!currentArticle?.isPremium && <AuthorDetail authorInfo={currentArticle?.primaryAuthor} isLoading={isLoading} />}
       </Container >
 
       <Container maxWidth="xl">
+        {currentArticle?.isPremium &&
+          <Box sx={{ mb: 5 }}>
+            <Paywall />
+          </Box>
+        }
         <RelatedNews tag={currentArticle?.primaryTag?.slug} id={currentArticle?.id} />
         <Footer minimal={true} />
       </Container >

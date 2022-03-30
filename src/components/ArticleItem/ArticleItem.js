@@ -10,23 +10,22 @@ import {
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
 import { useHistory } from 'react-router-dom'
 import ShowMoreText from "react-show-more-text"
-import { currentUserSelector } from 'redux/modules/auth/selectors'
-import { useSelector } from 'react-redux'
-import { isPremium } from 'helpers'
 import moment from 'moment'
 import { LazyImage } from 'components/LazyImage'
 import PremiumImg from 'assets/image/premium-icon.png'
 
 const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
   const history = useHistory()
-  const currentUser = useSelector(currentUserSelector)
   const url = useMemo(() => {
-    let articleUrl = `/article/${data?.id}?blog=${blog}&blogTo=${blogTo}`
+    let articleUrl = `/article/${data?.id}`
+    if (blog && blogTo) {
+      articleUrl += `?blog=${blog}&blogTo=${blogTo}`
+    }
     if (tag) {
       articleUrl += `&tag=${tag}`
     }
-    return !currentUser && isPremium(data.tags) ? `/paywall` : articleUrl
-  }, [currentUser, data, blog, blogTo, tag])
+    return articleUrl
+  }, [data, blog, blogTo, tag])
 
   const hours = useMemo(() => {
     return moment(Date.now()).diff(data.updatedAt, 'hours')

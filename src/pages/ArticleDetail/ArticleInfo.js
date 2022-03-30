@@ -47,7 +47,7 @@ const ArticleInfo = ({ article }) => {
               SOCIAL_ITEMS.map((item, index) => {
                 const { to, icon, hideOnMobile } = item
                 return (
-                  <Hidden mdDown={hideOnMobile}>
+                  <Hidden mdDown={hideOnMobile} key={index}>
                     <IconButton
                       key={index}
                       sx={{ width: 40, height: 40, background: '#F8F8F8', borderRadius: '4px' }}

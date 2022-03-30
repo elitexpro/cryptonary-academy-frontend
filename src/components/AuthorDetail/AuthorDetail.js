@@ -12,16 +12,18 @@ import ShowMoreText from "react-show-more-text"
 import { Link as RouterLink } from 'react-router-dom'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
-const AuthorDetail = ({ authorInfo, isLoading }) => {
+const AuthorDetail = ({ authorInfo, isLoading, updateStyle = false, remoteBottomDivider = false }) => {
 
   return (
-    <Stack spacing={4}>
-      <Divider />
+    <Box sx={{ width: '60%' }}>
+      {!updateStyle && <Divider sx={{ mb: 4 }} />}
 
       <Stack spacing={2}>
-        <Typography variant="subTitle" sx={{ color: "#858585" }}>
-          About Author
-        </Typography>
+        {!updateStyle &&
+          <Typography variant="subTitle" sx={{ color: "#858585" }}>
+            About Author
+          </Typography>
+        }
 
         <Box sx={{ display: { xs: "block", sm: "flex" } }}>
           <Box sx={{ maxWidth: { md: 200, xs: 'unset' }, width: '100%' }}>
@@ -65,24 +67,41 @@ const AuthorDetail = ({ authorInfo, isLoading }) => {
               }
             </Typography>
 
-            <Typography variant="subTitle" sx={{ color: "#141414", fontWeight: 500, pt: 2 }}>
-              <Link
-                component={RouterLink}
-                to={`/author/${authorInfo?.id}`}
-                underline="hover"
-                sx={{ color: "#232A45", display: "flex", alignItems: "center" }}
-              >
-                <Stack spacing={0.5} direction="row">
-                  <Box>View latest articles from {authorInfo?.name}</Box>
-                  <ArrowForwardRoundedIcon />
-                </Stack>
-              </Link>
-            </Typography>
+            {!updateStyle &&
+              <Typography variant="subTitle" sx={{ color: "#141414", fontWeight: 500, pt: 2 }}>
+                <Link
+                  component={RouterLink}
+                  to={`/author/${authorInfo?.id}`}
+                  underline="hover"
+                  sx={{ color: "#232A45", display: "flex", alignItems: "center" }}
+                >
+                  <Stack spacing={0.5} direction="row">
+                    <Box>View latest articles from {authorInfo?.name}</Box>
+                    <ArrowForwardRoundedIcon />
+                  </Stack>
+                </Link>
+              </Typography>
+            }
           </Stack>
         </Box>
       </Stack>
-      <Divider />
-    </Stack>
+      {updateStyle &&
+        <Typography variant="subTitle" sx={{ color: "#141414", fontWeight: 500 }}>
+          <Link
+            component={RouterLink}
+            to={`/author/${authorInfo?.id}`}
+            underline="hover"
+            sx={{ color: "#232A45", display: "flex", alignItems: "center", justifyContent: 'flex-end' }}
+          >
+            <Stack spacing={0.5} direction="row">
+              <Box>View latest articles from {authorInfo?.name}</Box>
+              <ArrowForwardRoundedIcon />
+            </Stack>
+          </Link>
+        </Typography>
+      }
+      {!remoteBottomDivider && <Divider sx={{ mt: 4 }} />}
+    </Box>
   )
 }
 

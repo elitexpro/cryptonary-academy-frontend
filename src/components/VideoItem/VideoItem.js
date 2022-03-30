@@ -22,7 +22,10 @@ const VideoItem = ({ data, blog, blogTo, tag }) => {
   }, [data])
 
   const url = useMemo(() => {
-    let videoUrl = `/video/${id}?blog=${blog}&blogTo=${blogTo}`
+    let videoUrl = `/video/${id}`
+    if (blog && blogTo) {
+      videoUrl += `?blog=${blog}&blogTo=${blogTo}`
+    }
     if (tag) {
       videoUrl += `&tag=${tag}`
     }

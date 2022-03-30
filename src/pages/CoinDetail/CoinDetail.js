@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import {
   Grid,
   Container,
@@ -20,6 +21,7 @@ import { MTab } from 'components/CustomMaterial'
 
 const CoinDetail = (props) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const currentCoin = useSelector(currentCoinSelector)
   const [isLoading, setIsloading] = useState(false)
   const [currentTab, setCurrentTab] = useState('overview')
@@ -47,14 +49,15 @@ const CoinDetail = (props) => {
         setIsloading(false)
       },
       fail: (err) => {
+        history.push(`/rating-guide/BTC`)
         setIsloading(false)
       }
     }))
-  }, [dispatch])
+  }, [dispatch, history])
 
   useEffect(() => {
     loadCoin(props.match.params.symbol)
-  }, [loadCoin, props.match.params.symbol])
+  }, [loadCoin, props.match.params.symbol, history])
 
   const handleChange = (value) => {
     setCurrentTab(value)

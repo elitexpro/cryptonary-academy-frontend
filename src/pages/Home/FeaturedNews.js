@@ -95,7 +95,7 @@ const FeaturedNews = () => {
                         <Link
                           component={'span'}
                           onClick={() =>
-                            history.push(!currentUser && isPremium(featuredNews[0].tags) ? `/paywall` : `article/${featuredNews[0]?.id}`)
+                            history.push(!currentUser && isPremium(featuredNews[0].tags) ? `/paywall` : `/article/${featuredNews[0]?.id}`)
                           }
                           underline="hover"
                           sx={{ color: "#232A45", fontSize: "32x", cursor: "pointer" }}

@@ -23,6 +23,7 @@ import CoinDetail from 'pages/CoinDetail'
 import SearchResult from 'pages/SearchResult'
 import ResearchReports from 'pages/ResearchReports'
 import Analysis from 'pages/Analysis'
+import Author from 'pages/Author'
 import AuthedRoute from './AuthedRoute'
 import VerifiedRoute from './VerifiedRoute'
 import CproRoute from './CproRoute'
@@ -60,6 +61,7 @@ const routes = () => (
           <AuthedRoute exact path='/rating-guide/:symbol' component={CoinDetail} />
           <AuthedRoute exact path='/rating-guide/:symbol/:tab' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />
+          <AuthedRoute path='/author' component={Author} />
           <VerifiedRoute path='/research-reports' component={ResearchReports} />
           <VerifiedRoute path='/analysis/:tab' component={Analysis} />
           <Route path='/terms-conditions' component={TermsConditions} />

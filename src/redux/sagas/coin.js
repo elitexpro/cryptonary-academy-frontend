@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga/effects'
+import { takeLatest, takeEvery } from 'redux-saga/effects'
 import * as CONSTANTS from 'redux/modules/coin/constants'
 import apiCall from '../api/apiCall'
 
@@ -31,6 +31,6 @@ const doGetCoinNews = apiCall({
 export default function* rootSaga() {
   yield takeLatest(CONSTANTS.GET_COIN_RATING_LIST, doGetCoinRatingList)
   yield takeLatest(CONSTANTS.GET_COIN_RATING_TYPE_LIST, doGetCoinRatingTypeList)
-  yield takeLatest(CONSTANTS.GET_COIN_BY_ID, doGetCoinById)
+  yield takeEvery(CONSTANTS.GET_COIN_BY_ID, doGetCoinById)
   yield takeLatest(CONSTANTS.GET_COIN_NEWS, doGetCoinNews)
 }
