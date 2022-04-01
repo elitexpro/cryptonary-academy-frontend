@@ -120,12 +120,8 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
           <TableBody>
             {tableData && tableData.map((item, index) => {
               const {
-                tokenName, coinSymbol, coinTypes, coinSectors, logo, infoCommunityReview, infoTeamDeveloper,
-                infoTokenomicAllocation, infoUsageReview, infoValueAccural
+                tokenName, coinSymbol, coinTypes, coinSectors, logo, infoRating
               } = item.attributes
-
-              const rating = (infoCommunityReview + infoTeamDeveloper +
-                infoTokenomicAllocation + infoUsageReview + infoValueAccural) / 5
 
               return (
                 <TableRow key={index}>
@@ -152,8 +148,8 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
                   </Hidden>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
-                      <Rating value={rating ? rating : 0} precision={0.1} size='small' readOnly />
-                      <Typography variant="subTitle1" color="#141414">{rating}</Typography>
+                      <Rating value={infoRating ? infoRating : 0} precision={0.1} size='small' readOnly />
+                      <Typography variant="subTitle1" color="#141414">{infoRating}</Typography>
                     </Stack>
                   </TableCell>
                   <TableCell onClick={() => {

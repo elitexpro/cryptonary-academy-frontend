@@ -27,10 +27,14 @@ const HeroSection = () => {
   const [data, setData] = useState([])
 
   const url = useMemo(() => {
-    if(data.length > 0) {
+    if (data.length > 0) {
       return !currentUser && isPremium(data[0].tags) ? `/paywall` : `/article/${data[0]?.id}`
     }
   }, [currentUser, data])
+
+  const hours = useMemo(() => {
+    return moment(Date.now()).diff(data[0]?.updatedAt, 'hours')
+  }, [data])
 
   useEffect(() => {
     setIsLoading(true)
@@ -66,13 +70,13 @@ const HeroSection = () => {
               :
               <Stack spacing={1}>
                 <CardActionArea onClick={() => history.push(url)}>
-                  <LazyImage src={data[0].featureImage} />
+                  <LazyImage src={data[0].featureImage} borderRadius={4} />
                 </CardActionArea>
                 <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
                   {data[0]?.primaryTag.name}
                   <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
                   <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-                    {moment(Date.now()).diff(data[0].updatedAt, 'hours')} hours ago
+                    {hours < 48 ? `${hours} hours ago` : moment(data[0].updatedAt).format('YYYY-MM-DD')}
                   </Typography>
                 </Typography>
 
@@ -117,10 +121,16 @@ const HeroSection = () => {
                 })
                 :
                 data.slice(1).map((item, index) => {
+                  const item_hours = moment(Date.now()).diff(item?.updatedAt, 'hours')
+
                   return (
                     <Stack key={index}>
                       <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
                         {item?.primaryTag.name}
+                        <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
+                        <Typography variant="subTitle4" sx={{ color: "#858585" }}>
+                          {item_hours < 48 ? `${item_hours} hours ago` : moment(item.updatedAt).format('YYYY-MM-DD')}
+                        </Typography>
                       </Typography>
                       <Typography variant="subTitle3" sx={{ fontWeight: 500 }}>
                         <Link
@@ -134,11 +144,11 @@ const HeroSection = () => {
                           </ShowMoreText>
                         </Link>
                       </Typography>
-                      <Typography variant="subTitle" sx={{ color: "#858585" }}>
+                      {/* <Typography variant="subTitle" sx={{ color: "#858585" }}>
                         <ShowMoreText lines={1} expandByClick={false} more="">
                           {item.excerpt}
                         </ShowMoreText>
-                      </Typography>
+                      </Typography> */}
                     </Stack>
                   )
                 })

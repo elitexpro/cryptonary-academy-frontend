@@ -6,7 +6,7 @@ import {
 } from '@mui/material'
 import useDimension from 'helpers/useDimension'
 
-const LazyImage = ({ src, height }) => {
+const LazyImage = ({ src, height, borderRadius }) => {
   const videoRef = useRef(null)
   const { width } = useDimension(videoRef)
 
@@ -20,7 +20,8 @@ const LazyImage = ({ src, height }) => {
           style={{
             width: "100%",
             height: height ? width : width / 2,
-            objectFit: "cover"
+            objectFit: "cover",
+            borderRadius: borderRadius
           }}
           src={src}
         />

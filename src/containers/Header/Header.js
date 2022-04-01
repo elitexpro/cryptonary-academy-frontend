@@ -26,6 +26,8 @@ const NavButtons = [
   { component: <Alpha text="Alpha" />, isCustomized: true },
   { component: <Alpha text="Education" />, isCustomized: true },
   { text: 'Ratings Guide', to: '/rating-guide' },
+  { text: 'Podcasts', to: '/#' },
+  { text: 'Shop', to: 'https://coindrip.store/collections/all-products', isNewTag: true },
   { text: 'Pulse', to: '/pulse', isForPro: true },
   { component: <GlobalSearch />, isCustomized: true },
 ]
@@ -58,9 +60,10 @@ const Header = () => {
                           item.isCustomized ?
                             item.component :
                             <MButton
+                              target={item.target}
                               color='inherit'
                               sx={{ color: '#858585', fontSize: '16px' }}
-                              onClick={() => history.push(item.to)}
+                              onClick={() => item.isNewTag ? window.open(item.to) : history.push(item.to)}
                             >
                               {item.text}
                             </MButton>
@@ -95,7 +98,7 @@ const Header = () => {
                       sx={{ fontSize: '16px', px: 2, color: 'white' }}
                       onClick={() => history.push('/signup')}
                     >
-                      Get Started
+                      Join Now
                     </MButton>
                   </Fragment>
                   :

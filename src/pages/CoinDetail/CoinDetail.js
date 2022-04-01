@@ -34,12 +34,7 @@ const CoinDetail = (props) => {
     setCurrentTab(tab ? tab : 'overview')
   }, [tab])
 
-  const {
-    logo, tokenName, coinSymbol, infoCommunityReview, infoTeamDeveloper,
-    infoTokenomicAllocation, infoUsageReview, infoValueAccural, coinTypes, coinSectors, relatedCoinRatings
-  } = currentCoin
-
-  const rating = (infoCommunityReview + infoTeamDeveloper + infoTokenomicAllocation + infoUsageReview + infoValueAccural) / 5
+  const { logo, tokenName, coinSymbol, infoRating, coinTypes, coinSectors, relatedCoinRatings } = currentCoin
 
   const loadCoin = useCallback((symbol) => {
     setIsloading(true)
@@ -121,11 +116,11 @@ const CoinDetail = (props) => {
                     <Stack direction="row" spacing={1} alignItems="center">
                       <Rating
                         sx={{ color: '#4AAF47' }}
-                        value={rating ? rating : 0}
+                        value={infoRating ? infoRating : 0}
                         precision={0.1}
                         readOnly
                       />
-                      <Typography variant="subTitle1" color="#141414">{rating ? rating : 0}</Typography>
+                      <Typography variant="subTitle1" color="#141414">{infoRating ? infoRating : 0}</Typography>
                     </Stack>
                   </Box>
                 </Box>
