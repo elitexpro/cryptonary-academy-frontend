@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   Box,
-  Hidden,
 } from '@mui/material'
 import FooterResources from './FooterResources'
 import FooterHelper from './FooterHelper'
@@ -20,10 +19,8 @@ const Footer = ({ minimal = false, noCompanyInfo = false }) => {
         </>
       }
       <FooterSocial />
-      {!noCompanyInfo &&
-        <Hidden mdUp>
-          <FooterSubscribe />
-        </Hidden>
+      {!noCompanyInfo && !minimal &&
+        <FooterSubscribe />
       }
       <FooterCompany />
     </Box>

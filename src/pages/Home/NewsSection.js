@@ -77,7 +77,7 @@ const NewsSection = () => {
           variant='outlined'
           color='inherit'
           sx={{ fontSize: '16px', px: 2, color: '#858585', background: "#FFF" }}
-          onClick={() => history.push('/news')}
+          onClick={() => history.push('/news/all')}
         >
           View all news
         </MButton>

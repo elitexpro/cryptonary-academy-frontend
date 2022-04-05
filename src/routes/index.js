@@ -59,7 +59,7 @@ const routes = () => (
           <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
           <CproRoute path='/pulse' component={Pulse} />
           <AuthedRoute path='/account' component={Account} />
-          <CproRoute exact path='/rating-guide' component={RatingsGuide} />
+          <PublicRoute exact path='/rating-guide' component={RatingsGuide} />
           <AuthedRoute exact path='/rating-guide/:symbol' component={CoinDetail} />
           <AuthedRoute exact path='/rating-guide/:symbol/:tab' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />

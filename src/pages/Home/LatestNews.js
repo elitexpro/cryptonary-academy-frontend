@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useMemo } from 'react'
 import {
   Box,
   Typography,
@@ -24,6 +24,10 @@ const LatestNews = () => {
   const videoRef = useRef(null)
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
+
+  const hours = useMemo(() => {
+    return moment(Date.now()).diff(data[0]?.updatedAt, 'hours')
+  }, [data])
 
   useEffect(() => {
     setIsLoading(true)
@@ -73,7 +77,7 @@ const LatestNews = () => {
                       {data[0]?.primaryTag.name}
                       <Typography variant="subTitle4" sx={{ color: "#000", mx: 2 }}>&bull;</Typography>
                       <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-                        {moment(Date.now()).diff(data[0].updatedAt, 'hours')} hours ago
+                        {hours < 48 ? `${hours} hours ago` : moment(data[0].updatedAt).format('YYYY-MM-DD')}
                       </Typography>
                     </Typography>
 

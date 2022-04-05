@@ -7,7 +7,6 @@ import { Footer } from 'containers/Footer'
 import { Paywall } from 'containers/Paywall'
 import QuizSection from 'components/QuizSection'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
-import { CreateAccountModal } from 'containers/CreateAccountModal'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -95,8 +94,6 @@ const Education = (props) => {
 
   return (
     <>
-      {!currentUser && <CreateAccountModal />}
-
       <Container maxWidth="xl">
         <HeroSection tab={tab} />
       </Container>

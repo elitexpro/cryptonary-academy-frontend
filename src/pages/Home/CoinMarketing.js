@@ -7,7 +7,10 @@ import {
   Grid,
   Typography,
   Skeleton,
+  Hidden,
+  Card
 } from '@mui/material'
+import Slider from 'react-slick'
 import { getCoinRatingsLiveData } from 'redux/modules/global/actions'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import BitcoinSVG from 'assets/image/bitcoin.png'
@@ -35,6 +38,15 @@ const CoinMarketing = () => {
   const currentUser = useSelector(currentUserSelector)
   const [coinRatings, setCoinRatings] = useState({})
   const [isLoading, setIsLoading] = useState(false)
+
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    centerMode: true,
+    arrows: false,
+  }
 
   const loadData = useCallback(() => {
     setIsLoading(true)
@@ -66,27 +78,55 @@ const CoinMarketing = () => {
     !currentUser &&
     <Box sx={{ width: '100%', height: 50, background: '#141414', display: 'fex', alignItems: 'center', margin: 'auto' }}>
       <Container maxWidth="xl">
-        <Grid container sx={{ pl: 10 }}>
-          {isLoading ?
-            <Skeleton width="100%" />
-            :
-            DATA.map((item, index) => {
-              const currentCoin = coinRatings[item.label]
-              const color = currentCoin?.usd_24h_change > 0 ? '#9BD699' : '#FF7070'
+        <Hidden mdUp>
+          <Box sx={{ width: '100%' }}>
+            <Slider {...settings}>
+              {DATA.map((item, index) => {
+                const currentCoin = coinRatings[item.label]
+                const color = currentCoin?.usd_24h_change > 0 ? '#9BD699' : '#FF7070'
 
-              return (
-                <Grid item key={index} md={3}>
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    {item.img}
-                    <Typography sx={{ fontSize: 15 }} color="#FFF">{item.coin}</Typography>
-                    <Typography sx={{ fontSize: 15 }} color={color}>${currentCoin?.usd.toFixed(2)}</Typography>
-                    <Typography sx={{ fontSize: 15 }} color={color}>{currentCoin?.usd_24h_change.toFixed(2)}%</Typography>
-                  </Stack>
-                </Grid>
-              )
-            })
-          }
-        </Grid>
+                return (
+                  <Card
+                    variant="outlined"
+                    sx={{ borderRadius: '8px', mr: 1, background: '#141414' }}
+                    key={index}
+                  >
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      {item.img}
+                      <Typography sx={{ fontSize: 15 }} color="#FFF">{item.coin}</Typography>
+                      <Typography sx={{ fontSize: 15 }} color={color}>${currentCoin?.usd.toFixed(2)}</Typography>
+                      <Typography sx={{ fontSize: 15 }} color={color}>{currentCoin?.usd_24h_change.toFixed(2)}%</Typography>
+                    </Stack>
+                  </Card>
+                )
+              })}
+            </Slider>
+          </Box>
+        </Hidden>
+
+        <Hidden mdDown>
+          <Grid container sx={{ pl: 10 }}>
+            {isLoading ?
+              <Skeleton width="100%" />
+              :
+              DATA.map((item, index) => {
+                const currentCoin = coinRatings[item.label]
+                const color = currentCoin?.usd_24h_change > 0 ? '#9BD699' : '#FF7070'
+
+                return (
+                  <Grid item key={index} md={3}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      {item.img}
+                      <Typography sx={{ fontSize: 15 }} color="#FFF">{item.coin}</Typography>
+                      <Typography sx={{ fontSize: 15 }} color={color}>${currentCoin?.usd.toFixed(2)}</Typography>
+                      <Typography sx={{ fontSize: 15 }} color={color}>{currentCoin?.usd_24h_change.toFixed(2)}%</Typography>
+                    </Stack>
+                  </Grid>
+                )
+              })
+            }
+          </Grid>
+        </Hidden>
       </Container>
     </Box>
   )

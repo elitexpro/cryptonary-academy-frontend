@@ -1,22 +1,22 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import {
   Box,
   Grid,
   Divider,
   Stack,
   Typography,
-  Link,
   Skeleton,
   CardActionArea,
   Container,
 } from '@mui/material'
-import { Link as RouterLink } from 'react-router-dom'
 import { latestAlphaSelector } from 'redux/modules/alpha/selectors'
 import { LazyImage } from 'components/LazyImage'
 import { HorizontalArticleItem } from 'components/ArticleItem'
 
 const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
+  const history = useHistory()
   const latestAlphaList = useSelector(latestAlphaSelector)
 
   return (
@@ -24,21 +24,28 @@ const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
       <Box sx={{ py: 5, px: 10, background: "#FCFCFC" }}>
         <Grid container spacing={6}>
           <Grid item xs={3}>
-            <Stack spacing={1}>
+            <Stack
+              spacing={1}
+              sx={{
+                '&:hover': {
+                  background: '#fff',
+                  p: 2,
+                  m: -2,
+                  cursor: 'pointer',
+                }
+              }}
+              onClick={() => {
+                history.push('/research-reports')
+                setOpenAlpha(false)
+              }}
+            >
               <Typography variant="subTitle4" sx={{ color: "#555" }}>
                 RESEARCH
               </Typography>
               <Divider />
-              <Link
-                component={RouterLink}
-                to='/research-reports'
-                underline="hover"
-                sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}
-              >
-                <Box onClick={() => setOpenAlpha(false)}>
-                  Research Reports
-                </Box>
-              </Link>
+              <Box sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}>
+                Research Reports
+              </Box>
               <Typography variant="subTitle4" sx={{ color: "#858585" }}>
                 In crypto, opportunities are everywhere but the really great
                 ones only show up every once in a while – we estimate ...
@@ -47,37 +54,39 @@ const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
           </Grid>
 
           <Grid item xs={3}>
-            <Stack spacing={1}>
+            <Stack
+              spacing={1}
+              sx={{
+                '&:hover': {
+                  background: '#fff',
+                  p: 2,
+                  m: -2,
+                  cursor: 'pointer',
+                }
+              }}
+              onClick={() => {
+                history.push('/analysis/on-chain-forensics')
+                setOpenAlpha(false)
+              }}
+            >
               <Typography variant="subTitle4" sx={{ color: "#555" }}>
                 ANALYSIS
               </Typography>
 
               <Divider />
 
-              <Link
-                component={RouterLink}
-                to='/analysis/on-chain-forensics'
-                underline="hover"
-                sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}
-              >
-                <Box onClick={() => setOpenAlpha(false)}>
-                  On-chain forensics
-                </Box>
-              </Link>
+              <Box sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}>
+                On-chain forensics
+              </Box>
+
               <Typography variant="subTitle4" sx={{ color: "#858585" }}>
                 Quick Access to BTC related news
               </Typography>
 
-              <Link
-                component={RouterLink}
-                to='/analysis/technical-analysis'
-                underline="hover"
-                sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}
-              >
-                <Box onClick={() => setOpenAlpha(false)}>
-                  Weekly Technicals
-                </Box>
-              </Link>
+              <Box sx={{ pt: 3, color: "#141414", fontWeight: 500, fontSize: "16px" }}>
+                Weekly Technicals
+              </Box>
+
               <Typography variant="subTitle4" sx={{ color: "#858585" }}>
                 Quick Access to BTC related news
               </Typography>

@@ -23,11 +23,11 @@ const SORTBY_ITEMS = [
 
 const TAB_CONTENT = [
   { label: 'All News', value: 'all' },
-  { label: 'Bitcoin News', value: 'bitcoin-btc-news' },
-  { label: 'Ethereum News', value: 'ethereum-eth-news' },
-  { label: 'Alt News', value: 'altcoin-news' },
-  { label: 'Defi News', value: 'defi' },
-  { label: 'Blockchain News', value: 'blockchain-news' },
+  { label: 'Bitcoin', value: 'bitcoin-btc-news' },
+  { label: 'Ethereum', value: 'ethereum-eth-news' },
+  { label: 'Alt', value: 'altcoin-news' },
+  { label: 'Defi', value: 'defi' },
+  { label: 'Blockchain', value: 'blockchain-news' },
 ]
 
 const HeroSection = ({ tab }) => {

@@ -15,7 +15,6 @@ import AuthorDetail from 'components/AuthorDetail'
 import { LazyImage } from 'components/LazyImage'
 import { Footer } from 'containers/Footer'
 import { Paywall } from 'containers/Paywall'
-import { CreateAccountModal } from 'containers/CreateAccountModal'
 import ArticleInfo from './ArticleInfo'
 import RelatedNews from './RelatedNews'
 import { getArticleById } from 'redux/modules/article/actions'
@@ -87,8 +86,6 @@ const ArticleDetail = (props) => {
 
   return (
     <>
-      {!currentUser && currentArticle?.isPremium && <CreateAccountModal />}
-
       <Container maxWidth="xl" sx={{ mb: 8, width: { md: '60%' } }} >
         <Hidden mdDown >
           {
@@ -122,13 +119,13 @@ const ArticleDetail = (props) => {
             mb: 5,
             position: 'relative'
           }}>
-            {!currentArticle?.isPremium &&
+            {!(currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
               <Hidden mdUp>
                 <ArticleInfo article={currentArticle} isLoading={isLoading} />
               </Hidden>
             }
 
-            {currentArticle?.isPremium &&
+            {currentUser?.role !== 'pro' && currentArticle?.isPremium &&
               <Box
                 sx={{
                   position: 'absolute',
@@ -151,27 +148,33 @@ const ArticleDetail = (props) => {
                     <Skeleton animation="wave" width="40%" />
                   </>
                   :
-                  <ShowMoreText lines={10} expandByClick={false} more="">
+                  currentUser?.role !== 'pro' && currentArticle?.isPremium ?
+                    <ShowMoreText lines={10} expandByClick={false} more="">
+                      <section dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
+                    </ShowMoreText>
+                    :
                     <section dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
-                  </ShowMoreText>
               }
             </Box>
 
-            {!isLoading && !currentArticle?.isPremium && <Box sx={{ position: 'absolute', top: 0, left: '-250px', pt: 2 }}>
-              <Hidden mdDown>
-                <Box sx={{ flexGrow: 1 }} />
-                <ArticleInfo article={currentArticle} />
-              </Hidden>
-            </Box>
+            {!(!isLoading && currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
+              <Box sx={{ position: 'absolute', top: 0, left: '-250px', pt: 2 }}>
+                <Hidden mdDown>
+                  <Box sx={{ flexGrow: 1 }} />
+                  <ArticleInfo article={currentArticle} />
+                </Hidden>
+              </Box>
             }
           </Box>
         </Box>
 
-        {!currentArticle?.isPremium && <AuthorDetail authorInfo={currentArticle?.primaryAuthor} isLoading={isLoading} />}
+        {!(currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
+          <AuthorDetail authorInfo={currentArticle?.primaryAuthor} isLoading={isLoading} />
+        }
       </Container >
 
       <Container maxWidth="xl">
-        {currentArticle?.isPremium &&
+        {currentUser?.role !== 'pro' && currentArticle?.isPremium &&
           <Box sx={{ mb: 5 }}>
             <Paywall />
           </Box>

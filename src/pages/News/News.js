@@ -2,11 +2,8 @@ import React, { useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   Container,
-  Box,
 } from '@mui/material'
 import HeroSection from './HeroSection'
-import HighLight from './HighLight'
-import FeaturedNews from './FeaturedNews'
 import NewsSection from './NewsSection'
 import { Footer } from 'containers/Footer'
 import { Paywall } from 'containers/Paywall'
@@ -22,18 +19,11 @@ const News = (props) => {
 
   return (
     <>
-      <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ pt: 4 }}>
         <HeroSection tab={tab} />
-        <HighLight />
       </Container>
 
-      <Box sx={{ background: "#FAFAFA" }}>
-        <Container maxWidth="xl" sx={{ py: 4 }}>
-          <FeaturedNews />
-        </Container>
-      </Box>
-
-      <Container maxWidth="xl" sx={{ py: 4, mb: 10 }}>
+      <Container maxWidth="xl" sx={{ pb: 4, mb: 10 }}>
         <NewsSection />
       </Container>
 

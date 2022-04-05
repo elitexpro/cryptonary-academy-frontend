@@ -15,7 +15,7 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 const AuthorDetail = ({ authorInfo, isLoading, updateStyle = false, remoteBottomDivider = false }) => {
 
   return (
-    <Box sx={{ width: '60%' }}>
+    <Box sx={{ width: updateStyle ? '60%' : '100%' }}>
       {!updateStyle && <Divider sx={{ mb: 4 }} />}
 
       <Stack spacing={2}>

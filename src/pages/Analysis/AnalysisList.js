@@ -74,7 +74,7 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
         perPage={perPage}
         setPerPage={setPerPage}
         blog="Analysis"
-        blogTo="/analysis/technical-analysis"
+        blogTo="/"
         tag={currentTab}
       />
     </Box>

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Box,
   Typography,
@@ -7,15 +8,18 @@ import {
   Link,
   CardActionArea,
 } from '@mui/material'
+import { currentUserSelector } from 'redux/modules/auth/selectors'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
 import { useHistory } from 'react-router-dom'
 import ShowMoreText from "react-show-more-text"
 import moment from 'moment'
 import { LazyImage } from 'components/LazyImage'
 import PremiumImg from 'assets/image/premium-icon.png'
+import { BsPersonCircle, BsCalendarFill } from 'react-icons/bs'
 
 const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
   const history = useHistory()
+  const currentUser = useSelector(currentUserSelector)
   const url = useMemo(() => {
     let articleUrl = `/article/${data?.id}`
     if (blog && blogTo) {
@@ -64,13 +68,33 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
         </Typography>
 
         <Box sx={{ display: 'flex', pt: 2, alignItems: 'center' }}>
-          <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-            {hours < 48 ? `${hours} hours ago` : moment(data.updatedAt).format('YYYY-MM-DD')}
-          </Typography>
+          {currentUser ?
+            <Typography variant="subTitle4" sx={{ color: "#858585" }}>
+              {hours < 48 ? `${hours} hours ago` : moment(data.updatedAt).format('YYYY-MM-DD')}
+            </Typography>
+            :
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <BsCalendarFill color='#141414' />
+
+              <Typography variant="subTitle4" sx={{ color: "#858585", ml: 0.5 }}>
+                {moment(data.updatedAt).format('DD MM YYYY hh:mm')}
+              </Typography>
+            </Box>
+          }
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton size="small">
-            <BookmarkBorderRoundedIcon />
-          </IconButton>
+          {currentUser ?
+            <IconButton size="small">
+              <BookmarkBorderRoundedIcon />
+            </IconButton>
+            :
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <BsPersonCircle color='#141414' />
+
+              <Typography variant="subTitle4" sx={{ color: "#858585", ml: 0.5 }}>
+                {data.primaryAuthor.name}
+              </Typography>
+            </Box>
+          }
         </Box>
       </Stack>
 
