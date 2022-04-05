@@ -33,11 +33,11 @@ const LightTooltip = styled(({ className, ...props }) => (
 }))
 
 const Paywall = () => {
-  const [checked, setChecked] = useState(false)
+  const [isCryptoPay, setIsCryptoPay] = useState(false)
   const currentUser = useSelector(currentUserSelector)
 
   const handleChange = (e) => {
-    setChecked(e.target.checked)
+    setIsCryptoPay(e.target.checked)
   }
 
   return (
@@ -79,7 +79,7 @@ const Paywall = () => {
             >
               Pay by Card
             </Typography>
-            <MSwitch onChange={handleChange} checked={checked} />
+            <MSwitch onChange={handleChange} checked={isCryptoPay} />
             <Stack direction="row" alignItems="center" spacing={1}>
               <Typography
                 color="#FFF"
@@ -96,7 +96,7 @@ const Paywall = () => {
             </Stack>
           </Stack>
           <Box sx={{ px: { md: 4, xs: 0 }, width: "100%", mx: 4 }}>
-            <MembershipPlan />
+            <MembershipPlan isCrypto={isCryptoPay}/>
           </Box>
         </Stack>
       </Container>

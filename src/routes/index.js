@@ -33,14 +33,16 @@ import ScrollToTop from 'react-router-scroll-top'
 import TermsConditions from 'pages/TermsConditions'
 import CookiePolicy from 'pages/CookiePolicy'
 import PrivacyPolicy from 'pages/PrivacyPolicy'
+import Checkout from 'pages/Checkout'
 
 const routes = () => (
   <Router>
     <ScrollToTop>
-      <Layout>
+      <Layout smallHeader={['/checkout']}>
         <Switch>
           <VerifiedRoute exact path='/' component={Home} />
           <VerifiedRoute exact path='/app' component={Landing} />
+          <VerifiedRoute exact path='/checkout' component={Checkout} />
           <VerifiedRoute path='/news/:tab' component={News} />
           <VerifiedRoute exact path='/education' component={Education} />
           <VerifiedRoute exact path='/education/:level' component={Education} />

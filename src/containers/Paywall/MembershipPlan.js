@@ -8,35 +8,11 @@ import {
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import { FiChevronRight } from 'react-icons/fi'
+import { CRYPTO_MEMBERSHIP_PLAN, CARD_MEMBERSHIP_PLAN } from './membershipPlansData'
+import { useHistory } from 'react-router'
 
-const MEMBERSHIP_PLAN = [
-  {
-    title: "7-day Trial",
-    content: "Get onboard in minutes ✨",
-    amount: 9.99,
-    period: " for 7 days",
-    isPopular: false
-  },
-  {
-    title: "Monthly",
-    content: "Stay ahead of the curve 🔥",
-    amount: 59.99,
-    period: " /month",
-    save_percent: 20,
-    isPopular: false
-  },
-  {
-    title: "Yearly",
-    content: "Join the crypto revolution 🚀",
-    old_amount: 719,
-    amount: 492,
-    period: " /year",
-    save_percent: 31,
-    isPopular: true
-  }
-]
-
-const MembershipPlan = () => {
+const MembershipPlan = ({ isCrypto }) => {
+  const history = useHistory()
   return (
     <Stack
       spacing={{ md: 6, xs: 1 }}
@@ -51,10 +27,19 @@ const MembershipPlan = () => {
       }}
     >
       {
-        MEMBERSHIP_PLAN.map((membership, index) => {
-          const { title, content, old_amount, amount, period, save_percent, isPopular } = membership
-
-          return (
+        (isCrypto ? CRYPTO_MEMBERSHIP_PLAN : CARD_MEMBERSHIP_PLAN).map(({
+          title,
+          content,
+          old_amount,
+          amount,
+          period,
+          save_money,
+          month_count,
+          full_amount,
+          save_percent,
+          isPopular,
+          under_button,
+        }, index) => (
             <Stack key={index} sx={{ width: "100%" }}>
               <Stack
                 sx={{
@@ -142,12 +127,21 @@ const MembershipPlan = () => {
                       color: "#FFF",
                       height: 48
                     }}
+                    onClick={() => {
+                      history.push('/checkout', { isCrypto, method: title })
+                    }}
                   >Select {title}</MButton>
                 </Hidden>
+                  {isCrypto && <Stack direction="row" justifyContent="center" sx={{ height: 20, mt: 2.5 }}>
+                    {full_amount !== save_money && (
+                      <Typography color="#909090" sx={{ textDecoration: "line-through" }}>${save_money}</Typography>
+                    )}
+                    <Typography color="#FFF" sx={{ px: 0.5 }}>${full_amount}</Typography>
+                    <Typography color="#909090">billed every {month_count} months</Typography>
+                  </Stack>}
               </Box>
             </Stack>
-          )
-        })
+        ))
       }
     </Stack>
   )
