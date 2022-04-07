@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { Stack, Box, Typography, Modal, OutlinedInput, Checkbox, FormControlLabel } from '@mui/material'
+import { Stack, Box, Typography, OutlinedInput, Checkbox, FormControlLabel } from '@mui/material'
 import Accordion from 'components/Accordion/Accordion'
 import { accordionData } from './accordionData'
 import { ReactComponent as StripeSvg } from 'assets/logo/stripe.svg'
 import { ReactComponent as CoinbaseSvg } from 'assets/logo/coinbase.svg'
 import { ReactComponent as Lock } from 'assets/image/lock.svg'
 import { ReactComponent as ProgressBar } from 'assets/image/checkout-step-one.svg'
-import { ReactComponent as CloseBtn } from 'assets/image/close_btn.svg'
 import { ReactComponent as ArrowRight } from 'assets/image/arrow_right.svg'
 import { useLocation } from 'react-router'
 import { CARD_MEMBERSHIP_PLAN, CRYPTO_MEMBERSHIP_PLAN } from 'containers/Paywall/membershipPlansData'
 import { inputStyles } from './styles'
 import { Link } from 'react-router-dom'
 import MButton from 'components/CustomMaterial/MButton'
+import { ModalChangePlan } from './ModalChangePlan'
 
 const Checkout = () => {
   const { state } = useLocation()
@@ -27,27 +27,30 @@ const Checkout = () => {
     currentBlock: (isCrypto ? CRYPTO_MEMBERSHIP_PLAN : CARD_MEMBERSHIP_PLAN).find(({ title }) => title === method)
   })
 
+  const setPaymentMethod = (method) => () => setPlan({
+    ...plan,
+    method,
+    currentBlock: (isCrypto ? CRYPTO_MEMBERSHIP_PLAN : CARD_MEMBERSHIP_PLAN).find(({ title }) => title === method)
+  })
+
   const changeTermsAndPolicy = () => setTermsAndPolicy(!termsAndPolicy)
   const openModal = () => setIsOpenModal(!isOpenModal)
   const now = new Date()
   const currDate = new Date(
     now.getFullYear(),
-    now.getMonth()+(plan.currentBlock.month_count ?? 0),
+    now.getMonth()+(plan.currentBlock.month_count ?? 1),
     now.getDate()
   )
   const date = new Intl.DateTimeFormat('en', {year: 'numeric', month: 'short', day: 'numeric' }).format(currDate)
   return (
     <Stack minHeight="calc(100vh - 80px)" display="flex" width="100%" flexDirection="row" justifyContent="center">
-      <Modal open={isOpenModal}>
-        <Box display="flex" justifyContent="center" alignItems="center" width="100%" height="100vh">
-          <Box maxWidth="584px" width="100%" bgcolor="#FFFFFF" borderRadius="4px" p="32px">
-            <Box display="flex" width="100%" justifyContent="space-between" mb="48px">
-              <Typography fontSize="20px" color="#141414">Change subscription plan</Typography>
-              <CloseBtn onClick={openModal} />
-            </Box>
-          </Box>
-        </Box>
-      </Modal>
+      <ModalChangePlan
+        isOpenModal={isOpenModal}
+        switchModal={openModal}
+        isCrypto={plan.isCrypto}
+        paymentMethod={plan.method}
+        setPaymentMethod={setPaymentMethod}
+      />
       <Stack maxWidth="50%" width="100%">
         <Box width="100%" maxWidth="520px" height="100%" mx="auto" display="flex" flexDirection="column">
           <Box mt="50px" mb="40px">
@@ -98,7 +101,11 @@ const Checkout = () => {
             </Box>
             <Box m="16px 20px" display="flex" justifyContent="space-between">
               <Typography color="#555555">Next payment on {date}</Typography>
-              <Typography color="#555555">${plan.currentBlock.old_amount || plan.currentBlock.save_money}</Typography>
+              <Typography color="#555555">${
+                plan.currentBlock.old_amount ||
+                plan.currentBlock.save_money ||
+                plan.currentBlock.full_amount
+              }</Typography>
             </Box>
           </Box>
           <Box height="1px" my="24px" width="100%" bgcolor="#E4E4E4" />

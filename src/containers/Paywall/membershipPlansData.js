@@ -48,6 +48,7 @@ export const CARD_MEMBERSHIP_PLAN = [
     full_amount: 143.94,
     amount: 143.94,
     period: " /quarter",
+    month_count: 3,
     save_percent: 20,
     isPopular: false
   },
@@ -57,6 +58,7 @@ export const CARD_MEMBERSHIP_PLAN = [
     old_amount: 719,
     full_amount: 492,
     amount: 492,
+    month_count: 12,
     period: " /year",
     save_percent: 31,
     isPopular: true
