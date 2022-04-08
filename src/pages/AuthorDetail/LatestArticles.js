@@ -1,22 +1,24 @@
 import React from 'react'
 import {
-  Stack,
+  Grid,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { latestArticlesOfAuthorSelector } from 'redux/modules/author/selectors'
-import { HorizontalArticleItem } from 'components/ArticleItem'
+import { ArticleItem } from 'components/ArticleItem'
 
 const LatestArticles = () => {
   const latestArticles = useSelector(latestArticlesOfAuthorSelector)
 
   return (
-    <Stack spacing={4} >
+    <Grid container spacing={3}>
       {
         latestArticles?.length > 0 && latestArticles.map((data, index) => (
-          <HorizontalArticleItem key={index} data={data} showHours={true} />
+          <Grid item md={4} xs={12} key={index}>
+            <ArticleItem data={data} showHours={true} />
+          </Grid>
         ))
       }
-    </Stack>
+    </Grid>
   )
 }
 

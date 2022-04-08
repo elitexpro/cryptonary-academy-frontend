@@ -9,6 +9,7 @@ const getInitialState = () => {
     authors: [],
     author: {},
     latestArticles: [],
+    total: 0,
   }
 }
 
@@ -51,6 +52,7 @@ export default handleActions({
     ...state,
     status: 'SUCCESS',
     latestArticles: payload.posts,
+    total: payload.meta.pagination.total
   }),
   [requestFail(CONSTANTS.GET_LATEST_ARTICLES)]: (state, { payload }) => ({
     ...state,

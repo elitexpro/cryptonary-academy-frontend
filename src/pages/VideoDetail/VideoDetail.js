@@ -46,7 +46,7 @@ const VideoDetail = (props) => {
   const { height } = useDimension(videoRef)
 
   const crumbs = useMemo(() => {
-    return location.search.split('&')
+    return location.search?.split('&')
   }, [location])
 
   const currentTabData = useMemo(() => {
@@ -59,7 +59,7 @@ const VideoDetail = (props) => {
 
   const detailRoot = [
     { text: 'Home', to: '/' },
-    { text: crumbs[0].split('=')[1], to: crumbs[1].split('=')[1] },
+    { text: crumbs[0]?.split('=')[1], to: crumbs[1]?.split('=')[1] },
     { text: currentTabData.label, to: currentTabData.to },
     { text: currentVideo?.title },
   ]

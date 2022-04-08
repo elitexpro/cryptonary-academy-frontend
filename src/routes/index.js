@@ -24,6 +24,7 @@ import SearchResult from 'pages/SearchResult'
 import ResearchReports from 'pages/ResearchReports'
 import Analysis from 'pages/Analysis'
 import Author from 'pages/Author'
+import MyFavourites from 'pages/MyFavourites'
 import AuthedRoute from './AuthedRoute'
 import VerifiedRoute from './VerifiedRoute'
 import CproRoute from './CproRoute'
@@ -59,7 +60,8 @@ const routes = () => (
           <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
           <CproRoute path='/pulse' component={Pulse} />
           <AuthedRoute path='/account' component={Account} />
-          <PublicRoute exact path='/rating-guide' component={RatingsGuide} />
+          <AuthedRoute path='/my-favourites' component={MyFavourites} />
+          <Route exact path='/rating-guide' component={RatingsGuide} />
           <AuthedRoute exact path='/rating-guide/:symbol' component={CoinDetail} />
           <AuthedRoute exact path='/rating-guide/:symbol/:tab' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />

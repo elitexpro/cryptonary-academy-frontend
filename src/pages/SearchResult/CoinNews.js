@@ -28,7 +28,8 @@ const CoinNews = ({ data, isGlobalSearch }) => {
       {data && data.map((item, index) => {
         const { title, excerpt, content, tagName, updatedAt, featureImage } = item
         const hours = moment(Date.now()).diff(updatedAt, 'hours')
-        const url = !currentUser && isPremium(item.tags) ? `/paywall` : `/article/${item?.id}`
+        const itemLink = tagName === 'Videos' ? `/video/${item.id}` : `/article/${item.id}`
+        const url = !currentUser && isPremium(item.tags) ? `/paywall` : itemLink
 
         return (
           <Box key={index}>
@@ -63,7 +64,7 @@ const CoinNews = ({ data, isGlobalSearch }) => {
                     </Typography>
 
                     <Hidden mdDown={!isGlobalSearch}>
-                      <ShowMoreText lines={1} expandByClick={false} more="">
+                      <ShowMoreText lines={isGlobalSearch ? 3 : 1} expandByClick={false} more="">
                         {isGlobalSearch ? excerpt : content}
                       </ShowMoreText>
                     </Hidden>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Container,
   Box,
@@ -7,6 +8,7 @@ import {
   Stack,
   Divider,
   Skeleton,
+  Pagination,
 } from '@mui/material'
 import { MBreadcrumbs } from 'components/CustomMaterial'
 import { Footer } from 'containers/Footer'
@@ -14,14 +16,16 @@ import LatestArticles from './LatestArticles'
 import LatestArticleSkeletonItem from './LatestArticleSkeletonItem'
 import { useDispatch } from 'react-redux'
 import { getAuthorById, getLatestArticlesOfAuthor } from 'redux/modules/author/actions'
+import { totalPageSelector } from 'redux/modules/author/selectors'
 import { LazyImage } from 'components/LazyImage'
-
 
 const AuthorDetail = (props) => {
   const dispatch = useDispatch()
+  const total = useSelector(totalPageSelector)
   const [authorInfo, setAuthorInfo] = useState({})
   const [isLoading, setIsloading] = useState(false)
   const [latestArticleLoding, setLatestArticleLoading] = useState(false)
+  const [page, setPage] = useState(1)
 
   const detailRoot = [
     { text: 'Home', to: '#' },
@@ -52,11 +56,14 @@ const AuthorDetail = (props) => {
     setLatestArticleLoading(true)
     authorInfo?.slug && dispatch(getLatestArticlesOfAuthor({
       slug: authorInfo?.slug,
+      params: {
+        page,
+      },
       success: () => {
         setLatestArticleLoading(false)
       }
     }))
-  }, [dispatch, authorInfo])
+  }, [dispatch, authorInfo, page])
 
   return (
     <Container maxWidth="xl">
@@ -69,7 +76,7 @@ const AuthorDetail = (props) => {
           {isLoading ?
             <Skeleton variant="rectangular" animation="wave" width="100%" height="200px" />
             :
-            <LazyImage src={authorInfo?.profileImage} height="100%" />
+            <LazyImage src={authorInfo?.profileImage} height="100%" borderRadius="4px" />
           }
         </Box>
         <Stack
@@ -104,8 +111,8 @@ const AuthorDetail = (props) => {
 
       <Divider sx={{ my: 3 }} />
 
-      <Box sx={{ display: { xs: "block", md: "flex" } }}>
-        <Box sx={{ maxWidth: { md: 220, xs: "100%" }, mr: { xs: 0, md: 3 } }}>
+      <Box>
+        <Box sx={{ my: 3 }}>
           <Typography variant="subTitle3" sx={{ color: "#141414", fontWeight: 500 }}>
             Latest articles from {authorInfo?.name}
           </Typography>
@@ -117,9 +124,24 @@ const AuthorDetail = (props) => {
         {isLoading || latestArticleLoding ?
           <LatestArticleSkeletonItem />
           :
-          <LatestArticles />
+          <LatestArticles page={page} setPage={setPage} />
         }
       </Box>
+      <Hidden mdDown>
+        <Stack sx={{ mt: 4 }} direction="row" justifyContent="space-between">
+          <Box>
+            <Typography variant="subTitle" color="#909090">
+              Showing {page * 15 > total ? total : page * 15}
+              &nbsp;of {total}
+            </Typography>
+          </Box>
+          <Pagination
+            count={parseInt(total % 15 > 0 ? total / 15 + 1 : total / 15)}
+            shape="rounded"
+            onChange={(e, page) => setPage(page)}
+          />
+        </Stack>
+      </Hidden>
       <Footer />
     </Container >
   )

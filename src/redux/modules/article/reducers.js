@@ -12,6 +12,7 @@ const getInitialState = () => {
     filteredPosts: [],
     authors: [],
     totalAuthorsCount: 0,
+    totalFilteredCount: 0,
   }
 }
 
@@ -52,6 +53,7 @@ export default handleActions({
     ...state,
     status: 'SUCCESS',
     filteredArticles: payload.posts,
+    totalFilteredCount: payload.meta.pagination.total,
   }),
   [requestFail(CONSTANTS.GET_FILTERED_ARTICLES)]: (state, { payload }) => ({
     ...state,

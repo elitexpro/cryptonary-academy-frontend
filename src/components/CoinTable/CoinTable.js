@@ -143,7 +143,7 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
                     </Stack>
                   </TableCell>
                   <Hidden mdDown>
-                    <TableCell>{coinTypes[0].name}</TableCell>
+                    <TableCell>{coinTypes.map(item => item.name).join('/')}</TableCell>
                     <TableCell>{coinSectors[0].name}</TableCell>
                   </Hidden>
                   <TableCell>

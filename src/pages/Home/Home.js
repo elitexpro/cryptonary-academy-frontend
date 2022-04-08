@@ -5,7 +5,7 @@ import {
 } from '@mui/material'
 import HeroSection from './HeroSection'
 import FeaturedNews from './FeaturedNews'
-import LatestNews from './LatestNews'
+// import LatestNews from './LatestNews'
 import NewsSection from './NewsSection'
 import CoinMarketing from './CoinMarketing'
 import { CryptoPro } from 'containers/CryptoPro'
@@ -29,9 +29,9 @@ const Home = () => {
 
       <CryptoPro />
 
-      <Container maxWidth="xl" sx={{ py: 4 }}>
+      {/* <Container maxWidth="xl" sx={{ py: 4 }}>
         <LatestNews />
-      </Container>
+      </Container> */}
 
       <Container maxWidth="xl">
         <Footer minimal={true} />

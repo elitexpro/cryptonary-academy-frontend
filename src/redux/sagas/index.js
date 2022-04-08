@@ -10,6 +10,7 @@ import pulse from './pulse'
 import education from './education'
 import alpha from './alpha'
 import news from './news'
+import favourite from './favourite'
 
 export default function* rootSaga() {
   yield all([
@@ -24,5 +25,6 @@ export default function* rootSaga() {
     education(),
     alpha(),
     news(),
+    favourite(),
   ])
 }

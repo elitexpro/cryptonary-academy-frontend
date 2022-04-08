@@ -10,15 +10,19 @@ import {
   Tab,
   Hidden,
   Container,
+  Pagination,
+  Grid,
+  Skeleton,
 } from '@mui/material'
 import { SearchBox } from 'components/SearchBox'
 import { MDropdown } from 'components/CustomMaterial'
 import CoinNews from './CoinNews'
 import NoResults from 'components/NoResults'
+import { Footer } from 'containers/Footer'
 
 import { getFilteredArticles } from 'redux/modules/article/actions'
 import { getFilteredVideos } from 'redux/modules/video/actions'
-import { filteredArticleSelector } from 'redux/modules/article/selectors'
+import { filteredArticleSelector, totalFilteredCountSelector } from 'redux/modules/article/selectors'
 import { filteredVideosSelector } from 'redux/modules/video/selectors'
 
 const CustomTab = styled(Tab)(() => {
@@ -36,10 +40,13 @@ const SearchResult = () => {
   const dispatch = useDispatch()
   const filteredArticles = useSelector(filteredArticleSelector)
   const filteredVideos = useSelector(filteredVideosSelector)
+  const totalFilteredArticlesCount = useSelector(totalFilteredCountSelector)
   const [defaultLabel, setDefaultLabel] = useState('Sort By')
   const [currentTab, setCurrentTab] = useState('all')
   const [filteredResult, setFilteredResult] = useState([])
   const [searchString, setSearchString] = useState('')
+  const [page, setPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
 
   const sortByItems = [
     { text: 'Newest', value: 'desc' },
@@ -101,23 +108,29 @@ const SearchResult = () => {
         tags = []
         break
     }
+    setIsLoading(true)
     searchString && dispatch(getFilteredArticles({
       body: {
         tags
       },
       params: {
         searchString: searchString,
-        order: defaultLabel
+        order: defaultLabel,
+        page
       },
+      success: () => {
+        setIsLoading(false)
+      }
     }))
 
     searchString && dispatch(getFilteredVideos({
       params: {
         search: searchString,
-        order: defaultLabel
+        order: defaultLabel,
+        page
       },
     }))
-  }, [defaultLabel, dispatch, searchString, currentTab])
+  }, [defaultLabel, dispatch, searchString, currentTab, page])
 
   useEffect(() => {
     setSearchString(location.search.slice(1, location.search.length))
@@ -168,12 +181,32 @@ const SearchResult = () => {
         <NoResults />
         :
         <Box sx={{ mt: 4 }}>
-          <CoinNews
-            data={filteredResult}
-            isGlobalSearch={true}
+          {isLoading ?
+            [0, 1, 2].map((value, index) => (
+              <Grid item key={index} xs={12} md={4}>
+                <Stack spacing={1}>
+                  <Skeleton variant="rectangular" width="100%" height={220} />
+                  <Skeleton width="100px" />
+                  <Skeleton />
+                  <Skeleton width="60%" />
+                </Stack>
+              </Grid>
+            ))
+            :
+            <CoinNews
+              data={filteredResult}
+              isGlobalSearch={true}
+            />
+          }
+          <Pagination
+            count={parseInt(totalFilteredArticlesCount / 15 > 0 ? totalFilteredArticlesCount / 15 + 1 : totalFilteredArticlesCount / 15)}
+            shape="rounded"
+            onChange={(e, page) => setPage(page)}
+            sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}
           />
         </Box>
       }
+      <Footer />
     </Container>
   )
 }

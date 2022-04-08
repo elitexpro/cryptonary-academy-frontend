@@ -39,6 +39,14 @@ const LINKS = [
   },
 ]
 
+const debounce = (fn, delay) => {
+  let timerId
+  return (...args) => {
+    clearTimeout(timerId)
+    timerId = setTimeout(() => fn(...args), delay)
+  }
+}
+
 const GlobalSearch = () => {
   const dispatch = useDispatch()
   const history = useHistory()
@@ -48,34 +56,32 @@ const GlobalSearch = () => {
   const [searchText, setSearchText] = useState('')
   const [flag, setFlag] = useState(0)
 
-  const handleGlobalSearch = (e) => {
-    if (e.target.value.length > 3) {
-      setIsLoading(true)
-      setSearchText(e.target.value)
-      dispatch(getFilteredArticles({
-        body: {
-          tags: [
-            'news',
-          ]
-        },
-        params: {
-          searchString: e.target.value,
-        },
-        success: () => {
-          setFlag(prev => prev + 1)
-        }
-      }))
+  const handleGlobalSearch = debounce((e) => {
+    setIsLoading(true)
+    setSearchText(e.target.value)
+    dispatch(getFilteredArticles({
+      body: {
+        tags: [
+          'news',
+        ]
+      },
+      params: {
+        searchString: e.target.value,
+      },
+      success: () => {
+        setFlag(prev => prev + 1)
+      }
+    }))
 
-      dispatch(getFilteredVideos({
-        params: {
-          search: e.target.value,
-        },
-        success: () => {
-          setFlag(prev => prev + 1)
-        }
-      }))
-    }
-  }
+    dispatch(getFilteredVideos({
+      params: {
+        search: e.target.value,
+      },
+      success: () => {
+        setFlag(prev => prev + 1)
+      }
+    }))
+  }, 300)
 
   useEffect(() => {
     if (flag === 2) {

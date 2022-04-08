@@ -17,3 +17,6 @@ export const authorsListSelector = (state) =>
 
 export const totalAuthorsCountSelector = (state) =>
   get(state, 'article.totalAuthorsCount', null)
+
+export const totalFilteredCountSelector = (state) =>
+  get(state, 'article.totalFilteredCount', null)

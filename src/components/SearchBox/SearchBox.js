@@ -44,12 +44,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }))
 
+const debounce = (fn, delay) => {
+  let timerId
+  return (...args) => {
+    clearTimeout(timerId)
+    timerId = setTimeout(() => fn(...args), delay)
+  }
+}
+
 const SearchBox = ({ placeholder, value, onChange }) => {
   const [inputValue, setInputValue] = useState(value)
 
-  const handleKeyPress = useCallback((e) => {
-    e.keyCode === 13 && onChange && onChange(inputValue)
-  }, [onChange, inputValue])
+  const handleChange = (value) => {
+    setInputValue(value)
+    debouncedHandler(value)
+  }
+
+  const debouncedHandler = useCallback(debounce(onChange, 500), [])
 
   useEffect(() => {
     setInputValue(value)
@@ -64,8 +75,7 @@ const SearchBox = ({ placeholder, value, onChange }) => {
         placeholder={placeholder ?? "Search ..."}
         inputProps={{ 'aria-label': 'search' }}
         value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
-        onKeyDown={handleKeyPress}
+        onChange={e => handleChange(e.target.value)}
       />
     </Search>
   )

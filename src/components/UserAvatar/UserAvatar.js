@@ -32,7 +32,7 @@ const UserAvatar = () => {
 
   const profileMenu = [
     { text: 'My Account', icon: <FiUser className={classes.avatarListIcon} />, to: '/account' },
-    { text: 'My Preferences ', icon: <FiSliders className={classes.avatarListIcon} />, to: '#' },
+    { text: 'My Preferences ', icon: <FiSliders className={classes.avatarListIcon} />, to: '/my-favourites' },
     {
       text: 'Sign out',
       icon: <FiLogOut className={classes.avatarListIcon} />,

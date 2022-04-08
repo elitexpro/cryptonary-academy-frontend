@@ -11,3 +11,6 @@ export const currentAuthorSelector = (state) =>
 
 export const latestArticlesOfAuthorSelector = (state) =>
   get(state, 'author.latestArticles', null)
+
+export const totalPageSelector = (state) =>
+  get(state, 'author.total', null)

@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useMemo, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Box,
   Typography,
@@ -10,16 +10,23 @@ import {
 } from '@mui/material'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
+import BookmarkIcon from '@mui/icons-material/Bookmark'
 import { useHistory } from 'react-router-dom'
 import ShowMoreText from "react-show-more-text"
 import moment from 'moment'
 import { LazyImage } from 'components/LazyImage'
 import PremiumImg from 'assets/image/premium-icon.png'
 import { BsPersonCircle, BsCalendarFill } from 'react-icons/bs'
+import { addToFavourites, removeFromFavourites } from 'redux/modules/favourite/actions'
+import { setAlphaItemBookMark } from 'redux/modules/alpha/actions'
+import { BackLoader } from 'components/Loader'
 
 const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
   const history = useHistory()
+  const dispatch = useDispatch()
   const currentUser = useSelector(currentUserSelector)
+  const [isLoading, setIsLoading] = useState(false)
+
   const url = useMemo(() => {
     let articleUrl = `/article/${data?.id}`
     if (blog && blogTo) {
@@ -35,11 +42,35 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
     return moment(Date.now()).diff(data.updatedAt, 'hours')
   }, [data])
 
+  const handleClickItem = () => {
+    setIsLoading(true)
+    data?.isBookmarked ?
+      dispatch(removeFromFavourites({
+        id: data?.bookmarkId,
+        success: () => {
+          dispatch(setAlphaItemBookMark({ method: 'UNMARKED', data }))
+          setIsLoading(false)
+        }
+      }))
+      :
+      dispatch(addToFavourites({
+        params: {
+          itemId: data?.id,
+          type: 'article'
+        },
+        success: ({ data }) => {
+          dispatch(setAlphaItemBookMark({ data: data.data, method: 'MARKED' }))
+          setIsLoading(false)
+        }
+      }))
+  }
+
   return (
     <Box sx={{ position: 'relative' }}>
+      <BackLoader open={isLoading} />
       <Stack spacing={1}>
         <CardActionArea onClick={() => history.push(url)}>
-          <LazyImage src={data.featureImage} />
+          <LazyImage src={data.featureImage} borderRadius="4px" />
         </CardActionArea>
 
         {showPrimaryTag &&
@@ -83,8 +114,8 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
           }
           <Box sx={{ flexGrow: 1 }} />
           {currentUser ?
-            <IconButton size="small">
-              <BookmarkBorderRoundedIcon />
+            <IconButton size="small" onClick={handleClickItem}>
+              {data.isBookmarked ? <BookmarkIcon style={{ color: '#141414' }} /> : <BookmarkBorderRoundedIcon />}
             </IconButton>
             :
             <Box sx={{ display: 'flex', alignItems: 'center' }}>

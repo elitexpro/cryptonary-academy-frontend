@@ -10,6 +10,7 @@ import pulse from './modules/pulse/reducers'
 import education from './modules/education/reducers'
 import alpha from './modules/alpha/reducers'
 import news from './modules/news/reducers'
+import favourite from './modules/favourite/reducers'
 
 export default combineReducers({
   auth,
@@ -23,4 +24,5 @@ export default combineReducers({
   education,
   alpha,
   news,
+  favourite
 })
