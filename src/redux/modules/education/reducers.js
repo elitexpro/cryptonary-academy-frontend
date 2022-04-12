@@ -15,6 +15,7 @@ const getInitialState = () => {
     filteredTagsName: [],
     articles: [],
     videos: [],
+    educationMetaInfo: {},
   }
 }
 
@@ -56,6 +57,7 @@ export default handleActions({
   [requestSuccess(CONSTANTS.GET_EDUCATION_ARTICLES)]: (state, { payload }) => ({
     ...state,
     articles: payload.posts,
+    educationMetaInfo: payload.meta,
   }),
   [requestSuccess(CONSTANTS.GET_EDUCATION_VIDEOS)]: (state, { payload }) => ({
     ...state,

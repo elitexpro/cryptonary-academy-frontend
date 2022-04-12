@@ -34,7 +34,7 @@ const Home = () => {
       </Container> */}
 
       <Container maxWidth="xl">
-        <Footer minimal={true} />
+        <Footer minimal showCompanyInfo />
       </Container >
     </>
   )

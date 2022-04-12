@@ -66,8 +66,8 @@ const routes = () => (
           <AuthedRoute exact path='/rating-guide/:symbol/:tab' component={CoinDetail} />
           <AuthedRoute path='/search-result' component={SearchResult} />
           <AuthedRoute path='/author' component={Author} />
-          <VerifiedRoute path='/research-reports' component={ResearchReports} />
-          <VerifiedRoute path='/analysis/:tab' component={Analysis} />
+          <Route path='/research-reports' component={ResearchReports} />
+          <Route path='/analysis/:tab' component={Analysis} />
           <Route path='/terms-conditions' component={TermsConditions} />
           <Route path='/cookie-policy' component={CookiePolicy} />
           <Route path='/privacy-policy' component={PrivacyPolicy} />

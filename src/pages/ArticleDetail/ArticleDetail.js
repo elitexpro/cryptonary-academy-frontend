@@ -179,7 +179,11 @@ const ArticleDetail = (props) => {
             <Paywall />
           </Box>
         }
-        <RelatedNews tag={currentArticle?.primaryTag?.slug} id={currentArticle?.id} />
+        <RelatedNews
+          tag={currentArticle?.primaryTag?.slug}
+          id={currentArticle?.id}
+          title={crumbs[3] ? crumbs[3]?.split('=')[1] === 'analysis' ? 'Market Analysis' : 'Research' : 'News'}
+        />
         <Footer minimal={true} />
       </Container >
     </>

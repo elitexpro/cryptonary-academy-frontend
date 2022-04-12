@@ -20,14 +20,15 @@ const PageNotFound = () => {
         flexDirection: 'column',
         minHeight: "calc(100vh - 80px)",
         justifyContent: 'center',
+        px: 2,
       }}
     >
       <Box sx={{ mb: 4 }}>
         <img src={PageNotFoundSVG} alt="" />
       </Box>
 
-      <Typography variant="h4" color="#141414">
-        Sorry. the content you’re looking for doesn’t exist.
+      <Typography variant="h4" color="#141414" textAlign="center">
+        Sorry, the content you’re looking for doesn’t exist.
       </Typography>
 
       <Stack sx={{ mt: 4 }} spacing={2} direction='row'>

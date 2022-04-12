@@ -95,7 +95,7 @@ const Header = () => {
                     <MButton
                       variant='contained'
                       color='success'
-                      sx={{ fontSize: '16px', px: 2, color: 'white' }}
+                      sx={{ fontSize: '16px', px: 2, color: 'white', backgroundColor: '#141414' }}
                       onClick={() => history.push('/signup')}
                     >
                       Join Now

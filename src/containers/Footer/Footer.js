@@ -8,7 +8,7 @@ import FooterSocial from './FooterSocial'
 import FooterCompany from './FooterCompany'
 import FooterSubscribe from './FooterSubscribe'
 
-const Footer = ({ minimal = false, noCompanyInfo = false }) => {
+const Footer = ({ minimal = false, showCompanyInfo = false }) => {
   return (
     <Box>
       {
@@ -19,7 +19,7 @@ const Footer = ({ minimal = false, noCompanyInfo = false }) => {
         </>
       }
       <FooterSocial />
-      {!noCompanyInfo && !minimal &&
+      {(!minimal || showCompanyInfo) &&
         <FooterSubscribe />
       }
       <FooterCompany />

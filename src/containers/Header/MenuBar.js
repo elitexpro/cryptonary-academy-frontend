@@ -78,8 +78,8 @@ const MenuBar = ({ open, onClose }) => {
               />
               {
                 openSubMenu === 1 ?
-                  <MdKeyboardArrowDown style={{ color: "#A2A2A2", fontSize: 24 }} /> :
-                  <MdKeyboardArrowUp style={{ color: "#A2A2A2", fontSize: 24 }} />
+                  <MdKeyboardArrowUp style={{ color: "#A2A2A2", fontSize: 24 }} /> :
+                  <MdKeyboardArrowDown style={{ color: "#A2A2A2", fontSize: 24 }} />
               }
             </ListItemButton>
 
@@ -100,8 +100,8 @@ const MenuBar = ({ open, onClose }) => {
               />
               {
                 openSubMenu === 2 ?
-                  <MdKeyboardArrowDown style={{ color: "#A2A2A2", fontSize: 24 }} /> :
-                  <MdKeyboardArrowUp style={{ color: "#A2A2A2", fontSize: 24 }} />
+                  <MdKeyboardArrowUp style={{ color: "#A2A2A2", fontSize: 24 }} /> :
+                  <MdKeyboardArrowDown style={{ color: "#A2A2A2", fontSize: 24 }} />
               }
             </ListItemButton>
             <Collapse in={openSubMenu === 2} timeout="auto" unmountOnExit>

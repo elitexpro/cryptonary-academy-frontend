@@ -56,7 +56,7 @@ const Landing = () => {
       </Box>
       <Paywall />
       <Container maxWidth="xl">
-        <Footer minimal={true} noCompanyInfo={true} />
+        <Footer minimal={true} />
       </Container >
     </>
   )

@@ -29,3 +29,6 @@ export const educationDurationSelector = (state) =>
 
 export const educationTabTagSelector = (state) =>
   get(state, 'education.tabTag', null)
+
+export const educationMetaInfoSelector = (state) =>
+  get(state, 'education.educationMetaInfo', null)

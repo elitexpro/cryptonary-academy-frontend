@@ -67,7 +67,7 @@ const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
                       /> :
                       undefined
                   }
-                  sx={{ flexDirection: 'row-reverse' }}
+                  sx={{ flexDirection: 'row-reverse', mb: 1 }}
                 />
               </Grid>
             ))}

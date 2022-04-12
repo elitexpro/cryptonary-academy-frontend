@@ -25,6 +25,7 @@ const Analysis = (props) => {
         currentTab={currentTab}
         searchString={searchString}
         defaultLabel={defaultLabel}
+        relatedTitle="analysis"
       />
       <Footer minimal={true} />
     </Container>

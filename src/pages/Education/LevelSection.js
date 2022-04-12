@@ -1,14 +1,19 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   Box,
   Grid,
   Stack,
   Skeleton,
+  Pagination,
+  Hidden,
 } from '@mui/material'
 import { VideoItem } from 'components/VideoItem'
 import { ArticleItem } from 'components/ArticleItem'
+import { educationMetaInfoSelector } from 'redux/modules/education/selectors'
 
-const LevelSection = ({ data, isLoading, mediaType, tag }) => {
+const LevelSection = ({ data, isLoading, mediaType, tag, page, setPage }) => {
+  const meta = useSelector(educationMetaInfoSelector)
 
   return (
     <Box>
@@ -55,6 +60,18 @@ const LevelSection = ({ data, isLoading, mediaType, tag }) => {
             })
         }
       </Grid>
+
+      {!isLoading &&
+        <Hidden mdDown>
+          <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
+            <Pagination
+              count={meta?.pagination?.pages}
+              shape="rounded"
+              onChange={(e, page) => setPage(page)}
+            />
+          </Box>
+        </Hidden>
+      }
     </Box>
   )
 }

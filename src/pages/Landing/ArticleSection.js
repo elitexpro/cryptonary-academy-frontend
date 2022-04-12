@@ -127,7 +127,7 @@ const ArticleSection = ({ id }) => {
           variant='outlined'
           color='inherit'
           sx={{ fontSize: '16px', px: 2, color: '#555' }}
-          onClick={() => history.push('/news')}
+          onClick={() => history.push('/news/all')}
         >
           View more
         </MButton>

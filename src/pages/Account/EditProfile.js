@@ -18,7 +18,7 @@ import { MButton, MInput } from 'components/CustomMaterial'
 const EditProfile = () => {
   const dispatch = useDispatch()
   const currentUser = useSelector(currentUserSelector)
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState(currentUser ? `${currentUser.firstName} ${currentUser.lastName}`: '')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState(currentUser ? currentUser.email : '')
   const [showPicUploadModal, setShowPicUploadModal] = useState(false)

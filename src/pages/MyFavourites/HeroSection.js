@@ -8,8 +8,8 @@ import { SearchBox } from 'components/SearchBox'
 import { MDropdown } from 'components/CustomMaterial'
 
 const SORTBY_ITEMS = [
-  { text: 'Newest', value: 'desc' },
-  { text: 'Oldest', value: 'asc' },
+  { text: 'Newest', value: 'newest' },
+  { text: 'Oldest', value: 'oldest' },
   { text: 'Title A - Z', value: 'asc' },
   { text: 'Title Z - A', value: 'desc' },
   { text: 'Most Popular', value: 'popularity' },

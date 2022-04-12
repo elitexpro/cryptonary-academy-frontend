@@ -100,7 +100,7 @@ const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
                   LATEST ALPHA
                 </Typography>
                 <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
-                  Members Exclusive
+                  MEMBERS EXCLUSIVE
                 </Typography>
               </Stack>
 

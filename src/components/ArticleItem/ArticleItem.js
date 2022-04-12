@@ -21,7 +21,7 @@ import { addToFavourites, removeFromFavourites } from 'redux/modules/favourite/a
 import { setAlphaItemBookMark } from 'redux/modules/alpha/actions'
 import { BackLoader } from 'components/Loader'
 
-const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
+const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTitle }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const currentUser = useSelector(currentUserSelector)
@@ -35,8 +35,11 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag }) => {
     if (tag) {
       articleUrl += `&tag=${tag}`
     }
+    if (relatedTitle) {
+      articleUrl += `&relatedTitle=${relatedTitle}`
+    }
     return articleUrl
-  }, [data, blog, blogTo, tag])
+  }, [data, blog, blogTo, tag, relatedTitle])
 
   const hours = useMemo(() => {
     return moment(Date.now()).diff(data.updatedAt, 'hours')

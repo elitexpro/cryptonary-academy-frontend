@@ -14,7 +14,7 @@ const TABS = [
   { label: 'On-Chain Forensics', value: 'on-chain-forensics' },
 ]
 
-const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel }) => {
+const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel, relatedTitle }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
@@ -76,6 +76,7 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel })
         blog="Analysis"
         blogTo="/"
         tag={currentTab}
+        relatedTitle={relatedTitle}
       />
     </Box>
   )

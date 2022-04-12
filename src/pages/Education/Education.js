@@ -31,6 +31,7 @@ const Education = (props) => {
   const [data, setData] = useState([])
   const [dataType, setDataType] = useState('article')
   const [isLoading, setIsLoading] = useState(true)
+  const [page, setPage] = useState(1)
   // const readingTime = useSelector(educationReadingTimeSelector)
   // const duration = useSelector(educationDurationSelector)
 
@@ -51,7 +52,7 @@ const Education = (props) => {
 
     mediaType === 'article' && dispatch(getEducationArticles({
       params: {
-        page: 1,
+        page,
         perPage: 9,
         searchString: searchValue
       },
@@ -70,13 +71,11 @@ const Education = (props) => {
 
     mediaType === 'video' && dispatch(getEducationVideos({
       params: {
-        page: 1,
+        page,
         perPage: 9,
-        search: searchValue
+        search: searchValue,
+        category: tags,
       },
-      // body: {
-      //   tags,
-      // },
       success: ({ data }) => {
         setData(data?.data)
         setDataType(mediaType)
@@ -86,7 +85,7 @@ const Education = (props) => {
         // handle error 
       }
     }))
-  }, [dispatch, mediaType, searchValue, tab, selectedTags])
+  }, [dispatch, mediaType, searchValue, tab, selectedTags, page])
 
   useEffect(() => {
     currentUser && loadData()
@@ -100,7 +99,7 @@ const Education = (props) => {
 
       <Container maxWidth="xl" sx={{ mb: 8 }} >
         <FilterBar />
-        <LevelSection isLoading={isLoading} data={data} mediaType={dataType} tag={tab} />
+        <LevelSection isLoading={isLoading} data={data} mediaType={dataType} tag={tab} page={page} setPage={setPage} />
         <QuizSection />
       </Container>
       <Paywall />

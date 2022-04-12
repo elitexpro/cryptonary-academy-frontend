@@ -10,7 +10,7 @@ import { getFilteredArticles } from 'redux/modules/article/actions'
 import { useDispatch } from 'react-redux'
 import { ArticleItem } from 'components/ArticleItem'
 
-const RelatedNews = ({ tag, id }) => {
+const RelatedNews = ({ tag, id, title }) => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
@@ -38,7 +38,7 @@ const RelatedNews = ({ tag, id }) => {
   return (
     <Stack spacing={6}>
       <Typography variant="h4" sx={{ fontWeight: 500 }} >
-        Related News
+        Related {title}
       </Typography>
 
       <Box>

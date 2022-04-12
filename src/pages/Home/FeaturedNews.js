@@ -46,7 +46,7 @@ const FeaturedNews = () => {
   return (
     <Stack spacing={3} sx={{ mb: 3 }}>
       <Typography variant="h4" sx={{ fontWeight: 500 }} >
-        Featured News
+        Featured Article
       </Typography>
 
       <Box>
