@@ -25,3 +25,13 @@ export const getFormattedText = (text) => {
 
   return words.join(' ')
 }
+
+export const getTodayPlusSeveralMonth = (month_count) => {
+  const now = new Date()
+  const currDate = new Date(
+    now.getFullYear(),
+    now.getMonth()+(month_count ?? 1),
+    now.getDate()
+  )
+  return new Intl.DateTimeFormat('en', {year: 'numeric', month: 'short', day: 'numeric' }).format(currDate)
+}
