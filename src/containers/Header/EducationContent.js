@@ -133,7 +133,7 @@ const EducationContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
             <Divider sx={{ mt: 1, mb: 4 }} />
             <Link
               component={RouterLink}
-              to="/education/all"
+              to="/education/crypto-school"
               underline="none"
             >
               <Box onClick={() => setOpenAlpha(false)}>

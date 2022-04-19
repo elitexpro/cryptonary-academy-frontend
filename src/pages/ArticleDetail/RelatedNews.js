@@ -38,7 +38,7 @@ const RelatedNews = ({ tag, id, title }) => {
   return (
     <Stack spacing={6}>
       <Typography variant="h4" sx={{ fontWeight: 500 }} >
-        Related {title}
+        Recent {title}
       </Typography>
 
       <Box>

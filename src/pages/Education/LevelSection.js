@@ -17,17 +17,6 @@ const LevelSection = ({ data, isLoading, mediaType, tag, page, setPage }) => {
 
   return (
     <Box>
-      {/* {
-        !hideSectionHeader &&
-        <Stack direction="row" sx={{ mb: 3 }}>
-          <Typography variant="h2" sx={{ color: "#141414" }}>{levelString}</Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <MButton color='inherit' size="small" onClick={() => history.push(`/education/${level}`)}>
-            View all
-          </MButton>
-        </Stack>
-      } */}
-
       <Grid container spacing={2}>
         {
           (isLoading)
@@ -51,9 +40,9 @@ const LevelSection = ({ data, isLoading, mediaType, tag, page, setPage }) => {
                   {
                     mediaType === 'video'
                       ?
-                      <VideoItem data={item} blog="Education" blogTo="/education/all" tag={tag} />
+                      <VideoItem data={item} blog="Education" blogTo="/education/crypto-school" tag={tag} />
                       :
-                      <ArticleItem data={item} showPrimaryTag={false} blog="Education" blogTo="/education/all" tag={tag} />
+                      <ArticleItem data={item} showPrimaryTag={false} blog="Education" blogTo="/education/crypto-school" tag={tag} />
                   }
                 </Grid>
               )
@@ -61,11 +50,12 @@ const LevelSection = ({ data, isLoading, mediaType, tag, page, setPage }) => {
         }
       </Grid>
 
-      {!isLoading &&
+      {!isLoading && data?.length > 0 &&
         <Hidden mdDown>
-          <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
             <Pagination
               count={meta?.pagination?.pages}
+              defaultPage={page}
               shape="rounded"
               onChange={(e, page) => setPage(page)}
             />

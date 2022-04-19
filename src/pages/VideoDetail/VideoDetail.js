@@ -31,7 +31,7 @@ const TAB_CONTENT = [
   { label: 'Guide', value: 'guide', to: '/education/guide' },
   { label: 'Course', value: 'course', to: '/education/course' },
   { label: 'Simply Explained', value: 'simply-explained', to: '/education/simply-explained' },
-  { label: 'Crypto School', value: 'all', to: '/education/all' },
+  { label: 'Crypto School', value: 'all', to: '/education/crypto-school' },
 ]
 
 const VideoDetail = (props) => {
@@ -53,7 +53,7 @@ const VideoDetail = (props) => {
     const currentTab = TAB_CONTENT.find(item => item.value === crumbs[2]?.split('=')[1])
     return {
       label: currentTab ? currentTab.label : 'Crypto School',
-      to: currentTab ? currentTab.to : '/education/all'
+      to: currentTab ? currentTab.to : '/education/crypto-school'
     }
   }, [crumbs])
 

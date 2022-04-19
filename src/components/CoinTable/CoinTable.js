@@ -124,7 +124,21 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
               } = item.attributes
 
               return (
-                <TableRow key={index}>
+                <TableRow
+                  key={index}
+                  onClick={() => {
+                    isRelated && setCurrentTab('overview')
+                    history.push(`/rating-guide/${coinSymbol}`)
+                  }}
+                  sx={{
+                    '&.MuiTableRow-hover': {
+                      '&:hover': {
+                        cursor: 'pointer',
+                      },
+                    },
+                  }}
+                  hover
+                >
                   <TableCell>
                     <Stack direction="row" alignItems="center">
                       <img src={logo.url} alt="" style={{ width: 40, height: 40 }} />
@@ -152,10 +166,7 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
                       <Typography variant="subTitle1" color="#141414">{infoRating}</Typography>
                     </Stack>
                   </TableCell>
-                  <TableCell onClick={() => {
-                    isRelated && setCurrentTab('overview')
-                    history.push(`/rating-guide/${coinSymbol}`)
-                  }}>
+                  <TableCell>
                     <Hidden mdDown>
                       <MButton
                         variant="outlined"
@@ -176,7 +187,8 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
         }
       </Table>
 
-      {isRelated &&
+      {
+        isRelated &&
         (
           data && data.length > 0 ?
             <Box sx={{ mt: 6, textAlign: 'center' }}>
@@ -198,7 +210,7 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
             </Box>
         )
       }
-    </Box>
+    </Box >
   )
 }
 

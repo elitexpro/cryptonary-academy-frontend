@@ -47,14 +47,20 @@ const Alpha = ({ text }) => {
     <>
       <MButton
         color='inherit'
-        sx={{ color: openAlpha ? '#4AAF47' : '#858585', fontSize: '16px' }}
+        sx={{
+          color: openAlpha ? '#4AAF47' : '#141414',
+          fontSize: '14px',
+          '&:hover': {
+            backgroundColor: '#fff',
+          },
+        }}
         endIcon={openAlpha ? <KeyboardArrowUpRounded /> : <KeyboardArrowDownRounded />}
         onMouseEnter={handleAlphaToggle}
         onMouseLeave={() => setOpenAlpha(false)}
         onClick={() => {
           if (text === 'Education') {
             setOpenAlpha(false)
-            history.push('/education/all')
+            history.push('/education/crypto-school')
           }
         }}
       >

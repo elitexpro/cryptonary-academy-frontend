@@ -60,7 +60,7 @@ const CoinDetail = (props) => {
 
   const TABS = [
     { label: 'Overview', value: 'overview' },
-    { label: 'Bitcoin News', value: 'news' },
+    { label: 'Bitcoin News', value: 'bitcoin' },
     { label: 'Related Coins', value: 'related_coins' },
   ]
 
@@ -152,7 +152,7 @@ const CoinDetail = (props) => {
           />
 
           {currentTab === 'overview' && <Overview coin={currentCoin} />}
-          {currentTab === 'news' && <News currentTab={currentTab} />}
+          {currentTab === 'bitcoin' && <News currentTab={currentTab} />}
           {currentTab === 'related_coins' &&
             <Box sx={{ mt: 4 }}>
               <CoinTable isRelated={true} setCurrentTab={setCurrentTab} data={relatedCoinRatings} />

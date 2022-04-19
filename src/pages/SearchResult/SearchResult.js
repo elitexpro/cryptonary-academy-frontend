@@ -201,6 +201,7 @@ const SearchResult = () => {
           <Pagination
             count={parseInt(totalFilteredArticlesCount / 15 > 0 ? totalFilteredArticlesCount / 15 + 1 : totalFilteredArticlesCount / 15)}
             shape="rounded"
+            defaultPage={page}
             onChange={(e, page) => setPage(page)}
             sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}
           />

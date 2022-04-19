@@ -5,7 +5,6 @@ import FilterBar from './FilterBar'
 import LevelSection from './LevelSection'
 import { Footer } from 'containers/Footer'
 import { Paywall } from 'containers/Paywall'
-import QuizSection from 'components/QuizSection'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -48,7 +47,7 @@ const Education = (props) => {
     setData([])
 
     const tags = [...selectedTags]
-    tab !== 'all' && tags.push(tab)
+    tags.push(tab)
 
     mediaType === 'article' && dispatch(getEducationArticles({
       params: {
@@ -74,6 +73,8 @@ const Education = (props) => {
         page,
         perPage: 9,
         search: searchValue,
+      },
+      body: {
         category: tags,
       },
       success: ({ data }) => {
@@ -100,7 +101,6 @@ const Education = (props) => {
       <Container maxWidth="xl" sx={{ mb: 8 }} >
         <FilterBar />
         <LevelSection isLoading={isLoading} data={data} mediaType={dataType} tag={tab} page={page} setPage={setPage} />
-        <QuizSection />
       </Container>
       <Paywall />
       <Container maxWidth="xl">

@@ -30,7 +30,7 @@ const News = (props) => {
       <Paywall />
 
       <Container maxWidth="xl">
-        <Footer />
+        <Footer minimal showCompanyInfo />
       </Container >
     </>
   )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Typography,
@@ -6,13 +6,20 @@ import {
   Divider,
   Skeleton,
   Link,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material'
 import { LazyImage } from 'components/LazyImage'
 import ShowMoreText from "react-show-more-text"
 import { Link as RouterLink } from 'react-router-dom'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
+import { MdAddCircle, MdRemoveCircle } from 'react-icons/md'
+import PostComment from './PostComment'
 
-const AuthorDetail = ({ authorInfo, isLoading, updateStyle = false, remoteBottomDivider = false }) => {
+const AuthorDetail = ({ authorInfo, isLoading, updateStyle = false, remoteBottomDivider = false, showComments = false }) => {
+  const [postComment, setPostComment] = useState(false)
+  const [showCommentsAccordion, setShowCommentsAccordion] = useState(false)
 
   return (
     <Box sx={{ width: updateStyle ? '60%' : '100%' }}>
@@ -101,6 +108,79 @@ const AuthorDetail = ({ authorInfo, isLoading, updateStyle = false, remoteBottom
         </Typography>
       }
       {!remoteBottomDivider && <Divider sx={{ mt: 4 }} />}
+      {showComments &&
+        <Box>
+          <Accordion
+            sx={{
+              backgroundColor: "#FCFCFC",
+              borderRadius: '4px'
+            }}
+            expanded={postComment}
+            onChange={() => setPostComment(prev => !prev)}
+            disableGutters
+            elevation={0}
+          >
+            <AccordionSummary
+              expandIcon={
+                postComment ?
+                  <Box sx={{ height: 20 }}>
+                    <MdRemoveCircle style={{ fontSize: 20, color: '#141414' }} />
+                  </Box> :
+                  <Box sx={{ height: 20 }}>
+                    <MdAddCircle style={{ fontSize: 20, color: '#141414' }} />
+                  </Box>
+              }
+              sx={{
+                background: postComment ? "#FFFFFF" : "",
+              }}
+            >
+              <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                <Typography variant="subTitle1" color="#141414" sx={{ ml: 2 }}>
+                  Post a Comment
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails sx={{ background: "#FFFFFF", pl: 6 }} >
+              <PostComment />
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion
+            sx={{
+              backgroundColor: "#FCFCFC",
+              borderRadius: '4px'
+            }}
+            expanded={showCommentsAccordion}
+            onChange={() => setShowCommentsAccordion(prev => !prev)}
+            disableGutters
+            elevation={0}
+          >
+            <AccordionSummary
+              expandIcon={
+                showCommentsAccordion ?
+                  <Box sx={{ height: 20 }}>
+                    <MdRemoveCircle style={{ fontSize: 20, color: '#141414' }} />
+                  </Box> :
+                  <Box sx={{ height: 20 }}>
+                    <MdAddCircle style={{ fontSize: 20, color: '#141414' }} />
+                  </Box>
+              }
+              sx={{
+                background: showCommentsAccordion ? "#FFFFFF" : "",
+              }}
+            >
+              <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                <Typography variant="subTitle1" color="#141414" sx={{ ml: 2 }}>
+                  Comments
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails sx={{ background: "#FFFFFF", pl: 6 }} >
+              <Box></Box>
+            </AccordionDetails>
+          </Accordion>
+        </Box>
+      }
     </Box>
   )
 }

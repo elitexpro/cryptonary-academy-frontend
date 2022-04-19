@@ -4,25 +4,25 @@ import apiCall from '../api/apiCall'
 
 const doGetFilteredVideos = apiCall({
   type: CONSTANTS.GET_FILTERED_VIDEOS,
-  method: 'get',
+  method: 'post',
   path: 'videos/search',
 })
 
 const doGetBeginnerVideos = apiCall({
   type: CONSTANTS.GET_BEGINNER_VIDEOS,
-  method: 'get',
+  method: 'post',
   path: 'videos/search',
 })
 
 const doGetIntermediateVideos = apiCall({
   type: CONSTANTS.GET_INTERMEDIATE_VIDEOS,
-  method: 'get',
+  method: 'post',
   path: 'videos/search',
 })
 
 const doGetAdvanceVideos = apiCall({
   type: CONSTANTS.GET_ADVANCE_VIDEOS,
-  method: 'get',
+  method: 'post',
   path: 'videos/search',
 })
 
@@ -34,7 +34,7 @@ const doGetVideoById = apiCall({
 
 const doGetRelatedVideos = apiCall({
   type: CONSTANTS.GET_RELATED_VIDEOS,
-  method: 'get',
+  method: 'post',
   path: 'videos/search',
 })
 

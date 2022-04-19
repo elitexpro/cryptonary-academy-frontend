@@ -3,13 +3,23 @@ import {
   Box,
   Stack,
   Skeleton,
-  Grid,
+  Typography,
 } from '@mui/material'
+import Slider from 'react-slick'
 import { getFilteredArticles } from 'redux/modules/article/actions'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { MButton } from 'components/CustomMaterial'
 import { ArticleItem } from 'components/ArticleItem'
+
+const settings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  arrows: false,
+  autoplay: true,
+}
 
 const NewsSection = () => {
   const history = useHistory()
@@ -22,7 +32,6 @@ const NewsSection = () => {
     dispatch(getFilteredArticles({
       params: {
         page: 1,
-        perPage: 3
       },
       body: {
         tags: ['news']
@@ -38,34 +47,36 @@ const NewsSection = () => {
   }, [dispatch])
 
   return (
-    <Stack spacing={6}>
+    <Stack spacing={3}>
+      <Typography variant="h4" sx={{ fontWeight: 500 }} >
+        Latest Research
+      </Typography>
+
       <Box>
-        <Grid container spacing={4}>
+        <Slider {...settings}>
           {
             (isLoading || data.length === 0)
               ?
               [0, 1, 2].map((value, index) => {
                 return (
-                  <Grid item key={index} xs={12} md={4}>
-                    <Stack spacing={1}>
-                      <Skeleton variant="rectangular" width="100%" height={220} />
-                      <Skeleton width="100px" />
-                      <Skeleton />
-                      <Skeleton width="60%" />
-                    </Stack>
-                  </Grid>
+                  <Stack spacing={1} key={index} sx={{ p: 1 }}>
+                    <Skeleton variant="rectangular" width="100%" height={220} />
+                    <Skeleton width="100px" />
+                    <Skeleton />
+                    <Skeleton width="60%" />
+                  </Stack>
                 )
               })
               :
               data.map((post, index) => {
                 return (
-                  <Grid item key={index} xs={12} md={4}>
+                  <Box sx={{ p: 1 }} key={index}>
                     <ArticleItem data={post} />
-                  </Grid>
+                  </Box>
                 )
               })
           }
-        </Grid>
+        </Slider>
       </Box>
 
       <Stack
@@ -82,7 +93,7 @@ const NewsSection = () => {
           View all news
         </MButton>
       </Stack>
-    </Stack>
+    </Stack >
 
   )
 }

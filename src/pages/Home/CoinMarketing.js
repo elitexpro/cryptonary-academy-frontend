@@ -44,8 +44,8 @@ const CoinMarketing = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerMode: true,
     arrows: false,
+    autoplay: true,
   }
 
   const loadData = useCallback(() => {
@@ -76,7 +76,13 @@ const CoinMarketing = () => {
 
   return (
     !currentUser &&
-    <Box sx={{ width: '100%', height: 50, background: '#141414', display: 'fex', alignItems: 'center', margin: 'auto' }}>
+    <Box sx={{
+      width: '100%',
+      height: 50,
+      background: '#141414',
+      display: 'flex',
+      alignItems: 'center',
+    }}>
       <Container maxWidth="xl">
         <Hidden mdUp>
           <Box sx={{ width: '100%' }}>
@@ -88,12 +94,18 @@ const CoinMarketing = () => {
                 return (
                   <Card
                     variant="outlined"
-                    sx={{ borderRadius: '8px', mr: 1, background: '#141414' }}
+                    sx={{
+                      borderRadius: '8px',
+                      mr: 1,
+                      background: '#141414',
+                      display: 'flex !important',
+                      justifyContent: 'center'
+                    }}
                     key={index}
                   >
-                    <Stack direction="row" spacing={1} alignItems="center">
+                    <Stack direction="row" spacing={1} alignItems="flex-end" justifyContent="flex-end">
                       {item.img}
-                      <Typography sx={{ fontSize: 15 }} color="#FFF">{item.coin}</Typography>
+                      <Box><Typography sx={{ fontSize: 15 }} color="#FFF">{item.coin}</Typography></Box>
                       <Typography sx={{ fontSize: 15 }} color={color}>${currentCoin?.usd.toFixed(2)}</Typography>
                       <Typography sx={{ fontSize: 15 }} color={color}>{currentCoin?.usd_24h_change.toFixed(2)}%</Typography>
                     </Stack>

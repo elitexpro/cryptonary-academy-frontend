@@ -19,7 +19,7 @@ import { useHistory } from 'react-router-dom'
 import MenuBar from './MenuBar'
 import Alpha from './Alpha'
 import GlobalSearch from './GlobalSearch'
-import { CRYPTONARY_HELP_CENTER } from 'helpers/utils'
+import { CRYPTONARY_HELP_CENTER, COINDRIP_STORE } from 'helpers/utils'
 
 const NavButtons = [
   { text: 'News', to: '/news/all' },
@@ -27,7 +27,7 @@ const NavButtons = [
   { component: <Alpha text="Education" />, isCustomized: true },
   { text: 'Ratings Guide', to: '/rating-guide' },
   { text: 'Podcasts', to: '/#' },
-  { text: 'Shop', to: 'https://coindrip.store/collections/all-products', isNewTag: true },
+  { text: 'Shop', to: COINDRIP_STORE, isNewTag: true },
   { text: 'Pulse', to: '/pulse', isForPro: true },
   { component: <GlobalSearch />, isCustomized: true },
 ]
@@ -62,7 +62,14 @@ const Header = () => {
                             <MButton
                               target={item.target}
                               color='inherit'
-                              sx={{ color: '#858585', fontSize: '16px' }}
+                              sx={{
+                                color: '#141414',
+                                fontSize: '14px',
+                                '&:hover': {
+                                  backgroundColor: '#fff',
+                                  color: '#4AAF47',
+                                },
+                              }}
                               onClick={() => item.isNewTag ? window.open(item.to) : history.push(item.to)}
                             >
                               {item.text}
@@ -86,7 +93,14 @@ const Header = () => {
                   <Fragment>
                     <MButton
                       variant='inherit'
-                      sx={{ fontSize: '16px', px: 2, color: '#555' }}
+                      sx={{
+                        fontSize: '14px',
+                        px: 2,
+                        color: '#141414',
+                        '&:hover': {
+                          backgroundColor: '#FFF'
+                        }
+                      }}
                       onClick={() => history.push('/login')}
                     >
                       Sign in
@@ -95,7 +109,7 @@ const Header = () => {
                     <MButton
                       variant='contained'
                       color='success'
-                      sx={{ fontSize: '16px', px: 2, color: 'white', backgroundColor: '#141414' }}
+                      sx={{ fontSize: '14px', px: 2, color: 'white', backgroundColor: '#141414' }}
                       onClick={() => history.push('/signup')}
                     >
                       Join Now

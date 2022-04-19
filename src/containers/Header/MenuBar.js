@@ -105,10 +105,10 @@ const MenuBar = ({ open, onClose }) => {
               }
             </ListItemButton>
             <Collapse in={openSubMenu === 2} timeout="auto" unmountOnExit>
-              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education/all')}>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education/crypto-school')}>
                 <ListItemText primary="Crypto School" primaryTypographyProps={menuItemStyle} />
               </ListItemButton>
-              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education/all')}>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/education/crypto-school')}>
                 <ListItemText primary="Course Library" primaryTypographyProps={menuItemStyle} />
               </ListItemButton>
             </Collapse>

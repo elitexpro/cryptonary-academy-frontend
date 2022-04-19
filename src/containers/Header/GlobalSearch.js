@@ -114,7 +114,15 @@ const GlobalSearch = () => {
 
   return (
     <Box>
-      <IconButton onClick={() => setOpen(true)}>
+      <IconButton
+        onClick={() => setOpen(true)}
+        sx={{
+          '&:hover': {
+            backgroundColor: '#fff',
+            color: '#4AAF47',
+          },
+        }}
+      >
         <SearchRoundedIcon />
       </IconButton>
 

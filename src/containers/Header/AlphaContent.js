@@ -65,7 +65,7 @@ const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
                 }
               }}
               onClick={() => {
-                history.push('/analysis/on-chain-forensics')
+                history.push('/analysis/technical-analysis')
                 setOpenAlpha(false)
               }}
             >
@@ -94,12 +94,12 @@ const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
           </Grid>
 
           <Grid item xs={6}>
-            <Stack spacing={4} sx={{ borderLeft: "1px solid #E4E4E4", ml: 6, pl: 6 }}>
+            <Stack spacing={2} sx={{ borderLeft: "1px solid #E4E4E4", ml: 6, pl: 6 }}>
               <Stack spacing={2} direction="row">
-                <Typography variant="subTitle4" sx={{ color: "#555" }}>
+                <Typography variant="subTitle4" sx={{ color: "#555", p: 1 }}>
                   LATEST ALPHA
                 </Typography>
-                <Typography variant="subTitle4" sx={{ color: "#4AAF47" }}>
+                <Typography variant="subTitle4" sx={{ color: "#4AAF47", background: '#f0fff0', p: 1 }}>
                   MEMBERS EXCLUSIVE
                 </Typography>
               </Stack>

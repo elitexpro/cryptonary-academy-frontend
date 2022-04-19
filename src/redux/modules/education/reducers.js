@@ -62,5 +62,6 @@ export default handleActions({
   [requestSuccess(CONSTANTS.GET_EDUCATION_VIDEOS)]: (state, { payload }) => ({
     ...state,
     videos: payload.data,
+    educationMetaInfo: payload.meta,
   }),
 }, getInitialState())

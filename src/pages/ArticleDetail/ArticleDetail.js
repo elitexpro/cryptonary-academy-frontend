@@ -150,7 +150,7 @@ const ArticleDetail = (props) => {
                   :
                   currentUser?.role !== 'pro' && currentArticle?.isPremium ?
                     <ShowMoreText lines={10} expandByClick={false} more="">
-                      <section dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
+                      {currentArticle?.excerpt}
                     </ShowMoreText>
                     :
                     <section dangerouslySetInnerHTML={{ __html: currentArticle?.html }} />
@@ -169,7 +169,7 @@ const ArticleDetail = (props) => {
         </Box>
 
         {!(currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
-          <AuthorDetail authorInfo={currentArticle?.primaryAuthor} isLoading={isLoading} />
+          <AuthorDetail authorInfo={currentArticle?.primaryAuthor} isLoading={isLoading} showComments />
         }
       </Container >
 

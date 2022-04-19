@@ -11,11 +11,11 @@ import { useHistory } from 'react-router'
 import { setEducationTabTag } from 'redux/modules/education/actions'
 
 const TAB_CONTENT = [
-  { label: 'Crypto School', value: 'all' },
+  { label: 'Crypto School', value: 'crypto-school' },
   { label: 'Simply Explained', value: 'simply-explained' },
   { label: 'Tutorial', value: 'tutorial' },
   { label: 'Guide', value: 'guide' },
-  { label: 'Course', value: 'course', to: "#" },
+  { label: 'Course', value: 'course' },
 ]
 
 const HeroSection = ({ tab }) => {

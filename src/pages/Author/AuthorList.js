@@ -69,6 +69,7 @@ const AuthorList = ({ isLoading, page, setPage }) => {
           <Pagination
             count={parseInt(total / 5 + 1)}
             shape="rounded"
+            defaultPage={page}
             onChange={(e, page) => setPage(page)}
           />
         </Stack>

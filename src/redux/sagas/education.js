@@ -11,7 +11,7 @@ const doGetEducationArticles = apiCall({
 
 const doGetEducationVideos = apiCall({
   type: CONSTANTS.GET_EDUCATION_VIDEOS,
-  method: 'get',
+  method: 'post',
   path: 'videos/search',
 })
 

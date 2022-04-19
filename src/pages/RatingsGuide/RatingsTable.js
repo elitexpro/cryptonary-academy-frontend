@@ -67,6 +67,7 @@ const RatingsTable = ({ currentPage, setCurrentPage, types, setTypes, isLoading 
             <Pagination
               count={totalPages}
               shape="rounded"
+              defaultPage={currentPage}
               onChange={(e, page) => setCurrentPage(page)}
             />
           </Stack>

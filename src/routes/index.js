@@ -45,7 +45,7 @@ const routes = () => (
           <VerifiedRoute exact path='/app' component={Landing} />
           <VerifiedRoute exact path='/checkout' component={Checkout} />
           <VerifiedRoute path='/news/:tab' component={News} />
-          <VerifiedRoute exact path='/education' component={Education} />
+          <AuthedRoute exact path='/education' component={Education} />
           <VerifiedRoute exact path='/education/:level' component={Education} />
           <AuthedRoute path='/preference' component={Preference} />
           <PublicRoute path='/signup' component={Signup} />
@@ -57,7 +57,7 @@ const routes = () => (
           <AuthedRoute path='/video/:id' component={VideoDetail} />
           <VerifiedRoute path='/article/:id' component={ArticleDetail} />
           <VerifiedRoute exact path='/article' component={Article} />
-          <AuthedRoute exact path='/author/:id' component={AuthorDetail} />
+          <Route exact path='/author/:id' component={AuthorDetail} />
           <CproRoute path='/pulse' component={Pulse} />
           <AuthedRoute path='/account' component={Account} />
           <AuthedRoute path='/my-favourites' component={MyFavourites} />

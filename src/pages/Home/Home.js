@@ -5,11 +5,12 @@ import {
 } from '@mui/material'
 import HeroSection from './HeroSection'
 import FeaturedNews from './FeaturedNews'
-// import LatestNews from './LatestNews'
+import FeaturedPodcast from './FeaturedPodcast'
 import NewsSection from './NewsSection'
 import CoinMarketing from './CoinMarketing'
 import { CryptoPro } from 'containers/CryptoPro'
 import { Footer } from 'containers/Footer'
+import { Paywall } from 'containers/Paywall'
 
 const Home = () => {
 
@@ -27,11 +28,18 @@ const Home = () => {
         </Container>
       </Box>
 
+      <Box sx={{ background: "#141414" }}>
+        <FeaturedPodcast />
+      </Box>
       <CryptoPro />
 
       {/* <Container maxWidth="xl" sx={{ py: 4 }}>
         <LatestNews />
       </Container> */}
+
+      <Box sx={{ mt: 4 }}>
+        <Paywall />
+      </Box>
 
       <Container maxWidth="xl">
         <Footer minimal showCompanyInfo />

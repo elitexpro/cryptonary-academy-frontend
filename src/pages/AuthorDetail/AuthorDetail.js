@@ -138,6 +138,7 @@ const AuthorDetail = (props) => {
           <Pagination
             count={parseInt(total % 15 > 0 ? total / 15 + 1 : total / 15)}
             shape="rounded"
+            defaultPage={page}
             onChange={(e, page) => setPage(page)}
           />
         </Stack>
