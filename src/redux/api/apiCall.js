@@ -55,8 +55,8 @@ export default ({
       params
     })
 
-    successCallback && successCallback(res)
     success && success(res, action)
+    successCallback && successCallback(res)
 
     yield put({
       type: requestSuccess(type),
@@ -71,8 +71,8 @@ export default ({
       })
     }
 
-    failCallback && failCallback(errRes)
     fail && fail(errRes)
+    failCallback && failCallback(errRes)
 
     yield put({
       type: requestFail(type),

@@ -8,7 +8,7 @@ export const inputStyles = {
     borderColor: "#A2A2A2",
   },
   "input::placeholder": { color: "#858585" },
-} 
+}
 
 export const checkedIcon = {
   width: "24px",
@@ -18,7 +18,7 @@ export const checkedIcon = {
   justifyContent: "center",
   alignItems: "center",
   bgcolor: "#4AAF47",
-} 
+}
 
 export const accordionWrapper = {
   width: "100%",
@@ -28,14 +28,14 @@ export const accordionWrapper = {
   mt: "50px",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
 }
 
 export const logosWrapper = {
   display: "flex",
   my: "24px",
   justifyContent: "flex-end",
-  alignItems: "center"
+  alignItems: "center",
 }
 
 export const mainFormWrapper = {
@@ -44,5 +44,5 @@ export const mainFormWrapper = {
   height: "100%",
   mx: "auto",
   display: "flex",
-  flexDirection: "column"
+  flexDirection: "column",
 }

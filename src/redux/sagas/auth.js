@@ -1,5 +1,6 @@
 import { takeEvery, takeLatest } from 'redux-saga/effects'
 import * as CONSTANTS from 'redux/modules/auth/constants'
+import { CR_AUTH_TOKEN } from 'helpers/utils'
 import apiCall from '../api/apiCall'
 
 const doSignup = apiCall({
@@ -10,6 +11,24 @@ const doSignup = apiCall({
     const { attributes: { tokens, ...rest }, id, type } = data.data
     localStorage.setItem('cryptonary_user', JSON.stringify({ id, type, ...rest }))
   }
+})
+
+const doSubscriptionLogin = apiCall({
+  type: CONSTANTS.DO_REGISTER_CHECKOUT,
+  method: 'post',
+  path: 'payments/accounts',
+  headers: {
+    'CR-auth-token': CR_AUTH_TOKEN
+  },
+})
+
+const getRecurlyUser = apiCall({
+  type: CONSTANTS.GET_RECURLY_USER,
+  method: 'get',
+  headers: {
+    'CR-auth-token': CR_AUTH_TOKEN
+  },
+  path: ({ payload: { id } }) => `payments/accounts/${id}`
 })
 
 const doLogin = apiCall({
@@ -106,6 +125,7 @@ export default function* rootSaga() {
   yield takeLatest(CONSTANTS.DO_LOGOUT, doLogout)
   yield takeLatest(CONSTANTS.RESET_PASSWORD, doResetPassword)
   yield takeLatest(CONSTANTS.FORGOT_PASSWORD, doForgotPassword)
+  yield takeLatest(CONSTANTS.DO_REGISTER_CHECKOUT, doSubscriptionLogin)
 
   yield takeLatest(CONSTANTS.DO_REFRESH, doRefresh)
   yield takeEvery(CONSTANTS.CHECK_EMAIL_VALIDATION, doCheckEmailValidation)
@@ -114,5 +134,5 @@ export default function* rootSaga() {
   yield takeLatest(CONSTANTS.DELETE_AUTH_USER, doDeleteUser)
   yield takeLatest(CONSTANTS.REQUEST_ACCOUNT_VERIFY, doRequestAccountVerify)
   yield takeLatest(CONSTANTS.CHECK_ACCOUNT_VERIFICATION, doCheckAccountVerification)
-
+  yield takeLatest(CONSTANTS.GET_RECURLY_USER, getRecurlyUser)
 }

@@ -27,4 +27,4 @@ export const accordionData = [
       If this is a Visa card, you can find the information and support you need at Visa Consumer Support.`,
     id: 3,
   },
-] 
+]
