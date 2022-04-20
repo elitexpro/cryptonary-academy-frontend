@@ -34,7 +34,7 @@ const CoinDetail = (props) => {
     setCurrentTab(tab ? tab : 'overview')
   }, [tab])
 
-  const { logo, tokenName, coinSymbol, infoRating, coinTypes, coinSectors, relatedCoinRatings } = currentCoin
+  const { logo, tokenName, coinSymbol, infoRating, coinTypes, coinSectors, relatedCoinRatings, coinGeckoId } = currentCoin
 
   const loadCoin = useCallback((symbol) => {
     setIsloading(true)
@@ -140,7 +140,7 @@ const CoinDetail = (props) => {
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-
+              <coingecko-coin-ticker-widget coin-id={coinGeckoId} currency="usd" locale="en"></coingecko-coin-ticker-widget>
             </Grid>
           </Grid>
 

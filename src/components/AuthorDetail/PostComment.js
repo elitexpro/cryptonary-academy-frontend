@@ -17,7 +17,7 @@ const PostComment = () => {
       </Box>
 
       <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
-        <TextField label="Name" color="secondary" variant="outlined" fullWidth />
+        <TextField label="Name" variant="outlined" fullWidth />
         <TextField label="E-Mail" variant="outlined" fullWidth />
       </Stack>
 
@@ -32,9 +32,16 @@ const PostComment = () => {
 
       <Box sx={{ textAlign: 'center', width: '100%' }}>
         <MButton
-          color="inherit"
           variant="contained"
-          sx={{ p: '8px 40px', backgroundColor: '#141414', color: 'white' }}
+          sx={{
+            p: '8px 40px',
+            backgroundColor: '#141414',
+            color: 'white',
+            '&:hover': {
+              backgroundColor: '#141414',
+              color: 'white',
+            }
+          }}
         >SUBMIT</MButton>
       </Box>
     </Box>

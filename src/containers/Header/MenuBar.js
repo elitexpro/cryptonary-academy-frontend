@@ -66,7 +66,7 @@ const MenuBar = ({ open, onClose }) => {
             dense
             disablePadding
           >
-            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleUrl('/news')}>
+            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleUrl('/news/all')}>
               <ListItemText primary="News" primaryTypographyProps={menuItemStyle} />
             </ListItemButton>
             <Divider />

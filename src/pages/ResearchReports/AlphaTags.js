@@ -72,10 +72,13 @@ const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
               </Grid>
             ))}
 
-            <MButton
-              variant="inherit"
-              onClick={handleClearFilter}
-            >Clear filters</MButton>
+            <Grid item md="auto">
+              <MButton
+                variant="inherit"
+                onClick={handleClearFilter}
+                sx={{ mb: 1 }}
+              >Clear filters</MButton>
+            </Grid>
           </Grid>
       }
     </Box>

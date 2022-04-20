@@ -64,7 +64,7 @@ const News = ({ currentTab }) => {
 
   return (
     <Box>
-      <Stack spacing={4} sx={{ mt: 4, maxWidth: '60%' }}>
+      <Stack spacing={4} sx={{ mt: 4, maxWidth: { md: '60%', xs: '100%' } }}>
         {
           isLoading ?
             [0, 1, 2].map((value, index) => (

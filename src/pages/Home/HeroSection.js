@@ -16,6 +16,7 @@ import { LazyImage } from 'components/LazyImage'
 import ShowMoreText from "react-show-more-text"
 import { useHistory } from 'react-router-dom'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
+import { latestAlphaSelector } from 'redux/modules/alpha/selectors'
 import { isPremium } from 'helpers'
 import moment from 'moment'
 import ImgPremium from 'assets/image/premium-icon.png'
@@ -25,6 +26,7 @@ const HeroSection = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const currentUser = useSelector(currentUserSelector)
+  const latestAlphaList = useSelector(latestAlphaSelector)
   const videoRef = useRef(null)
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
@@ -69,7 +71,7 @@ const HeroSection = () => {
     <Box>
       <Box sx={{ background: '#141414', p: 2, mb: 4, borderRadius: '4px' }}>
         <Slider {...settings}>
-          <Stack>
+          <Stack onClick={() => history.push('/rating-guide')} sx={{ '&:hover': { cursor: 'pointer' } }}>
             <Typography variant="subTitle4" color="#4AAF47">Latest</Typography>
             <Stack direction="row" alignItems="center" spacing={0.5}>
               <Typography color="#fff">Crypto ratings guide is now live!</Typography>
@@ -77,10 +79,10 @@ const HeroSection = () => {
             </Stack>
           </Stack>
 
-          <Stack>
-            <Typography variant="subTitle4" color="#4AAF47">Latest1</Typography>
+          <Stack onClick={() => history.push(`/article/${latestAlphaList[0]?.id}`)} sx={{ '&:hover': { cursor: 'pointer' } }}>
+            <Typography variant="subTitle4" color="#4AAF47">{latestAlphaList[0]?.primaryTag?.name}</Typography>
             <Stack direction="row" alignItems="center" spacing={0.5}>
-              <Typography color="#fff">Crypto ratings guide is now live!</Typography>
+              <Typography color="#fff">{latestAlphaList[0]?.title}</Typography>
               <FiChevronRight style={{ fontSize: '20px', color: '#4AAF47' }} />
             </Stack>
           </Stack>

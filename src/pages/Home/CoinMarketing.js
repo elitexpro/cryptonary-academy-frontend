@@ -50,20 +50,20 @@ const CoinMarketing = () => {
 
   const loadData = useCallback(() => {
     setIsLoading(true)
-    dispatch(getCoinRatingsLiveData({
+    !currentUser && dispatch(getCoinRatingsLiveData({
       success: ({ data }) => {
         setCoinRatings(data)
         setIsLoading(false)
       }
     }))
-  }, [dispatch])
+  }, [dispatch, currentUser])
 
   useEffect(() => {
     loadData()
   }, [loadData])
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = !currentUser && setInterval(() => {
       dispatch(getCoinRatingsLiveData({
         success: ({ data }) => {
           setCoinRatings(data)
@@ -72,7 +72,7 @@ const CoinMarketing = () => {
     }, 10000)
 
     return () => clearInterval(interval)
-  }, [dispatch])
+  }, [dispatch, currentUser])
 
   return (
     !currentUser &&
