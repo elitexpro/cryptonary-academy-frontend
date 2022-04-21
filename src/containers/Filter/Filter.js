@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   Drawer,
-  Dialog,
+  Modal,
   Hidden,
   Box,
 } from '@mui/material'
@@ -12,14 +12,27 @@ const Filter = ({ open, onClose }) => {
   return (
     <Box>
       <Hidden mdUp>
-        <Dialog open={open} onClose={onClose} fullWidth>
-          <FilterContent onClick={onClose} />
-        </Dialog>
+        <Modal open={open}>
+          <Box
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: '4px',
+              position: 'absolute',
+              top: '100%',
+              left: '50%',
+              transform: 'translate(-50%, -100%)',
+              width: '100%',
+              border: 'none',
+            }}
+          >
+            <FilterContent onClick={onClose} />
+          </Box>
+        </Modal>
       </Hidden>
 
       <Hidden mdDown>
         <Drawer anchor="right" open={open} onClose={onClose}>
-          <FilterContent onClick={onClose}/>
+          <FilterContent onClick={onClose} />
         </Drawer>
       </Hidden>
     </Box>

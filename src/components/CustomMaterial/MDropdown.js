@@ -30,7 +30,7 @@ const MDropdown = ({ items, label, onChange, buttonStyle, dropboxStyle, layoutSt
         sx={{ ml: 2, px: 2, color: '#555', borderColor: '#EAEAEA', ...layoutStyle }}
         endIcon={!openTopic ? <ArrowDownIcon sx={{ fontSize: '28px' }} /> : <ArrowUpIcon sx={{ fontSize: '28px' }} />}
       >
-        <Box sx={{ width: '100px', fontSize: '14px', ...buttonStyle }}>
+        <Box sx={{ width: { md: '100px', xs: '120px' }, fontSize: '14px', ...buttonStyle }}>
           {label}
         </Box>
       </MButton>

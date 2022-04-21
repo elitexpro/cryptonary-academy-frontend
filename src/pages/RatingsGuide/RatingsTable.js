@@ -14,7 +14,7 @@ import {
 import { totalPagesSelector, coinRatingsSelector } from 'redux/modules/coin/selectors'
 import CoinTable from 'components/CoinTable'
 
-const RatingsTable = ({ currentPage, setCurrentPage, types, setTypes, isLoading }) => {
+const RatingsTable = ({ currentPage, setCurrentPage, types, setTypes, isLoading, isFilterLoading }) => {
   const totalPages = useSelector(totalPagesSelector)
   const coinRatings = useSelector(coinRatingsSelector)
 
@@ -33,7 +33,7 @@ const RatingsTable = ({ currentPage, setCurrentPage, types, setTypes, isLoading 
     <Box sx={{ px: { md: 5, xs: 0 } }}>
       <Divider sx={{ color: '#E4E4E4', my: 4 }} />
       <Hidden mdDown>
-        {isLoading ?
+        {isLoading && !isFilterLoading ?
           <Skeleton variant="text" sx={{ mb: 4 }} />
           :
           <Stack sx={{ mb: 4 }} direction='row' justifyContent='space-between' alignItems='center'>
@@ -54,7 +54,7 @@ const RatingsTable = ({ currentPage, setCurrentPage, types, setTypes, isLoading 
           </Stack>
         }
       </Hidden>
-      <CoinTable isLoading={isLoading} />
+      <CoinTable isLoading={isLoading || isFilterLoading} />
       {!isLoading && coinRatings && coinRatings.length > 0 &&
         <Hidden mdDown>
           <Stack sx={{ mt: 4 }} direction="row" justifyContent="space-between">

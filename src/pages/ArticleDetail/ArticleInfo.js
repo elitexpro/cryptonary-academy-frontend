@@ -50,7 +50,7 @@ const ArticleInfo = ({ article }) => {
                   <Hidden mdDown={hideOnMobile} key={index}>
                     <IconButton
                       key={index}
-                      sx={{ width: 40, height: 40, background: '#F8F8F8', borderRadius: '4px' }}
+                      sx={{ width: 40, height: 40, background: '#F8F8F8', borderRadius: '50%' }}
                       onClick={() => handleClick(to)}
                     >
                       {icon}

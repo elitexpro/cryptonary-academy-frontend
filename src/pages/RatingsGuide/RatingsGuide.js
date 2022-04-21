@@ -38,6 +38,7 @@ const RatingsGuide = () => {
   const [searchString, setSearchString] = useState('')
   const [types, setTypes] = useState()
   const [isLoading, setIsLoading] = useState(false)
+  const [isFilterLoading, setIsFilterLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [flag, setFlag] = useState(0)
 
@@ -74,6 +75,7 @@ const RatingsGuide = () => {
   }, [dispatch])
 
   const getCoinRatingListData = useCallback(() => {
+    setIsFilterLoading(true)
     dispatch(getCoinRatingList({
       params: {
         page: currentPage,
@@ -82,6 +84,7 @@ const RatingsGuide = () => {
         coinName: filters?.searchString
       },
       success: () => {
+        setIsFilterLoading(false)
         setFlag(prev => prev + 1)
       }
     }))
@@ -120,6 +123,7 @@ const RatingsGuide = () => {
               types={types}
               setTypes={setTypes}
               isLoading={isLoading}
+              isFilterLoading={isFilterLoading}
             />
         }
       </Container>

@@ -11,6 +11,7 @@ import { ArticleItem } from 'components/ArticleItem'
 import { FiRefreshCw } from "react-icons/fi"
 import { useDispatch, useSelector } from 'react-redux'
 import { newsTagSelector, newsSortBySelector, newsSearchValueSelector } from 'redux/modules/news/selectors'
+import NoData from 'components/NoData'
 
 const NewsSection = () => {
   const dispatch = useDispatch()
@@ -78,7 +79,7 @@ const NewsSection = () => {
       <Box>
         <Grid container spacing={4}>
           {
-            (isLoading || data.length === 0)
+            isLoading
               ?
               [0, 1, 2].map((value, index) => {
                 return (
@@ -93,9 +94,12 @@ const NewsSection = () => {
                 )
               })
               :
-              data.map((post, index) => (
-                <NewsItem post={post} key={index} newsTag={newsTag} />
-              ))
+              data?.length > 0 ?
+                data.map((post, index) => (
+                  <NewsItem post={post} key={index} newsTag={newsTag} />
+                ))
+                :
+                <NoData />
           }
         </Grid>
       </Box>
@@ -119,6 +123,7 @@ const NewsSection = () => {
             }
           </Grid>
           :
+          data?.length > 0 &&
           <Stack
             direction="column"
             justifyContent="center"

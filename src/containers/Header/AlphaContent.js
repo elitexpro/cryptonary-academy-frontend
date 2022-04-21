@@ -32,6 +32,7 @@ const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
                   p: 2,
                   m: -2,
                   cursor: 'pointer',
+                  boxShadow: '0px 0px 16px rgb(228 228 228 / 24%)'
                 }
               }}
               onClick={() => {
@@ -62,6 +63,7 @@ const AlphaContent = ({ isLoading, openAlpha, setOpenAlpha }) => {
                   p: 2,
                   m: -2,
                   cursor: 'pointer',
+                  boxShadow: '0px 0px 16px rgb(228 228 228 / 24%)'
                 }
               }}
               onClick={() => {

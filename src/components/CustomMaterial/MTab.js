@@ -24,7 +24,7 @@ const MTab = ({ currentTab, handleChange, items, tabStyle = {}, itemStyle = {}, 
       value={currentTab}
       onChange={(e, tab) => handleChange(tab)}
       textColor="inherit"
-      variant="fullWidth"
+      variant="scrollable"
       sx={{ borderBottom: '1px solid #EAEAEA', ...tabStyle }}
       TabIndicatorProps={{
         style: {
@@ -32,6 +32,7 @@ const MTab = ({ currentTab, handleChange, items, tabStyle = {}, itemStyle = {}, 
           height: 1
         }
       }}
+      scrollButtons="auto"
     >
       {
         items && items.map((item, index) => (

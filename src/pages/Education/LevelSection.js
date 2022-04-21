@@ -10,6 +10,7 @@ import {
 } from '@mui/material'
 import { VideoItem } from 'components/VideoItem'
 import { ArticleItem } from 'components/ArticleItem'
+import NoData from 'components/NoData'
 import { educationMetaInfoSelector } from 'redux/modules/education/selectors'
 
 const LevelSection = ({ data, isLoading, mediaType, tag, page, setPage }) => {
@@ -34,19 +35,22 @@ const LevelSection = ({ data, isLoading, mediaType, tag, page, setPage }) => {
               )
             })
             :
-            data.map((item, index) => {
-              return (
-                <Grid item key={index} xs={12} md={4}>
-                  {
-                    mediaType === 'video'
-                      ?
-                      <VideoItem data={item} blog="Education" blogTo="/education/crypto-school" tag={tag} />
-                      :
-                      <ArticleItem data={item} showPrimaryTag={false} blog="Education" blogTo="/education/crypto-school" tag={tag} />
-                  }
-                </Grid>
-              )
-            })
+            data?.length > 0 ?
+              data.map((item, index) => {
+                return (
+                  <Grid item key={index} xs={12} md={4}>
+                    {
+                      mediaType === 'video'
+                        ?
+                        <VideoItem data={item} blog="Education" blogTo="/education/crypto-school" tag={tag} />
+                        :
+                        <ArticleItem data={item} showPrimaryTag={false} blog="Education" blogTo="/education/crypto-school" tag={tag} />
+                    }
+                  </Grid>
+                )
+              })
+              :
+              <NoData />
         }
       </Grid>
 
