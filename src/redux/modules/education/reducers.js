@@ -64,4 +64,27 @@ export default handleActions({
     videos: payload.data,
     educationMetaInfo: payload.meta,
   }),
+
+  [CONSTANTS.SET_EDUCATION_ITEM_BOOK_MARK]: (state, { payload }) => {
+    const { method, data } = payload
+    const articles = state.articles.map(item => {
+      if (method === 'MARKED') {
+        if (item.id === data.attributes.itemId) {
+          item.bookmarkId = data.id
+          item.isBookmarked = true
+        }
+      } else {
+        if (item.id === data.id) {
+          delete item['bookmarkId']
+          delete item['isBookmarked']
+        }
+      }
+      return item
+    })
+
+    return ({
+      ...state,
+      articles,
+    })
+  },
 }, getInitialState())

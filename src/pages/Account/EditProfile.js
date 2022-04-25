@@ -18,7 +18,7 @@ import { MButton, MInput } from 'components/CustomMaterial'
 const EditProfile = () => {
   const dispatch = useDispatch()
   const currentUser = useSelector(currentUserSelector)
-  const [username, setUsername] = useState(currentUser ? `${currentUser.firstName} ${currentUser.lastName}`: '')
+  const [username, setUsername] = useState(currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : '')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState(currentUser ? currentUser.email : '')
   const [showPicUploadModal, setShowPicUploadModal] = useState(false)
@@ -26,14 +26,27 @@ const EditProfile = () => {
   const currentPicture = currentUser ? currentUser.profilePicture?.url : null
 
   const handleSavePhoto = () => {
+    const arr = profilePicture.split(',')
+    const mime = arr[0].match(/:(.*?);/)[1]
+    const bstr = atob(arr[1])
+    let n = bstr.length
+    const u8arr = new Uint8Array(n)
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    const pictureFile = new File([u8arr], 'profile1.jpg', { type: mime })
+
     const formData = new FormData()
-    formData.append('profilePicture', profilePicture)
+    formData.append('profilePicture', pictureFile)
 
     dispatch(updateUserProfile({
       body: formData,
+      success: () => {
+        setShowPicUploadModal(false)
+        setProfilePicture(null)
+      }
     }))
-    setShowPicUploadModal(false)
-    setProfilePicture(null)
   }
 
   return (
@@ -70,6 +83,7 @@ const EditProfile = () => {
                     height={250}
                     onCrop={(preview) => setProfilePicture(preview)}
                     onClose={() => setProfilePicture(null)}
+                    // src={currentPicture}
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>

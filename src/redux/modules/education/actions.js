@@ -10,3 +10,4 @@ export const setEducationDuration = createAction(CONSTANTS.SET_EDUCATION_DURATIO
 export const clearEducationState = createAction(CONSTANTS.CLEAR_EDUCATION_STATE)
 export const getEducationArticles = createAction(CONSTANTS.GET_EDUCATION_ARTICLES)
 export const getEducationVideos = createAction(CONSTANTS.GET_EDUCATION_VIDEOS)
+export const setEducationItemBookMark = createAction(CONSTANTS.SET_EDUCATION_ITEM_BOOK_MARK)

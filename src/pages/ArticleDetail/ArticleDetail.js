@@ -20,14 +20,17 @@ import RelatedNews from './RelatedNews'
 import { getArticleById } from 'redux/modules/article/actions'
 import { currentCoinSelector } from 'redux/modules/coin/selectors'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
+import { currentArticleSelector } from 'redux/modules/article/selectors'
 
 const ArticleDetail = (props) => {
   const dispatch = useDispatch()
   const location = useLocation()
   const currentCoin = useSelector(currentCoinSelector)
   const currentUser = useSelector(currentUserSelector)
+  const article = useSelector(currentArticleSelector)
   const [currentArticle, setCurrentArticle] = useState({})
   const [isLoading, setIsloading] = useState(false)
+  const [isBookMarkLoading, setIsBookMarkLoading] = useState(false)
 
   const TAB_CONTENT = [
     { label: 'All', value: 'all', to: '/news/all' },
@@ -66,12 +69,16 @@ const ArticleDetail = (props) => {
 
   crumbs.length === 2 && detailRoot.splice(2, 1)
 
+  useEffect(() => {
+    setCurrentArticle(article)
+  }, [article])
+
   const loadArticle = useCallback((id) => {
     setIsloading(true)
     dispatch(getArticleById({
       id,
       success: ({ data }) => {
-        setCurrentArticle(data?.posts && data?.posts.length > 0 && data?.posts[0])
+        // setCurrentArticle(data?.posts && data?.posts.length > 0 && data?.posts[0])
         setIsloading(false)
       },
       fail: (err) => {
@@ -121,7 +128,7 @@ const ArticleDetail = (props) => {
           }}>
             {!(currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
               <Hidden mdUp>
-                <ArticleInfo article={currentArticle} isLoading={isLoading} />
+                <ArticleInfo article={currentArticle} isLoading={isBookMarkLoading} setIsloading={setIsBookMarkLoading} />
               </Hidden>
             }
 
@@ -161,7 +168,7 @@ const ArticleDetail = (props) => {
               <Box sx={{ position: 'absolute', top: 0, left: '-250px', pt: 2 }}>
                 <Hidden mdDown>
                   <Box sx={{ flexGrow: 1 }} />
-                  <ArticleInfo article={currentArticle} />
+                  <ArticleInfo article={currentArticle} setIsloading={setIsBookMarkLoading} isLoading={isBookMarkLoading} />
                 </Hidden>
               </Box>
             }

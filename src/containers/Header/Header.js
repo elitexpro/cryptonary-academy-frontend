@@ -145,7 +145,9 @@ const Header = () => {
             </IconButton>
           </Hidden>
 
-          <MenuBar open={showMenu} onClose={toggleMenu(false)} />
+          <Hidden mdUp>
+            <MenuBar open={showMenu} onClose={toggleMenu(false)} />
+          </Hidden>
         </Toolbar>
       </Container>
     </AppBar>

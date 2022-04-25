@@ -19,23 +19,23 @@ import { getFilteredVideos } from 'redux/modules/video/actions'
 const LINKS = [
   {
     name: 'Crypto Research',
-    to: '#'
+    to: '/research-reports'
   },
   {
     name: 'Market Analysis',
-    to: '#'
+    to: '/analysis/technical-analysis'
   },
   {
     name: 'News',
-    to: 'news'
+    to: '/news/all'
   },
   {
     name: 'Crypto School',
-    to: 'education'
+    to: '/education/crypto-school'
   },
   {
     name: 'Ratings Guide',
-    to: 'rating-guide'
+    to: '/rating-guide'
   },
 ]
 
@@ -53,7 +53,7 @@ const GlobalSearch = () => {
 
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState(null)
   const [flag, setFlag] = useState(0)
 
   const handleGlobalSearch = debounce((e) => {
@@ -93,16 +93,16 @@ const GlobalSearch = () => {
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 && !isLoading) {
       let search = localStorage.getItem('search_history') ? JSON.parse(localStorage.getItem('search_history')) : []
-      setOpen(false)
+      searchText && setOpen(false)
       setSearchText(null)
-      if (search.indexOf(searchText) === -1) {
+      if (searchText && search.indexOf(searchText) === -1) {
         search.push(searchText)
       }
       localStorage.setItem('search_history', JSON.stringify(search.slice(-5)))
       e.preventDefault()
       e.stopPropagation()
 
-      history.push({
+      searchText && history.push({
         pathname: '/search-result',
         search: searchText,
         state: {
@@ -119,7 +119,7 @@ const GlobalSearch = () => {
         sx={{
           '&:hover': {
             backgroundColor: '#fff',
-            color: '#4AAF47',
+            color: { md: '#4AAF47' },
           },
         }}
       >
@@ -136,7 +136,7 @@ const GlobalSearch = () => {
         <Box
           sx={{
             p: '2px 4px',
-            width: '50%',
+            width: { md: '50%', xs: '100%' },
             position: 'absolute',
             top: '80px',
             left: '50%',

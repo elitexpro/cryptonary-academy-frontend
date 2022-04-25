@@ -62,7 +62,7 @@ const AnalysisList = ({ currentTab, setCurrentTab, searchString, defaultLabel, r
         items={TABS}
         currentTab={currentTab}
         handleChange={handleChange}
-        itemStyle={{ maxWidth: '240px !important' }}
+        itemStyle={{ maxWidth: '300px !important' }}
       />
 
       <AlphaList

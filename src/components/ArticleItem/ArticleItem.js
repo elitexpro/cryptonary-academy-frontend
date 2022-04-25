@@ -12,17 +12,22 @@ import { currentUserSelector } from 'redux/modules/auth/selectors'
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded'
 import BookmarkIcon from '@mui/icons-material/Bookmark'
 import { useHistory } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import ShowMoreText from "react-show-more-text"
 import moment from 'moment'
 import { LazyImage } from 'components/LazyImage'
 import PremiumImg from 'assets/image/premium-icon.png'
 import { BsPersonCircle, BsCalendarFill } from 'react-icons/bs'
-import { addToFavourites, removeFromFavourites } from 'redux/modules/favourite/actions'
+import { addToFavourites, removeFromFavourites, removeBookMarkFromFavouritesItem } from 'redux/modules/favourite/actions'
 import { setAlphaItemBookMark } from 'redux/modules/alpha/actions'
+import { setNewsItemBookMark } from 'redux/modules/news/actions'
+import { setEducationItemBookMark } from 'redux/modules/education/actions'
+import { setFilteredArticlesItemBookMark } from 'redux/modules/article/actions'
 import { BackLoader } from 'components/Loader'
 
 const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTitle }) => {
   const history = useHistory()
+  const location = useLocation()
   const dispatch = useDispatch()
   const currentUser = useSelector(currentUserSelector)
   const [isLoading, setIsLoading] = useState(false)
@@ -45,13 +50,32 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTi
     return moment(Date.now()).diff(data.updatedAt, 'hours')
   }, [data])
 
+  const handleBookMark = (data) => {
+    switch (location.pathname.split('/')[1]) {
+      case 'news':
+        dispatch(setNewsItemBookMark(data))
+        break
+      case 'education':
+        dispatch(setEducationItemBookMark(data))
+        break
+      case '':
+        dispatch(setFilteredArticlesItemBookMark(data))
+        break
+      default:
+        dispatch(setAlphaItemBookMark(data))
+        break
+    }
+  }
+
   const handleClickItem = () => {
     setIsLoading(true)
     data?.isBookmarked ?
       dispatch(removeFromFavourites({
         id: data?.bookmarkId,
         success: () => {
-          dispatch(setAlphaItemBookMark({ method: 'UNMARKED', data }))
+          location.pathname.split('/')[1] === 'my-favourites' ?
+            dispatch(removeBookMarkFromFavouritesItem({ data })) :
+            handleBookMark({ method: 'UNMARKED', data })
           setIsLoading(false)
         }
       }))
@@ -62,7 +86,7 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTi
           type: 'article'
         },
         success: ({ data }) => {
-          dispatch(setAlphaItemBookMark({ data: data.data, method: 'MARKED' }))
+          handleBookMark({ method: 'MARKED', data: data.data })
           setIsLoading(false)
         }
       }))
@@ -90,14 +114,14 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTi
             sx={{ color: "#232A45", fontSize: "20px", cursor: "pointer" }}
           >
             <ShowMoreText lines={1} expandByClick={false} more="">
-              {data.title}
+              {data?.title}
             </ShowMoreText>
           </Link>
         </Typography>
 
         <Typography variant="subTitle" sx={{ color: "#858585", height: '40px' }}>
           <ShowMoreText lines={2} expandByClick={false} more="">
-            {data.excerpt}
+            {data?.excerpt}
           </ShowMoreText>
         </Typography>
 

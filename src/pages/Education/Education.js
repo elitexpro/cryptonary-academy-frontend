@@ -16,6 +16,7 @@ import {
   educationMediaTypeSelector,
   educationSearchValueSelector,
   educationFilteredTagNameSelector,
+  educationArticlesSelector,
   // educationReadingTimeSelector,
   // educationDurationSelector,
 } from 'redux/modules/education/selectors'
@@ -27,12 +28,17 @@ const Education = (props) => {
   const mediaType = useSelector(educationMediaTypeSelector)
   const searchValue = useSelector(educationSearchValueSelector)
   const selectedTags = useSelector(educationFilteredTagNameSelector)
+  const educationArticles = useSelector(educationArticlesSelector)
   const [data, setData] = useState([])
   const [dataType, setDataType] = useState('article')
   const [isLoading, setIsLoading] = useState(true)
   const [page, setPage] = useState(1)
   // const readingTime = useSelector(educationReadingTimeSelector)
   // const duration = useSelector(educationDurationSelector)
+
+  useEffect(() => {
+    setData(educationArticles)
+  }, [educationArticles])
 
   if (currentUser && !currentUser?.isEmailVerified) {
     history.push('/verify')
@@ -89,8 +95,8 @@ const Education = (props) => {
   }, [dispatch, mediaType, searchValue, tab, selectedTags, page])
 
   useEffect(() => {
-    currentUser && loadData()
-  }, [currentUser, loadData])
+    loadData()
+  }, [loadData])
 
   return (
     <>

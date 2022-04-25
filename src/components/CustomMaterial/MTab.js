@@ -10,7 +10,7 @@ const CustomTab = styled(Tab)(({ sx }) => {
     textTransform: 'none !important',
     fontSize: 18,
     fontWeight: 400,
-    width: "50%",
+    width: "100%",
     minWidth: 160,
     maxWidth: 180,
     ...sx

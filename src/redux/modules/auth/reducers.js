@@ -72,22 +72,15 @@ export default handleActions({
     error: payload
   }),
 
-  [CONSTANTS.UPDATE_USER_PROFILE]: (state, { payload }) => ({
-    ...state,
-    status: 'PENDING',
-  }),
   [requestSuccess(CONSTANTS.UPDATE_USER_PROFILE)]: (state, { payload }) => ({
     ...state,
     status: 'SUCCESS',
-    me: payload.data.data,
-    token: payload.data.meta.tokens,
-  }),
-  [requestFail(CONSTANTS.UPDATE_USER_PROFILE)]: (state, { payload }) => ({
-    ...state,
-    status: 'FAILED',
-    me: null,
-    token: null,
-    error: payload
+    me: {
+      ...state.me,
+      profilePicture: {
+        url: payload?.data?.profilePicture
+      }
+    }
   }),
 
   [CONSTANTS.DO_LOGOUT]: (state, { payload }) => ({

@@ -11,3 +11,6 @@ export const newsSearchValueSelector = (state) =>
 
 export const newsTagSelector = (state) =>
   get(state, 'news.tag', null)
+
+export const filteredNewsSelector = (state) =>
+  get(state, 'news.filteredNews', null)

@@ -63,14 +63,14 @@ const HighLights = ({ searchText, setOpen, setText }) => {
     let search = localStorage.getItem('search_history') ? JSON.parse(localStorage.getItem('search_history')) : []
     setOpen(false)
     setText(null)
-    history.push({
+    searchText && history.push({
       pathname: '/search-result',
       search: searchText,
       state: {
         tag
       }
     })
-    if (search.indexOf(searchText) === -1) {
+    if (searchText && search.indexOf(searchText) === -1) {
       search.push(searchText)
     }
     localStorage.setItem('search_history', JSON.stringify(search.slice(-5)))

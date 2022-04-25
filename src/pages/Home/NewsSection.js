@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Box,
   Stack,
@@ -7,6 +8,7 @@ import {
 } from '@mui/material'
 import Slider from 'react-slick'
 import { getFilteredArticles } from 'redux/modules/article/actions'
+import { filteredArticleSelector } from 'redux/modules/article/selectors'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { MButton } from 'components/CustomMaterial'
@@ -29,8 +31,13 @@ const settings = {
 const NewsSection = () => {
   const history = useHistory()
   const dispatch = useDispatch()
+  const filteredArticles = useSelector(filteredArticleSelector)
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
+
+  useEffect(() => {
+    setData(filteredArticles)
+  }, [filteredArticles])
 
   useEffect(() => {
     setIsLoading(true)

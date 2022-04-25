@@ -77,8 +77,10 @@ const doUpdateUserProfile = apiCall({
   type: CONSTANTS.UPDATE_USER_PROFILE,
   method: 'post',
   path: 'users/profile-picture',
-  success: (res, action) => {
-    localStorage.setItem('cryptonary_user', JSON.stringify(res.data))
+  success: ({ data }) => {
+    const user = JSON.parse(localStorage.getItem('cryptonary_user'))
+
+    localStorage.setItem('cryptonary_user', JSON.stringify({ ...user, profilePicture: { url: data?.data?.profilePicture } }))
   }
 })
 

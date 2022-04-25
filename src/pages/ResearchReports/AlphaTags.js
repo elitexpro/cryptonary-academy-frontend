@@ -7,7 +7,6 @@ import {
   Grid,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
-import { getFormattedText } from 'helpers'
 import { alphaTagsSelector } from 'redux/modules/alpha/selectors'
 import CheckIcon from '@mui/icons-material/Check'
 
@@ -18,17 +17,19 @@ const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
     setAlphaTags(tags[0] && tags[0].subCategories.map(item => {
       return {
         isSelected: false,
-        text: item
+        text: item.subCategory,
+        name: item.niceName,
       }
     }))
   }, [tags, setAlphaTags])
 
   const handleClickTopic = (item) => () => {
     setAlphaTags(prev => prev.map(x => {
-      const { isSelected, text } = x
+      const { isSelected, text, name } = x
 
       return {
         text,
+        name,
         isSelected: text === item.text ? !isSelected : isSelected
       }
     }))
@@ -36,10 +37,11 @@ const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
 
   const handleClearFilter = () => {
     setAlphaTags(prev => prev.map(item => {
-      const { text } = item
+      const { text, name } = item
 
       return {
         text,
+        name,
         isSelected: false,
       }
     }))
@@ -57,7 +59,7 @@ const AlphaTags = ({ isLoading, alphaTags, setAlphaTags }) => {
               <Grid item md="auto" key={index}>
                 <Chip
                   color={item.isSelected ? 'success' : undefined}
-                  label={getFormattedText(item.text)}
+                  label={item.name}
                   variant='outlined'
                   onClick={handleClickTopic(item)}
                   icon={

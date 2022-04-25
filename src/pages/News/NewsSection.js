@@ -10,7 +10,7 @@ import { MButton } from 'components/CustomMaterial'
 import { ArticleItem } from 'components/ArticleItem'
 import { FiRefreshCw } from "react-icons/fi"
 import { useDispatch, useSelector } from 'react-redux'
-import { newsTagSelector, newsSortBySelector, newsSearchValueSelector } from 'redux/modules/news/selectors'
+import { newsTagSelector, newsSortBySelector, newsSearchValueSelector, filteredNewsSelector } from 'redux/modules/news/selectors'
 import NoData from 'components/NoData'
 
 const NewsSection = () => {
@@ -18,8 +18,8 @@ const NewsSection = () => {
   const newsTag = useSelector(newsTagSelector)
   const sortByValue = useSelector(newsSortBySelector)
   const searchString = useSelector(newsSearchValueSelector)
+  const filteredNews = useSelector(filteredNewsSelector)
   const [isLoading, setIsLoading] = useState(false)
-  const [data, setData] = useState([])
   const [page, setPage] = useState(1)
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
@@ -36,8 +36,7 @@ const NewsSection = () => {
       body: {
         tags: newsTag === 'all' ? ['news'] : [newsTag]
       },
-      success: ({ data }) => {
-        setData(data?.posts)
+      success: () => {
         setIsLoading(false)
       },
       fail: () => {
@@ -63,16 +62,14 @@ const NewsSection = () => {
       body: {
         tags: newsTag === 'all' ? ['news'] : [newsTag]
       },
-      success: (res) => {
-        let copyData = data.concat(res.data?.posts)
-        setData(copyData)
+      success: () => {
         setIsLoadingMore(false)
       },
       fail: () => {
         // handle error 
       }
     }))
-  }, [dispatch, newsTag, page, searchString, sortByValue, data])
+  }, [dispatch, newsTag, page, searchString, sortByValue])
 
   return (
     <Stack spacing={6}>
@@ -94,8 +91,8 @@ const NewsSection = () => {
                 )
               })
               :
-              data?.length > 0 ?
-                data.map((post, index) => (
+              filteredNews?.length > 0 ?
+                filteredNews.map((post, index) => (
                   <NewsItem post={post} key={index} newsTag={newsTag} />
                 ))
                 :
@@ -123,7 +120,7 @@ const NewsSection = () => {
             }
           </Grid>
           :
-          data?.length > 0 &&
+          filteredNews?.length > 0 &&
           <Stack
             direction="column"
             justifyContent="center"

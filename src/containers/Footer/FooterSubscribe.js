@@ -15,23 +15,23 @@ const FooterSubscribe = () => {
     {
       category: "Company",
       data: [
-        { to: "#", description: "About Us" },
-        { to: "#", description: "Affiliate Program" },
-        { to: "#", description: "Careers" },
-        { to: "#", description: "Contact Us" },
+        { to: "/about-us", description: "About Us" },
+        { to: "/affiliate", description: "Affiliate Program" },
+        { to: "https://jobs.cryptonary.com/", description: "Careers", newTag: true },
+        { to: "/contact", description: "Contact Us" },
       ]
     },
     {
       category: "Useful Links",
       data: [
-        { to: "#", description: "Portfolio" },
-        { to: "#", description: "Position Calculator" },
-        { to: "#", description: "Crypto School" },
-        { to: "#", description: "Membership Plans" },
+        { to: "/portfolio", description: "Portfolio" },
+        { to: "/position-size-calculator", description: "Position Calculator" },
+        { to: "/education/crypto-school", description: "Crypto School" },
+        { to: "/cpro", description: "Membership Plans" },
       ]
     }
   ]
-  
+
   return (
     <Box>
       <Grid container>
@@ -47,10 +47,16 @@ const FooterSubscribe = () => {
                 <Stack spacing={2}>
                   {
                     data.map((item, index) => {
-                      const { to, description } = item
+                      const { to, description, newTag } = item
 
                       return (
-                        <Link href={to} key={index} sx={{ color: "#777" }} underline="hover">{description}</Link>
+                        <Link
+                          target={newTag && '_blank'}
+                          href={to}
+                          key={index}
+                          sx={{ color: "#777" }}
+                          underline="hover"
+                        >{description}</Link>
                       )
                     })
                   }

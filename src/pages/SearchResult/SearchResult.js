@@ -62,7 +62,7 @@ const SearchResult = () => {
   useEffect(() => {
     let posts = []
     filteredArticles.map((item) => {
-      const { featureImage, primaryTag, title, id, excerpt, updatedAt } = item
+      const { featureImage, primaryTag, title, id, excerpt, updatedAt, isBookmarked, bookmarkId } = item
 
       return posts.push({
         id,
@@ -70,7 +70,9 @@ const SearchResult = () => {
         tagName: primaryTag.name,
         title,
         excerpt,
-        updatedAt
+        updatedAt,
+        isBookmarked,
+        bookmarkId
       })
     })
 
@@ -84,6 +86,8 @@ const SearchResult = () => {
         title: attributes.title,
         excerpt: attributes.description,
         updatedAt: attributes.updatedAt,
+        isBookmarked: attributes?.isBookmarked,
+        bookmarkId: attributes?.bookmarkId
       })
     })
     setFilteredResult(posts)

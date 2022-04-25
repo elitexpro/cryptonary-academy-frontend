@@ -13,4 +13,13 @@ export default handleActions({
     ...state,
     favourites: payload.data,
   }),
+  [CONSTANTS.REMOVE_BOOKMARK_FROM_FAVOURITES]: (state, { payload }) => {
+    const { data } = payload
+    const favourites = state.favourites.filter(item => parseInt(item.id) !== data.bookmarkId)
+
+    return ({
+      ...state,
+      favourites,
+    })
+  },
 }, getInitialState())

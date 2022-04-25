@@ -18,13 +18,14 @@ import { FiHelpCircle } from 'react-icons/fi'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { AiOutlineTwitter, AiFillInstagram } from 'react-icons/ai'
 import { RiFacebookFill, RiDiscordFill } from 'react-icons/ri'
-import { CRYPTONARY_INSTAGRAM, CRYPTONARY_TWITTER, CRYPTONARY_FACEBOOK, CRYPTONARY_DISCORD } from 'helpers/utils'
+import { CRYPTONARY_INSTAGRAM, CRYPTONARY_TWITTER, CRYPTONARY_FACEBOOK, CRYPTONARY_DISCORD, COINDRIP_STORE } from 'helpers/utils'
 import { useHistory } from 'react-router-dom'
 import ImgPremium from 'assets/image/premium-icon.png'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
 import { logout } from 'redux/modules/auth/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { authClear } from 'helpers/localCheck'
+import GlobalSearch from './GlobalSearch'
 
 const SOCIAL_LINKS = [
   { icon: <AiOutlineTwitter style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_TWITTER },
@@ -47,6 +48,11 @@ const MenuBar = ({ open, onClose }) => {
 
   const handleUrl = (url) => {
     history.push(url)
+    onClose()
+  }
+
+  const handleNewTag = (tag) => {
+    window.open(tag)
     onClose()
   }
 
@@ -87,7 +93,7 @@ const MenuBar = ({ open, onClose }) => {
               <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/research-reports')}>
                 <ListItemText primary="Crypto Research" primaryTypographyProps={menuItemStyle} />
               </ListItemButton>
-              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/analysis/on-chain-forensics')}>
+              <ListItemButton sx={{ py: 1.5, pl: 3 }} onClick={() => handleUrl('/analysis/technical-analysis')}>
                 <ListItemText primary="Market Analysis" primaryTypographyProps={menuItemStyle} />
               </ListItemButton>
             </Collapse>
@@ -113,8 +119,29 @@ const MenuBar = ({ open, onClose }) => {
               </ListItemButton>
             </Collapse>
             <Divider />
+
             <ListItemButton sx={{ py: 1.5 }} onClick={() => handleUrl('/rating-guide')}>
               <ListItemText primary="Ratings Guide" primaryTypographyProps={menuItemStyle} />
+            </ListItemButton>
+            <Divider />
+
+            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleUrl('#')}>
+              <ListItemText primary="Podcasts" primaryTypographyProps={menuItemStyle} />
+            </ListItemButton>
+            <Divider />
+
+            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleNewTag(COINDRIP_STORE)}>
+              <ListItemText primary="Shop" primaryTypographyProps={menuItemStyle} />
+            </ListItemButton>
+            <Divider />
+
+            <ListItemButton sx={{ py: 1.5 }} onClick={() => handleUrl('/pulse')}>
+              <ListItemText primary="Pulse" primaryTypographyProps={menuItemStyle} />
+            </ListItemButton>
+            <Divider />
+
+            <ListItemButton sx={{ py: 1.5 }}>
+              <GlobalSearch />
             </ListItemButton>
           </List>
           <Divider />

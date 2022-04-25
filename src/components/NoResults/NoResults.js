@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router'
 import {
   Box,
   Typography,
@@ -8,6 +9,8 @@ import {
 import SearchNoResult from 'assets/image/search-no-result.png'
 
 const NoResults = () => {
+  const history = useHistory()
+
   return (
     <Stack
       spacing={6}
@@ -21,13 +24,15 @@ const NoResults = () => {
       <Typography variant="subTitle3" color="#141414">
         Sorry, we couldn’t find any results for this search.
       </Typography>
-      <Box>
+      <Box sx={{ display: 'flex' }}>
         <Typography variant="subTitle" color="#555" sx={{ mr: 0.5 }}>
           Try searching again or
         </Typography>
-        <Link href="/" color="inherit">
-          go back to home
-        </Link>
+        <Box onClick={() => history.push('/')} sx={{ '&:hover': { cursor: 'pointer' } }}>
+          <Link color="inherit">
+            go back to home
+          </Link>
+        </Box>
       </Box>
     </Stack>
   )
