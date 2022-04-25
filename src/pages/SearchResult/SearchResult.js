@@ -31,7 +31,8 @@ const CustomTab = styled(Tab)(() => {
     fontSize: 14,
     fontWeight: 400,
     minWidth: 120,
-    maxWidth: 200
+    maxWidth: 200,
+    width: '100%'
   }
 })
 
@@ -165,7 +166,8 @@ const SearchResult = () => {
           value={currentTab}
           onChange={(e, value) => setCurrentTab(value)}
           textColor="inherit"
-          variant="fullWidth"
+          variant="scrollable"
+          scrollButtons="auto"
           sx={{ borderBottom: '1px solid #EAEAEA' }}
           TabIndicatorProps={{
             style: {

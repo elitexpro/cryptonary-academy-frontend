@@ -16,11 +16,13 @@ const getInitialState = () => {
 export default handleActions({
   [CONSTANTS.SET_NEWS_SORTBY]: (state, { payload }) => ({
     ...state,
-    sortBy: payload
+    sortBy: payload,
+    filteredNews: [],
   }),
   [CONSTANTS.SET_NEWS_SEARCH_VALUE]: (state, { payload }) => ({
     ...state,
-    searchValue: payload
+    searchValue: payload,
+    filteredNews: [],
   }),
   [CONSTANTS.SET_NEWS_TAG]: (state, { payload }) => ({
     ...state,
