@@ -141,7 +141,7 @@ const MenuBar = ({ open, onClose }) => {
             <Divider />
 
             <ListItemButton sx={{ py: 1.5 }}>
-              <GlobalSearch />
+              <GlobalSearch isMobile />
             </ListItemButton>
           </List>
           <Divider />

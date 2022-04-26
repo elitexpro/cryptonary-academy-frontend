@@ -17,14 +17,6 @@ const FilterContent = ({ onClick }) => {
 
   const CONTENT = [
     {
-      category: "Knowledge Level",
-      data: [
-        { name: "Beginner", isSelected: false },
-        { name: "Intermediate", isSelected: false },
-        { name: "Advanced", isSelected: false },
-      ]
-    },
-    {
       category: "Preferred Media Type",
       data: [
         { name: "Video", isSelected: false },

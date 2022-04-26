@@ -42,7 +42,7 @@ const MyFavourites = () => {
 
   return (
     <Container maxWidth="xl">
-      <Box sx={{ px: { md: 5, xs: 2 } }}>
+      <Box sx={{ px: { md: 5, xs: 2 }, minHeight: `calc(100vh - 380px)` }}>
         {
           !isLoading && !favourites?.length > 0 ?
             <></>

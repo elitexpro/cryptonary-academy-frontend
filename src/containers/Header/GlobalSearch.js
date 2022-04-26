@@ -7,6 +7,7 @@ import {
   Modal,
   InputBase,
   Skeleton,
+  Typography,
 } from '@mui/material'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import CloseIcon from '@mui/icons-material/Close'
@@ -47,7 +48,7 @@ const debounce = (fn, delay) => {
   }
 }
 
-const GlobalSearch = () => {
+const GlobalSearch = ({ isMobile }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -114,17 +115,23 @@ const GlobalSearch = () => {
 
   return (
     <Box>
-      <IconButton
-        onClick={() => setOpen(true)}
-        sx={{
-          '&:hover': {
-            backgroundColor: '#fff',
-            color: { md: '#4AAF47' },
-          },
-        }}
-      >
-        <SearchRoundedIcon />
-      </IconButton>
+      {isMobile ?
+        <Box onClick={() => setOpen(true)}>
+          <Typography variant="subTitle1" color="#858585">Global Search</Typography>
+        </Box>
+        :
+        <IconButton
+          onClick={() => setOpen(true)}
+          sx={{
+            '&:hover': {
+              backgroundColor: '#fff',
+              color: { md: '#4AAF47' },
+            },
+          }}
+        >
+          <SearchRoundedIcon />
+        </IconButton>
+      }
 
       <Modal
         open={open}
@@ -164,7 +171,6 @@ const GlobalSearch = () => {
             />
 
             <IconButton
-              aria-label="close"
               onClick={() => {
                 setOpen(false)
                 setSearchText(null)

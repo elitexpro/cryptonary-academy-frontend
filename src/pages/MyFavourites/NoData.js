@@ -15,7 +15,7 @@ const NoData = () => {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        minHeight: "calc(100vh - 80px)",
+        minHeight: "calc(100vh - 330px)",
         justifyContent: 'center',
       }}
     >

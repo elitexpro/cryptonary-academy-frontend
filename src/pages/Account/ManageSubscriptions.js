@@ -159,39 +159,41 @@ const ManageSubscriptions = () => {
         </Box>
       </Grid>
       <Grid item md={6} xs={12}>
-        <Typography variant="subTitle1" color="#555">Order History</Typography>
-        <Stack spacing={1} sx={{ mt: 2 }}>
-          {ORDER_HISTORY.map((item, index) => {
-            const { period, amount, paid_status } = item
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="subTitle1" color="#555">Order History</Typography>
+          <Stack spacing={1} sx={{ mt: 2 }}>
+            {ORDER_HISTORY.map((item, index) => {
+              const { period, amount, paid_status } = item
 
-            return (
-              <Stack
-                direction="row"
-                key={index}
-                justifyContent="space-between"
-                alignItems="center"
-                sx={{ fontSize: 12, color: "#555", background: "#FCFCFC", borderRadius: "4px", p: 2 }}
-              >
-                <Hidden mdUp>
-                  <Box>{moment().format('DD MMM')}</Box>
-                </Hidden>
-                <Hidden mdDown>
-                  <Box>{moment().format('DD MMMM YYYY')}</Box>
-                </Hidden>
-                <Box>{period}</Box>
-                <Box>{amount}</Box>
-                <Box
-                  sx={{
-                    p: "10px",
-                    background: paid_status ? '#F1FEEC' : '#FEF7F6',
-                    color: paid_status ? '#2CC96B' : '#E96353'
-                  }}
-                >{paid_status ? 'Paid' : 'UnPaid'}</Box>
-                <FiDownload style={{ color: '#A2A2A2' }} />
-              </Stack>
-            )
-          })}
-        </Stack>
+              return (
+                <Stack
+                  direction="row"
+                  key={index}
+                  justifyContent="space-between"
+                  alignItems="center"
+                  sx={{ fontSize: 12, color: "#555", background: "#FCFCFC", borderRadius: "4px", p: 2 }}
+                >
+                  <Hidden mdUp>
+                    <Box>{moment().format('DD MMM')}</Box>
+                  </Hidden>
+                  <Hidden mdDown>
+                    <Box>{moment().format('DD MMMM YYYY')}</Box>
+                  </Hidden>
+                  <Box>{period}</Box>
+                  <Box>{amount}</Box>
+                  <Box
+                    sx={{
+                      p: "10px",
+                      background: paid_status ? '#F1FEEC' : '#FEF7F6',
+                      color: paid_status ? '#2CC96B' : '#E96353'
+                    }}
+                  >{paid_status ? 'Paid' : 'UnPaid'}</Box>
+                  <FiDownload style={{ color: '#A2A2A2' }} />
+                </Stack>
+              )
+            })}
+          </Stack>
+        </Box>
       </Grid>
     </Grid>
   )
