@@ -114,7 +114,7 @@ const SearchResult = () => {
         break
     }
     setIsLoading(true)
-    searchString && dispatch(getFilteredArticles({
+    dispatch(getFilteredArticles({
       body: {
         tags
       },
@@ -128,7 +128,7 @@ const SearchResult = () => {
       }
     }))
 
-    searchString && dispatch(getFilteredVideos({
+    dispatch(getFilteredVideos({
       params: {
         search: searchString,
         order: defaultLabel,

@@ -1,82 +1,81 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Box,
   Grid,
   Typography,
+  Skeleton,
 } from '@mui/material'
 import { MButton } from 'components/CustomMaterial'
 import DoneIcon from '@mui/icons-material/Done'
+import { getAllTags } from 'redux/modules/tag/actions'
+import { educationTopicTagsSelector } from 'redux/modules/education/selectors'
+import { tagStatusSelector } from 'redux/modules/tag/selectors'
 
-const topicItems = [
-  { text: 'Blockchain', isSelected: false },
-  { text: 'NFT', isSelected: false },
-  { text: 'Bitcoin', isSelected: false },
-  { text: 'FUD', isSelected: false },
-  { text: 'DeFi', isSelected: false },
-  { text: 'Centralized', isSelected: false },
-  { text: 'Bullish', isSelected: false },
-  { text: 'Mining', isSelected: false },
-  { text: 'Fiat', isSelected: false },
-  { text: 'Altcoins', isSelected: false },
-  { text: 'Wallet', isSelected: false },
-  { text: 'JOMO', isSelected: false },
-  { text: 'FOMO', isSelected: false },
-]
+const SelectTopics = ({ open, selectedTags, setSelectedTags, isLoading }) => {
+  const dispatch = useDispatch()
+  const topicTags = useSelector(educationTopicTagsSelector)
+  const tagStatus = useSelector(tagStatusSelector)
 
-const SelectTopics = () => {
-  const [topics, setTopcis] = useState(topicItems)
+  const loadTopicTags = useCallback(() => {
+    dispatch(getAllTags())
+  }, [dispatch])
 
-  const handleClickItem = (item) => () => {
-    setTopcis(prev => {
-      const res = prev.map(x => {
-        const { isSelected, text } = x
-        return {
-          text,
-          isSelected: text === item.text ? !isSelected : isSelected
-        }
+  useEffect(() => {
+    open && (tagStatus === "INIT" || tagStatus === "FAILED") && loadTopicTags()
+  }, [open, tagStatus, loadTopicTags])
 
-      })
-      return res
-    })
+  const handleClickTopic = (index) => () => {
+    const findIndex = selectedTags.findIndex(x => x === index)
+    const copyTopics = [...selectedTags]
+    findIndex !== -1 ? copyTopics.splice(findIndex, 1) : copyTopics.push(index)
+    setSelectedTags(copyTopics)
   }
 
   return (
     <Box>
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="subTitle" sx={{ color: "#858585" }}>Select Topics</Typography>
-      </Box>
-      <Grid container spacing={1} >
-        {
-          topics.map((item, key) => {
-            const { isSelected, text } = item
+      {isLoading ?
+        <Skeleton />
+        :
+        <>
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subTitle" sx={{ color: "#858585" }}>Select Topics</Typography>
+          </Box>
+          <Grid container spacing={1} >
+            {
+              topicTags.map((item, key) => {
+                const { name } = item
+                const isSelected = selectedTags.findIndex(x => x === key) > -1 ? true : false
 
-            return (
-              <Grid item xs="auto" key={key}>
-                <MButton
-                  color="inherit"
-                  variant="outlined"
-                  sx={{
-                    backgroundColor: isSelected ? "#F8FCF8" : undefined,
-                    color: isSelected ? "#4AAF47" : "#909090",
-                    borderColor: isSelected ? "#FFF" : "#EAEAEA",
-                    borderRadius: "20px",
-                    px: isSelected ? 2 : 3.5,
-                    py: 0.5,
-                  }}
-                  onClick={handleClickItem(item)}
-                >
-                  {text}
-                  {
-                    isSelected ?
-                      <DoneIcon sx={{ ml: 1, fontSize: 16 }} style={{ color: isSelected ? "#4AAF47" : undefined }} /> :
-                      null
-                  }
-                </MButton>
-              </Grid>
-            )
-          })
-        }
-      </Grid>
+                return (
+                  <Grid item xs="auto" key={key}>
+                    <MButton
+                      color="inherit"
+                      variant="outlined"
+                      sx={{
+                        backgroundColor: isSelected ? "#F8FCF8" : undefined,
+                        color: isSelected ? "#4AAF47" : "#909090",
+                        borderColor: isSelected ? "#FFF" : "#EAEAEA",
+                        borderRadius: "20px",
+                        px: isSelected ? 2 : 3.5,
+                        py: 0.5,
+                      }}
+                      onClick={handleClickTopic(key)}
+                    >
+                      {name}
+                      {
+                        isSelected ?
+                          <DoneIcon sx={{ ml: 1, fontSize: 16 }} style={{ color: isSelected ? "#4AAF47" : undefined }} /> :
+                          null
+                      }
+                    </MButton>
+                  </Grid>
+                )
+              })
+            }
+          </Grid>
+        </>
+      }
     </Box>
   )
 }

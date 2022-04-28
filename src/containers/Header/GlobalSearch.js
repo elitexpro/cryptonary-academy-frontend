@@ -94,7 +94,7 @@ const GlobalSearch = ({ isMobile }) => {
   const handleKeyPress = (e) => {
     if (e.keyCode === 13 && !isLoading) {
       let search = localStorage.getItem('search_history') ? JSON.parse(localStorage.getItem('search_history')) : []
-      searchText && setOpen(false)
+      setOpen(false)
       setSearchText(null)
       if (searchText && search.indexOf(searchText) === -1) {
         search.push(searchText)
@@ -103,7 +103,7 @@ const GlobalSearch = ({ isMobile }) => {
       e.preventDefault()
       e.stopPropagation()
 
-      searchText && history.push({
+      history.push({
         pathname: '/search-result',
         search: searchText,
         state: {
