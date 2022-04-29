@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router'
 import {
   Box,
   Grid,
@@ -10,6 +11,7 @@ import {
 import { MButton } from 'components/CustomMaterial'
 
 const FooterSubscribe = () => {
+  const history = useHistory()
 
   const CONTENT = [
     {
@@ -52,9 +54,9 @@ const FooterSubscribe = () => {
                       return (
                         <Link
                           target={newTag && '_blank'}
-                          href={to}
+                          onClick={() => history.push(to)}
                           key={index}
-                          sx={{ color: "#777" }}
+                          sx={{ color: "#777", '&:hover': { cursor: 'pointer' } }}
                           underline="hover"
                         >{description}</Link>
                       )

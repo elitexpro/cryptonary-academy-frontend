@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { styled } from '@mui/styles'
 import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   Box,
   Typography,
   Stack,
-  Tabs,
-  Tab,
   Hidden,
   Container,
   Pagination,
@@ -15,7 +12,7 @@ import {
   Skeleton,
 } from '@mui/material'
 import { SearchBox } from 'components/SearchBox'
-import { MDropdown } from 'components/CustomMaterial'
+import { MDropdown, MTab } from 'components/CustomMaterial'
 import CoinNews from './CoinNews'
 import NoResults from 'components/NoResults'
 import { Footer } from 'containers/Footer'
@@ -25,16 +22,12 @@ import { getFilteredVideos } from 'redux/modules/video/actions'
 import { filteredArticleSelector, totalFilteredCountSelector } from 'redux/modules/article/selectors'
 import { filteredVideosSelector } from 'redux/modules/video/selectors'
 
-const CustomTab = styled(Tab)(() => {
-  return {
-    textTransform: 'none !important',
-    fontSize: 14,
-    fontWeight: 400,
-    minWidth: 120,
-    maxWidth: 200,
-    width: '100%'
-  }
-})
+const TAB_CONTENT = [
+  { label: 'All', value: 'all' },
+  { label: 'News', value: 'news' },
+  { label: 'Alpha', value: 'alpha' },
+  { label: 'Crypto School', value: 'crypto_school' },
+]
 
 const SearchResult = () => {
   const location = useLocation()
@@ -162,25 +155,15 @@ const SearchResult = () => {
       </Box>
 
       <Box sx={{ px: { md: 5 }, py: 4 }}>
-        <Tabs
-          value={currentTab}
-          onChange={(e, value) => setCurrentTab(value)}
-          textColor="inherit"
-          variant="scrollable"
-          scrollButtons="auto"
-          sx={{ borderBottom: '1px solid #EAEAEA' }}
-          TabIndicatorProps={{
-            style: {
-              background: "#4AAF47",
-              height: 1
-            }
+        <MTab
+          currentTab={currentTab}
+          handleChange={(val) => {
+            setCurrentTab(val)
           }}
-        >
-          <CustomTab label="All" value="all" />
-          <CustomTab label="News" value="news" />
-          <CustomTab label="Alpha" value="alpha" />
-          <CustomTab label="Crypto School" value="crypto_school" />
-        </Tabs>
+          items={TAB_CONTENT}
+          tabStyle={{ mb: 6 }}
+          itemStyle={{ fontSize: '16px !important', width: '180px !important' }}
+        />
       </Box>
 
       {filteredResult.length === 0 ?

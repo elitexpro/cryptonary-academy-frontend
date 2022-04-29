@@ -30,7 +30,7 @@ const RatingsTable = ({ currentPage, setCurrentPage, types, setTypes, isLoading,
   }
 
   return (
-    <Box sx={{ px: { md: 5, xs: 0 } }}>
+    <Box sx={{ px: { md: 5 } }}>
       <Divider sx={{ color: '#E4E4E4', my: 4 }} />
       <Hidden mdDown>
         {isLoading && !isFilterLoading ?
@@ -56,22 +56,20 @@ const RatingsTable = ({ currentPage, setCurrentPage, types, setTypes, isLoading,
       </Hidden>
       <CoinTable isLoading={isLoading || isFilterLoading} />
       {!isLoading && coinRatings && coinRatings.length > 0 &&
-        <Hidden mdDown>
-          <Stack sx={{ mt: 4 }} direction="row" justifyContent="space-between">
-            <Box>
-              <Typography variant="subTitle" color="#909090">
-                Showing {currentPage * 10 > coinRatings?.length ? (coinRatings?.length + (currentPage - 1) * 10) : currentPage * 10}
-                &nbsp;of {coinRatings?.length + (currentPage - 1) * 10}
-              </Typography>
-            </Box>
-            <Pagination
-              count={totalPages}
-              shape="rounded"
-              defaultPage={currentPage}
-              onChange={(e, page) => setCurrentPage(page)}
-            />
-          </Stack>
-        </Hidden>
+        <Stack sx={{ mt: 4 }} direction="row" justifyContent="space-between">
+          <Box>
+            <Typography variant="subTitle" color="#909090">
+              Showing {currentPage * 10 > coinRatings?.length ? (coinRatings?.length + (currentPage - 1) * 10) : currentPage * 10}
+              &nbsp;of {coinRatings?.length + (currentPage - 1) * 10}
+            </Typography>
+          </Box>
+          <Pagination
+            count={totalPages}
+            shape="rounded"
+            defaultPage={currentPage}
+            onChange={(e, page) => setCurrentPage(page)}
+          />
+        </Stack>
       }
     </Box>
   )

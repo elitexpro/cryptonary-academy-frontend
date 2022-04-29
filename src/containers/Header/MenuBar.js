@@ -196,6 +196,7 @@ const MenuBar = ({ open, onClose }) => {
                 color="inherit"
                 sx={{ px: 2 }}
                 startIcon={<FiHelpCircle style={{ color: "#A2A2A2", fontSize: 20 }} />}
+                onClick={() => history.push('/contact')}
               >
                 Help
               </MButton>

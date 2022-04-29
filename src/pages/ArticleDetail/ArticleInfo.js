@@ -32,6 +32,10 @@ const ArticleInfo = ({ article, isLoading, setIsloading }) => {
     <BookmarkIcon style={{ color: "#141414", fontSize: 22 }} /> :
     <BookmarkBorderIcon style={{ color: "#141414", fontSize: 22 }} />
 
+  const coloredBookMarkIcon = article?.isBookmarked ?
+    <BookmarkIcon style={{ color: "#4AAF47", fontSize: 22 }} /> :
+    <BookmarkBorderIcon style={{ color: "#4AAF47", fontSize: 22 }} />
+
   const handleClick = (to) => {
     window.open(to)
   }
@@ -103,8 +107,8 @@ const ArticleInfo = ({ article, isLoading, setIsloading }) => {
 
         <Hidden mdUp>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton sx={{ width: 40, height: 40 }}>
-            <BookmarkBorderIcon style={{ color: "#4AAF47" }} />
+          <IconButton sx={{ width: 40, height: 40 }} onClick={handleBookMark}>
+            {coloredBookMarkIcon}
           </IconButton>
         </Hidden>
       </Box>

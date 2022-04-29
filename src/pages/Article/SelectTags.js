@@ -56,7 +56,6 @@ const SelectTags = ({
   }
 
   const handleClose = () => {
-    console.log(tags, selectedTags, 'ere')
     apply(tags)
     toggle()
   }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router'
 import {
   Box,
   Typography,
@@ -11,6 +12,7 @@ import { Logo } from 'components/Logo'
 import HyphenSVG from 'assets/image/hyphen.svg'
 
 const FooterCompany = () => {
+  const history = useHistory()
 
   const RELATIVE_PAGES = [
     { name: "Terms", to: "/terms-conditions" },
@@ -46,15 +48,15 @@ const FooterCompany = () => {
           alignItems="center"
           justifyContent="center"
           spacing={2}
-          divider={<img src={HyphenSVG} alt=""/>}
+          divider={<img src={HyphenSVG} alt="" />}
         >
           {
             RELATIVE_PAGES.map((page, index) => (
               <Link
                 target="_blank"
-                href={page.to}
+                onClick={() => history.push(page.to)}
                 key={index}
-                sx={{ fontWeight: 500, color: "#777" }}
+                sx={{ fontWeight: 500, color: "#777", '&:hover': { cursor: 'pointer' } }}
                 underline="hover"
               >
                 {page.name}

@@ -36,7 +36,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   // hide last border
   background: '#FAFAFA',
-  border: 'non',
+  border: 'none',
 }))
 
 const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
@@ -82,7 +82,9 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
                       >{item}</TableSortLabel>
                     </StyledTableCell>
                 ))}
-                <StyledTableCell></StyledTableCell>
+                <Hidden mdDown>
+                  <StyledTableCell></StyledTableCell>
+                </Hidden>
               </StyledTableRow>
             </TableHead>
           }
@@ -113,10 +115,12 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
                     <Skeleton />
                     <Skeleton width="60%" />
                   </TableCell>
-                  <TableCell>
-                    <Skeleton />
-                    <Skeleton width="60%" />
-                  </TableCell>
+                  <Hidden mdDown>
+                    <TableCell>
+                      <Skeleton />
+                      <Skeleton width="60%" />
+                    </TableCell>
+                  </Hidden>
                 </TableRow>
               ))}
             </TableBody>
@@ -170,8 +174,8 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
                         <Typography variant="subTitle1" color="#141414">{infoRating}</Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell>
-                      <Hidden mdDown>
+                    <Hidden mdDown>
+                      <TableCell>
                         <MButton
                           variant="outlined"
                           color="success"
@@ -179,11 +183,8 @@ const CoinTable = ({ isRelated, isLoading, data, setCurrentTab }) => {
                         >
                           Details
                         </MButton>
-                      </Hidden>
-                      <Hidden mdUp>
-                        <FiChevronRight style={{ fontSize: '20px', color: '#4AAF47' }} />
-                      </Hidden>
-                    </TableCell>
+                      </TableCell>
+                    </Hidden>
                   </TableRow>
                 )
               })}
