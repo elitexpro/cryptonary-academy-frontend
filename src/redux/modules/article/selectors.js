@@ -23,3 +23,6 @@ export const totalFilteredCountSelector = (state) =>
 
 export const currentArticleSelector = (state) =>
   get(state, 'article.article', null)
+
+export const isBookmarkLoadingSelector = (state) =>
+  get(state, 'article.isBookmarkLoading', null)

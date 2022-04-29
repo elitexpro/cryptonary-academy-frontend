@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   Container,
   Box,
@@ -11,8 +12,11 @@ import CoinMarketing from './CoinMarketing'
 import { CryptoPro } from 'containers/CryptoPro'
 import { Footer } from 'containers/Footer'
 import { Paywall } from 'containers/Paywall'
+import { isBookmarkLoadingSelector } from 'redux/modules/article/selectors'
+import { BackLoader } from 'components/Loader'
 
 const Home = () => {
+  const isBookmarkLoading = useSelector(isBookmarkLoadingSelector)
 
   return (
     <>
@@ -23,6 +27,7 @@ const Home = () => {
 
       <Box sx={{ background: "#FAFAFA" }}>
         <Container maxWidth="xl" sx={{ py: 4 }}>
+          <BackLoader open={isBookmarkLoading} />
           <FeaturedNews />
           <NewsSection />
         </Container>

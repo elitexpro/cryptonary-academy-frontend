@@ -35,7 +35,12 @@ const SelectTopics = ({ open, selectedTags, setSelectedTags, isLoading }) => {
   return (
     <Box>
       {isLoading ?
-        <Skeleton />
+        <>
+          <Skeleton />
+          <Skeleton width="80%" />
+          <Skeleton sx={{ mt: 3 }} />
+          <Skeleton width="80%" />
+        </>
         :
         <>
           <Box sx={{ mb: 2 }}>

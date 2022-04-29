@@ -63,7 +63,7 @@ const ArticleSection = ({ id }) => {
         Tailored to power your learning. We’re excited to start delivering you insightful crypto knowledge.
       </Typography>
 
-      <Grid container spacing={2}>
+      <Grid container>
         {
           (isLoading || data.length === 0)
             ?
@@ -72,7 +72,7 @@ const ArticleSection = ({ id }) => {
                 <Grid item key={index} xs={12} md={4}>
                   <Card
                     variant="outlined"
-                    sx={{ p: 2, borderRadius: '8px' }}
+                    sx={{ p: 2, mx: { md: 1 }, mb: { xs: 2 }, borderRadius: '8px' }}
                   >
                     <Stack spacing={1}>
                       <Skeleton variant="rectangular" width="100%" height={250} />
@@ -92,7 +92,7 @@ const ArticleSection = ({ id }) => {
                     <Grid item key={index} md={4}>
                       <Card
                         variant="outlined"
-                        sx={{ p: 2, borderRadius: '8px' }}
+                        sx={{ p: 2, mx: 1, borderRadius: '8px' }}
                       >
                         <ArticleItem data={post} />
                       </Card>
@@ -109,13 +109,12 @@ const ArticleSection = ({ id }) => {
           <Slider {...settings}>
             {data.map((post, index) => {
               return (
-                <Card
-                  variant="outlined"
-                  sx={{ p: 2, borderRadius: '8px', mr: 1 }}
+                <Box
+                  sx={{ p: 1, borderRadius: '8px' }}
                   key={index}
                 >
                   <ArticleItem data={post} />
-                </Card>
+                </Box>
               )
             })}
           </Slider>

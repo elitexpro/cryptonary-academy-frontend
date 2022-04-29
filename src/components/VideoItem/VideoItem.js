@@ -18,8 +18,8 @@ const VideoItem = ({ data, blog, blogTo, tag }) => {
   const history = useHistory()
 
   const hours = useMemo(() => {
-    return moment(Date.now()).diff(data.attributes.updatedAt, 'hours')
-  }, [data])
+    return moment(Date.now()).diff(attributes?.updatedAt, 'hours')
+  }, [attributes])
 
   const url = useMemo(() => {
     let videoUrl = `/video/${id}`

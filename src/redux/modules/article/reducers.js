@@ -13,6 +13,7 @@ const getInitialState = () => {
     authors: [],
     totalAuthorsCount: 0,
     totalFilteredCount: 0,
+    isBookmarkLoading: false,
   }
 }
 
@@ -83,4 +84,9 @@ export default handleActions({
       article,
     })
   },
+
+  [CONSTANTS.SET_IS_BOOK_MARK_LOADING]: (state, { payload }) => ({
+    ...state,
+    isBookmarkLoading: payload.isLoading
+  })
 }, getInitialState())

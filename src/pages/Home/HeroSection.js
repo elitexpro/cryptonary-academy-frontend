@@ -69,6 +69,14 @@ const HeroSection = () => {
 
   return (
     <Box>
+      <Stack spacing={1} sx={{ mb: 6 }}>
+        <Typography variant="h4" color="#141414">
+          <span role="img" aria-label="hi">👋</span> Morning {currentUser?.firstName}
+        </Typography>
+        <Typography variant="subTitle" color="#555555">
+          We have curated some content for you to get started!
+        </Typography>
+      </Stack>
       <Box sx={{ background: '#141414', p: 2, mb: 4, borderRadius: '4px' }}>
         <Slider {...settings}>
           <Stack onClick={() => history.push('/rating-guide')} sx={{ '&:hover': { cursor: 'pointer' } }}>

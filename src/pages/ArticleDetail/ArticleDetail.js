@@ -126,7 +126,7 @@ const ArticleDetail = (props) => {
             mb: 5,
             position: 'relative'
           }}>
-            {!(currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
+            {!isLoading && !(currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
               <Hidden mdUp>
                 <ArticleInfo article={currentArticle} isLoading={isBookMarkLoading} setIsloading={setIsBookMarkLoading} />
               </Hidden>
@@ -145,7 +145,7 @@ const ArticleDetail = (props) => {
               ></Box>
             }
 
-            <Box className="gh-content gh-canvas">
+            <Box className="gh-content gh-canvas" sx={{ width: '100%' }}>
               {
                 isLoading
                   ? <>
@@ -164,7 +164,7 @@ const ArticleDetail = (props) => {
               }
             </Box>
 
-            {!(!isLoading && currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
+            {!isLoading && !(currentUser?.role !== 'pro' && currentArticle?.isPremium) &&
               <Box sx={{ position: 'absolute', top: 0, left: '-250px', pt: 2 }}>
                 <Hidden mdDown>
                   <Box sx={{ flexGrow: 1 }} />

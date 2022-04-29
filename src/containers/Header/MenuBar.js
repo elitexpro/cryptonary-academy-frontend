@@ -17,8 +17,15 @@ import { Scrollbar } from 'components/Scrollbar'
 import { FiHelpCircle } from 'react-icons/fi'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 import { AiOutlineTwitter, AiFillInstagram } from 'react-icons/ai'
-import { RiFacebookFill, RiDiscordFill } from 'react-icons/ri'
-import { CRYPTONARY_INSTAGRAM, CRYPTONARY_TWITTER, CRYPTONARY_FACEBOOK, CRYPTONARY_DISCORD, COINDRIP_STORE } from 'helpers/utils'
+import { RiFacebookFill } from 'react-icons/ri'
+import { TiSocialYoutubeCircular } from 'react-icons/ti'
+import {
+  CRYPTONARY_INSTAGRAM,
+  CRYPTONARY_TWITTER,
+  CRYPTONARY_FACEBOOK,
+  COINDRIP_STORE,
+  CRYPTONARY_YOUTUBE
+} from 'helpers/utils'
 import { useHistory } from 'react-router-dom'
 import ImgPremium from 'assets/image/premium-icon.png'
 import { currentUserSelector } from 'redux/modules/auth/selectors'
@@ -28,9 +35,9 @@ import { authClear } from 'helpers/localCheck'
 import GlobalSearch from './GlobalSearch'
 
 const SOCIAL_LINKS = [
-  { icon: <AiOutlineTwitter style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_TWITTER },
-  { icon: <RiDiscordFill style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_DISCORD },
   { icon: <AiFillInstagram style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_INSTAGRAM },
+  { icon: <AiOutlineTwitter style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_TWITTER },
+  { icon: <TiSocialYoutubeCircular style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_YOUTUBE },
   { icon: <RiFacebookFill style={{ color: '#A2A2A2', fontSize: 20 }} />, to: CRYPTONARY_FACEBOOK },
 ]
 

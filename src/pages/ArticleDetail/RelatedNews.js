@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Box,
   Stack,
@@ -7,13 +8,19 @@ import {
   Typography,
 } from '@mui/material'
 import { getFilteredArticles } from 'redux/modules/article/actions'
+import { filteredArticleSelector } from 'redux/modules/article/selectors'
 import { useDispatch } from 'react-redux'
 import { ArticleItem } from 'components/ArticleItem'
 
 const RelatedNews = ({ tag, id, title }) => {
   const dispatch = useDispatch()
+  const filteredArticles = useSelector(filteredArticleSelector)
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState([])
+
+  useEffect(() => {
+    setData(filteredArticles.filter(item => item.id !== id).slice(0, 3))
+  }, [filteredArticles, id])
 
   useEffect(() => {
     setIsLoading(true)

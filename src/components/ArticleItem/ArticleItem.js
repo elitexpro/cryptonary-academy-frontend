@@ -22,7 +22,7 @@ import { addToFavourites, removeFromFavourites, removeBookMarkFromFavouritesItem
 import { setAlphaItemBookMark } from 'redux/modules/alpha/actions'
 import { setNewsItemBookMark } from 'redux/modules/news/actions'
 import { setEducationItemBookMark } from 'redux/modules/education/actions'
-import { setFilteredArticlesItemBookMark } from 'redux/modules/article/actions'
+import { setFilteredArticlesItemBookMark, setIsBookmarkLoading } from 'redux/modules/article/actions'
 import { BackLoader } from 'components/Loader'
 
 const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTitle }) => {
@@ -58,17 +58,18 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTi
       case 'education':
         dispatch(setEducationItemBookMark(data))
         break
-      case '':
-        dispatch(setFilteredArticlesItemBookMark(data))
+      case 'research-reports': case 'analysis':
+        dispatch(setAlphaItemBookMark(data))
         break
       default:
-        dispatch(setAlphaItemBookMark(data))
+        dispatch(setFilteredArticlesItemBookMark(data))
         break
     }
   }
 
   const handleClickItem = () => {
     setIsLoading(true)
+    dispatch(setIsBookmarkLoading({ isLoading: true }))
     data?.isBookmarked ?
       dispatch(removeFromFavourites({
         id: data?.bookmarkId,
@@ -77,6 +78,7 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTi
             dispatch(removeBookMarkFromFavouritesItem({ data })) :
             handleBookMark({ method: 'UNMARKED', data })
           setIsLoading(false)
+          dispatch(setIsBookmarkLoading({ isLoading: false }))
         }
       }))
       :
@@ -88,13 +90,14 @@ const ArticleItem = ({ data, showPrimaryTag = true, blog, blogTo, tag, relatedTi
         success: ({ data }) => {
           handleBookMark({ method: 'MARKED', data: data.data })
           setIsLoading(false)
+          dispatch(setIsBookmarkLoading({ isLoading: false }))
         }
       }))
   }
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <BackLoader open={isLoading} />
+      <BackLoader open={!(location.pathname.split('/')[1] === '') && isLoading} />
       <Stack spacing={1}>
         <CardActionArea onClick={() => history.push(url)}>
           <LazyImage src={data.featureImage} borderRadius="4px" />
