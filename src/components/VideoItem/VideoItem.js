@@ -47,20 +47,20 @@ const VideoItem = ({ data, blog, blogTo, tag }) => {
             sx={{ color: "#232A45", fontSize: "20x", cursor: "pointer" }}
           >
             <ShowMoreText lines={1} expandByClick={false} more="">
-              {attributes.title}
+              {attributes?.title}
             </ShowMoreText>
           </Link>
         </Typography>
 
         <Typography variant="subTitle" sx={{ color: "#858585", height: '40px' }} >
           <ShowMoreText lines={2} expandByClick={false} more="">
-            {attributes.description}
+            {attributes?.description}
           </ShowMoreText>
         </Typography>
 
         <Box sx={{ display: 'flex', pt: 2 }}>
           <Typography variant="subTitle4" sx={{ color: "#858585" }}>
-            {hours < 48 ? `${hours} hours ago` : moment(attributes.updatedAt).format('YYYY-MM-DD')}
+            {hours < 48 ? `${hours} hours ago` : moment(attributes?.updatedAt).format('YYYY-MM-DD')}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton size="small">

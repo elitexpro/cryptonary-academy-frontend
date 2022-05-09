@@ -140,7 +140,7 @@ const AuthorDetail = ({ authorInfo, isLoading, updateStyle = false, remoteBottom
                 </Typography>
               </Box>
             </AccordionSummary>
-            <AccordionDetails sx={{ background: "#FFFFFF", pl: 6 }} >
+            <AccordionDetails sx={{ background: "#FFFFFF", px: { md: 6, xs: 2 } }} >
               <PostComment />
             </AccordionDetails>
           </Accordion>
